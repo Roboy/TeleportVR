@@ -16,15 +16,14 @@ Assets/Plugins/Editor/JetBrains*
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+#exclude all ProjectSettings
+/[Pp]rojectSettings/
 
 # exclude the Animus SDK
 /Assets/AnimusClient/
 
 # exclude OpenCVForUnity
 /Assets/OpenCVForUnity/
-
-#exclude ProjectSettings
-/ProjectSettings/ProjectSettings.asset
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
