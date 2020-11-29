@@ -20,6 +20,9 @@ Assets/Plugins/Editor/JetBrains*
 # exclude the Animus SDK
 /Assets/AnimusClient/
 
+# exclude OpenCVForUnity
+/Assets/OpenCVForUnity/
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
