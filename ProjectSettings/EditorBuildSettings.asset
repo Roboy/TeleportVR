@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AnimusClient/Example/AnimusExample.unity
+    guid: 4f4251d8835bc855b9a18c9992194b14
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3c38ff90e79f0b34f8a863505ee60407,
+      type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 2091b301190b6ea4981018c99508541a,
+      type: 2}
