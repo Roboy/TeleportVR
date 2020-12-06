@@ -1,0 +1,9 @@
+{
+	"id": 33,
+	"type": "Text",
+	"title": "WifiTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "Eduroam\n23 MBit/s",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

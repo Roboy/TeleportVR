@@ -1,0 +1,9 @@
+{
+	"id": 38,
+	"type": "Text",
+	"title": "HumidityText",
+	"widgetPosition": "right",
+	"textMessage": "Humidity:\n2000 PPM",
+	"textFontSize": 30,
+	"textColor": [ 255, 255, 255, 255 ]
+}

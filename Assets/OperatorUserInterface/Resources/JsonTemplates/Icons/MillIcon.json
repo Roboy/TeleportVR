@@ -1,0 +1,11 @@
+{
+	"id": 21,
+	"type": "Icon",
+	"title": "MillIcon",
+	"widgetPosition": "top",
+	"childWidgetId": 31,
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "MillGreen", "MillYellow", "MillRed" ],
+	"currentIcon": "MillGreen"
+}

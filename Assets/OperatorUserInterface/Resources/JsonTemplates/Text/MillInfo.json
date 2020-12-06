@@ -1,0 +1,9 @@
+{
+	"id": 31,
+	"type": "Text",
+	"title": "MillTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "Omnimill operational",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

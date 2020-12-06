@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/AnimusClient/Example/AnimusExample.unity
     guid: 4f4251d8835bc855b9a18c9992194b14
+  - enabled: 1
+    path: Assets/OperatorUserInterface/Scenes/FinalScene.unity
+    guid: f60744eb1319e9a468fbb1a175c01e44
+  - enabled: 1
+    path: Assets/OperatorUserInterface/Scenes/FinalScene_Construct.unity
+    guid: 30f70eb898f72c74ca79f05da55e4dd3
+  - enabled: 1
+    path: Assets/OperatorUserInterface/Scenes/FinalScene_HUD.unity
+    guid: 625ab72c75416de48831d65239930030
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d,
       type: 2}

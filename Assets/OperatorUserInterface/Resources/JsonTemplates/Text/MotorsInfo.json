@@ -1,0 +1,9 @@
+{
+	"id": 32,
+	"type": "Text",
+	"title": "MotorsTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "All motors functional",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

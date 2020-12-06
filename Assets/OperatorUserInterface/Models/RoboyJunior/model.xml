@@ -1,0 +1,810 @@
+<sdf version="1.6">
+    <model name="legs_with_upper_body">
+        <link name="hip">
+            <pose frame="">0 0 0.6 0 -0 0</pose>
+            <inertial>
+                <pose frame="">0.074697 0.137093 0.149689 0 -0 0</pose>
+                <mass>0.912006</mass>
+                <inertia>
+                    <ixx>0.00265949</ixx>
+                    <ixy>-2.2591e-06</ixy>
+                    <ixz>-4.48767e-06</ixz>
+                    <iyy>0.00838367</iyy>
+                    <iyz>7.77578e-05</iyz>
+                    <izz>0.00768159</izz>
+                </inertia>
+            </inertial>
+            <collision name="hip_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/hip.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="hip_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/hip.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <link name="thigh_left">
+            <pose frame="">0.26602 -0.18208 0.72048 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">0.012503 -0.130072 -0.003616 0 -0 0</pose>
+                <mass>0.28282</mass>
+                <inertia>
+                    <ixx>0.00951009</ixx>
+                    <ixy>0.000577517</ixy>
+                    <ixz>6.83881e-06</ixz>
+                    <iyy>0.000275352</iyy>
+                    <iyz>-0.000187544</iyz>
+                    <izz>0.00951982</izz>
+                </inertia>
+            </inertial>
+            <collision name="thigh_left_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/thigh_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="thigh_left_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/thigh_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="groin_left" type="revolute">
+            <child>thigh_left</child>
+            <parent>hip</parent>
+            <axis>
+                <xyz>-1 0 0</xyz>
+                <limit>
+                    <lower>-1e+16</lower>
+                    <upper>1e+16</upper>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="shank_left">
+            <pose frame="">0.299338 -0.156192 0.32533 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">0.013472 -0.183195 0.021956 0 -0 0</pose>
+                <mass>0.206586</mass>
+                <inertia>
+                    <ixx>0.00152376</ixx>
+                    <ixy>7.90604e-05</ixy>
+                    <ixz>4.43767e-07</ixz>
+                    <iyy>9.2418e-05</iyy>
+                    <iyz>-7.50876e-06</iyz>
+                    <izz>0.00154952</izz>
+                </inertia>
+            </inertial>
+            <collision name="shank_left_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/shank_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="shank_left_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/shank_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="knee_left" type="revolute">
+            <child>shank_left</child>
+            <parent>thigh_left</parent>
+            <axis>
+                <xyz>-0.99647 0.000425 -0.083991</xyz>
+                <limit>
+                    <lower>-5</lower>
+                    <upper>5</upper>
+                    <effort>0</effort>
+                    <velocity>0</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="foot_left">
+            <pose frame="">0.322069 -0.177579 0.028750 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">0.002729 -0.048488 0.049447 0 -0 0</pose>
+                <mass>0.147998</mass>
+                <inertia>
+                    <ixx>0.00077239</ixx>
+                    <ixy>3.63378e-06</ixy>
+                    <ixz>2.62883e-05</ixz>
+                    <iyy>0.000730932</iyy>
+                    <iyz>9.57127e-05</iyz>
+                    <izz>0.000114218</izz>
+                </inertia>
+            </inertial>
+            <collision name="foot_left_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/foot_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="foot_left_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/foot_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="ankle_left" type="revolute">
+            <child>foot_left</child>
+            <parent>shank_left</parent>
+            <axis>
+                <xyz>0.99647 -0.000425 0.083991</xyz>
+                <limit>
+                    <lower>-5</lower>
+                    <upper>5</upper>
+                    <effort>0</effort>
+                    <velocity>0</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+            <sensor name="force_torque_ankle_left" type="force_torque">
+                <plugin filename="libforce_torque_plugin.so" name="force_torque_ankle_left" />
+                <update_rate>10</update_rate>
+            </sensor>
+        </joint>
+        <link name="thigh_right">
+            <pose frame="">-0.11698 -0.18208 0.72048 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">-0.00501 -0.130551 -0.0053 0 -0 0</pose>
+                <mass>0.282818</mass>
+                <inertia>
+                    <ixx>0.00954136</ixx>
+                    <ixy>-4.91251e-05</ixy>
+                    <ixz>-7.12832e-06</ixz>
+                    <iyy>0.000257517</iyy>
+                    <iyz>-0.000448534</iyz>
+                    <izz>0.00949739</izz>
+                </inertia>
+            </inertial>
+            <collision name="thigh_right_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/thigh_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="thigh_right_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/thigh_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="groin_right" type="revolute">
+            <child>thigh_right</child>
+            <parent>hip</parent>
+            <axis>
+                <xyz>1 0 0</xyz>
+                <limit>
+                    <lower>-1e+16</lower>
+                    <upper>1e+16</upper>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="shank_right">
+            <pose frame="">-0.119206 -0.147022 0.32476 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">-0.002982 -0.184125 0.017684 0 -0 0</pose>
+                <mass>0.206586</mass>
+                <inertia>
+                    <ixx>0.00152637</ixx>
+                    <ixy>-4.98998e-05</ixy>
+                    <ixz>-1.37946e-06</ixz>
+                    <iyy>9.09329e-05</iyy>
+                    <iyz>-4.13969e-05</iyz>
+                    <izz>0.00154838</izz>
+                </inertia>
+            </inertial>
+            <collision name="shank_right_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/shank_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="shank_right_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/shank_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="knee_right" type="revolute">
+            <child>shank_right</child>
+            <parent>thigh_right</parent>
+            <axis>
+                <xyz>-0.99998 -0.000187 0.005609</xyz>
+                <limit>
+                    <lower>-5</lower>
+                    <upper>5</upper>
+                    <effort>0</effort>
+                    <velocity>0</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="foot_right">
+            <pose frame="">-0.123124 -0.161494 0.026920 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">0.002734 -0.051324 0.046584 0 -0 0</pose>
+                <mass>0.148007</mass>
+                <inertia>
+                    <ixx>0.000772969</ixx>
+                    <ixy>7.73785e-06</ixy>
+                    <ixz>-4.08482e-05</ixz>
+                    <iyy>0.000718686</iyy>
+                    <iyz>0.000128153</iyz>
+                    <izz>0.000127654</izz>
+                </inertia>
+            </inertial>
+            <collision name="foot_right_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/foot_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="foot_right_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/foot_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="ankle_right" type="revolute">
+            <child>foot_right</child>
+            <parent>shank_right</parent>
+            <axis>
+                <xyz>0.99998 0.000187 -0.005609</xyz>
+                <limit>
+                    <lower>-5</lower>
+                    <upper>5</upper>
+                    <effort>0</effort>
+                    <velocity>0</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+            <sensor name="force_torque_ankle_right" type="force_torque">
+                <plugin filename="libforce_torque_plugin.so" name="force_torque_ankle_right" />
+                <update_rate>10</update_rate>
+            </sensor>
+        </joint>
+        <link name="torso">
+            <pose frame="">0.074525 -0.14495 0.78449 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">-0.000168 0.343675 0.021472 0 -0 0</pose>
+                <mass>2.25438</mass>
+                <inertia>
+                    <ixx>0.0367936</ixx>
+                    <ixy>-1.13728e-05</ixy>
+                    <ixz>0.00024704</ixz>
+                    <iyy>0.0385755</iyy>
+                    <iyz>-0.0013766</iyz>
+                    <izz>0.0668758</izz>
+                </inertia>
+            </inertial>
+            <collision name="torso_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/torso.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="torso_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/torso.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="spine" type="revolute">
+            <child>torso</child>
+            <parent>hip</parent>
+            <axis>
+                <xyz>0 -0.104534 0.99452</xyz>
+                <limit>
+                    <lower>-1e+16</lower>
+                    <upper>1e+16</upper>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="head">
+            <pose frame="">0.074204 -0.157589 1.2705 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">0.001111 0.229897 0.009217 0 -0 0</pose>
+                <mass>1.21204</mass>
+                <inertia>
+                    <ixx>0.0276559</ixx>
+                    <ixy>-0.000270646</ixy>
+                    <ixz>0.000298512</ixz>
+                    <iyy>0.0232183</iyy>
+                    <iyz>0.00396807</iyz>
+                    <izz>0.021933</izz>
+                </inertia>
+            </inertial>
+            <collision name="head_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/head.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="head_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/head.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="neck" type="revolute">
+            <child>head</child>
+            <parent>torso</parent>
+            <axis>
+                <xyz>0.000877 4e-06 -1</xyz>
+                <limit>
+                    <lower>-1e+16</lower>
+                    <upper>1e+16</upper>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="oberarm_left">
+            <pose frame="">0.284515 -0.180532 1.20727 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">-0.005048 -0.123167 0.022752 0 -0 0</pose>
+                <mass>0.386426</mass>
+                <inertia>
+                    <ixx>0.0015069</ixx>
+                    <ixy>-6.37549e-05</ixy>
+                    <ixz>2.39909e-05</ixz>
+                    <iyy>0.00027596</iyy>
+                    <iyz>0.000274864</iyz>
+                    <izz>0.00153205</izz>
+                </inertia>
+            </inertial>
+            <collision name="oberarm_left_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/oberarm_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="oberarm_left_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/oberarm_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="shoulder_left" type="revolute">
+            <child>oberarm_left</child>
+            <parent>torso</parent>
+            <axis>
+                <xyz>0.034382 0.221926 0.974461</xyz>
+                <limit>
+                    <lower>-1e+16</lower>
+                    <upper>1e+16</upper>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="unterarm_left">
+            <pose frame="">0.276892 -0.229767 0.99127 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">-0.007061 -0.024468 0.025697 0 -0 0</pose>
+                <mass>0.00248551</mass>
+                <inertia>
+                    <ixx>5.36943e-07</ixx>
+                    <ixy>-3.31599e-09</ixy>
+                    <ixz>3.844e-09</ixz>
+                    <iyy>5.17762e-07</iyy>
+                    <iyz>1.07198e-07</iyz>
+                    <izz>6.54977e-08</izz>
+                </inertia>
+            </inertial>
+            <collision name="unterarm_left_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/unterarm_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="unterarm_left_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/unterarm_left.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="elbow_left" type="revolute">
+            <child>unterarm_left</child>
+            <parent>oberarm_left</parent>
+            <axis>
+                <xyz>-0.99895 0.037106 0.026795</xyz>
+                <limit>
+                    <lower>-3</lower>
+                    <upper>3</upper>
+                    <effort>0</effort>
+                    <velocity>0</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="oberarm_right">
+            <pose frame="">-0.135425 -0.18406 1.2069 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">-0.004242 -0.121908 0.019506 0 -0 0</pose>
+                <mass>0.386419</mass>
+                <inertia>
+                    <ixx>0.0015603</ixx>
+                    <ixy>-5.69364e-05</ixy>
+                    <ixz>-4.23856e-05</ixz>
+                    <iyy>0.000347529</iyy>
+                    <iyz>0.00025873</iyz>
+                    <izz>0.00160917</izz>
+                </inertia>
+            </inertial>
+            <collision name="oberarm_right_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/oberarm_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="oberarm_right_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/oberarm_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="shoulder_right" type="revolute">
+            <child>oberarm_right</child>
+            <parent>torso</parent>
+            <axis>
+                <xyz>0.057713 0.209236 0.976161</xyz>
+                <limit>
+                    <lower>-1e+16</lower>
+                    <upper>1e+16</upper>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+        <link name="unterarm_right">
+            <pose frame="">-0.148223 -0.230483 0.99052 1.5708 -0 0</pose>
+            <inertial>
+                <pose frame="">-0.018749 -0.046026 0.137113 0 -0 0</pose>
+                <mass>0.218428</mass>
+                <inertia>
+                    <ixx>0.00171929</ixx>
+                    <ixy>-8.86066e-06</ixy>
+                    <ixz>0.000174757</ixz>
+                    <iyy>0.0017063</iyy>
+                    <iyz>0.00033154</iyz>
+                    <izz>0.000228066</izz>
+                </inertia>
+            </inertial>
+            <collision name="unterarm_right_collision">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/unterarm_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="unterarm_right_visual">
+                <pose frame="">0 0 0 0 -0 0</pose>
+                <geometry>
+                    <mesh>
+                        <scale>1 1 1</scale>
+                        <uri>model://legs_with_upper_body/cad/unterarm_right.STL</uri>
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+        <joint name="elbow_right" type="revolute">
+            <child>unterarm_right</child>
+            <parent>oberarm_right</parent>
+            <axis>
+                <xyz>0.99278 -0.11505 -0.034035</xyz>
+                <limit>
+                    <lower>-3</lower>
+                    <upper>3</upper>
+                    <effort>0</effort>
+                    <velocity>0</velocity>
+                </limit>
+                <dynamics>
+                    <spring_reference>0</spring_reference>
+                    <spring_stiffness>0</spring_stiffness>
+                </dynamics>
+                <use_parent_model_frame>1</use_parent_model_frame>
+            </axis>
+        </joint>
+
+        <plugin filename="libWalkController.so" name="walkController">
+            <myoMuscle name="motor0">
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">0.247082 -0.230700 0.187989</viaPoint>
+                </link>
+                <link name="thigh_left">
+                    <viaPoint type="FIXPOINT">0.002976 -0.053824 0.021931</viaPoint>
+                </link>
+                <spanningJoint name="groin_left">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor1">
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">0.294277 -0.181648 0.205889</viaPoint>
+                </link>
+                <link name="thigh_left">
+                    <viaPoint type="FIXPOINT">0.027028 -0.053905 -0.003257</viaPoint>
+                </link>
+                <spanningJoint name="groin_left">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor2">
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">0.250200 -0.132400 0.174692</viaPoint>
+                </link>
+                <link name="thigh_left">
+                    <viaPoint type="FIXPOINT">0.004458 -0.055707 -0.022954</viaPoint>
+                </link>
+                <spanningJoint name="groin_left">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor3">
+                <link name="thigh_left">
+                    <viaPoint type="FIXPOINT">-0.044232 -0.102981 -0.003080</viaPoint>
+                </link>
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">0.219221 -0.185373 0.111369</viaPoint>
+                </link>
+                <spanningJoint name="groin_left">flexor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor4">
+                <link name="thigh_left">
+                    <viaPoint type="FIXPOINT">0.025865 -0.317187 0.030588</viaPoint>
+                </link>
+                <link name="shank_left">
+                    <viaPoint type="FIXPOINT">0.002484 -0.041575 -0.001379</viaPoint>
+                </link>
+                <spanningJoint name="knee_left">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor5">
+                <link name="thigh_left">
+                    <viaPoint type="FIXPOINT">0.026181 -0.317907 -0.035673</viaPoint>
+                </link>
+                <link name="shank_left">
+                    <viaPoint type="FIXPOINT">0.003903 -0.042379 0.045603</viaPoint>
+                </link>
+                <spanningJoint name="knee_left">flexor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor6">
+                <link name="shank_left">
+                    <viaPoint type="FIXPOINT">0.016917 -0.220031 0.054626</viaPoint>
+                </link>
+                <link name="foot_left">
+                    <viaPoint type="FIXPOINT">0.000179 -0.016738 0.045777</viaPoint>
+                </link>
+                <spanningJoint name="ankle_left">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor7">
+                <link name="shank_left">
+                    <viaPoint type="FIXPOINT">0.016952 -0.218082 -0.010159</viaPoint>
+                </link>
+                <link name="foot_left">
+                    <viaPoint type="FIXPOINT">0.000958 -0.032293 -0.037402</viaPoint>
+                </link>
+                <spanningJoint name="ankle_left">flexor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor8">
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">-0.100846 -0.231827 0.188380</viaPoint>
+                </link>
+                <link name="thigh_right">
+                    <viaPoint type="FIXPOINT">-0.001855 -0.056490 0.023587</viaPoint>
+                </link>
+                <spanningJoint name="groin_right">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor9">
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">-0.145195 -0.182566 0.205895</viaPoint>
+                </link>
+                <link name="thigh_right">
+                    <viaPoint type="FIXPOINT">-0.024867 -0.055771 -0.000712</viaPoint>
+                </link>
+                <spanningJoint name="groin_right">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor10">
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">-0.101548 -0.133141 0.174415</viaPoint>
+                </link>
+                <link name="thigh_right">
+                    <viaPoint type="FIXPOINT">0.000873 -0.054580 -0.025163</viaPoint>
+                </link>
+                <spanningJoint name="groin_right">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor11">
+                <link name="thigh_right">
+                    <viaPoint type="FIXPOINT">0.051667 -0.098849 -0.000740</viaPoint>
+                </link>
+                <link name="hip">
+                    <viaPoint type="FIXPOINT">-0.066086 -0.181819 0.110564</viaPoint>
+                </link>
+                <spanningJoint name="groin_right">flexor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor12">
+                <link name="thigh_right">
+                    <viaPoint type="FIXPOINT">-0.001337 -0.320600 0.023356</viaPoint>
+                </link>
+                <link name="shank_right">
+                    <viaPoint type="FIXPOINT">0.003023 -0.043558 0.042317</viaPoint>
+                </link>
+                <spanningJoint name="knee_right">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor13">
+                <link name="thigh_right">
+                    <viaPoint type="FIXPOINT">-0.001345 -0.318244 -0.042597</viaPoint>
+                </link>
+                <link name="shank_right">
+                    <viaPoint type="FIXPOINT">-0.001614 -0.040825 -0.003000</viaPoint>
+                </link>
+                <spanningJoint name="knee_right">flexor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor14">
+                <link name="shank_right">
+                    <viaPoint type="FIXPOINT">-0.002155 -0.221186 -0.014604</viaPoint>
+                </link>
+                <link name="foot_right">
+                    <viaPoint type="FIXPOINT">0.003852 -0.027890 -0.039899</viaPoint>
+                </link>
+                <spanningJoint name="ankle_right">extensor</spanningJoint>
+            </myoMuscle>
+
+            <myoMuscle name="motor15">
+                <link name="shank_right">
+                    <viaPoint type="FIXPOINT">-0.002616 -0.221855 0.048458</viaPoint>
+                </link>
+                <link name="foot_right">
+                    <viaPoint type="FIXPOINT">0.001763 -0.018637 0.046467</viaPoint>
+                </link>
+                <spanningJoint name="ankle_right">flexor</spanningJoint>
+            </myoMuscle>
+
+            <foot_sole_left>0 0 -0.1085</foot_sole_left>
+            <foot_sole_right>0 0 -0.1085</foot_sole_right>
+        </plugin>
+    </model>
+</sdf>

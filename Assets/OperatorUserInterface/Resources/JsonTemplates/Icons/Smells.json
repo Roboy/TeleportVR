@@ -1,0 +1,11 @@
+{
+	"id": 29,
+	"type": "Icon",
+	"title": "SmellIcon",
+	"widgetPosition": "left",
+	"childWidgetId": 39,
+	"relativeChildPosition": "right",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "Empty", "Wodka", "Raisins", "Isopropanol", "pinot_noir", "OrangeJuice" ],
+	"currentIcon": "Empty"
+}

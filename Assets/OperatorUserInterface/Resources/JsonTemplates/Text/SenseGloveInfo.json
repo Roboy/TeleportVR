@@ -1,0 +1,9 @@
+{
+	"id": 30,
+	"type": "Text",
+	"title": "SenseGloveTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "20% battery",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

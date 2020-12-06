@@ -1,0 +1,11 @@
+{
+	"id": 22,
+	"type": "Icon",
+	"title": "MotorsIcon",
+	"widgetPosition": "top",
+	"childWidgetId": 32,
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "MotorsGreen", "MotorsYellow", "MotorsRed" ],
+	"currentIcon": "MotorsGreen"
+}
