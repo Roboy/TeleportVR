@@ -352,7 +352,7 @@ PrefabInstance:
     - target: {fileID: 4378067501918587144, guid: d034aafbab27b384495a0baef5638763,
         type: 3}
       propertyPath: blocksRaycasts
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4378067501918587147, guid: d034aafbab27b384495a0baef5638763,
         type: 3}

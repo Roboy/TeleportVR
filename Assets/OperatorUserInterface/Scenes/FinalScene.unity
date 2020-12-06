@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 389697612}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1613,6 +1613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3657889360144705167, guid: 0df5568388e85634b86118da53004450,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3657889360165868918, guid: 0df5568388e85634b86118da53004450,
         type: 3}
@@ -2949,6 +2954,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6899100076789033864, guid: 0df5568388e85634b86118da53004450,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0df5568388e85634b86118da53004450, type: 3}
 --- !u!1001 &8460182421058961999
@@ -3002,6 +3012,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CameraOrigin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460906800012362505, guid: b128197366bdbbd428de18083cbebd2f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8461539073945142531, guid: b128197366bdbbd428de18083cbebd2f,
         type: 3}
