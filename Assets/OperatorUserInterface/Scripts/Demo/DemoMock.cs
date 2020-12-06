@@ -13,6 +13,7 @@ public class DemoMock : MockUtility
         // Sensglove failure
         if (Input.GetKeyDown(KeyCode.S))
         {
+            print("S is pressed");
             if (sensgloves_working)
             {
                 RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, "Senseglove disconnected", 5,

@@ -48,6 +48,10 @@ namespace Widgets
                         ((IconView)view).SetIcon(currentIcon);
                     }
                 }
+                else
+                {
+                    print("Icon " + currentIconName + " is not among the icons for this widget");
+                }
             }
         }
 

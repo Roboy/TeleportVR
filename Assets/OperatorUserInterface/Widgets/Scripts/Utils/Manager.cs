@@ -37,13 +37,14 @@ namespace Widgets
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Widget testGraphWidget = FindWidgetWithID(1);
+                testGraphWidget.GetContext().graphValue = Random.Range(15, 30);
                 testGraphWidget.ProcessRosMessage(testGraphWidget.GetContext());
             }
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 Widget iconTestWidget = FindWidgetWithID(29);
-                iconTestWidget.GetContext().currentIcon = "RedWine";
+                iconTestWidget.GetContext().currentIcon = "OrangeJuice";
                 iconTestWidget.ProcessRosMessage(iconTestWidget.GetContext());
             }
         }
