@@ -1,0 +1,9 @@
+{
+	"id": 34,
+	"type": "Text",
+	"title": "HeadsetTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "ViveProEye connected",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

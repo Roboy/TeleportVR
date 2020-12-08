@@ -1,0 +1,9 @@
+{
+	"id": 1,
+	"type": "Graph",
+	"title": "TemperatureGraph",
+	"widgetPosition": "child",
+	"graphColor": [ 255, 255, 255, 255 ],
+	"xDivisionUnits": 2,
+	"yDivisionUnits": 2
+}

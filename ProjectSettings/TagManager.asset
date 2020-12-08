@@ -3,7 +3,28 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FinalsDemoScriptManager
+  - FinalScenePlaceholder
+  - AdditiveSceneManager
+  - RosManager
+  - ConstructFXManager
+  - Trash
+  - CameraOrigin
+  - TransitionManager
+  - SenseGloveRight
+  - HandMatchingCollider
+  - SenseGloveLeft
+  - Button3D
+  - ConstructFX
+  - ConstructFXArt
+  - KatVRWalker
+  - WidgetsTop
+  - WidgetsBottom
+  - WidgetsLeft
+  - WidgetsRight
+  - WidgetsCenter
+  - WidgetsChild
   layers:
   - Default
   - TransparentFX

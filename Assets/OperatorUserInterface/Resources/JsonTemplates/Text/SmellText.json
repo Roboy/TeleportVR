@@ -1,0 +1,9 @@
+{
+	"id": 39,
+	"type": "Text",
+	"title": "SmellTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "No smell",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

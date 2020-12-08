@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+guid: 3a6a3f872acdea946b4d8de520dead37
+=======
+guid: bd2feb77b3a393140ae2c25baed05d3b
+>>>>>>> Stashed changes
+=======
+<<<<<<< HEAD
+<<<<<<< master
+guid: 3a6a3f872acdea946b4d8de520dead37
+=======
+guid: c9f1a7df0b6185147920f8ffcaeb1827
+>>>>>>> Integrate Eye Tracking SDKs, scripts and prefab
+=======
+guid: c9f1a7df0b6185147920f8ffcaeb1827
+>>>>>>> OUI2-101_integrate_eye_tracking_with_updated_hud_view
+>>>>>>> master
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

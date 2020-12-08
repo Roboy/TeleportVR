@@ -25,6 +25,12 @@ Assets/Plugins/Editor/JetBrains*
 # exclude OpenCVForUnity
 /Assets/OpenCVForUnity/
 
+# exclude the OUI ThirdParty Assets
+Assets/OperatorUserInterface/ThirdParty/
+
+# exclude the Showroom
+Assets/OperatorUserInterface/Models/Showroom/
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
@@ -73,3 +79,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Exclude XTAL SDK
+Assets/vrgineers/
+Assets/vrgineers.meta
