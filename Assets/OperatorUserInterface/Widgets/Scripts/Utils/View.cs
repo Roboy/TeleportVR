@@ -249,7 +249,6 @@ namespace Widgets
 
         public void ToggleMicro()
         {
-            print("Micro Toggled!");
             Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(25);
             if (latencyTestWidget.GetContext().currentIcon == "MicroDisabled")
             {
@@ -258,6 +257,22 @@ namespace Widgets
             else
             {
                 latencyTestWidget.GetContext().currentIcon = "MicroDisabled";
+            }
+
+            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+        }
+        
+        public void ToggleSpeakers()
+        {
+            print("Speakers Toggled!");
+            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(26);
+            if (latencyTestWidget.GetContext().currentIcon == "SpeakersOff")
+            {
+                latencyTestWidget.GetContext().currentIcon = "Speakers";
+            }
+            else
+            {
+                latencyTestWidget.GetContext().currentIcon = "SpeakersOff";
             }
 
             latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());

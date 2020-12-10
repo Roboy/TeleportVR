@@ -1,0 +1,11 @@
+{
+	"id": 26,
+	"type": "Icon",
+	"title": "SpeakersIcon",
+	"widgetPosition": "top",
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "Speakers", "SpeakersOff" ],
+	"currentIcon": "Speakers",
+	"onActivate": "ToggleSpeakers"
+}
