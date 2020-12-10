@@ -15,6 +15,8 @@ namespace Widgets
         public float unfoldChildDwellTimer;
         public int childWidgetId;
         public int timestamp;
+        // determine a function name that will be called of the widget is activated
+        public string onActivate;
         #endregion
 
         #region Graph

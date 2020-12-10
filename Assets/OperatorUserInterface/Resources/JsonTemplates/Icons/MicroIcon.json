@@ -1,0 +1,11 @@
+{
+	"id": 25,
+	"type": "Icon",
+	"title": "MicroIcon",
+	"widgetPosition": "top",
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "Micro", "MicroDisabled" ],
+	"currentIcon": "Micro",
+	"onActivate": "ToggleMicro"
+}

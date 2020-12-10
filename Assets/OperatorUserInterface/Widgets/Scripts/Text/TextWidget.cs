@@ -58,7 +58,10 @@ namespace Widgets
 
             currentlyDisplayedMessage = incomingMessageTemplate;
 
-            ((TextView)view).ChangeMessage(incomingMessageTemplate);
+            if (view != null)
+            {
+                ((TextView) view).ChangeMessage(incomingMessageTemplate);
+            }
         }
 
         /// <summary>

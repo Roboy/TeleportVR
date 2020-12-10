@@ -1,0 +1,7 @@
+Microphone:
+https://www.iconfinder.com/icons/4737442/disable_microphone_mute_record_voice_icon
+https://www.iconfinder.com/icons/4737443/mic_microphone_podcast_record_voice_icon
+
+Speakers:
+https://www.iconfinder.com/icons/511938/audio_music_mute_silence_sound_speaker_volume_icon
+https://www.iconfinder.com/icons/511935/audio_music_sound_speaker_volume_icon
