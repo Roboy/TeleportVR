@@ -339,6 +339,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 4378067501286164250, guid: d034aafbab27b384495a0baef5638763,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4378067501428082410, guid: d034aafbab27b384495a0baef5638763,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -348,6 +353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -1066
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378067501428082410, guid: d034aafbab27b384495a0baef5638763,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4378067501918587144, guid: d034aafbab27b384495a0baef5638763,
         type: 3}
@@ -394,6 +404,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -480
       objectReference: {fileID: 0}
+    - target: {fileID: 4540956946934328268, guid: d034aafbab27b384495a0baef5638763,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540956946934328268, guid: d034aafbab27b384495a0baef5638763,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -304
+      objectReference: {fileID: 0}
     - target: {fileID: 4706730100332522297, guid: d034aafbab27b384495a0baef5638763,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -413,6 +433,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 64.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214019477027710910, guid: d034aafbab27b384495a0baef5638763,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5804087892473008317, guid: d034aafbab27b384495a0baef5638763,
         type: 3}
@@ -464,6 +489,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BottomRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8533935494166565238, guid: d034aafbab27b384495a0baef5638763,
+        type: 3}
+      propertyPath: m_TagString
+      value: WidgetsBottomLeft
       objectReference: {fileID: 0}
     - target: {fileID: 8862904992093962718, guid: d034aafbab27b384495a0baef5638763,
         type: 3}

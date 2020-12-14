@@ -15,6 +15,7 @@ namespace Widgets
         public float unfoldChildDwellTimer;
         public int childWidgetId;
         public int timestamp;
+        public string onActivate;
         #endregion
 
         #region Graph
