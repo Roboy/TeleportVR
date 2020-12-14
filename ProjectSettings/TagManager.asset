@@ -25,6 +25,8 @@ TagManager:
   - WidgetsRight
   - WidgetsCenter
   - WidgetsChild
+  - WidgetBottomLeft
+  - WidgetsBottomLeft
   layers:
   - Default
   - TransparentFX
