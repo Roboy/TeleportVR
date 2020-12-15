@@ -5,13 +5,13 @@ using UnityEngine;
 public class AnimusPasswordSetter : MonoBehaviour
 {
     [SerializeField] private ClientLogic clientLogic;
-    [SerializeField] private string AccountEmail;
-    [SerializeField] private string AccountPassword;
+    // [SerializeField] private string AccountEmail;
+    // [SerializeField] private string AccountPassword;
     
     void Awake()
     {
-        clientLogic.AccountEmail = AccountEmail;
-        clientLogic.AccountPassword = AccountPassword;
+        clientLogic.AccountEmail = AnimusPasswordStore.AnimusEmail;
+        clientLogic.AccountPassword = AnimusPasswordStore.AnimusPassword;
     }
 
 }
