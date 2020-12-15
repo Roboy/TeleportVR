@@ -59,9 +59,9 @@ namespace Widgets
         /// </summary>
         public void UnfoldChild()
         {
-            if (!childIsActive)
+            if (!childIsActive && onActivate != null)
             {
-                Invoke(onActivate, 0);
+                WidgetInteraction.Instance.OnActivate(onActivate);
             }
 
             childIsActive = true;
@@ -245,37 +245,6 @@ namespace Widgets
         public void OnPointerExit(PointerEventData eventData)
         {
             OnSelectionExit();
-        }
-
-        public void ToggleMicro()
-        {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(25);
-            if (latencyTestWidget.GetContext().currentIcon == "MicroDisabled")
-            {
-                latencyTestWidget.GetContext().currentIcon = "Micro";
-            }
-            else
-            {
-                latencyTestWidget.GetContext().currentIcon = "MicroDisabled";
-            }
-
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
-        }
-        
-        public void ToggleSpeakers()
-        {
-            print("Speakers Toggled!");
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(26);
-            if (latencyTestWidget.GetContext().currentIcon == "SpeakersOff")
-            {
-                latencyTestWidget.GetContext().currentIcon = "Speakers";
-            }
-            else
-            {
-                latencyTestWidget.GetContext().currentIcon = "SpeakersOff";
-            }
-
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
         }
     }
 }
