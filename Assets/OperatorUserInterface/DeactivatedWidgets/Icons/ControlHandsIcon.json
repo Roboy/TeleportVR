@@ -1,0 +1,11 @@
+{
+	"id": 27,
+	"type": "Icon",
+	"title": "HandsControlledIcon",
+	"widgetPosition": "top",
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "GlovesGreen", "GlovesYellow, GlovesRed" ],
+	"currentIcon": "GlovesGreen",
+	"onActivate": "ToggleHands"
+}

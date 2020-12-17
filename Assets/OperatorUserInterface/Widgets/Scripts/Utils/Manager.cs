@@ -28,7 +28,7 @@ namespace Widgets
             }
 
             // Mock Area
-            if (Input.GetKeyDown(KeyCode.T))
+            /*if (Input.GetKeyDown(KeyCode.T))
             {
                 Widget testToastrWidget = FindWidgetWithID(10);
                 testToastrWidget.ProcessRosMessage(testToastrWidget.GetContext());
@@ -47,13 +47,14 @@ namespace Widgets
                 iconTestWidget.GetContext().currentIcon = "OrangeJuice";
                 iconTestWidget.ProcessRosMessage(iconTestWidget.GetContext());
             }
-            
+
             if (Input.GetKeyDown(KeyCode.U))
             {
                 Widget latencyTestWidget = FindWidgetWithID(33);
                 latencyTestWidget.GetContext().textMessage = "Latency: 25ms";
                 latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
             }
+        }*/
         }
 
         /// <summary>

@@ -35,7 +35,6 @@ namespace Widgets
 
         public void ToggleSpeakers()
         {
-            print("Speakers Toggled!");
             Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(26);
             if (latencyTestWidget.GetContext().currentIcon == "SpeakersOff")
             {
