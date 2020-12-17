@@ -10,7 +10,11 @@ public enum Scenes {
     CONSTRUCT
 }
 
-public class AdditiveSceneManager : MonoBehaviour {
+public class AdditiveSceneManager : MonoBehaviour
+{
+    private const string ConstructSceneName = "OUI_Construct";
+    private const string HudSceneName = "OUI_HUD";
+    
     static Scenes currentScene = Scenes.NONE;
 
     public delegate void BeforeSceneLoadDelegate();
@@ -40,10 +44,10 @@ public class AdditiveSceneManager : MonoBehaviour {
     /// <param name="mode">mode used to load the sene</param>
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         switch (scene.name) {
-            case "FinalScene_Construct":
+            case ConstructSceneName:
                 currentScene = Scenes.CONSTRUCT;
                 break;
-            case "FinalScene_HUD":
+            case HudSceneName:
                 currentScene = Scenes.HUD;
                 break;
         }
@@ -57,9 +61,9 @@ public class AdditiveSceneManager : MonoBehaviour {
     String SceneNameForScene(Scenes scene) {
         switch (scene) {
             case Scenes.HUD:
-                return "FinalScene_HUD";
+                return HudSceneName;
             case Scenes.CONSTRUCT:
-                return "FinalScene_Construct";
+                return ConstructSceneName;
             default:
                 return "";
         }

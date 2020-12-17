@@ -31,6 +31,10 @@ Assets/OperatorUserInterface/ThirdParty/
 # exclude the Showroom
 Assets/OperatorUserInterface/Models/Showroom/
 
+# exclude the username and password for Animus
+Assets/Prefabs/Animus/AnimusPasswordSetter.prefab
+Assets/Scripts/AnimusPasswordStore.cs
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 

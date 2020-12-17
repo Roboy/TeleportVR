@@ -21,6 +21,8 @@ namespace Widgets
         public bool keepChildUnfolded = false;
         public bool dwellTimerActive = false;
 
+        public string onActivate;
+
         public abstract void Init(Widget widget);
 
         #region FLAGS
@@ -34,7 +36,7 @@ namespace Widgets
         /// </summary>
         /// <param name="relativeChildPosition"></param>
         /// <param name="dwellTimerDuration"></param>
-        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration)
+        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate)
         {
             SetRelativeChildPosition(relativeChildPosition);
             this.dwellTimerDuration = dwellTimerDuration;
@@ -48,6 +50,8 @@ namespace Widgets
             
             keepChildUnfoldedTimer = new Timer();
             dwellTimer = new Timer();
+
+            this.onActivate = onActivate;
         }
 
         /// <summary>
@@ -55,6 +59,11 @@ namespace Widgets
         /// </summary>
         public void UnfoldChild()
         {
+            if (!childIsActive && onActivate != null)
+            {
+                WidgetInteraction.Instance.OnActivate(onActivate);
+            }
+
             childIsActive = true;
             
             if (childWidget != null)

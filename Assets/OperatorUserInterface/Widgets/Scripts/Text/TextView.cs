@@ -93,7 +93,7 @@ namespace Widgets
             SetChildWidget(widget.childWidget);
             ChangeMessage(((TextWidget)widget).currentlyDisplayedMessage);
 
-            Init(widget.relativeChildPosition, widget.GetContext().unfoldChildDwellTimer);
+            Init(widget.relativeChildPosition, widget.GetContext().unfoldChildDwellTimer, widget.GetContext().onActivate);
         }
     }
 }
