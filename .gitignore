@@ -21,6 +21,8 @@ Assets/Plugins/Editor/JetBrains*
 
 # exclude the Animus SDK
 /Assets/AnimusClient/
+# except for the UnityAnimusClient that we change
+!/Assets/AnimusClient/Example/Scripts/UnityAnimusClient.cs
 
 # exclude OpenCVForUnity
 /Assets/OpenCVForUnity/
