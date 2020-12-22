@@ -45,6 +45,9 @@ namespace Widgets
 
                 case "child":
                     return WidgetPosition.Child;
+                
+                case "bottomleft":
+                    return WidgetPosition.BottomLeft;
 
                 default:
                     Debug.LogWarning("Widget position " + widgetPositionAsString + " not known.");
@@ -81,6 +84,6 @@ namespace Widgets
         }
     }
 
-    public enum WidgetPosition { Top, Left, Right, Center, Bottom, Child, Incorrect };
+    public enum WidgetPosition { Top, Left, Right, Center, Bottom, Child, BottomLeft, Incorrect };
     public enum RelativeChildPosition { Top, Left, Right, FixedCenter, Bottom, Incorrect };
 }
