@@ -513,8 +513,9 @@ public class UnityAnimusClient : MonoBehaviour {
 		yield return null;
 		TrackingSpace = OVRRig.transform.Find("TrackingSpace");
 		// humanHead = TrackingSpace.Find("CenterEyeAnchor");
-		humanLeftHand = TrackingSpace.Find("LeftHandAnchor");
-		humanRightHand = TrackingSpace.Find("RightHandAnchor");
+		//humanLeftHand = TrackingSpace.Find("LeftHandAnchor");
+		//humanRightHand = TrackingSpace.Find("RightHandAnchor"); 
+
 		// LeftEye = this.transform.Find("LeftEye").gameObject;
 		// RightEye = this.transform.Find("RightEye").gameObject;
 		
@@ -611,7 +612,7 @@ public class UnityAnimusClient : MonoBehaviour {
 		visionEnabled = true;
 		
 		// Comment the line below to enable two images - Not tested
-		// RightEye.SetActive(false);
+		RightEye.SetActive(false);
 		return visionEnabled;
 	}
 
