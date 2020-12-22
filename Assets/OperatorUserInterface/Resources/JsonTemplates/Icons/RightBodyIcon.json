@@ -1,0 +1,10 @@
+{
+	"id": 42,
+	"type": "Icon",
+	"title": "RightBodyIcon",
+	"widgetPosition": "bottomleft",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "RightBodyGreen", "RightBodyYellow", "RightBodyRed" ],
+	"currentIcon": "RightBodyGreen",
+	"onActivate": "ToggleRightBody"
+}
