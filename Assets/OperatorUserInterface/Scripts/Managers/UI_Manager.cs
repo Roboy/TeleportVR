@@ -20,7 +20,7 @@ public class UI_Manager : MonoBehaviour
 
     private Vector2 pointerPos;
 
-    public enum PointerTechnique { PointerMouse, PointerViveController, PointerSenseGlove};
+    public enum PointerTechnique { PointerMouse, PointerViveController, PointerSenseGlove, PointerController };
 
     #region Setup
 
@@ -64,6 +64,9 @@ public class UI_Manager : MonoBehaviour
                 return;                
             case PointerTechnique.PointerSenseGlove:
                 pointer = this.gameObject.AddComponent<PointerSenseGlove>();
+                break;
+            case PointerTechnique.PointerController:
+                pointer = this.gameObject.AddComponent<PointerController>();
                 break;
             default:
                 throw new System.Exception("No pointer technique specified.");
