@@ -6,5 +6,8 @@
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "LeftBodyGreen", "LeftBodyYellow", "LeftBodyRed" ],
 	"currentIcon": "LeftBodyGreen",
-	"onActivate": "ToggleLeftBody"
+	"onActivate": "ToggleLeftBody",
+	"yPositionOffset": 0.0,
+	"xPositionOffset": 55.0,
+	"scale" : 1
 }

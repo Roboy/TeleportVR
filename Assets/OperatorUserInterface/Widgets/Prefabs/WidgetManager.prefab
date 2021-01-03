@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8896569798469850263}
   - component: {fileID: 8896569798469850261}
   - component: {fileID: 8896569798469850260}
+  - component: {fileID: 580611800290271838}
   m_Layer: 0
   m_Name: WidgetManager
   m_TagString: Untagged
@@ -66,3 +67,15 @@ MonoBehaviour:
     type: 3}
   graphDesignPrefab: {fileID: 2732181407772962482, guid: 56f6db395dc48c14ab3315ce87a8846e,
     type: 3}
+--- !u!114 &580611800290271838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8896569798469850262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c821146ce01c8904d876bd841c027b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
