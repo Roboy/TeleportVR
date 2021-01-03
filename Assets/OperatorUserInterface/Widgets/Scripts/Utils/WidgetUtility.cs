@@ -86,4 +86,5 @@ namespace Widgets
 
     public enum WidgetPosition { Top, Left, Right, Center, Bottom, Child, BottomLeft, Incorrect };
     public enum RelativeChildPosition { Top, Left, Right, FixedCenter, Bottom, Incorrect };
+    
 }

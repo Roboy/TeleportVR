@@ -7,5 +7,6 @@
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "Speakers", "SpeakersOff" ],
 	"currentIcon": "Speakers",
-	"onActivate": "ToggleSpeakers"
+	"onActivate": "ToggleSpeakers",
+	"scale" : 1
 }

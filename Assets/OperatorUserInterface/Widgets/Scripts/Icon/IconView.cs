@@ -46,7 +46,7 @@ namespace Widgets
             SetChildWidget(widget.childWidget);            
             SetIcon(((IconWidget)widget).currentIcon);
 
-            Init(widget.relativeChildPosition, widget.GetContext().unfoldChildDwellTimer, widget.GetContext().onActivate);
+            Init(widget.relativeChildPosition, widget.GetContext().unfoldChildDwellTimer, widget.GetContext().onActivate, widget.GetContext().xPositionOffset, widget.GetContext().yPositionOffset,widget.GetContext().scale);
         }
     }
 }

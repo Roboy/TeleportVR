@@ -7,5 +7,6 @@
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "Micro", "MicroDisabled" ],
 	"currentIcon": "Micro",
-	"onActivate": "ToggleMicro"
+	"onActivate": "ToggleMicro",
+	"scale" : 1
 }

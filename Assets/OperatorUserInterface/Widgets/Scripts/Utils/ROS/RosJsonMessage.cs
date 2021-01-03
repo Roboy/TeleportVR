@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Widgets
 {
@@ -17,6 +18,9 @@ namespace Widgets
         public int timestamp;
         // determine a function name that will be called of the widget is activated
         public string onActivate;
+        public float xPositionOffset;
+        public float yPositionOffset;
+        public float scale;
         #endregion
 
         #region Graph
