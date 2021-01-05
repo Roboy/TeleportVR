@@ -1,0 +1,13 @@
+{
+	"id": 44,
+	"type": "Icon",
+	"title": "RightHandIcon",
+	"widgetPosition": "bottomleft",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "RightHandGreen", "RightHandYellow", "RightHandRed" ],
+	"currentIcon": "RightHandGreen",
+	"onActivate": "ToggleRightHand",
+	"yPositionOffset": -35.0,
+	"xPositionOffset": -135.0,
+	"scale" : 0.6
+}

@@ -25,6 +25,15 @@ TagManager:
   - WidgetsRight
   - WidgetsCenter
   - WidgetsChild
+  - SenseGloveManager
+  - MainMenu
+  - ConstructObjects
+  - SubMenu3D
+  - Slider3D
+  - Roboy
+  - RoboyPart
+  - RoboyArms
+  - WidgetsBottomLeft
   layers:
   - Default
   - TransparentFX

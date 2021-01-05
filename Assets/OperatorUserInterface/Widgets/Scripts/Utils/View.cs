@@ -36,7 +36,7 @@ namespace Widgets
         /// </summary>
         /// <param name="relativeChildPosition"></param>
         /// <param name="dwellTimerDuration"></param>
-        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate)
+        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate, float xPositionOffset, float yPositionOffset, float scale)
         {
             SetRelativeChildPosition(relativeChildPosition);
             this.dwellTimerDuration = dwellTimerDuration;
@@ -51,7 +51,11 @@ namespace Widgets
             keepChildUnfoldedTimer = new Timer();
             dwellTimer = new Timer();
 
+            transform.localPosition = new Vector3(xPositionOffset, yPositionOffset, 0);
+            transform.localScale = new Vector3(scale, scale, scale);
+                
             this.onActivate = onActivate;
+            
         }
 
         /// <summary>
