@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// This class manages the raycast input system with different input methods and also with the Curved UI
 /// </summary>
-public class UI_Manager : MonoBehaviour
+public class UI_Manager : Singleton<UI_Manager>
 {
     [Header("Select Interaction Techniques")]
     [Tooltip("Technique for pointing.")]
@@ -20,7 +20,9 @@ public class UI_Manager : MonoBehaviour
 
     private Vector2 pointerPos;
 
-    public enum PointerTechnique { PointerMouse, PointerViveController, PointerSenseGlove};
+    public enum PointerTechnique { PointerMouse, PointerViveController, PointerSenseGlove, PointerController };
+
+    [SerializeField] bool showLaser;
 
     #region Setup
 
@@ -48,7 +50,10 @@ public class UI_Manager : MonoBehaviour
         CurvedUIInputModule.CustomControllerRay = new Ray(this.transform.position, this.transform.forward);
 
         // this draws the ray - the rest of the raycast Manager is not being used
-        raycastManager.GetRaycastHit(position, rotation);
+        if (showLaser)
+        {
+            raycastManager.GetRaycastHit(position, rotation);
+        }
     }
 
 
@@ -64,6 +69,9 @@ public class UI_Manager : MonoBehaviour
                 return;                
             case PointerTechnique.PointerSenseGlove:
                 pointer = this.gameObject.AddComponent<PointerSenseGlove>();
+                break;
+            case PointerTechnique.PointerController:
+                pointer = this.gameObject.AddComponent<PointerController>();
                 break;
             default:
                 throw new System.Exception("No pointer technique specified.");
