@@ -52,8 +52,11 @@ namespace Widgets
             dwellTimer = new Timer();
 
             transform.localPosition = new Vector3(xPositionOffset, yPositionOffset, 0);
-            transform.localScale = new Vector3(scale, scale, scale);
-                
+            if (scale != 0)
+            {
+                transform.localScale = new Vector3(scale, scale, scale);
+            }
+
             this.onActivate = onActivate;
 
             Button btn = GetComponentInChildren<Button>();
