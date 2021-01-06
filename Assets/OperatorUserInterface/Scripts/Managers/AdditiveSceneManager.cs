@@ -12,9 +12,9 @@ public enum Scenes {
 
 public class AdditiveSceneManager : MonoBehaviour
 {
-    private const string ConstructSceneName = "OUI_Construct";
-    private const string HudSceneName = "OUI_HUD";
-    
+    //private const string ConstructSceneName = "OUI_Construct";
+    //private const string HudSceneName = "OUI_HUD";
+
     static Scenes currentScene = Scenes.NONE;
 
     public delegate void BeforeSceneLoadDelegate();
@@ -43,6 +43,17 @@ public class AdditiveSceneManager : MonoBehaviour
     /// <param name="scene">laoded scene</param>
     /// <param name="mode">mode used to load the sene</param>
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        switch (scene.buildIndex) {
+            case 1:
+                currentScene = Scenes.CONSTRUCT;
+                break;
+            case 2:
+                currentScene = Scenes.HUD;
+                break;
+        }
+    }
+    
+    /*void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         switch (scene.name) {
             case ConstructSceneName:
                 currentScene = Scenes.CONSTRUCT;
@@ -51,14 +62,25 @@ public class AdditiveSceneManager : MonoBehaviour
                 currentScene = Scenes.HUD;
                 break;
         }
-    }
+    }*/
 
     /// <summary>
     /// Finds scene name for scene
     /// </summary>
     /// <param name="scene">scene</param>
     /// <returns>name of scene</returns>
-    String SceneNameForScene(Scenes scene) {
+    int SceneNameForScene(Scenes scene) {
+        switch (scene) {
+            case Scenes.CONSTRUCT:
+                return 1;
+            case Scenes.HUD:
+                return 2;
+            default:
+                return -1;
+        }
+    }
+    
+    /*String SceneNameForScene(Scenes scene) {
         switch (scene) {
             case Scenes.HUD:
                 return HudSceneName;
@@ -67,7 +89,7 @@ public class AdditiveSceneManager : MonoBehaviour
             default:
                 return "";
         }
-    }
+    }*/
 
     /// <summary>
     /// Performs a scene change. First Unloads a scene, then Load the next Scene
@@ -93,8 +115,10 @@ public class AdditiveSceneManager : MonoBehaviour
             throw new Exception("An error happened. There is another scene loaded. This can't be.");
         }
 
-        String sceneName = SceneNameForScene(scene);
-        if (sceneName != "") {
+        //String sceneName = SceneNameForScene(scene);
+        int sceneName = SceneNameForScene(scene);
+        //if (sceneName != "") {
+        if (sceneName != -1) {
             if (beforeSceneLoad != null) {
                 beforeSceneLoad();
             }
@@ -134,8 +158,10 @@ public class AdditiveSceneManager : MonoBehaviour
             yield break;
         }
 
-        String sceneName = SceneNameForScene(currentScene);
-        if (sceneName != "") {
+        //String sceneName = SceneNameForScene(currentScene);
+        int sceneName = SceneNameForScene(currentScene);
+        //if (sceneName != "") {
+        if (sceneName != -1) {
             if (beforeSceneUnload != null) {
                 beforeSceneUnload();
             }

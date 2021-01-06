@@ -56,7 +56,11 @@ namespace Widgets
                 
             this.onActivate = onActivate;
 
-            GetComponentInChildren<Button>().onClick.AddListener(UnfoldChild);
+            Button btn = GetComponentInChildren<Button>();
+            if (btn != null)
+            {
+                btn.onClick.AddListener(UnfoldChild);
+            }
         }
 
         /// <summary>
