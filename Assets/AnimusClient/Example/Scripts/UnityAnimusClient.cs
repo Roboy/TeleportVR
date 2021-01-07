@@ -612,13 +612,12 @@ public class UnityAnimusClient : MonoBehaviour {
 		visionEnabled = true;
 		
 		// Comment the line below to enable two images - Not tested
-		RightEye.SetActive(false);
+		//RightEye.SetActive(false);
 		return visionEnabled;
 	}
 
 	public bool vision_set(ImageSamples currSamples)
 	{
-	
 	    try
 	    {
 		if (!bodyTransitionReady) return true;
@@ -636,69 +635,85 @@ public class UnityAnimusClient : MonoBehaviour {
 		
 		print("SampleLen: " + currSamples.Samples.Count);
 
-		var currSample = currSamples.Samples[0];
+		for (int i = 0; i < currSamples.Samples.Count; i++)
+		{
+		var currSample = currSamples.Samples[i];
 		
 		
 		print("SampleSrc: " + currSample.Source);
 		print("SampleTrans: " + currSample.Transform.Position);
-		
-		
+
 			var currShape = currSample.DataShape;
 			// Debug.Log($"{currShape[0]}, {currShape[1]}");
 #if ANIMUS_USE_OPENCV
 			if (!initMats)
 			{
-				yuv =  new Mat((int)(currShape[1]*1.5), (int)currShape[0] , CvType.CV_8UC1);
+				yuv = new Mat((int) (currShape[1] * 1.5), (int) currShape[0], CvType.CV_8UC1);
 				rgb = new Mat();
 				initMats = true;
 			}
-			
+
 			if (currSample.Data.Length != currShape[0] * currShape[1] * 1.5)
 			{
 				return true;
 			}
-			
+
 			if (currShape[0] <= 100 || currShape[1] <= 100)
 			{
 				return true;
 			}
 			// Debug.Log("cvt Color ops");
-			
-			yuv.put(0, 0, currSample.Data.ToByteArray());
-			
-			Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
-			
-			if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] || currShape[2] != _imageDims[2])
-	        {
-		        _imageDims = currShape;
-		        var scaleX = (float) _imageDims[0] / (float) _imageDims[1];
-		        
-		        Debug.Log("Resize triggered. Setting texture resolution to " + currShape[0] + "x" + currShape[1]);
-	            Debug.Log("Setting horizontal scale to " + scaleX +  " " + (float)_imageDims[0] + " " + (float)_imageDims[1]);
-	            
-	            UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
-	            currentScale.x =  scaleX;
 
-	            _leftPlane.transform.localScale = currentScale;
-	            _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
-	            {
-	                wrapMode = TextureWrapMode.Clamp
-	            };
-	            
-	            // _rightPlane.transform.localScale = currentScale;
-	            // _rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
-	            // {
-		           //  wrapMode = TextureWrapMode.Clamp
-	            // };
+			yuv.put(0, 0, currSample.Data.ToByteArray());
+
+			Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
+
+			if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] ||
+			    currShape[2] != _imageDims[2])
+			{
+				_imageDims = currShape;
+				var scaleX = (float) _imageDims[0] / (float) _imageDims[1];
+
+				Debug.Log("Resize triggered. Setting texture resolution to " + currShape[0] + "x" + currShape[1]);
+				Debug.Log("Setting horizontal scale to " + scaleX + " " + (float) _imageDims[0] + " " +
+				          (float) _imageDims[1]);
+
+				UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
+				currentScale.x = scaleX;
+
+				_leftPlane.transform.localScale = currentScale;
+				_leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				{
+					wrapMode = TextureWrapMode.Clamp
+				};
+
+				_rightPlane.transform.localScale = currentScale;
+				_rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				{
+					wrapMode = TextureWrapMode.Clamp
+				};
 // 	            return true;
-	        }
-		// Debug.Log("matToTexture2D");
-			
+			}
+			// Debug.Log("matToTexture2D");
+
 			//TODO apply stereo images
-	        Utils.matToTexture2D (rgb, _leftTexture);
-	        _leftRenderer.material.mainTexture = _leftTexture;
+			if (currSample.Source == "LeftCamera")
+			{
+				Utils.matToTexture2D(rgb, _leftTexture);
+				_leftRenderer.material.mainTexture = _leftTexture;
+			}
+			else if (currSample.Source == "RightCamera")
+			{
+				Utils.matToTexture2D(rgb, _rightTexture);
+				_rightRenderer.material.mainTexture = _rightTexture;
+			}
+			else
+			{
+				print("Unknown image source: " + currSample.Source);
+			}
 #endif
 		}
+	    }
 		catch (Exception e)
 		{
 			Debug.Log(e);

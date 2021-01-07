@@ -3969,6 +3969,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 861750288}
     m_Modifications:
+    - target: {fileID: 580611800290271838, guid: a89fe9b31a87eea4e950417414784a4a,
+        type: 3}
+      propertyPath: animusManager
+      value: 
+      objectReference: {fileID: 1931952778}
+    - target: {fileID: 580611800290271838, guid: a89fe9b31a87eea4e950417414784a4a,
+        type: 3}
+      propertyPath: client
+      value: 
+      objectReference: {fileID: 1765238918}
     - target: {fileID: 8896569798469850262, guid: a89fe9b31a87eea4e950417414784a4a,
         type: 3}
       propertyPath: m_Name
