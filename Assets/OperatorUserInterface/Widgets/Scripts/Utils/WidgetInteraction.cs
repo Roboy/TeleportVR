@@ -1,5 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Animus.ClientSDK;
+using Animus.Common;
+using AnimusManager;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +12,11 @@ using UnityEngine;
 namespace Widgets
 {
     public class WidgetInteraction : Singleton<WidgetInteraction>
-    {
+    { 
+        [SerializeField] private AnimusClientManager animusManager;
+
+        [SerializeField] private UnityAnimusClient client;
+        
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.
         /// </summary>
@@ -20,32 +28,67 @@ namespace Widgets
 
         public void ToggleMicro()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(25);
-            if (latencyTestWidget.GetContext().currentIcon == "MicroDisabled")
+            Widget widget = Manager.Instance.FindWidgetWithID(25);
+            if (widget.GetContext().currentIcon == "MicroDisabled")
             {
-                latencyTestWidget.GetContext().currentIcon = "Micro";
+                widget.GetContext().currentIcon = "Micro";
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "MicroDisabled";
+                widget.GetContext().currentIcon = "MicroDisabled";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            widget.ProcessRosMessage(widget.GetContext());
         }
 
         public void ToggleSpeakers()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(26);
-            if (latencyTestWidget.GetContext().currentIcon == "SpeakersOff")
+            string modality = "vision";
+            Widget widget = Manager.Instance.FindWidgetWithID(26);
+            bool rob_contains_mod = ClientLogic.Instance._chosenRobot.RobotConfig.OutputModalities.Contains(modality);
+            bool client_contains_mod = ClientLogic.Instance.requiredModalities.Contains(modality);
+            if (rob_contains_mod && client_contains_mod)
             {
-                latencyTestWidget.GetContext().currentIcon = "Speakers";
+                if (widget.GetContext().currentIcon == "SpeakersOff")
+                {
+                    OpenModalityProto openModality = new OpenModalityProto {ModalityName = modality};
+                    Error e = AnimusClient.AnimusClient.OpenModality(ClientLogic.Instance._chosenRobot.RobotId,
+                        openModality);
+                    print(e.Success);
+                    if (!e.Success)
+                    {
+                        print("Couldn't start " + modality + ": " + e.Description + ", " + e.Code);
+                    }
+
+                    widget.GetContext().currentIcon = "Speakers";
+                }
+                else
+                {
+                    Error e = AnimusClient.AnimusClient.CloseModality(ClientLogic.Instance._chosenRobot.RobotId,
+                        modality);
+                    if (!e.Success)
+                    {
+                        print("Couldn't stop " + modality + ": " + e.Description + ", " + e.Code);
+                    }
+
+                    widget.GetContext().currentIcon = "SpeakersOff";
+                }
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "SpeakersOff";
+                // TODO: show that modality is not enabled and show on which site it isn't enables (robot or server)
+                widget.GetContext().currentIcon = "SpeakersOff";
+                if (!rob_contains_mod)
+                {
+                    print("Robot does not contain modality " + modality);
+                }
+                else
+                {
+                    print("Client does not contain modality " + modality);
+                }
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            widget.ProcessRosMessage(widget.GetContext());
         }
 
         public void ToggleHead()
