@@ -378,6 +378,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Animus.Data;
 using Animus.RobotProto;
 using AnimusCommon;
@@ -634,17 +635,28 @@ public class UnityAnimusClient : MonoBehaviour {
 		}
 		
 		print("SampleLen: " + currSamples.Samples.Count);
-
-		for (int i = 0; i < currSamples.Samples.Count; i++)
-		{
-		var currSample = currSamples.Samples[i];
 		
-		
+		var currSample = currSamples.Samples[0];
+		var currShape = currSample.DataShape;
+		//currShape[1] /= 2;
 		print("SampleSrc: " + currSample.Source);
 		print("SampleTrans: " + currSample.Transform.Position);
+		
+		//for (int i = 0; i < 2; i++)
+		//{
 
-			var currShape = currSample.DataShape;
-			// Debug.Log($"{currShape[0]}, {currShape[1]}");
+			var all_bytes = currSample.Data.ToByteArray();
+			/*byte[] bytes;
+			if (i == 0)
+			{
+				bytes = all_bytes.Take(all_bytes.Length / 2).ToArray();
+			}
+			else
+			{
+				bytes = all_bytes.Skip(all_bytes.Length / 2).ToArray();
+			}*/
+
+			Debug.Log($"{currShape[0]}, {currShape[1]}");
 #if ANIMUS_USE_OPENCV
 			if (!initMats)
 			{
@@ -653,7 +665,8 @@ public class UnityAnimusClient : MonoBehaviour {
 				initMats = true;
 			}
 
-			if (currSample.Data.Length != currShape[0] * currShape[1] * 1.5)
+			//if (currSample.Data.Length != currShape[0] * currShape[1] * 1.5)
+			if (all_bytes.Length != currShape[0] * currShape[1] * 1.5)
 			{
 				return true;
 			}
@@ -664,7 +677,8 @@ public class UnityAnimusClient : MonoBehaviour {
 			}
 			// Debug.Log("cvt Color ops");
 
-			yuv.put(0, 0, currSample.Data.ToByteArray());
+			//yuv.put(0, 0, currSample.Data.ToByteArray());
+			yuv.put(0, 0, all_bytes);
 
 			Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
 
@@ -682,29 +696,38 @@ public class UnityAnimusClient : MonoBehaviour {
 				currentScale.x = scaleX;
 
 				_leftPlane.transform.localScale = currentScale;
-				_leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				//_leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				_leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
 				{
 					wrapMode = TextureWrapMode.Clamp
 				};
 
 				_rightPlane.transform.localScale = currentScale;
-				_rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				//_rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				_rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
 				{
 					wrapMode = TextureWrapMode.Clamp
 				};
 // 	            return true;
 			}
 			// Debug.Log("matToTexture2D");
+			
+			for (int i = 0; i < 2; i++)
+			{
 
 			//TODO apply stereo images
-			if (currSample.Source == "LeftCamera")
+			//if (currSample.Source == "LeftCamera")
+			if (i == 0)
 			{
-				Utils.matToTexture2D(rgb, _leftTexture);
+				Mat rgb_l = rgb.rowRange(0, rgb.rows()/2);
+				Utils.matToTexture2D(rgb_l, _leftTexture);
 				_leftRenderer.material.mainTexture = _leftTexture;
 			}
-			else if (currSample.Source == "RightCamera")
+			//else if (currSample.Source == "RightCamera")
+			else if (i == 1)
 			{
-				Utils.matToTexture2D(rgb, _rightTexture);
+				Mat rgb_r = rgb.rowRange(rgb.rows()/2, rgb.rows());
+				Utils.matToTexture2D(rgb_r, _rightTexture);
 				_rightRenderer.material.mainTexture = _rightTexture;
 			}
 			else
