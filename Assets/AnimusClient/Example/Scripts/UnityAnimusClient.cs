@@ -569,9 +569,15 @@ public class UnityAnimusClient : MonoBehaviour {
 	// --------------------------Vision Modality----------------------------------
 	public static void DisplayLatency(float latency, float fps)
 	{
-		Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(33);
-		latencyTestWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
-		latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+		// Present the latency and fps
+		Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
+		latencyWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
+		latencyWidget.ProcessRosMessage(latencyWidget.GetContext());
+		
+		// turn the icon from yellow (no connection) to green
+		Widget wifiWidget = Manager.Instance.FindWidgetWithID(23);
+		wifiWidget.GetContext().currentIcon = "WifiGreen";
+		wifiWidget.ProcessRosMessage(wifiWidget.GetContext());
 	}
 	
 	public bool vision_initialise()
@@ -621,6 +627,8 @@ public class UnityAnimusClient : MonoBehaviour {
 	{
 	    try
 	    {
+		    
+		    
 		if (!bodyTransitionReady) return true;
 		
 		if (!visionEnabled)
