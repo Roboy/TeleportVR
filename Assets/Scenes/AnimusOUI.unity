@@ -1087,7 +1087,7 @@ PrefabInstance:
     - target: {fileID: 6021411799948961774, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6021411800010826267, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -1219,6 +1219,11 @@ PrefabInstance:
       propertyPath: m_PositionAction.m_Action.m_SingletonActionBindings.Array.data[2].m_Flags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6021411800480249787, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_AnimateModel
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6021411800480249790, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_Name
@@ -1227,7 +1232,7 @@ PrefabInstance:
     - target: {fileID: 6021411800480249790, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6021411800807676797, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
