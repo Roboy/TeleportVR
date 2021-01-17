@@ -1,10 +1,15 @@
 ﻿#if TOBII
 using Tobii.G2OM;
+#endif
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+#if TOBII
 public class EyeGazeDwellTimer : MonoBehaviour, IGazeFocusable, IPointerEnterHandler, IPointerExitHandler
+#else
+public class EyeGazeDwellTimer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+#endif
 {
     public float duration = 2.0f;
     Timer timer;
@@ -65,4 +70,3 @@ public class EyeGazeDwellTimer : MonoBehaviour, IGazeFocusable, IPointerEnterHan
         dwellTimeImage.fillAmount = timer.GetFraction();
     }
 }
-#endif
