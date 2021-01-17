@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Valve.VR;
+//using Valve.VR;
 using UnityEngine.Events;
 
 public class StateManager : Singleton<StateManager> {

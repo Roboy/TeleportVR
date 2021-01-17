@@ -1,4 +1,5 @@
-﻿using Tobii.G2OM;
+﻿#if TOBII
+using Tobii.G2OM;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -64,3 +65,4 @@ public class EyeGazeDwellTimer : MonoBehaviour, IGazeFocusable, IPointerEnterHan
         dwellTimeImage.fillAmount = timer.GetFraction();
     }
 }
+#endif
