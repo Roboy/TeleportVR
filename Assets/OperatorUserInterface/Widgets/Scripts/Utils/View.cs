@@ -41,7 +41,7 @@ namespace Widgets
             SetRelativeChildPosition(relativeChildPosition);
             this.dwellTimerDuration = dwellTimerDuration;
 
-            if (dwellTimerDuration > 0 && UI_Manager.Instance.pointerTechnique != UI_Manager.PointerTechnique.PointerController)
+            if (dwellTimerDuration > 0 && UI_Manager.Instance.allowDwellTime)
             {
                 useDwellTimer = true;
             }
@@ -71,7 +71,7 @@ namespace Widgets
         /// </summary>
         public void UnfoldChild()
         {
-            if (!childIsActive && onActivate != null)
+            if ((!childIsActive || !UI_Manager.Instance.allowDwellTime) && onActivate != null)
             {
                 WidgetInteraction.Instance.OnActivate(onActivate);
             }
@@ -154,7 +154,7 @@ namespace Widgets
                 dwellTimer.SetTimer(dwellTimerDuration, UnfoldChild);
                 dwellTimerActive = true;
             }
-            else if (UI_Manager.Instance.pointerTechnique != UI_Manager.PointerTechnique.PointerController)
+            else if (UI_Manager.Instance.allowDwellTime)
             {
                 UnfoldChild();
             }

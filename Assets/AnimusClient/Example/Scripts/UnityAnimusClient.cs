@@ -571,8 +571,10 @@ public class UnityAnimusClient : MonoBehaviour {
 	{
 		// Present the latency and fps
 		Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
-		latencyWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
-		latencyWidget.ProcessRosMessage(latencyWidget.GetContext());
+        latencyWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
+        //latencyWidget.GetContext().graphTimestamp = Time.time;
+        //latencyWidget.GetContext().graphValue = latency;
+        latencyWidget.ProcessRosMessage(latencyWidget.GetContext());
 		
 		// turn the icon from yellow (no connection) to green
 		Widget wifiWidget = Manager.Instance.FindWidgetWithID(23);
@@ -642,27 +644,23 @@ public class UnityAnimusClient : MonoBehaviour {
 			return false;
 		}
 		
-		print("SampleLen: " + currSamples.Samples.Count);
-		
 		var currSample = currSamples.Samples[0];
 		var currShape = currSample.DataShape;
 		//currShape[1] /= 2;
-		print("SampleSrc: " + currSample.Source);
-		print("SampleTrans: " + currSample.Transform.Position);
 		
 		//for (int i = 0; i < 2; i++)
 		//{
 
 			var all_bytes = currSample.Data.ToByteArray();
-			/*byte[] bytes;
-			if (i == 0)
-			{
-				bytes = all_bytes.Take(all_bytes.Length / 2).ToArray();
-			}
-			else
-			{
-				bytes = all_bytes.Skip(all_bytes.Length / 2).ToArray();
-			}*/
+			//byte[] bytes;
+			//if (i == 0)
+			//{
+			//	bytes = all_bytes.Take(all_bytes.Length / 2).ToArray();
+			//}
+			//else
+			//{
+			//	bytes = all_bytes.Skip(all_bytes.Length / 2).ToArray();
+			//}
 
 			Debug.Log($"{currShape[0]}, {currShape[1]}");
 #if ANIMUS_USE_OPENCV
@@ -742,10 +740,10 @@ public class UnityAnimusClient : MonoBehaviour {
 			{
 				print("Unknown image source: " + currSample.Source);
 			}
-#endif
 		}
-	    }
-		catch (Exception e)
+#endif
+        }
+        catch (Exception e)
 		{
 			Debug.Log(e);
 		}
@@ -792,7 +790,7 @@ public class UnityAnimusClient : MonoBehaviour {
 		return true;
 	}
 
-	public bool proprioception_set(float[] currSample)
+	public bool proprioception_set(Float32Array[] currSample)
 	{
 		if (currSample.Length > 2) {
 // 			if (currSample[0]>0) {

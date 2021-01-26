@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class DisplayMover : MonoBehaviour
 {
     [SerializeField] private bool isLeft;
+    private float timer;
     
     List<UnityEngine.XR.InputDevice> controller = new List<UnityEngine.XR.InputDevice>();
     //[SerializeField] private UnityEngine.XR.InputDevice controller;
@@ -43,24 +44,14 @@ public class DisplayMover : MonoBehaviour
 
     void Update()
     {
-        Dictionary<KeyCode, Vector3> moveDict = isLeft ? _moveDictLeft : _moveDictRight;
-        
-        foreach (KeyCode key in moveDict.Keys)
-        {
-            if (Input.GetKey(key))
-            {
-                transform.localPosition += Time.deltaTime * _speed * moveDict[key];
-            }
-        }
-
-        print("Controller len: " + controller.Count);
+        //print("Controller len: " + controller.Count);
         if (controller.Count > 0)
         {
             Vector2 axisValue;
             if (controller[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axisValue) &&
                 axisValue.magnitude > 0)
             {
-                print("Axis: " + axisValue);
+                //print("Axis: " + axisValue);
                 transform.localPosition += Time.deltaTime * _speed * axisValue.x * Vector3.right;
                 transform.localPosition += Time.deltaTime * _speed * axisValue.y * Vector3.up;
             }
@@ -68,9 +59,10 @@ public class DisplayMover : MonoBehaviour
             bool btn;
             if (controller[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out btn) && btn)
             {
-                //Debug.Log("btn: " + axisValue);
                 transform.localPosition += Time.deltaTime * _speed * Vector3.forward;
             }
+
+            //print("btn: " + btn);
 
             if (controller[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.secondaryButton, out btn) && btn)
             {
@@ -78,7 +70,25 @@ public class DisplayMover : MonoBehaviour
                 transform.localPosition += Time.deltaTime * _speed * Vector3.back;
             }
         }
+        else
+        {
+            Dictionary<KeyCode, Vector3> moveDict = isLeft ? _moveDictLeft : _moveDictRight;
 
-        print("Display left:" + isLeft + ", " + transform.localPosition);
+            foreach (KeyCode key in moveDict.Keys)
+            {
+                if (Input.GetKey(key))
+                {
+                    transform.localPosition += Time.deltaTime * _speed * moveDict[key];
+                }
+            }
+        }
+
+        if (timer >= 1)
+        {
+            timer = 0;
+            string txt = "Display left:" + isLeft.ToString() + ", " + transform.localPosition.ToString();
+            //print(txt);
+        }
+        timer += Time.deltaTime;
     }
 }

@@ -30,6 +30,7 @@ Assets/Plugins/Editor/JetBrains*
 
 # exclude the OUI ThirdParty Assets
 Assets/OperatorUserInterface/ThirdParty/
+Assets/OperatorUserInterface/Plugins/
 
 # exclude the Showroom
 Assets/OperatorUserInterface/Models/Showroom/

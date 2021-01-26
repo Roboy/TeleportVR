@@ -43,7 +43,17 @@ namespace Widgets
 
         public void ToggleSpeakers()
         {
-            string modality = "vision";
+            Widget widget = Manager.Instance.FindWidgetWithID(26);
+            if (widget.GetContext().currentIcon == "SpeakersOff")
+            {
+                widget.GetContext().currentIcon = "Speakers";
+            }
+            else
+            {
+                widget.GetContext().currentIcon = "SpeakersOff";
+            }
+
+            /*string modality = "vision";
             Widget widget = Manager.Instance.FindWidgetWithID(26);
             bool rob_contains_mod = ClientLogic.Instance._chosenRobot.RobotConfig.OutputModalities.Contains(modality);
             bool client_contains_mod = ClientLogic.Instance.requiredModalities.Contains(modality);
@@ -86,7 +96,7 @@ namespace Widgets
                 {
                     print("Client does not contain modality " + modality);
                 }
-            }
+            }*/
 
             widget.ProcessRosMessage(widget.GetContext());
         }

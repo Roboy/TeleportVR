@@ -1,0 +1,9 @@
+{
+	"id": 33,
+	"type": "Graph",
+	"title": "LatencyGraph",
+	"widgetPosition": "child",
+	"graphColor": [ 255, 255, 255, 255 ],
+	"xDivisionUnits": 2,
+	"yDivisionUnits": 2
+}
