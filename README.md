@@ -11,6 +11,7 @@ Teleport App WS 20/21 (including construct)
 * Add your credentials in the Script AnimusPasswordStore.cs
 * Open the scene Scenes/AnimusOUI
 * Enter your Robot name in the Editor by clicking on the GameObject ClientLogic in the Hierarchy window and set the name in the field 'Robot Name'
+* In the script AnimusUtilities.cs, Iinsert the line `UnityAnimusClient.DisplayLatency(AverageLag, AverageFps);`
 * You should now be able to use the application!
 
 ## How to use
