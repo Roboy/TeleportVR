@@ -5,9 +5,10 @@ Teleport App WS 20/21 (including construct)
 ## How to install
 * Download the main branch of this repository
 * Open the Project with Unity 2019.3.6f1
-* Add the UnityPackages "ShowRoom", "AnimusPasswordStore" and "Plugins" from the Google Drive Folder https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R to the project
+* Add the UnityPackages "ShowRoom", "AnimusPasswordStore", "Plugins" and "OpenCV" from the Google Drive Folder https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R to the project
 * Add the Animus SDK to the project (Version 2.0.13) from https://animus.cyberanimus.com/login. Make sure to uncheck UnityAnimusClient.cs and ClientLogic.cs in the import process.
 * For the 4 error messages in Animus scripts, double click these error messages and comment the faulty lines out (lines should look like 'using Newtonsoft')
+* In the Unity Project, add ANIMUS_USE_OPENCV to the Scripting Define Symbols in the Project settings
 * Add your credentials in the Script AnimusPasswordStore.cs
 * Open the scene Scenes/AnimusOUI
 * Enter your Robot name in the Editor by clicking on the GameObject ClientLogic in the Hierarchy window and set the name in the field 'Robot Name'
