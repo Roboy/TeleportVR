@@ -20,6 +20,12 @@ Teleport App WS 20/21 (including construct)
 * Move the laser away from the widgets to fold in the child widget
 * Hover the laser over one of the other widgets and press the left mouse button to interact with them (e.g. mute)
 
+### Changing between Controllers and Mouse input
+* Go to the scene Scenes/OUI_HUD
+* In the editor in the Hierarchy window, go the object HUD_Managers/PointerManager and set the Pointer Technique to the required Input (e.g. controller for oculus touch)
+* Go back to Scenes/AnimusOUI
+* Under the XR Rig, make sure the HandAnchors are enabled if you want to use controllers. You can disable them if you are using the mouse as input.
+
 ## Known Problems
 * Going from the HUD to the construct and back again into the HUD can cause problems
 * There are many bugs that have a low chance of ocurring that crash the application or lead to receiving no messages from the server. Try again in case it was not working the first time. 
