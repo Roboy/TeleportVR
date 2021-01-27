@@ -5,7 +5,7 @@ Teleport App WS 20/21 (including construct)
 ## How to install
 * Download the main branch of this repository
 * Open the Project with Unity 2019.3.6f1
-* Add the UnityPackages X and Y from the Roboy Google Drive Folder
+* Add the UnityPackages "ShowRoom", "AnimusPasswordStore" and "Plugins" from the Google Drive Folder https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R to the project
 * Add the Animus SDK to the project (Version 2.0.13) from https://animus.cyberanimus.com/login
 * For the 4 error messages in Animus scripts, double click these error messages and comment the faulty lines out (lines should look like 'using Newtonsoft')
 * Add your credentials in the Script AnimusPasswordStore.cs
@@ -23,3 +23,11 @@ Teleport App WS 20/21 (including construct)
 ## Known Problems
 * Going from the HUD to the construct and back again into the HUD can cause problems
 * There are many bugs that have a low chance of ocurring that crash the application or lead to receiving no messages from the server. Try again in case it was not working the first time. 
+
+## Hardware Plugins
+If you want to use hardware that was implemented for the Vive Pro Eye and XTal, but is not used with the Oculus Quest, download the UnityPackage "UnusedHardarePlugins" from the Google Drive Folder https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R. In the Unity Project, add the corresponding symbols to the Scripting Define Symbols in the Project settings:
+* TOBII
+* BHAPTICS
+* SENSEGLOVE
+* VIVESR
+* UNITY_POST_PROCESSING_STACK_V2
