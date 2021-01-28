@@ -16,6 +16,8 @@ namespace Widgets
         [SerializeField] private AnimusClientManager animusManager;
 
         [SerializeField] private UnityAnimusClient client;
+
+        public bool allowDwellTime;
         
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.

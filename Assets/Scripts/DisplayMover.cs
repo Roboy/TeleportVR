@@ -72,6 +72,8 @@ public class DisplayMover : MonoBehaviour
         }
         else
         {
+            List<UnityEngine.XR.InputDevice> controller = new List<UnityEngine.XR.InputDevice>();
+
             Dictionary<KeyCode, Vector3> moveDict = isLeft ? _moveDictLeft : _moveDictRight;
 
             foreach (KeyCode key in moveDict.Keys)

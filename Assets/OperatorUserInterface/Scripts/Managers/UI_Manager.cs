@@ -11,7 +11,6 @@ public class UI_Manager : Singleton<UI_Manager>
     [Header("Select Interaction Techniques")]
     [Tooltip("Technique for pointing.")]
     public PointerTechnique pointerTechnique;
-    public bool allowDwellTime;
 
     private Camera cam;
     private AudioSource clickSound;

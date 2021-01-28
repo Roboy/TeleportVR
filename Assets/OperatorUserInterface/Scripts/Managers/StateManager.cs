@@ -134,9 +134,9 @@ public class StateManager : Singleton<StateManager> {
 #if SENSEGLOVE
             leftSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
             rightSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
-#endif
             leftSenseGlove.SetActive(false);
             rightSenseGlove.SetActive(false);
+#endif
 
             constructFXManager.ToggleEffects(false);
         }
