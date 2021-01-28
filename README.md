@@ -16,10 +16,12 @@ Teleport App WS 20/21 (including construct)
 * You are now be able to start and use the application!
 
 ## How to use
-* Press space to switch between the construct and the HUD
-* Hover the laser over the connection widget and press the left mouse button to unfold the child widget
+* Press space or the left menu button to switch between the construct and the HUD
+* Hover the right laser over the connection widget and press the left mouse button or right trigger to unfold the child widget
 * Move the laser away from the widgets to fold in the child widget
-* Hover the laser over one of the other widgets and press the left mouse button to interact with them (e.g. mute)
+* Hover the right laser over the connection widget and press the left mouse button or right trigger to interact with them (e.g. mute)
+* Press the left/right grip trigger to toggle the left/right body state
+* Use the joystick and Primary and secondary controller buttons to move the displays
 
 ### Changing between Controllers and Mouse input
 * Go to the scene Scenes/OUI_HUD
