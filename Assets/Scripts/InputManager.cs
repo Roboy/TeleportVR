@@ -6,6 +6,10 @@ public class InputManager : MonoBehaviour
 {
     List<UnityEngine.XR.InputDevice> controllerLeft = new List<UnityEngine.XR.InputDevice>();
     List<UnityEngine.XR.InputDevice> controllerRight = new List<UnityEngine.XR.InputDevice>();
+
+    private bool lastMenuBtn;
+    private bool lastGrabLeft;
+    private bool lastGrabRight;
     
     void Start()
     {
@@ -17,31 +21,39 @@ public class InputManager : MonoBehaviour
     {
         bool btn;
         if (controllerLeft.Count > 0) {
-            if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out btn) && btn)
+            if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out btn) && btn && !lastMenuBtn)
             {
                 StateManager.Instance.GoToNextState();
             }
-            if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn)
+            lastMenuBtn = btn;
+                
+            if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn && !lastGrabLeft)
             {
                 Widgets.WidgetInteraction.Instance.ToggleRightBody();
             }
-            if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn)
-            {
-                Widgets.WidgetInteraction.Instance.ToggleLeftBody();
-            }
+            lastGrabLeft = btn;
         }
         else {
             UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Left, controllerLeft);
-            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, controllerRight);
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Widgets.WidgetInteraction.Instance.ToggleRightBody();
-            }
-            if (Input.GetKeyDown(KeyCode.G))
+        }
+        if (controllerRight.Count > 0) {
+            if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn && !lastGrabRight)
             {
                 Widgets.WidgetInteraction.Instance.ToggleLeftBody();
             }
+            lastGrabRight = btn;
+        }
+        else {
+            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, controllerRight);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Widgets.WidgetInteraction.Instance.ToggleRightBody();
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Widgets.WidgetInteraction.Instance.ToggleLeftBody();
         }
     }
 }
