@@ -1,0 +1,12 @@
+{
+	"id": 56,
+	"type": "Icon",
+	"title": "aWheelchairHighlight",
+	"widgetPosition": "bottomleft",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "WheelchairHighlight" ],
+	"currentIcon": "WheelchairHighlight",
+	"yPositionOffset": -110.0,
+	"xPositionOffset": 0.0,
+	"scale": 1.2
+}

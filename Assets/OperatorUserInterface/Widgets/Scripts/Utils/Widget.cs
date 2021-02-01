@@ -143,5 +143,10 @@ namespace Widgets
         }
 
         public abstract View AddViewComponent(GameObject viewGameObject);
+
+        public void SetActive(bool activate)
+        {
+            view.gameObject.SetActive(activate);
+        }
     }
 }

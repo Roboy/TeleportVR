@@ -1,0 +1,12 @@
+{
+	"id": 51,
+	"type": "Icon",
+	"title": "aHeadIconHighlight",
+	"widgetPosition": "bottomleft",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "HeadHighlight" ],
+	"currentIcon": "HeadHighlight",
+	"yPositionOffset": 105.0,
+	"xPositionOffset": 0.0,
+	"scale": 0.9
+}
