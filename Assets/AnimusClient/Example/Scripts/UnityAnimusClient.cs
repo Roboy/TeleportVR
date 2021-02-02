@@ -378,6 +378,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Animus.Data;
 using Animus.RobotProto;
 using AnimusCommon;
@@ -568,9 +569,24 @@ public class UnityAnimusClient : MonoBehaviour {
 	// --------------------------Vision Modality----------------------------------
 	public static void DisplayLatency(float latency, float fps)
 	{
-		Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(33);
-		latencyTestWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
-		latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+		// Present the latency and fps
+		Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
+		if (latency < 0) {
+			latencyWidget.GetContext().textMessage = $"FPS: {fps:F2}";
+		}
+		else 
+		{
+        	latencyWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
+		}
+		print($"Latency: {latency:F2}ms\nFPS: {fps:F2}");
+        //latencyWidget.GetContext().graphTimestamp = Time.time;
+        //latencyWidget.GetContext().graphValue = latency;
+        latencyWidget.ProcessRosMessage(latencyWidget.GetContext());
+		
+		// turn the icon from yellow (no connection) to green
+		Widget wifiWidget = Manager.Instance.FindWidgetWithID(23);
+		wifiWidget.GetContext().currentIcon = "WifiGreen";
+		wifiWidget.ProcessRosMessage(wifiWidget.GetContext());
 	}
 	
 	public bool vision_initialise()
@@ -612,15 +628,16 @@ public class UnityAnimusClient : MonoBehaviour {
 		visionEnabled = true;
 		
 		// Comment the line below to enable two images - Not tested
-		RightEye.SetActive(false);
+		//RightEye.SetActive(false);
 		return visionEnabled;
 	}
 
 	public bool vision_set(ImageSamples currSamples)
 	{
-	
 	    try
 	    {
+		    
+		    
 		if (!bodyTransitionReady) return true;
 		
 		if (!visionEnabled)
@@ -634,72 +651,106 @@ public class UnityAnimusClient : MonoBehaviour {
 			return false;
 		}
 		
-		print("SampleLen: " + currSamples.Samples.Count);
-
 		var currSample = currSamples.Samples[0];
+		var currShape = currSample.DataShape;
+		//currShape[1] /= 2;
 		
-		
-		print("SampleSrc: " + currSample.Source);
-		print("SampleTrans: " + currSample.Transform.Position);
-		
-		
-			var currShape = currSample.DataShape;
-			// Debug.Log($"{currShape[0]}, {currShape[1]}");
+		//for (int i = 0; i < 2; i++)
+		//{
+
+			var all_bytes = currSample.Data.ToByteArray();
+			//byte[] bytes;
+			//if (i == 0)
+			//{
+			//	bytes = all_bytes.Take(all_bytes.Length / 2).ToArray();
+			//}
+			//else
+			//{
+			//	bytes = all_bytes.Skip(all_bytes.Length / 2).ToArray();
+			//}
+
+			Debug.Log($"{currShape[0]}, {currShape[1]}");
 #if ANIMUS_USE_OPENCV
 			if (!initMats)
 			{
-				yuv =  new Mat((int)(currShape[1]*1.5), (int)currShape[0] , CvType.CV_8UC1);
+				yuv = new Mat((int) (currShape[1] * 1.5), (int) currShape[0], CvType.CV_8UC1);
 				rgb = new Mat();
 				initMats = true;
 			}
-			
-			if (currSample.Data.Length != currShape[0] * currShape[1] * 1.5)
+
+			//if (currSample.Data.Length != currShape[0] * currShape[1] * 1.5)
+			if (all_bytes.Length != currShape[0] * currShape[1] * 1.5)
 			{
 				return true;
 			}
-			
+
 			if (currShape[0] <= 100 || currShape[1] <= 100)
 			{
 				return true;
 			}
 			// Debug.Log("cvt Color ops");
-			
-			yuv.put(0, 0, currSample.Data.ToByteArray());
-			
-			Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
-			
-			if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] || currShape[2] != _imageDims[2])
-	        {
-		        _imageDims = currShape;
-		        var scaleX = (float) _imageDims[0] / (float) _imageDims[1];
-		        
-		        Debug.Log("Resize triggered. Setting texture resolution to " + currShape[0] + "x" + currShape[1]);
-	            Debug.Log("Setting horizontal scale to " + scaleX +  " " + (float)_imageDims[0] + " " + (float)_imageDims[1]);
-	            
-	            UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
-	            currentScale.x =  scaleX;
 
-	            _leftPlane.transform.localScale = currentScale;
-	            _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
-	            {
-	                wrapMode = TextureWrapMode.Clamp
-	            };
-	            
-	            // _rightPlane.transform.localScale = currentScale;
-	            // _rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
-	            // {
-		           //  wrapMode = TextureWrapMode.Clamp
-	            // };
+			//yuv.put(0, 0, currSample.Data.ToByteArray());
+			yuv.put(0, 0, all_bytes);
+
+			Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
+
+			if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] ||
+			    currShape[2] != _imageDims[2])
+			{
+				_imageDims = currShape;
+				var scaleX = (float) _imageDims[0] / (float) _imageDims[1];
+
+				Debug.Log("Resize triggered. Setting texture resolution to " + currShape[0] + "x" + currShape[1]);
+				Debug.Log("Setting horizontal scale to " + scaleX + " " + (float) _imageDims[0] + " " +
+				          (float) _imageDims[1]);
+
+				UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
+				currentScale.x = scaleX;
+
+				_leftPlane.transform.localScale = currentScale;
+				//_leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				_leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+				{
+					wrapMode = TextureWrapMode.Clamp
+				};
+
+				_rightPlane.transform.localScale = currentScale;
+				//_rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+				_rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+				{
+					wrapMode = TextureWrapMode.Clamp
+				};
 // 	            return true;
-	        }
-		// Debug.Log("matToTexture2D");
+			}
+			// Debug.Log("matToTexture2D");
 			
+			for (int i = 0; i < 2; i++)
+			{
+
 			//TODO apply stereo images
-	        Utils.matToTexture2D (rgb, _leftTexture);
-	        _leftRenderer.material.mainTexture = _leftTexture;
-#endif
+			//if (currSample.Source == "LeftCamera")
+			if (i == 0)
+			{
+				Mat rgb_l = rgb.rowRange(0, rgb.rows()/2);
+				Utils.matToTexture2D(rgb_l, _leftTexture);
+				_leftRenderer.material.mainTexture = _leftTexture;
+			}
+			//else if (currSample.Source == "RightCamera")
+			else if (i == 1)
+			{
+				Mat rgb_r = rgb.rowRange(rgb.rows()/2, rgb.rows());
+				Utils.matToTexture2D(rgb_r, _rightTexture);
+				_rightRenderer.material.mainTexture = _rightTexture;
+			}
+			else
+			{
+				print("Unknown image source: " + currSample.Source);
+			}
 		}
-		catch (Exception e)
+#endif
+        }
+        catch (Exception e)
 		{
 			Debug.Log(e);
 		}
@@ -790,7 +841,7 @@ public class UnityAnimusClient : MonoBehaviour {
 	}
 	
 	// --------------------------Motor Modality-------------------------------------
-	public bool motor_initialise()
+	/*public bool motor_initialise()
 	{
 		motorEnabled = true;
 		_lastUpdate = 0;
@@ -967,7 +1018,61 @@ public class UnityAnimusClient : MonoBehaviour {
 		motorEnabled = false;
 		StartCoroutine(SendLEDCommand(LEDS_OFF));
 		return true;
+	}*/
+
+	// --------------------------Motor Modality-------------------------------------
+  public bool motor_initialise()
+  {
+    motorEnabled = true;
+    _lastUpdate = 0;
+    motorMsg = new Float32Array();
+    motorSample = new Sample(DataMessage.Types.DataType.Float32Arr, motorMsg);
+
+    
+    return true;
+  }
+
+  public Sample motor_get()
+  {
+    if (!bodyTransitionReady) return null;
+    if (!motorEnabled)
+    {
+      Debug.Log("Motor modality not enabled");
+      return null;
+    }
+
+    if (Time.time * 1000 - _lastUpdate > 50)
+    {
+      var headAngles = humanHead.eulerAngles;
+      var roll = ClipAngle(headAngles.x);
+      var pitch = ClipAngle(-headAngles.y);
+      var yaw = ClipAngle(headAngles.z);
+      
+      var motorAngles = new List<float>
+      {
+        0, 0,
+        (float)roll * Mathf.Deg2Rad,
+        -(float)pitch * Mathf.Deg2Rad,
+        (float) yaw * Mathf.Deg2Rad,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      };
+
+	  motorMsg.Data.Clear();
+      motorMsg.Data.Add(motorAngles);
+      motorSample.Data = motorMsg;
+	  
+    	return motorSample;
 	}
+
+    return null;
+	}
+
+	public bool motor_close()
+  	{
+    	motorEnabled = false;
+    
+    return true;
+  	}
 	
 	private void FixedUpdate()
 	{
@@ -986,8 +1091,8 @@ public class UnityAnimusClient : MonoBehaviour {
 			
 			
 			// move robot wherever human goes
-			bodyToBaseOffset = robotBase.position - robotBody.transform.position;
-			robotBody.transform.position = humanHead.position - bodyToBaseOffset;
+			//bodyToBaseOffset = robotBase.position - robotBody.transform.position;
+			//robotBody.transform.position = humanHead.position - bodyToBaseOffset;
 
 			// TODO: replace lines below with Unity XR code
 // 			if (robotDriver != null)

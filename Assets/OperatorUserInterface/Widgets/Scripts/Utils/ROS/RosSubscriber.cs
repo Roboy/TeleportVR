@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RosSharp.RosBridgeClient;
-using RosSharp.RosBridgeClient.Messages.Roboy;
+//using RosSharp.RosBridgeClient.MessageTypes.Roboy;
 
 namespace Widgets
 {

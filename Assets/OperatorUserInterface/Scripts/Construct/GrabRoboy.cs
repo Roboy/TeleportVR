@@ -6,7 +6,9 @@ public class GrabRoboy : MonoBehaviour
 {
     Vector3 defaultPos;
     Quaternion defaultRot;
+#if SENSEGLOVE
     SenseGlove_Grabable grab;
+#endif
     AdditiveSceneManager additiveSceneManager;
 
     /// <summary>
@@ -17,7 +19,9 @@ public class GrabRoboy : MonoBehaviour
         additiveSceneManager = GameObject.FindGameObjectWithTag("AdditiveSceneManager").GetComponent<AdditiveSceneManager>();
         defaultPos = this.transform.localPosition;
         defaultRot = this.transform.localRotation;
+    #if SENSEGLOVE
         grab = this.GetComponent<SenseGlove_Grabable>();
+#endif
     }
 
     /// <summary>
@@ -25,10 +29,12 @@ public class GrabRoboy : MonoBehaviour
     /// </summary>
     private void Update()
     {
+#if SENSEGLOVE
         if(this.transform.localPosition != defaultPos && !grab.IsInteracting())
         {
             ResetTransform();
         }
+#endif
     }
 
     /// <summary>
@@ -39,10 +45,12 @@ public class GrabRoboy : MonoBehaviour
     {
         if(other.name == "TargetZoneStartTransition")
         {
+#if SENSEGLOVE
             if (grab.EndInteractAllowed())
             {
                 grab.EndInteraction(grab.GrabScript, true);
             }
+#endif
             StateManager.Instance.GoToNextState();
         }
     }

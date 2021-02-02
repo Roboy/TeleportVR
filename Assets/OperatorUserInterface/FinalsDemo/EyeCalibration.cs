@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
+#if VIVESR
 using ViveSR.anipal.Eye;
+#endif
 
 public class EyeCalibration : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class EyeCalibration : MonoBehaviour
     /// </summary>
     public void Execute()
     {
+#if VIVESR
         SRanipal_Eye_API.LaunchEyeCalibration(IntPtr.Zero);
+#endif
     }
 }

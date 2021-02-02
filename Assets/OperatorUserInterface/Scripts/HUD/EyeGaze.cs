@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if TOBII
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tobii.G2OM;
@@ -32,3 +33,4 @@ public class EyeGaze : MonoBehaviour, IGazeFocusable
         }
     }
 }
+#endif

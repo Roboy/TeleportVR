@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Valve.VR;
+//using Valve.VR;
 using UnityEngine.Events;
 
 public class StateManager : Singleton<StateManager> {
@@ -131,13 +131,15 @@ public class StateManager : Singleton<StateManager> {
         if (!KillConstruct)
         {
             Destroy(GameObject.FindGameObjectWithTag("MainMenu"));
+#if SENSEGLOVE
             leftSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
             rightSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
             leftSenseGlove.SetActive(false);
             rightSenseGlove.SetActive(false);
+#endif
 
             constructFXManager.ToggleEffects(false);
         }
     }
-    #endregion
+#endregion
 }

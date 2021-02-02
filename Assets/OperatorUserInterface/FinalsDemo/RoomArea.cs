@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using Valve.VR;
+//using Valve.VR;
 
 public class RoomArea : MonoBehaviour
 {
@@ -67,7 +67,7 @@ public class RoomArea : MonoBehaviour
     // TODO: replace code below with 
 
     
-    #region move by controller
+#region move by controller
     /*
     public SteamVR_Action_Boolean TriggerClick;
     public SteamVR_Action_Boolean LeftClick;
@@ -164,7 +164,7 @@ public class RoomArea : MonoBehaviour
     */
 #endregion
 
-    #region room scale
+#region room scale
     /// <summary>
     /// Checks wheter a given position is within the room.
     /// Only checks for floor plan, y-value is neglected.
@@ -200,5 +200,5 @@ public class RoomArea : MonoBehaviour
 
         return false;
     }
-    #endregion
+#endregion
 }

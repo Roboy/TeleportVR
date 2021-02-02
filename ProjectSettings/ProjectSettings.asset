@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Roboy
-  productName: TeleportVR
+  productName: Teleport
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -124,6 +124,13 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 2091b301190b6ea4981018c99508541a, type: 2}
   - {fileID: -8249906856686166943, guid: 3c38ff90e79f0b34f8a863505ee60407, type: 2}
   - {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d, type: 2}
@@ -168,18 +175,19 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Android: aaa.Roboy.TeleportVR
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 23
-  AndroidTargetSdkVersion: 0
+  AndroidTargetSdkVersion: 28
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  ForceInternetPermission: 0
-  ForceSDCardPermission: 0
+  ForceInternetPermission: 1
+  ForceSDCardPermission: 1
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 0
@@ -680,7 +688,7 @@ PlayerSettings:
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
     1: ANIMUS_USE_OPENCV;UNITY_POST_PROCESSING_STACK_V2;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT
-    7: ANIMUS_USE_OPENCV;UNITY_POST_PROCESSING_STACK_V2;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT
+    7: ANIMUS_USE_OPENCV;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT;UNITY_POST_PROCESSING_STACK_V2
     13: UNITY_POST_PROCESSING_STACK_V2
     19: UNITY_POST_PROCESSING_STACK_V2
     21: UNITY_POST_PROCESSING_STACK_V2
