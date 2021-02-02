@@ -105,116 +105,116 @@ namespace Widgets
 
         public void ToggleHead()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(41);
-            if (latencyTestWidget.GetContext().currentIcon == "HeadGreen")
+            Widget headWidget = Manager.Instance.FindWidgetWithID(41);
+            if (headWidget.GetContext().currentIcon == "HeadGreen")
             {
-                latencyTestWidget.GetContext().currentIcon = "HeadYellow";
+                headWidget.GetContext().currentIcon = "HeadYellow";
             }
-            else if (latencyTestWidget.GetContext().currentIcon == "HeadYellow")
+            else if (headWidget.GetContext().currentIcon == "HeadYellow")
             {
-                latencyTestWidget.GetContext().currentIcon = "HeadRed";
+                headWidget.GetContext().currentIcon = "HeadRed";
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "HeadGreen";
+                headWidget.GetContext().currentIcon = "HeadGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            headWidget.ProcessRosMessage(headWidget.GetContext());
         }
         
         public void ToggleRightBody()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(42);
-            if (latencyTestWidget.GetContext().currentIcon == "RightBodyGreen")
+            Widget rightBodyWidget = Manager.Instance.FindWidgetWithID(42);
+            if (rightBodyWidget.GetContext().currentIcon == "RightBodyGreen")
             {
-                latencyTestWidget.GetContext().currentIcon = "RightBodyYellow";
+                rightBodyWidget.GetContext().currentIcon = "RightBodyYellow";
             }
-            else if (latencyTestWidget.GetContext().currentIcon == "RightBodyYellow")
+            else if (rightBodyWidget.GetContext().currentIcon == "RightBodyYellow")
             {
-                latencyTestWidget.GetContext().currentIcon = "RightBodyRed";
+                rightBodyWidget.GetContext().currentIcon = "RightBodyRed";
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "RightBodyGreen";
+                rightBodyWidget.GetContext().currentIcon = "RightBodyGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
         }
         
         public void ToggleLeftBody()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(43);
-            if (latencyTestWidget.GetContext().currentIcon == "LeftBodyGreen")
+            Widget leftBodyWidget = Manager.Instance.FindWidgetWithID(43);
+            if (leftBodyWidget.GetContext().currentIcon == "LeftBodyGreen")
             {
-                latencyTestWidget.GetContext().currentIcon = "LeftBodyYellow";
+                leftBodyWidget.GetContext().currentIcon = "LeftBodyYellow";
             }
-            else if (latencyTestWidget.GetContext().currentIcon == "LeftBodyYellow")
+            else if (leftBodyWidget.GetContext().currentIcon == "LeftBodyYellow")
             {
-                latencyTestWidget.GetContext().currentIcon = "LeftBodyRed";
+                leftBodyWidget.GetContext().currentIcon = "LeftBodyRed";
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "LeftBodyGreen";
+                leftBodyWidget.GetContext().currentIcon = "LeftBodyGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
         }
         
         public void ToggleRightHand()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(44);
-            if (latencyTestWidget.GetContext().currentIcon == "RightHandGreen")
+            Widget rightHandWidget = Manager.Instance.FindWidgetWithID(44);
+            if (rightHandWidget.GetContext().currentIcon == "RightHandGreen")
             {
-                latencyTestWidget.GetContext().currentIcon = "RightHandYellow";
+                rightHandWidget.GetContext().currentIcon = "RightHandYellow";
             }
-            else if (latencyTestWidget.GetContext().currentIcon == "RightHandYellow")
+            else if (rightHandWidget.GetContext().currentIcon == "RightHandYellow")
             {
-                latencyTestWidget.GetContext().currentIcon = "RightHandRed";
+                rightHandWidget.GetContext().currentIcon = "RightHandRed";
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "RightHandGreen";
+                rightHandWidget.GetContext().currentIcon = "RightHandGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
         }
         
         public void ToggleLeftHand()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(45);
-            if (latencyTestWidget.GetContext().currentIcon == "LeftHandGreen")
+            Widget leftHandWidget = Manager.Instance.FindWidgetWithID(45);
+            if (leftHandWidget.GetContext().currentIcon == "LeftHandGreen")
             {
-                latencyTestWidget.GetContext().currentIcon = "LeftHandYellow";
+                leftHandWidget.GetContext().currentIcon = "LeftHandYellow";
             }
-            else if (latencyTestWidget.GetContext().currentIcon == "LeftHandYellow")
+            else if (leftHandWidget.GetContext().currentIcon == "LeftHandYellow")
             {
-                latencyTestWidget.GetContext().currentIcon = "LeftHandRed";
+                leftHandWidget.GetContext().currentIcon = "LeftHandRed";
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "LeftHandGreen";
+                leftHandWidget.GetContext().currentIcon = "LeftHandGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
         }
         
         public void ToggleWheelchair()
         {
-            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(46);
-            if (latencyTestWidget.GetContext().currentIcon == "WheelchairGreen")
+            Widget wheelchairWidget = Manager.Instance.FindWidgetWithID(46);
+            if (wheelchairWidget.GetContext().currentIcon == "WheelchairGreen")
             {
-                latencyTestWidget.GetContext().currentIcon = "WheelchairYellow";
+                wheelchairWidget.GetContext().currentIcon = "WheelchairYellow";
             }
-            else if (latencyTestWidget.GetContext().currentIcon == "WheelchairYellow")
+            else if (wheelchairWidget.GetContext().currentIcon == "WheelchairYellow")
             {
-                latencyTestWidget.GetContext().currentIcon = "WheelchairRed";
+                wheelchairWidget.GetContext().currentIcon = "WheelchairRed";
             }
             else
             {
-                latencyTestWidget.GetContext().currentIcon = "WheelchairGreen";
+                wheelchairWidget.GetContext().currentIcon = "WheelchairGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
         }
     }
 }
