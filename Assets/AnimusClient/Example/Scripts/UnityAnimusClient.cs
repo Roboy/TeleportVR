@@ -571,7 +571,14 @@ public class UnityAnimusClient : MonoBehaviour {
 	{
 		// Present the latency and fps
 		Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
-        latencyWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
+		if (latency < 0) {
+			latencyWidget.GetContext().textMessage = $"FPS: {fps:F2}";
+		}
+		else 
+		{
+        	latencyWidget.GetContext().textMessage = $"Latency: {latency:F2}ms\nFPS: {fps:F2}";
+		}
+		print($"Latency: {latency:F2}ms\nFPS: {fps:F2}");
         //latencyWidget.GetContext().graphTimestamp = Time.time;
         //latencyWidget.GetContext().graphValue = latency;
         latencyWidget.ProcessRosMessage(latencyWidget.GetContext());
@@ -808,7 +815,7 @@ public class UnityAnimusClient : MonoBehaviour {
 	}
 	
 	// --------------------------Motor Modality-------------------------------------
-	public bool motor_initialise()
+	/*public bool motor_initialise()
 	{
 		motorEnabled = true;
 		_lastUpdate = 0;
@@ -985,7 +992,61 @@ public class UnityAnimusClient : MonoBehaviour {
 		motorEnabled = false;
 		StartCoroutine(SendLEDCommand(LEDS_OFF));
 		return true;
+	}*/
+
+	// --------------------------Motor Modality-------------------------------------
+  public bool motor_initialise()
+  {
+    motorEnabled = true;
+    _lastUpdate = 0;
+    motorMsg = new Float32Array();
+    motorSample = new Sample(DataMessage.Types.DataType.Float32Arr, motorMsg);
+
+    
+    return true;
+  }
+
+  public Sample motor_get()
+  {
+    if (!bodyTransitionReady) return null;
+    if (!motorEnabled)
+    {
+      Debug.Log("Motor modality not enabled");
+      return null;
+    }
+
+    if (Time.time * 1000 - _lastUpdate > 50)
+    {
+      var headAngles = humanHead.eulerAngles;
+      var roll = ClipAngle(headAngles.x);
+      var pitch = ClipAngle(-headAngles.y);
+      var yaw = ClipAngle(headAngles.z);
+      
+      var motorAngles = new List<float>
+      {
+        0, 0,
+        (float)roll * Mathf.Deg2Rad,
+        -(float)pitch * Mathf.Deg2Rad,
+        (float) yaw * Mathf.Deg2Rad,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      };
+
+	  motorMsg.Data.Clear();
+      motorMsg.Data.Add(motorAngles);
+      motorSample.Data = motorMsg;
+	  
+    	return motorSample;
 	}
+
+    return null;
+	}
+
+	public bool motor_close()
+  	{
+    	motorEnabled = false;
+    
+    return true;
+  	}
 	
 	private void FixedUpdate()
 	{
@@ -1003,8 +1064,8 @@ public class UnityAnimusClient : MonoBehaviour {
 			
 			
 			// move robot wherever human goes
-			bodyToBaseOffset = robotBase.position - robotBody.transform.position;
-			robotBody.transform.position = humanHead.position - bodyToBaseOffset;
+			//bodyToBaseOffset = robotBase.position - robotBody.transform.position;
+			//robotBody.transform.position = humanHead.position - bodyToBaseOffset;
 
 			// TODO: replace lines below with Unity XR code
 // 			if (robotDriver != null)

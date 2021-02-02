@@ -881,6 +881,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.1860066
+      objectReference: {fileID: 0}
+    - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.15494
+      objectReference: {fileID: 0}
     - target: {fileID: 2969494099595400440, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -895,6 +905,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969494099595400440, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0530509
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969494099595400440, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0192513
       objectReference: {fileID: 0}
     - target: {fileID: 6021411799948961768, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -2433,7 +2453,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -2448,7 +2468,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: robotName
-      value: RoboySimPhilip
+      value: Roboy2Xavier
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -2463,7 +2483,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.data[1]
-      value: speech
+      value: motor
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}

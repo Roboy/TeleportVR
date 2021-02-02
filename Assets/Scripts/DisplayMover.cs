@@ -72,7 +72,9 @@ public class DisplayMover : MonoBehaviour
         }
         else
         {
-            List<UnityEngine.XR.InputDevice> controller = new List<UnityEngine.XR.InputDevice>();
+            UnityEngine.XR.InputDeviceCharacteristics role = isLeft ? 
+            UnityEngine.XR.InputDeviceCharacteristics.Left : UnityEngine.XR.InputDeviceCharacteristics.Right;
+            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(role, controller);
 
             Dictionary<KeyCode, Vector3> moveDict = isLeft ? _moveDictLeft : _moveDictRight;
 
@@ -85,11 +87,11 @@ public class DisplayMover : MonoBehaviour
             }
         }
 
-        if (timer >= 1)
+        if (timer >= 0.2)
         {
             timer = 0;
-            string txt = "Display left:" + isLeft.ToString() + ", " + transform.localPosition.ToString();
-            //print(txt);
+            string txt = "Display left:" + isLeft.ToString() + ", " + (1000000 * transform.localPosition).ToString();
+            print(txt);
         }
         timer += Time.deltaTime;
     }
