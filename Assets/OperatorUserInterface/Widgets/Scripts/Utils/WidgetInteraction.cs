@@ -9,6 +9,7 @@ namespace Widgets
 {
     public class WidgetInteraction : Singleton<WidgetInteraction>
     {
+	public bool isTraining=true;
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.
         /// </summary>
@@ -29,9 +30,11 @@ namespace Widgets
             {
                 latencyTestWidget.GetContext().currentIcon = "MicroDisabled";
             }
-
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
-        }
+	    if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    }        
+	}
 
         public void ToggleSpeakers()
         {
@@ -45,7 +48,10 @@ namespace Widgets
                 latencyTestWidget.GetContext().currentIcon = "SpeakersOff";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+  	    if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
         }
 
         public void ToggleHead()
@@ -64,9 +70,37 @@ namespace Widgets
                 latencyTestWidget.GetContext().currentIcon = "HeadGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
         }
-        
+
+        public void ToggleFace()
+        {
+            Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(77);
+            if (latencyTestWidget.GetContext().currentIcon == "roboy_smiling")
+            {
+                latencyTestWidget.GetContext().currentIcon = "roboy_laugh";
+            }
+            else if (latencyTestWidget.GetContext().currentIcon == "roboy_laugh")
+            {
+                latencyTestWidget.GetContext().currentIcon = "roboy_grin";
+            }
+	    else if (latencyTestWidget.GetContext().currentIcon == "roboy_grin")
+            {
+                latencyTestWidget.GetContext().currentIcon = "roboy_sad";
+            }
+            else
+            {
+                latencyTestWidget.GetContext().currentIcon = "roboy_smiling";
+            }
+
+	    if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
+        }
         public void ToggleRightBody()
         {
             Widget latencyTestWidget = Manager.Instance.FindWidgetWithID(42);
@@ -83,7 +117,10 @@ namespace Widgets
                 latencyTestWidget.GetContext().currentIcon = "RightBodyGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
         }
         
         public void ToggleLeftBody()
@@ -102,7 +139,10 @@ namespace Widgets
                 latencyTestWidget.GetContext().currentIcon = "LeftBodyGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+   	    if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
         }
         
         public void ToggleRightHand()
@@ -121,7 +161,10 @@ namespace Widgets
                 latencyTestWidget.GetContext().currentIcon = "RightHandGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
         }
         
         public void ToggleLeftHand()
@@ -140,7 +183,10 @@ namespace Widgets
                 latencyTestWidget.GetContext().currentIcon = "LeftHandGreen";
             }
 
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+            if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
         }
         
         public void ToggleWheelchair()
@@ -158,8 +204,10 @@ namespace Widgets
             {
                 latencyTestWidget.GetContext().currentIcon = "WheelchairGreen";
             }
-
-            latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    if (!isTraining)
+	    {
+                latencyTestWidget.ProcessRosMessage(latencyTestWidget.GetContext());
+	    } 
         }
     }
 }

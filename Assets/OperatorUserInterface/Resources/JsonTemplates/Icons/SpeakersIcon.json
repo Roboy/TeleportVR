@@ -3,6 +3,7 @@
 	"type": "Icon",
 	"title": "SpeakersIcon",
 	"widgetPosition": "top",
+	"childWidgetId": 93,
 	"relativeChildPosition": "bottom",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "Speakers", "SpeakersOff" ],

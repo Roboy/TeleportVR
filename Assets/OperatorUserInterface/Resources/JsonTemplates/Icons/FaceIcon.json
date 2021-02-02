@@ -1,0 +1,13 @@
+{
+	"id": 77,
+	"type": "Icon",
+	"title": "FaceIcon",
+	"widgetPosition": "right",
+	"childWidgetId": 84,
+	"relativeChildPosition": "left",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "roboy_grin", "roboy_sad", "roboy_smiling","roboy_laugh" ],
+	"currentIcon": "roboy_smiling",
+	"onActivate": "ToggleFace",
+	"scale" : 3
+}

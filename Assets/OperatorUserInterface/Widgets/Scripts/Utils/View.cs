@@ -12,6 +12,7 @@ namespace Widgets
         public Widget childWidget;
         public View parentView;
         public Image dwellTimerImage;
+	
 
         private RelativeChildPosition relativeChildPosition;
 
@@ -71,6 +72,7 @@ namespace Widgets
         /// </summary>
         public void UnfoldChild()
         {
+	    
             if (!childIsActive && onActivate != null)
             {
                 WidgetInteraction.Instance.OnActivate(onActivate);
@@ -78,7 +80,7 @@ namespace Widgets
 
             childIsActive = true;
             
-            if (childWidget != null)
+            if (childWidget != null && (WidgetInteraction.Instance.isTraining || childWidget.GetID()==33) )
             {
                 childWidget.GetView().SetParentView(this);
                 childWidget.GetView().ShowView(relativeChildPosition);
