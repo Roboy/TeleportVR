@@ -1426,7 +1426,6 @@ PrefabInstance:
       propertyPath: m_ValidColorGradient.atime3
       value: 65535
       objectReference: {fileID: 0}
-
     - target: {fileID: 6021411800480249784, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_ValidColorGradient.ctime1
