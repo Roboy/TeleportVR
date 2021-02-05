@@ -432,6 +432,9 @@ public class UnityAnimusClient : MonoBehaviour {
 	
 	private bool initMats;
 
+	public bool shouldTransmitHeadRot;
+	private Vector3 lastHeadRot;
+
 	// motor variables
 	public Transform robotHead;
 	public Transform robotBase;
@@ -1043,7 +1046,10 @@ public class UnityAnimusClient : MonoBehaviour {
 
     if (Time.time * 1000 - _lastUpdate > 50)
     {
-      var headAngles = humanHead.eulerAngles;
+      var headAngles = shouldTransmitHeadRot ? humanHead.eulerAngles : lastHeadRot;
+	  if (shouldTransmitHeadRot) {
+		  lastHeadRot = headAngles;
+	  }
       var roll = ClipAngle(headAngles.x);
       var pitch = ClipAngle(-headAngles.y);
       var yaw = ClipAngle(headAngles.z);

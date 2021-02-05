@@ -27,6 +27,20 @@ namespace Widgets
         {
             Invoke(function, 0);
         }
+        public void ToggleHeadControl()
+        {
+            Widget widget = Manager.Instance.FindWidgetWithID(24);
+            if (widget.GetContext().currentIcon == "HeadsetGreen")
+            {
+                widget.GetContext().currentIcon = "HeadsetYellow";
+            }
+            else
+            {
+                widget.GetContext().currentIcon = "HeadsetGreen";
+            }
+
+            widget.ProcessRosMessage(widget.GetContext());
+        }
 
         public void ToggleMicro()
         {
@@ -34,10 +48,12 @@ namespace Widgets
             if (widget.GetContext().currentIcon == "MicroDisabled")
             {
                 widget.GetContext().currentIcon = "Micro";
+                Microphone.Start(null, true, 10, 44100);
             }
             else
             {
                 widget.GetContext().currentIcon = "MicroDisabled";
+                Microphone.End(null);
             }
 
             widget.ProcessRosMessage(widget.GetContext());
