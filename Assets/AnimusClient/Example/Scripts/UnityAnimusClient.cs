@@ -415,8 +415,8 @@ public class UnityAnimusClient : MonoBehaviour {
 	// vision variables
 	public GameObject LeftEye;
 	public GameObject RightEye;
-	private GameObject _leftPlane;
-	private GameObject _rightPlane;
+	[SerializeField] private GameObject _leftPlane;
+	[SerializeField] private GameObject _rightPlane;
 	private Renderer _leftRenderer;
 	private Renderer _rightRenderer;
 	private Texture2D _leftTexture;
@@ -622,8 +622,8 @@ public class UnityAnimusClient : MonoBehaviour {
 			}
 		}
 
-		_leftPlane = LeftEye.transform.Find("LeftEyePlane").gameObject;
-		_rightPlane = RightEye.transform.Find("RightEyePlane").gameObject;
+		//_leftPlane = LeftEye.transform.Find("LeftEyePlane").gameObject;
+		//_rightPlane = RightEye.transform.Find("RightEyePlane").gameObject;
 
 		_leftRenderer = _leftPlane.GetComponent<Renderer>();
 		_rightRenderer = _rightPlane.GetComponent<Renderer>();
@@ -633,6 +633,17 @@ public class UnityAnimusClient : MonoBehaviour {
 		// Comment the line below to enable two images - Not tested
 		//RightEye.SetActive(false);
 		return visionEnabled;
+	}
+
+	public void SetDisplaystate() {
+		if (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD) {
+			_rightPlane.SetActive(true);
+			_leftPlane.SetActive(true);
+		}
+		else {
+			_rightPlane.SetActive(false);
+			_leftPlane.SetActive(false);
+		}
 	}
 
 	public bool vision_set(ImageSamples currSamples)
@@ -647,6 +658,10 @@ public class UnityAnimusClient : MonoBehaviour {
 		{
 			Debug.Log("Vision modality not enabled. Cannot set");
 			return false;
+		}
+
+		if (AdditiveSceneManager.GetCurrentScene() != Scenes.HUD) {
+			return true;
 		}
 
 		if (currSamples == null)
@@ -1091,6 +1106,7 @@ public class UnityAnimusClient : MonoBehaviour {
 
 	private void Update()
 	{
+		SetDisplaystate();
 
 		if (motorEnabled && bodyTransitionReady)
 		{

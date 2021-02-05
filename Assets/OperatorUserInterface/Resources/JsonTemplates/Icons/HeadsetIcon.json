@@ -3,9 +3,9 @@
 	"type": "Icon",
 	"title": "HeadsetIcon",
 	"widgetPosition": "top",
-	"childWidgetId": 34,
 	"relativeChildPosition": "bottom",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "HeadsetGreen", "HeadsetYellow", "HeadsetRed" ],
-	"currentIcon": "HeadsetGreen"
+	"currentIcon": "HeadsetGreen",
+	"onActivate": "ToggleHeadControl"
 }
