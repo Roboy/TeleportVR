@@ -1,0 +1,12 @@
+{
+	"id": 55,
+	"type": "Icon",
+	"title": "aLeftHandHighlight",
+	"widgetPosition": "bottomleft",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "LeftHandHighlight" ],
+	"currentIcon": "LeftHandHighlight",
+	"yPositionOffset": -35.0,
+	"xPositionOffset": 135.0,
+	"scale": 0.7
+}

@@ -487,7 +487,7 @@ public class UnityAnimusClient : MonoBehaviour {
 	public string oldEmotion;
 	private Animus.Data.StringSample emotionMsg;
 	private Sample emotionSample;
-	
+
 	private const string LEDS_OFF = "off";
 	private const string LEDS_CONNECTING = "robot_connecting";	
 	private const string LEDS_CONNECTED = "robot_established";
@@ -797,14 +797,40 @@ public class UnityAnimusClient : MonoBehaviour {
 		return true;
 	}
 
-	public bool proprioception_set(Float32Array[] currSample)
+	public bool proprioception_set(Float32Array currSample)
 	{
-		if (currSample.Length > 2) {
-// 			if (currSample[0]>0) {
-			// OVRInput.SetControllerVibration(currSample[0], currSample[1], OVRInput.Controller.LTouch);
+		//print(currSample);
+		
+		Widget headWidget = Manager.Instance.FindWidgetWithID(41);
+		Widget rightBodyWidget = Manager.Instance.FindWidgetWithID(42);
+		Widget leftBodyWidget = Manager.Instance.FindWidgetWithID(43);
+		Widget rightHandWidget = Manager.Instance.FindWidgetWithID(44);
+		Widget leftHandWidget = Manager.Instance.FindWidgetWithID(45);
+		Widget wheelchairWidget = Manager.Instance.FindWidgetWithID(46);
+
+		headWidget.GetContext().currentIcon = currSample.ToString()[12] == '1' ? "HeadGreen" : "HeadRed";
+		rightBodyWidget.GetContext().currentIcon = currSample.ToString()[15] == '1' ? "RightBodyGreen" : "RightBodyRed";
+		leftBodyWidget.GetContext().currentIcon = currSample.ToString()[18] == '1' ? "LeftBodyGreen" : "LeftBodyRed";
+		rightHandWidget.GetContext().currentIcon = currSample.ToString()[21] == '1' ? "RightHandGreen" : "RightHandRed";
+		leftHandWidget.GetContext().currentIcon = currSample.ToString()[24] == '1' ? "LeftHandGreen" : "LeftHandRed";
+		wheelchairWidget.GetContext().currentIcon = currSample.ToString()[27] == '1' ? "WheelchairGreen" : "WheelchairRed";
+
+		headWidget.ProcessRosMessage(headWidget.GetContext());
+		rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
+		leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
+		rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
+		leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
+		wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
+
+		/*
+		if (currSample.CalculateSize() > 1)
+		{
+ 			if (currSample[0]>0) { 
+	            OVRInput.SetControllerVibration(currSample[0], currSample[1], OVRInput.Controller.LTouch);
 			// TODO: maybe add vibration as well?
-// 			}
+ 			}
 		}
+		*/
 		
 		return true;
 	}
@@ -1059,6 +1085,7 @@ public class UnityAnimusClient : MonoBehaviour {
 
 	private void Update()
 	{
+
 		if (motorEnabled && bodyTransitionReady)
 		{
 			
