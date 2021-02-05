@@ -2311,8 +2311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timeout: 10
-  Protocol: 0
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 1
   RosBridgeServerUrl: ws://192.168.137.1:9090
 --- !u!114 &1765238918 stripped
 MonoBehaviour:

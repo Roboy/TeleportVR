@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RosSharp.RosBridgeClient;
@@ -6,7 +6,7 @@ using RosSharp.RosBridgeClient;
 
 namespace Widgets
 {
-    public class RosSubscriber : Subscriber<RosSharp.RosBridgeClient.Messages.Standard.String>
+    public class RosSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.MessageTypes.Std.String>
     {
         /// <summary>
         /// Holds a queue of messages to be read one after the other from the manager.
@@ -72,7 +72,7 @@ namespace Widgets
         /// Receives the message by enqueueing the queue.
         /// </summary>
         /// <param name="message">Message.</param>
-        protected override void ReceiveMessage(RosSharp.RosBridgeClient.Messages.Standard.String message)
+        protected override void ReceiveMessage(RosSharp.RosBridgeClient.MessageTypes.Std.String message)
         {
             Debug.Log("Received Message");
             Debug.Log(message.data);
