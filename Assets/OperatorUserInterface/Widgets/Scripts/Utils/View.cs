@@ -245,64 +245,75 @@ namespace Widgets
                 dwellTimerImage.fillAmount = dwellTimer.GetFraction();
             }
 
-            
-            // Input to activate or deactivate Highlights by Button down
-            if (Input.GetKeyDown(KeyCode.H))
+            // Input to Highlight Bodyparts
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                Widget headWidget = Manager.Instance.FindWidgetWithID(51);
-                headWidget.SetActive(true);
-                headWidget.ProcessRosMessage(headWidget.GetContext());
+                highlight(54);
             }
-            else if (Input.GetKeyUp(KeyCode.H))
+            else if (Input.GetKeyUp(KeyCode.C))
             {
-                Widget headWidget = Manager.Instance.FindWidgetWithID(51);
-                headWidget.SetActive(false);
-                headWidget.ProcessRosMessage(headWidget.GetContext());
+                dehighlight(54);
             }
             
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.V))
             {
-                Widget rightBodyWidget = Manager.Instance.FindWidgetWithID(52);
-                rightBodyWidget.SetActive(true);
-                rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
-                
-                Widget rightHandWidget = Manager.Instance.FindWidgetWithID(54);
-                rightHandWidget.SetActive(true);
-                rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());            
+                highlight(52);
             }
-            else if (Input.GetKeyUp(KeyCode.G))
+            else if (Input.GetKeyUp(KeyCode.V))
             {
-                Widget rightBodyWidget = Manager.Instance.FindWidgetWithID(52);
-                rightBodyWidget.SetActive(false);
-                rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
-                
-                Widget rightHandWidget = Manager.Instance.FindWidgetWithID(54);
-                rightHandWidget.SetActive(false);
-                rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext()); 
+                dehighlight(52);
             }
             
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.B))
             {
-                Widget leftBodyWidget = Manager.Instance.FindWidgetWithID(53);
-                leftBodyWidget.SetActive(true);
-                leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
-                
-                Widget leftHandWidget = Manager.Instance.FindWidgetWithID(55);
-                leftHandWidget.SetActive(true);
-                leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());            
+                highlight(51);
             }
-            else if (Input.GetKeyUp(KeyCode.J))
+            else if (Input.GetKeyUp(KeyCode.B))
             {
-                Widget leftBodyWidget = Manager.Instance.FindWidgetWithID(53);
-                leftBodyWidget.SetActive(false);
-                leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
-                
-                Widget leftHandWidget = Manager.Instance.FindWidgetWithID(55);
-                leftHandWidget.SetActive(false);
-                leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext()); 
+                dehighlight(51);
             }
             
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                highlight(53);
+            }
+            else if (Input.GetKeyUp(KeyCode.N))
+            {
+                dehighlight(53);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                highlight(55);
+            }
+            else if (Input.GetKeyUp(KeyCode.M))
+            {
+                dehighlight(55);
+            }
 
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                highlight(56);
+            }
+            else if (Input.GetKeyUp(KeyCode.X))
+            {
+                dehighlight(56);
+            }
+
+        }
+
+        public void highlight(int id)
+        {
+            Widget widget = Manager.Instance.FindWidgetWithID(id);
+            widget.GetContext().currentIcon = widget.GetContext().icons[1];
+            widget.ProcessRosMessage(widget.GetContext());
+        }
+
+        public void dehighlight(int id)
+        {
+            Widget widget = Manager.Instance.FindWidgetWithID(id);
+            widget.GetContext().currentIcon = widget.GetContext().icons[0];
+            widget.ProcessRosMessage(widget.GetContext());
         }
 
         /// <summary>
