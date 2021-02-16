@@ -23,6 +23,8 @@ namespace Widgets
 
         public string onActivate;
 
+        public string onClose;
+
         public abstract void Init(Widget widget);
 
         #region FLAGS
@@ -36,7 +38,7 @@ namespace Widgets
         /// </summary>
         /// <param name="relativeChildPosition"></param>
         /// <param name="dwellTimerDuration"></param>
-        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate, float xPositionOffset, float yPositionOffset, float scale)
+        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate, string onClose, float xPositionOffset, float yPositionOffset, float scale)
         {
             SetRelativeChildPosition(relativeChildPosition);
             this.dwellTimerDuration = dwellTimerDuration;
@@ -48,7 +50,9 @@ namespace Widgets
 
             dwellTimerImage = gameObject.GetComponentInChildren<Image>();
             
-            keepChildUnfoldedTimer = new Timer();
+            if (WidgetInteraction.Instance.allowDwellTime) {
+                keepChildUnfoldedTimer = new Timer();
+            }
             dwellTimer = new Timer();
 
             transform.localPosition = new Vector3(xPositionOffset, yPositionOffset, 0);
@@ -63,11 +67,24 @@ namespace Widgets
             }
 
             this.onActivate = onActivate;
+            this.onClose = onClose;
 
             Button btn = GetComponentInChildren<Button>();
             if (btn != null)
             {
-                btn.onClick.AddListener(UnfoldChild);
+                btn.onClick.AddListener(ToggleChildFold);
+            }
+        }
+
+        /// <summary>
+        /// If the child is folded in, unfold it, else fold it in.
+        /// </summary>
+        public void ToggleChildFold() {
+            if (childIsActive) {
+                FoldChildIn();
+            }
+            else {
+                UnfoldChild();
             }
         }
 
@@ -78,7 +95,7 @@ namespace Widgets
         {
             if ((!childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onActivate != null)
             {
-                WidgetInteraction.Instance.OnActivate(onActivate);
+                WidgetInteraction.Instance.InvokeFunction(onActivate);
             }
 
             childIsActive = true;
@@ -97,6 +114,11 @@ namespace Widgets
         /// </summary>
         public void FoldChildIn()
         {
+            if ((childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onClose != null) // is allowDwelltime needed?
+            {
+                WidgetInteraction.Instance.InvokeFunction(onClose);
+            }
+
             childIsActive = false;
 
             if (parentView != null)
@@ -146,7 +168,9 @@ namespace Widgets
         {
             isLookedAt = true;
 
-            keepChildUnfoldedTimer.SetTimer(keepOpenDuration, FoldChildIn);
+            if (keepChildUnfoldedTimer != null) {
+                keepChildUnfoldedTimer.SetTimer(keepOpenDuration, FoldChildIn);
+            }
             keepChildUnfolded = false;
 
             if (parentView != null)
@@ -178,7 +202,9 @@ namespace Widgets
                 OnSelectionChildExit();
             }
 
-            keepChildUnfoldedTimer.ResetTimer();
+            if (keepChildUnfoldedTimer != null) {
+                keepChildUnfoldedTimer.ResetTimer();
+            }
             keepChildUnfolded = true;
 
             if (useDwellTimer)
@@ -232,7 +258,7 @@ namespace Widgets
         public void Update()
         {
             // Folding child in again timer
-            if (keepChildUnfolded)
+            if (keepChildUnfolded && keepChildUnfoldedTimer != null)
             {
                 keepChildUnfoldedTimer.LetTimePass(Time.deltaTime);
             }

@@ -18,15 +18,18 @@ namespace Widgets
         [SerializeField] private UnityAnimusClient client;
 
         public bool allowDwellTime;
+
+        public static bool settingsAreActive;
         
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.
         /// </summary>
         /// <param name="function">The function name.</param>
-        public void OnActivate(string function)
+        public void InvokeFunction(string function)
         {
             Invoke(function, 0);
         }
+
         public void ToggleHeadControl()
         {
             Widget widget = Manager.Instance.FindWidgetWithID(24);
@@ -117,6 +120,16 @@ namespace Widgets
             }*/
 
             widget.ProcessRosMessage(widget.GetContext());
+        }
+
+        public void OpenDisplaySettings() {
+            settingsAreActive = true;
+            print("Opened Display settings!");
+        }
+
+        public void CloseDisplaySettings() {
+            settingsAreActive = false;
+            print("Closed Display settings!");
         }
 
         public void ToggleHead()
