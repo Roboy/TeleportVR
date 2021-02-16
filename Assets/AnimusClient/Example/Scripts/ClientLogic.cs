@@ -9,16 +9,16 @@ public class ClientLogic : Singleton<ClientLogic>
 {
     public AnimusClientManager AnimusManager;
     public UnityAnimusClient unityClient;
-    
+
     public string robotName;
     public string AccountEmail;
     public string AccountPassword;
-    
-    public string[] requiredModalities = new string[] {"vision"};
-    
+
+    public string[] requiredModalities = new string[] { "vision" };
+
     public Robot _chosenRobot;
     private int _count;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,7 @@ public class ClientLogic : Singleton<ClientLogic>
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     IEnumerator ClientManagerLogic()
@@ -38,7 +38,7 @@ public class ClientLogic : Singleton<ClientLogic>
         if (_count < 10)
         {
             _count++;
-            yield return null; 
+            yield return null;
         }
 
         // Step 1 - Login user
@@ -49,15 +49,24 @@ public class ClientLogic : Singleton<ClientLogic>
         }
         if (!AnimusManager.loginSuccess) yield break;
         Debug.Log("Login successful.");
-        
+
         // Step 2 - Search for connectable robots
-        AnimusManager.SearchRobots();
-        while (!AnimusManager.searchResultsAvailable)
+        while (true)
         {
-            yield return null;
+            AnimusManager.SearchRobots();
+            while (!AnimusManager.searchResultsAvailable)
+            {
+                yield return null;
+            }
+            if (AnimusManager.searchReturn == "Cannot search more than once per second")
+            {
+                yield return new WaitForSeconds(2);
+                continue;
+            }
+            if (!AnimusManager.searchSuccess) yield break;
+            break;
         }
-        if (!AnimusManager.searchSuccess) yield break;
-    
+
         // Step 3 - Choose Robot
         foreach (var robot in AnimusManager.robotDetailsList)
         {
@@ -67,18 +76,18 @@ public class ClientLogic : Singleton<ClientLogic>
                 _chosenRobot = robot;
             }
         }
-        
+
         if (_chosenRobot == null)
         {
             Debug.Log($"Robot {robotName} not found");
             yield break;
         }
-        
+
         Debug.Log($"Found robot {robotName}");
-             
+
         //Step 4 - Send AnimusManager the interface it should use for this connection
         AnimusManager.SetClientClass(unityClient);
-        
+
         // Step 5 - Connect to the robot
         AnimusManager.StartRobotConnection(_chosenRobot);
         while (!AnimusManager.connectToRobotFinished)
@@ -86,7 +95,7 @@ public class ClientLogic : Singleton<ClientLogic>
             yield return null;
         }
         if (!AnimusManager.connectedToRobotSuccess) yield break;
-        
+
         // Step 5 - Starting all modalities
         // var requiredModalities = new string[] {"vision", "audition", "voice" };
         //var requiredModalities = new string[] {"vision", "audition"};
