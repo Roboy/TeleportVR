@@ -33,6 +33,12 @@ public class DisplayMover : MonoBehaviour
         {KeyCode.L, Vector3.right},
     };
 
+    // A reference to the keys under which the display offsets get saved between sessions
+    public static readonly string LeftDisplayOffsetKey = "LeftDisplayOffset";
+    public static readonly string RightDisplayOffsetKey = "RightDisplayOffset";
+
+    private string DisplayOffsetKey;
+
     private void Start()
     {
         //UnityEngine.XR.InputDeviceRole role = isLeft ?
@@ -40,6 +46,11 @@ public class DisplayMover : MonoBehaviour
         UnityEngine.XR.InputDeviceCharacteristics role = isLeft ?
             UnityEngine.XR.InputDeviceCharacteristics.Left : UnityEngine.XR.InputDeviceCharacteristics.Right;
         UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(role, controller);
+
+        DisplayOffsetKey = isLeft ? LeftDisplayOffsetKey : RightDisplayOffsetKey;
+        transform.localPosition = new Vector3(  PlayerPrefs.GetFloat(DisplayOffsetKey + "X", 0),
+                                                PlayerPrefs.GetFloat(DisplayOffsetKey + "Y", 0),
+                                                PlayerPrefs.GetFloat(DisplayOffsetKey + "Z", 2));
     }
 
     void Update()
@@ -100,8 +111,19 @@ public class DisplayMover : MonoBehaviour
                 timer = 0;
                 string txt = "Display left:" + isLeft.ToString() + ", " + (1000000 * transform.localPosition).ToString();
                 print(txt);
+                SaveOffsets();
             }
             timer += Time.deltaTime;
         }
     }
+
+    private void SaveOffsets() {
+        PlayerPrefs.SetFloat(DisplayOffsetKey + "X", transform.localPosition.x);
+        PlayerPrefs.SetFloat(DisplayOffsetKey + "Y", transform.localPosition.y);
+        PlayerPrefs.SetFloat(DisplayOffsetKey + "Z", transform.localPosition.z);
+    }
 }
+
+// my preferred offset for Roboy: 
+// Left: -0.0530509, 0.0192513, 2, Scale: 0.6
+// Right:0.1860066, -0.15494, 2, Scale: 0.6
