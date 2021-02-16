@@ -23,6 +23,8 @@ namespace Widgets
 
         public string onActivate;
 
+        public string onClose;
+
         public abstract void Init(Widget widget);
 
         #region FLAGS
@@ -36,7 +38,7 @@ namespace Widgets
         /// </summary>
         /// <param name="relativeChildPosition"></param>
         /// <param name="dwellTimerDuration"></param>
-        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate, float xPositionOffset, float yPositionOffset, float scale)
+        public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate, string onClose, float xPositionOffset, float yPositionOffset, float scale)
         {
             SetRelativeChildPosition(relativeChildPosition);
             this.dwellTimerDuration = dwellTimerDuration;
@@ -63,6 +65,7 @@ namespace Widgets
             }
 
             this.onActivate = onActivate;
+            this.onClose = onClose;
 
             Button btn = GetComponentInChildren<Button>();
             if (btn != null)
@@ -78,7 +81,7 @@ namespace Widgets
         {
             if ((!childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onActivate != null)
             {
-                WidgetInteraction.Instance.OnActivate(onActivate);
+                WidgetInteraction.Instance.InvokeFunction(onActivate);
             }
 
             childIsActive = true;
@@ -97,6 +100,11 @@ namespace Widgets
         /// </summary>
         public void FoldChildIn()
         {
+            if ((childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onClose != null) // is allowDwelltime needed?
+            {
+                WidgetInteraction.Instance.InvokeFunction(onClose);
+            }
+
             childIsActive = false;
 
             if (parentView != null)

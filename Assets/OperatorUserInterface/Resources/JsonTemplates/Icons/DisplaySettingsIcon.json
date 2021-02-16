@@ -8,5 +8,6 @@
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "settings" ],
 	"currentIcon": "settings",
-	"onActivate": "OpenDisplaySettings"
+	"onActivate": "OpenDisplaySettings",
+	"onClose": "CloseDisplaySettings"
 }

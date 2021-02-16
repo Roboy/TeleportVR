@@ -16,8 +16,10 @@ namespace Widgets
         public float unfoldChildDwellTimer;
         public int childWidgetId;
         public int timestamp;
-        // determine a function name that will be called of the widget is activated
+        // determine a function name that will be called when the widget gets activated
         public string onActivate;
+        // determine a function name that will be called when the widget gets closed
+        public string onClose;
         public float xPositionOffset;
         public float yPositionOffset;
         public float scale;

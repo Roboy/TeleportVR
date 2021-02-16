@@ -19,16 +19,17 @@ namespace Widgets
 
         public bool allowDwellTime;
 
-        public bool settingsAreActive;
+        public static bool settingsAreActive;
         
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.
         /// </summary>
         /// <param name="function">The function name.</param>
-        public void OnActivate(string function)
+        public void InvokeFunction(string function)
         {
             Invoke(function, 0);
         }
+
         public void ToggleHeadControl()
         {
             Widget widget = Manager.Instance.FindWidgetWithID(24);
@@ -124,6 +125,11 @@ namespace Widgets
         public void OpenDisplaySettings() {
             settingsAreActive = true;
             print("Opened Display settings!");
+        }
+
+        public void CloseDisplaySettings() {
+            settingsAreActive = false;
+            print("Closed Display settings!");
         }
 
         public void ToggleHead()
