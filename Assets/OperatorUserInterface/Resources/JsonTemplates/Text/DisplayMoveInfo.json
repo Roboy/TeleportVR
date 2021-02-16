@@ -1,0 +1,10 @@
+{
+	"id": 290,
+	"type": "Text",
+	"title": "DisplayMoveInfo",
+	"widgetPosition": "child",
+	"textMessage": "Use the joysticks and the buttons X/Y and A/B to adjust the display positioning",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ],
+	"scale":1.0
+}

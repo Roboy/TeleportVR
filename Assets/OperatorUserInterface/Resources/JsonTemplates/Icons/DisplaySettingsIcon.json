@@ -1,0 +1,12 @@
+{
+	"id": 29,
+	"type": "Icon",
+	"title": "DisplaySettings",
+	"widgetPosition": "top",
+	"childWidgetId": 290,
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "settings" ],
+	"currentIcon": "settings",
+	"onActivate": "OpenDisplaySettings"
+}
