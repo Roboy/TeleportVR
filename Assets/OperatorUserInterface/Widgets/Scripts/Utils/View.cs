@@ -50,7 +50,9 @@ namespace Widgets
 
             dwellTimerImage = gameObject.GetComponentInChildren<Image>();
             
-            keepChildUnfoldedTimer = new Timer();
+            if (WidgetInteraction.Instance.allowDwellTime) {
+                keepChildUnfoldedTimer = new Timer();
+            }
             dwellTimer = new Timer();
 
             transform.localPosition = new Vector3(xPositionOffset, yPositionOffset, 0);
@@ -70,7 +72,19 @@ namespace Widgets
             Button btn = GetComponentInChildren<Button>();
             if (btn != null)
             {
-                btn.onClick.AddListener(UnfoldChild);
+                btn.onClick.AddListener(ToggleChildFold);
+            }
+        }
+
+        /// <summary>
+        /// If the child is folded in, unfold it, else fold it in.
+        /// </summary>
+        public void ToggleChildFold() {
+            if (childIsActive) {
+                FoldChildIn();
+            }
+            else {
+                UnfoldChild();
             }
         }
 
@@ -154,7 +168,9 @@ namespace Widgets
         {
             isLookedAt = true;
 
-            keepChildUnfoldedTimer.SetTimer(keepOpenDuration, FoldChildIn);
+            if (keepChildUnfoldedTimer != null) {
+                keepChildUnfoldedTimer.SetTimer(keepOpenDuration, FoldChildIn);
+            }
             keepChildUnfolded = false;
 
             if (parentView != null)
@@ -186,7 +202,9 @@ namespace Widgets
                 OnSelectionChildExit();
             }
 
-            keepChildUnfoldedTimer.ResetTimer();
+            if (keepChildUnfoldedTimer != null) {
+                keepChildUnfoldedTimer.ResetTimer();
+            }
             keepChildUnfolded = true;
 
             if (useDwellTimer)
@@ -240,7 +258,7 @@ namespace Widgets
         public void Update()
         {
             // Folding child in again timer
-            if (keepChildUnfolded)
+            if (keepChildUnfolded && keepChildUnfoldedTimer != null)
             {
                 keepChildUnfoldedTimer.LetTimePass(Time.deltaTime);
             }
