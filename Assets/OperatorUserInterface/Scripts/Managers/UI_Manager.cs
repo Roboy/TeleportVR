@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class UI_Manager : Singleton<UI_Manager>
 {
     [Header("Select Interaction Techniques")]
-    [Tooltip("Technique for pointing.")]
+    [Tooltip("Technique for pointing. Auto switches between PointerController and PointerMouse depending on the Plattform.")]
     public PointerTechnique pointerTechnique;
 
     private Camera cam;
@@ -20,7 +20,7 @@ public class UI_Manager : Singleton<UI_Manager>
 
     private Vector2 pointerPos;
 
-    public enum PointerTechnique { PointerMouse, PointerViveController, PointerSenseGlove, PointerController };
+    public enum PointerTechnique { PointerMouse, PointerViveController, PointerSenseGlove, PointerController, Auto };
 
     [SerializeField] bool showLaser;
 
@@ -28,6 +28,15 @@ public class UI_Manager : Singleton<UI_Manager>
 
     public void Start()
     {
+        if (pointerTechnique == PointerTechnique.Auto) {
+            if (Application.platform == RuntimePlatform.Android) {
+                pointerTechnique = PointerTechnique.PointerController;
+            }
+            else {
+                pointerTechnique = PointerTechnique.PointerMouse;
+            }
+            showLaser = pointerTechnique == PointerTechnique.PointerMouse;
+        }
         CreatePointer();
         cam = Camera.main;
         clickSound = this.GetComponent<AudioSource>();

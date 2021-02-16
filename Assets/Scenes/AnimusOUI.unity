@@ -1173,11 +1173,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6021411800480249784, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6021411800480249784, guid: 672391305442d4247958d25d550bd81f,
-        type: 3}
       propertyPath: m_WidthCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
@@ -1441,6 +1436,11 @@ PrefabInstance:
       propertyPath: m_InvalidColorGradient.atime3
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 6021411800480249784, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6021411800480249785, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
@@ -1545,11 +1545,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_PostInfinity
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6021411800480249784, guid: 672391305442d4247958d25d550bd81f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6021411800480249787, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -2055,6 +2050,16 @@ PrefabInstance:
       propertyPath: LeftEye
       value: 
       objectReference: {fileID: 2035148874}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
+      propertyPath: _leftPlane
+      value: 
+      objectReference: {fileID: 689167815}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
+      propertyPath: _rightPlane
+      value: 
+      objectReference: {fileID: 1515572239}
     - target: {fileID: 5126804911363041838, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
       propertyPath: m_IsActive
@@ -2316,8 +2321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timeout: 10
-  Protocol: 0
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 1
   RosBridgeServerUrl: ws://192.168.137.1:9090
 --- !u!114 &1765238918 stripped
 MonoBehaviour:

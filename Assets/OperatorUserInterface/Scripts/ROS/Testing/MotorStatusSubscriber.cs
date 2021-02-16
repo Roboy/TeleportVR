@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RosSharp.RosBridgeClient;
-using RosSharp.RosBridgeClient.Messages.Roboy;
+/*using RosSharp.RosBridgeClient.Messages.Roboy;
 /// <summary>
 /// Motor status subscriber.
 /// </summary>
@@ -67,4 +67,4 @@ public class MotorStatusSubscriber : Subscriber<RosSharp.RosBridgeClient.Message
         Debug.Log(message.angle);
         EnqueueMotorMessage(message);      
     }
-}
+}*/

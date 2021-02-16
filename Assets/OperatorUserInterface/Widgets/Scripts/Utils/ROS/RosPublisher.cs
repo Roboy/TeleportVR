@@ -9,7 +9,7 @@ namespace Widgets
     /// <summary>
     /// The RosPublisher class is mainly for mocking and debugging purposes.
     /// </summary>
-    public class RosPublisher : Publisher<RosSharp.RosBridgeClient.Messages.Standard.String>
+    public class RosPublisher : UnityPublisher<RosSharp.RosBridgeClient.MessageTypes.Std.String>
     {
         private float temperature = 20;
         private bool started = false;
@@ -42,7 +42,7 @@ namespace Widgets
         /// Publishs the json string as a ros message.
         /// </summary>
         /// <param name="message">message</param>
-        private void PublishMessage(RosSharp.RosBridgeClient.Messages.Standard.String message)
+        private void PublishMessage(RosSharp.RosBridgeClient.MessageTypes.Std.String message)
         {
             if (started)
             {
@@ -57,7 +57,7 @@ namespace Widgets
         public void PublishMessage(RosJsonMessage demoMessage)
         {
             string jsonString = JsonUtility.ToJson(demoMessage);
-            RosSharp.RosBridgeClient.Messages.Standard.String tmpMessage = new RosSharp.RosBridgeClient.Messages.Standard.String(jsonString);
+            RosSharp.RosBridgeClient.MessageTypes.Std.String tmpMessage = new RosSharp.RosBridgeClient.MessageTypes.Std.String(jsonString);
             PublishMessage(tmpMessage);
 
             WriteMessageToFile("demoMessage", jsonString);

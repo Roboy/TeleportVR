@@ -5,7 +5,7 @@ using RosSharp.RosBridgeClient;
 /// <summary>
 /// Mock motor status publisher.
 /// </summary>
-public class MockMotorStatusPublisher : Publisher<RosSharp.RosBridgeClient.Messages.Roboy.MotorStatus>
+/*public class MockMotorStatusPublisher : Publisher<RosSharp.RosBridgeClient.MessageTypes.Std.Messages.Roboy.MotorStatus>
 {
     /// <summary>
     ///  Start method of MockMotorStatusPublisher.
@@ -76,4 +76,4 @@ public class MockMotorStatusPublisher : Publisher<RosSharp.RosBridgeClient.Messa
             PublishMotorMessage();
         }
     }
-}
+}*/
