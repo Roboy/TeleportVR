@@ -853,6 +853,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 817624087352457729, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -902,6 +907,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.0192513
+      objectReference: {fileID: 0}
+    - target: {fileID: 3446754110549594781, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6021411799948961768, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -2438,7 +2448,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -2474,6 +2484,11 @@ PrefabInstance:
         type: 3}
       propertyPath: requiredModalities.Array.data[0]
       value: vision
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
+        type: 3}
+      propertyPath: requiredModalities.Array.data[2]
+      value: Emotion
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723432400, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
