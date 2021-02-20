@@ -832,12 +832,12 @@ PrefabInstance:
     - target: {fileID: 5117890474592376354, guid: 7ea387afbb9099245a52cdb032caf821,
         type: 3}
       propertyPath: pointerTechnique
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5117890474592376354, guid: 7ea387afbb9099245a52cdb032caf821,
         type: 3}
       propertyPath: showLaser
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5117890474592376354, guid: 7ea387afbb9099245a52cdb032caf821,
         type: 3}
@@ -852,7 +852,7 @@ PrefabInstance:
     - target: {fileID: 5117890474592376355, guid: 7ea387afbb9099245a52cdb032caf821,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5117890474592376364, guid: 7ea387afbb9099245a52cdb032caf821,
         type: 3}

@@ -10,8 +10,8 @@ public class AnimusPasswordSetter : MonoBehaviour
     
     void Awake()
     {
-        clientLogic.AccountEmail = AnimusPasswordStore.AnimusEmail;
-        clientLogic.AccountPassword = AnimusPasswordStore.AnimusPassword;
+        clientLogic.AccountEmail = "";
+        clientLogic.AccountPassword = "";
     }
 
 }

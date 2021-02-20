@@ -5,7 +5,7 @@ using AnimusClient;
 using AnimusManager;
 using UnityEngine;
 
-public class ClientLogic : Singleton<ClientLogic>
+public class ClientLogic : MonoBehaviour
 {
     public AnimusClientManager AnimusManager;
     public UnityAnimusClient unityClient;
@@ -14,9 +14,7 @@ public class ClientLogic : Singleton<ClientLogic>
     public string AccountEmail;
     public string AccountPassword;
     
-    public string[] requiredModalities = new string[] {"vision"};
-    
-    public Robot _chosenRobot;
+    private Robot _chosenRobot;
     private int _count;
     
     // Start is called before the first frame update
@@ -89,9 +87,7 @@ public class ClientLogic : Singleton<ClientLogic>
         
         // Step 5 - Starting all modalities
         // var requiredModalities = new string[] {"vision", "audition", "voice" };
-        //var requiredModalities = new string[] {"vision", "audition"};
-        //var requiredModalities = new string[] {"audition"};
-        //var requiredModalities = new string[] {};
+        var requiredModalities = new string[] {"vision"};
         AnimusManager.OpenModalities(requiredModalities);
     }
 }

@@ -83,7 +83,7 @@ namespace Widgets
 
             childIsActive = true;
             
-            if (childWidget != null)
+           if (childWidget != null && (WidgetInteraction.Instance.isTraining || childWidget.GetID()==33) )
             {
                 childWidget.GetView().SetParentView(this);
                 childWidget.GetView().ShowView(relativeChildPosition);
@@ -105,7 +105,7 @@ namespace Widgets
                 ResetDwellTimer();
             }
 
-            if (childWidget != null)
+           if (childWidget != null)
             {
                 childWidget.GetView().SetParentView(null);
                 childWidget.GetView().HideView();

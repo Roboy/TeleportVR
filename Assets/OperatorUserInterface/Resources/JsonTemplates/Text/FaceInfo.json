@@ -1,0 +1,9 @@
+{
+	"id": 84,
+	"type": "Text",
+	"title": "FaceTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "Displays Roboy's current emotion",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

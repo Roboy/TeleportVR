@@ -18,6 +18,7 @@ namespace Widgets
         [SerializeField] private UnityAnimusClient client;
 
         public bool allowDwellTime;
+	public bool isTraining; //to make the difference btw training and HUD
         
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.
@@ -40,7 +41,10 @@ namespace Widgets
                 widget.GetContext().currentIcon = "MicroDisabled";
             }
 
-            widget.ProcessRosMessage(widget.GetContext());
+            if (!isTraining)
+	    {
+                widget.ProcessRosMessage(widget.GetContext());
+	    }
         }
 
         public void ToggleSpeakers()
@@ -100,7 +104,10 @@ namespace Widgets
                 }
             }*/
 
-            widget.ProcessRosMessage(widget.GetContext());
+            if (!isTraining)
+	    {
+                widget.ProcessRosMessage(widget.GetContext());
+	    }
         }
 
         public void ToggleHead()
@@ -119,7 +126,10 @@ namespace Widgets
                 headWidget.GetContext().currentIcon = "HeadGreen";
             }
 
-            headWidget.ProcessRosMessage(headWidget.GetContext());
+            if (!isTraining)
+	    {
+                headWidget.ProcessRosMessage(headWidget.GetContext());
+	    };
         }
         
         public void ToggleRightBody()
@@ -138,7 +148,10 @@ namespace Widgets
                 rightBodyWidget.GetContext().currentIcon = "RightBodyGreen";
             }
 
-            rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
+            if (!isTraining)
+	    {
+                rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
+	    }
         }
         
         public void ToggleLeftBody()
@@ -157,7 +170,10 @@ namespace Widgets
                 leftBodyWidget.GetContext().currentIcon = "LeftBodyGreen";
             }
 
-            leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
+            if (!isTraining)
+	    {
+                leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
+	    }
         }
         
         public void ToggleRightHand()
@@ -176,7 +192,10 @@ namespace Widgets
                 rightHandWidget.GetContext().currentIcon = "RightHandGreen";
             }
 
-            rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
+            if (!isTraining)
+	    {
+                rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
+	    }
         }
         
         public void ToggleLeftHand()
@@ -195,9 +214,36 @@ namespace Widgets
                 leftHandWidget.GetContext().currentIcon = "LeftHandGreen";
             }
 
-            leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
+            if (!isTraining)
+	    {
+                leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
+	    }
         }
-        
+           public void ToggleFace()
+        {
+            Widget faceWidget = Manager.Instance.FindWidgetWithID(77);
+            if (faceWidget.GetContext().currentIcon == "roboy_smiling")
+            {
+                faceWidget.GetContext().currentIcon = "roboy_grin";
+            }
+            else if (faceWidget.GetContext().currentIcon == "roboy_grin")
+            {
+                faceWidget.GetContext().currentIcon = "roboy_sad";
+            }
+	    else if (faceWidget.GetContext().currentIcon == "roboy_sad")
+            {
+                faceWidget.GetContext().currentIcon = "roboy_laugh";
+            }
+            else
+            {
+                faceWidget.GetContext().currentIcon = "roboy_smiling";
+            }
+
+            if (!isTraining)
+	    {
+                faceWidget.ProcessRosMessage(faceWidget.GetContext());
+	    }
+        }
         public void ToggleWheelchair()
         {
             Widget wheelchairWidget = Manager.Instance.FindWidgetWithID(46);
@@ -214,7 +260,10 @@ namespace Widgets
                 wheelchairWidget.GetContext().currentIcon = "WheelchairGreen";
             }
 
-            wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
+            if (!isTraining)
+	    {
+                wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
+	    }
         }
     }
 }
