@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 5654135049925909275}
   - component: {fileID: 1294366094010192278}
   - component: {fileID: 4062990565811229680}
+  - component: {fileID: 3999100636079800440}
   m_Layer: 0
   m_Name: WidgetsBottomLeft
   m_TagString: WidgetsBottomLeft
@@ -442,8 +443,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -422, y: -163}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchoredPosition: {x: -580, y: -600}
+  m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5654135049925909275
 CanvasRenderer:
@@ -490,12 +491,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoNotTesselate: 0
-  savedPos: {x: 0, y: 170, z: 6.9999695}
+  savedPos: {x: -580.00006, y: -600, z: 6.9999695}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 500, y: 100}
-  savedColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+  savedRectSize: {x: 350, y: 350}
+  savedColor: {r: 1, g: 1, b: 1, a: 1}
   savedTextUV0: {x: 0, y: 0}
   savedFill: 1
+--- !u!114 &3999100636079800440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089819461769191412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: fed6d65343ccde34b99868a9e0005ac4, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &4061695598433837779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,6 +1095,7 @@ GameObject:
   - component: {fileID: 4378067501994706770}
   - component: {fileID: 4378067501994706771}
   - component: {fileID: 4378067501994706772}
+  - component: {fileID: 7735287309517741938}
   m_Layer: 0
   m_Name: WidgetsTop
   m_TagString: WidgetsTop
@@ -1146,6 +1173,31 @@ MonoBehaviour:
   savedColor: {r: 1, g: 1, b: 1, a: 0.54901963}
   savedTextUV0: {x: 0, y: 0}
   savedFill: 1
+--- !u!114 &7735287309517741938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378067501994706735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 45d006e1a62c24f4195e7abebb2d6bcf, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &4378067502097179966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,7 +1656,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 282}
-  m_SizeDelta: {x: 1500, y: 100}
+  m_SizeDelta: {x: 1500, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3072295154271137589
 CanvasRenderer:
@@ -1654,7 +1706,7 @@ MonoBehaviour:
   DoNotTesselate: 0
   savedPos: {x: 0, y: 282, z: 6.9999695}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 1500, y: 100}
+  savedRectSize: {x: 1500, y: 600}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
   savedTextUV0: {x: 0, y: 0}
   savedFill: 0

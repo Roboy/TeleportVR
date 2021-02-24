@@ -450,12 +450,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
 		Widget leftHandWidget = Manager.Instance.FindWidgetWithID(45);
 		Widget wheelchairWidget = Manager.Instance.FindWidgetWithID(46);
 
-		headWidget.GetContext().currentIcon = currSample.ToString()[12] == '1' ? "HeadGreen" : "HeadRed";
-		rightBodyWidget.GetContext().currentIcon = currSample.ToString()[15] == '1' ? "RightBodyGreen" : "RightBodyRed";
-		leftBodyWidget.GetContext().currentIcon = currSample.ToString()[18] == '1' ? "LeftBodyGreen" : "LeftBodyRed";
-		rightHandWidget.GetContext().currentIcon = currSample.ToString()[21] == '1' ? "RightHandGreen" : "RightHandRed";
-		leftHandWidget.GetContext().currentIcon = currSample.ToString()[24] == '1' ? "LeftHandGreen" : "LeftHandRed";
-		wheelchairWidget.GetContext().currentIcon = currSample.ToString()[27] == '1' ? "WheelchairGreen" : "WheelchairRed";
+		headWidget.GetContext().currentIcon = (int)(currSample.Data[2] + 0.5) == 0 ? "HeadGreen" : "HeadRed";
+		rightBodyWidget.GetContext().currentIcon = currSample.ToString()[15] == 0.0 ? "RightBodyGreen" : "RightBodyRed";
+		leftBodyWidget.GetContext().currentIcon = currSample.ToString()[18] == '0' ? "LeftBodyGreen" : "LeftBodyRed";
+		rightHandWidget.GetContext().currentIcon = currSample.ToString()[21] == '0' ? "RightHandGreen" : "RightHandRed";
+		leftHandWidget.GetContext().currentIcon = currSample.ToString()[24] == '0' ? "LeftHandGreen" : "LeftHandRed";
+		wheelchairWidget.GetContext().currentIcon = currSample.ToString()[27] == '0' ? "WheelchairGreen" : "WheelchairRed";
 
 		headWidget.ProcessRosMessage(headWidget.GetContext());
 		rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());

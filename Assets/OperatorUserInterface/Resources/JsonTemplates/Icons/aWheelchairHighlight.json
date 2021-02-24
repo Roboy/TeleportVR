@@ -4,8 +4,8 @@
 	"title": "aWheelchairHighlight",
 	"widgetPosition": "bottomleft",
 	"unfoldChildDwellTimer": 1.0,
-	"icons": [ "WheelchairHighlight" ],
-	"currentIcon": "WheelchairHighlight",
+	"icons": [ "WheelchairHighlightBlack","WheelchairHighlightWhite" ],
+	"currentIcon": "WheelchairHighlightBlack",
 	"yPositionOffset": -110.0,
 	"xPositionOffset": 0.0,
 	"scale": 1.2
