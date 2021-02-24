@@ -790,6 +790,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
 
 		emotionMsg.Data = currentEmotion;
 		Debug.Log(currentEmotion);
+		EmotionManager.Instance.SetFace(controlCombination);
 		emotionSample.Data = emotionMsg;
 		return emotionSample;
 

@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class StateManager : Singleton<StateManager> {
     //For debugging: if true, disables all construct functionality in this script
     public bool KillConstruct;
-    private States currentState;
+    public States currentState;
 
     AdditiveSceneManager additiveSceneManager;
     ConstructFXManager constructFXManager;
