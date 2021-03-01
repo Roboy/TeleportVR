@@ -55,7 +55,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
 	
 	private bool initMats;
 
-	public bool shouldTransmitHeadRot;
+	public bool shouldTransmitHeadRot = true;
 	private Vector3 lastHeadRot;
 
 	// motor variables
@@ -511,6 +511,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
     if (Time.time * 1000 - _lastUpdate > 50)
     {
 		var headAngles = shouldTransmitHeadRot ? humanHead.eulerAngles : lastHeadRot;
+		print("should Transmit" + shouldTransmitHeadRot);
 		if (shouldTransmitHeadRot) {
 			lastHeadRot = headAngles;
 		}

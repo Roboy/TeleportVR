@@ -1098,7 +1098,7 @@ PrefabInstance:
     - target: {fileID: 6021411799948961774, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6021411800010826260, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -1638,7 +1638,7 @@ PrefabInstance:
     - target: {fileID: 6021411800480249790, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6021411800807676792, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -1687,6 +1687,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 672391305442d4247958d25d550bd81f, type: 3}
+--- !u!1 &1200921383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6021411800807676797, guid: 672391305442d4247958d25d550bd81f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1200921382}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1267647163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2079,6 +2085,11 @@ PrefabInstance:
       propertyPath: _rightPlane
       value: 
       objectReference: {fileID: 1515572239}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
+      propertyPath: shouldTransmitHeadRot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5126804911363041838, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
       propertyPath: m_IsActive
@@ -2289,7 +2300,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a53eeeb2f1f036f44bef4735f1e35919, type: 3}
   m_Name: 
@@ -2303,7 +2314,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c019f177892b10942a6a204ec6246944, type: 3}
   m_Name: 
@@ -2437,7 +2448,7 @@ PrefabInstance:
     - target: {fileID: 8454384284534386025, guid: c3f748a11f763994a89327a0c0eeb954,
         type: 3}
       propertyPath: Scroll.y
-      value: 1916
+      value: 956
       objectReference: {fileID: 0}
     - target: {fileID: 8454384284534386025, guid: c3f748a11f763994a89327a0c0eeb954,
         type: 3}
@@ -2448,6 +2459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: upper_body
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454384284534386027, guid: c3f748a11f763994a89327a0c0eeb954,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8454384284534386038, guid: c3f748a11f763994a89327a0c0eeb954,
         type: 3}
@@ -2711,7 +2727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a292a64907b5c449b70a0730575248e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeadPos: {fileID: 0}
+  HeadPos: {fileID: 1200921383}
 --- !u!114 &1931952778 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5723939832518863484, guid: e7404d0d9d4a02b4e8535381133f78af,
@@ -2804,7 +2820,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: robotName
-      value: Roboy3
+      value: RoboySimPhilip
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
