@@ -1,0 +1,120 @@
+#  These controllers are loaded by the robot.launch script, the following types are available
+#  type: cardsflow/kindyn/TorquePositionController
+#  type: cardsflow/kindyn/CableLengthController
+#  type: cardsflow/kindyn/CableLengthVelocityController
+#  type: cardsflow/kindyn/ForcePositionController
+pinky_shoulder_left_axis0:
+  joint: shoulder_left_axis0
+  type: cardsflow/kindyn/CableLengthController
+pinky_shoulder_left_axis1:
+  joint: shoulder_left_axis1
+  type: cardsflow/kindyn/CableLengthController
+pinky_shoulder_left_axis2:
+  joint: shoulder_left_axis2
+  type: cardsflow/kindyn/CableLengthController
+pinky_elbow_left_axis0:
+  joint: elbow_left_axis0
+  type: cardsflow/kindyn/CableLengthController
+pinky_elbow_left_axis1:
+  joint: elbow_left_axis1
+  type: cardsflow/kindyn/CableLengthController
+pinky_shoulder_right_axis0:
+  joint: shoulder_right_axis0
+  type: cardsflow/kindyn/CableLengthController
+pinky_shoulder_right_axis1:
+  joint: shoulder_right_axis1
+  type: cardsflow/kindyn/CableLengthController
+pinky_shoulder_right_axis2:
+  joint: shoulder_right_axis2
+  type: cardsflow/kindyn/CableLengthController
+pinky_elbow_right_axis0:
+  joint: elbow_right_axis0
+  type: cardsflow/kindyn/CableLengthController
+pinky_elbow_right_axis1:
+  joint: elbow_right_axis1
+  type: cardsflow/kindyn/CableLengthController
+pinky_head_axis0:
+  joint: head_axis0
+  type: cardsflow/kindyn/CableLengthController
+pinky_head_axis1:
+  joint: head_axis1
+  type: cardsflow/kindyn/CableLengthController
+pinky_head_axis2:
+  joint: head_axis2
+  type: cardsflow/kindyn/CableLengthController
+pinky_wrist_right_axis0:
+  joint: wrist_right_axis0
+  type: cardsflow/kindyn/CableLengthController
+pinky_wrist_right_axis1:
+  joint: wrist_right_axis1
+  type: cardsflow/kindyn/CableLengthController
+pinky_wrist_right_axis2:
+  joint: wrist_right_axis2
+  type: cardsflow/kindyn/CableLengthController
+pinky_wrist_left_axis0:
+  joint: wrist_left_axis0
+  type: cardsflow/kindyn/CableLengthController
+pinky_wrist_left_axis1:
+  joint: wrist_left_axis1
+  type: cardsflow/kindyn/CableLengthController
+pinky_wrist_left_axis2:
+  joint: wrist_left_axis2
+  type: cardsflow/kindyn/CableLengthController
+
+brain_shoulder_left_axis0:
+  joint: shoulder_left_axis0
+  type: cardsflow/kindyn/CableLengthController
+brain_shoulder_left_axis1:
+  joint: shoulder_left_axis1
+  type: cardsflow/kindyn/CableLengthController
+brain_shoulder_left_axis2:
+  joint: shoulder_left_axis2
+  type: cardsflow/kindyn/CableLengthController
+brain_elbow_left_axis0:
+  joint: elbow_left_axis0
+  type: cardsflow/kindyn/CableLengthController
+brain_elbow_left_axis1:
+  joint: elbow_left_axis1
+  type: cardsflow/kindyn/CableLengthController
+brain_shoulder_right_axis0:
+  joint: shoulder_right_axis0
+  type: cardsflow/kindyn/CableLengthController
+brain_shoulder_right_axis1:
+  joint: shoulder_right_axis1
+  type: cardsflow/kindyn/CableLengthController
+brain_shoulder_right_axis2:
+  joint: shoulder_right_axis2
+  type: cardsflow/kindyn/CableLengthController
+brain_elbow_right_axis0:
+  joint: elbow_right_axis0
+  type: cardsflow/kindyn/CableLengthController
+brain_elbow_right_axis1:
+  joint: elbow_right_axis1
+  type: cardsflow/kindyn/CableLengthController
+brain_head_axis0:
+  joint: head_axis0
+  type: cardsflow/kindyn/CableLengthController
+brain_head_axis1:
+  joint: head_axis1
+  type: cardsflow/kindyn/CableLengthController
+brain_head_axis2:
+  joint: head_axis2
+  type: cardsflow/kindyn/CableLengthController
+brain_wrist_right_axis0:
+  joint: wrist_right_axis0
+  type: cardsflow/kindyn/CableLengthController
+brain_wrist_right_axis1:
+  joint: wrist_right_axis1
+  type: cardsflow/kindyn/CableLengthController
+brain_wrist_right_axis2:
+  joint: wrist_right_axis2
+  type: cardsflow/kindyn/CableLengthController
+brain_wrist_left_axis0:
+  joint: wrist_left_axis0
+  type: cardsflow/kindyn/CableLengthController
+brain_wrist_left_axis1:
+  joint: wrist_left_axis1
+  type: cardsflow/kindyn/CableLengthController
+brain_wrist_left_axis2:
+  joint: wrist_left_axis2
+  type: cardsflow/kindyn/CableLengthController

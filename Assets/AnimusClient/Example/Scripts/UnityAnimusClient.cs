@@ -449,7 +449,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
 		Widget rightHandWidget = Manager.Instance.FindWidgetWithID(44);
 		Widget leftHandWidget = Manager.Instance.FindWidgetWithID(45);
 		Widget wheelchairWidget = Manager.Instance.FindWidgetWithID(46);
-
+        
 		headWidget.GetContext().currentIcon = currSample.ToString()[12] == '1' ? "HeadGreen" : "HeadRed";
 		rightBodyWidget.GetContext().currentIcon = currSample.ToString()[15] == '1' ? "RightBodyGreen" : "RightBodyRed";
 		leftBodyWidget.GetContext().currentIcon = currSample.ToString()[18] == '1' ? "LeftBodyGreen" : "LeftBodyRed";
@@ -731,7 +731,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
 	// --------------------------Emotion Modality----------------------------------
 	public bool emotion_initialise()
 	{
-
 		emotionMsg = new StringSample();
 		emotionSample = new Sample(DataMessage.Types.DataType.String, emotionMsg);
 		return true;
