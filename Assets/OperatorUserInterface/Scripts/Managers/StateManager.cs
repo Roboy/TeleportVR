@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 //using Valve.VR;
 using UnityEngine.Events;
 
-public class StateManager : Singleton<StateManager> {
+public class StateManager : Singleton<StateManager>
+{
     //For debugging: if true, disables all construct functionality in this script
     public bool KillConstruct;
     public States currentState;
@@ -27,7 +28,8 @@ public class StateManager : Singleton<StateManager> {
     /// Set reference to instances.
     /// Load construct as initial state.
     /// </summary>
-    void Start() {
+    void Start()
+    {
         constructFXManager = GameObject.FindGameObjectWithTag("ConstructFXManager").GetComponent<ConstructFXManager>();
         additiveSceneManager = GameObject.FindGameObjectWithTag("AdditiveSceneManager").GetComponent<AdditiveSceneManager>();
         transitionManager = GameObject.FindGameObjectWithTag("TransitionManager").GetComponent<TransitionManager>();
@@ -44,7 +46,8 @@ public class StateManager : Singleton<StateManager> {
     /// Public method initiating state transition.
     /// Change from current state to next state (fixed order).
     /// </summary>
-    public void GoToNextState() {
+    public void GoToNextState()
+    {
         switch (currentState)
         {
             case States.HUD:
@@ -67,7 +70,8 @@ public class StateManager : Singleton<StateManager> {
     /// For debugging.
     /// Initiate transition to next state by pressing space on your keyboard while in play mode in Unity.
     /// </summary>
-    void Update() {
+    void Update()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
             GoToNextState();
     }
@@ -104,17 +108,20 @@ public class StateManager : Singleton<StateManager> {
         {
             Transform cameraOrigin = GameObject.FindGameObjectWithTag("CameraOrigin").transform;
             Transform constructObjects = GameObject.FindGameObjectWithTag("ConstructObjects").transform;
-            Transform roboy = GameObject.FindGameObjectWithTag("Roboy").transform;
-            
-            roboy.SetParent(GameObject.FindGameObjectWithTag("FinalScenePlaceholder").transform);
-            roboy.position = cameraOrigin.position + new Vector3(0f, 1.4f, 0f);
-            roboy.localEulerAngles = cameraOrigin.transform.localEulerAngles;//Quaternion.Euler(roboy.rotation.eulerAngles + cameraOrigin.rotation.eulerAngles);//cameraOrigin.GetChild(1).rotation;//roboy.rotation * cameraOrigin.GetChild(1).rotation;
+            GameObject roboy = GameObject.FindGameObjectWithTag("Roboy");
+
+            if (roboy != null)
+            {
+                roboy.transform.SetParent(GameObject.FindGameObjectWithTag("FinalScenePlaceholder").transform);
+                roboy.transform.position = cameraOrigin.position + new Vector3(0f, 1.4f, 0f);
+                roboy.transform.localEulerAngles = cameraOrigin.transform.localEulerAngles;//Quaternion.Euler(roboy.rotation.eulerAngles + cameraOrigin.rotation.eulerAngles);//cameraOrigin.GetChild(1).rotation;//roboy.rotation * cameraOrigin.GetChild(1).rotation;
+            }
 
             FrameClickDetection questButton = constructObjects.GetChild(0).GetComponentInChildren<FrameClickDetection>();
             questButton.onPress[0].AddListener(GameObject.FindGameObjectWithTag("FinalsDemoScriptManager").GetComponent<FinalsDemoScriptManager>().StartQuest);
             questButton.onPress[1].AddListener(GameObject.FindGameObjectWithTag("FinalsDemoScriptManager").GetComponent<FinalsDemoScriptManager>().StopQuest);
             constructObjects.GetChild(0).SetParent(cameraOrigin, false);
-            
+
             constructFXManager.ToggleEffects(true);
         }
     }
@@ -141,5 +148,5 @@ public class StateManager : Singleton<StateManager> {
             constructFXManager.ToggleEffects(false);
         }
     }
-#endregion
+    #endregion
 }
