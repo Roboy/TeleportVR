@@ -58,6 +58,12 @@ public class InputManager : Singleton<InputManager>
                 if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.secondaryButton, out btn)) {
                     UnityAnimusClient.Instance.LeftButton2 = btn;
                 }
+
+                // recalibrate the roboybody
+                if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn)) {
+                    RecalibrateUpperBody.Instance.Calibrate();
+                    print("Calibrated...");
+                }
             }
             else {
                 UnityAnimusClient.Instance.LeftButton1 = Input.GetKeyDown(KeyCode.F);

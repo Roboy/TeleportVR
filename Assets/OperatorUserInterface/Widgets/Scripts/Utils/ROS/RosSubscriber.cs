@@ -18,7 +18,7 @@ namespace Widgets
         protected override void Start()
         {
             interfaceMessageQueue = new Queue<RosJsonMessage>();
-            StartCoroutine(startSubscriber(1.0f));
+            //StartCoroutine(startSubscriber(1.0f));
         }
 
         /// <summary>
