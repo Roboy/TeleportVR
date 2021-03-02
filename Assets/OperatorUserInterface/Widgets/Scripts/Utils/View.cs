@@ -100,12 +100,11 @@ namespace Widgets
 
             childIsActive = true;
             
-            if (childWidget != null)
+          if (childWidget != null && (WidgetInteraction.Instance.isTraining || childWidget.GetID()==33) )
             {
                 childWidget.GetView().SetParentView(this);
                 childWidget.GetView().ShowView(relativeChildPosition);
             }
-
             dwellTimerActive = false;
         }
 
@@ -114,10 +113,10 @@ namespace Widgets
         /// </summary>
         public void FoldChildIn()
         {
-            if ((childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onClose != null) // is allowDwelltime needed?
+            /*if ((childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onClose != null) // is allowDwelltime needed?
             {
                 WidgetInteraction.Instance.InvokeFunction(onClose);
-            }
+            }*/
 
             childIsActive = false;
 

@@ -18,7 +18,7 @@ namespace Widgets
         [SerializeField] private UnityAnimusClient client;
 
         public bool allowDwellTime;
-
+	public bool isTraining=false;
         public static bool settingsAreActive;
         
         /// <summary>
@@ -42,7 +42,10 @@ namespace Widgets
                 widget.GetContext().currentIcon = "HeadsetGreen";
             }
 
-            widget.ProcessRosMessage(widget.GetContext());
+            if (!isTraining)
+	    {
+                widget.ProcessRosMessage(widget.GetContext());
+	    }
         }
 
         public void ToggleMicro()
@@ -59,7 +62,10 @@ namespace Widgets
                 Microphone.End(null);
             }
 
-            widget.ProcessRosMessage(widget.GetContext());
+              if (!isTraining)
+	    {
+                widget.ProcessRosMessage(widget.GetContext());
+	    }
         }
 
         public void ToggleSpeakers()
@@ -119,7 +125,10 @@ namespace Widgets
                 }
             }*/
 
-            widget.ProcessRosMessage(widget.GetContext());
+              if (!isTraining)
+	    {
+                widget.ProcessRosMessage(widget.GetContext());
+	    }
         }
 
         public void OpenDisplaySettings() {
@@ -148,7 +157,10 @@ namespace Widgets
                 headWidget.GetContext().currentIcon = "HeadGreen";
             }
 
-            headWidget.ProcessRosMessage(headWidget.GetContext());
+             if (!isTraining)
+	    {
+               headWidget.ProcessRosMessage(headWidget.GetContext());
+	    }
         }
         
         public void ToggleRightBody()
@@ -167,7 +179,10 @@ namespace Widgets
                 rightBodyWidget.GetContext().currentIcon = "RightBodyGreen";
             }
 
-            rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
+              if (!isTraining)
+	    {
+                rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
+	    }
         }
         
         public void ToggleLeftBody()
@@ -186,7 +201,10 @@ namespace Widgets
                 leftBodyWidget.GetContext().currentIcon = "LeftBodyGreen";
             }
 
-            leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
+              if (!isTraining)
+	    {
+                leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
+	    }
         }
         
         public void ToggleRightHand()
@@ -205,7 +223,10 @@ namespace Widgets
                 rightHandWidget.GetContext().currentIcon = "RightHandGreen";
             }
 
-            rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
+              if (!isTraining)
+	    {
+                rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
+	    }
         }
         
         public void ToggleLeftHand()
@@ -224,7 +245,10 @@ namespace Widgets
                 leftHandWidget.GetContext().currentIcon = "LeftHandGreen";
             }
 
-            leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
+              if (!isTraining)
+	    {
+                leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
+	    }
         }
         
         public void ToggleWheelchair()
@@ -243,7 +267,10 @@ namespace Widgets
                 wheelchairWidget.GetContext().currentIcon = "WheelchairGreen";
             }
 
-            wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
+              if (!isTraining)
+	    {
+                wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
+	    }
         }
     }
 }

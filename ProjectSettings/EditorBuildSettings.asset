@@ -18,25 +18,25 @@ EditorBuildSettings:
     path: Assets/OperatorUserInterface/Scenes/FinalScene_HUD.unity
     guid: 625ab72c75416de48831d65239930030
   - enabled: 1
-    path: Assets/Scenes/AnimusOUI.unity
+    path: Assets/OperatorUserInterface/ThirdParty/Chart And Graph/Scenes/AnimusOUI.unity
     guid: c2558d01c9eb3394cb1f355533c3e8e6
   - enabled: 1
-    path: Assets/Scenes/OUI_Construct.unity
+    path: Assets/OperatorUserInterface/ThirdParty/Chart And Graph/Scenes/OUI_Construct.unity
     guid: ca09c4df27ac2aa4aa1a81330d7938a1
   - enabled: 1
-    path: Assets/Scenes/OUI_HUD.unity
+    path: Assets/OperatorUserInterface/ThirdParty/Chart And Graph/Scenes/OUI_HUD.unity
     guid: 72ff9babd829ad149823746cd95b93e4
   - enabled: 0
-    path: Assets/Scenes/Philip/Philip_OUI.unity
+    path: Assets/OperatorUserInterface/ThirdParty/Chart And Graph/Scenes/Philip/Philip_OUI.unity
     guid: 94fca485ed5fbfa419f0132a64999bf8
   - enabled: 0
-    path: Assets/Scenes/Philip/Philip_Construct.unity
+    path: Assets/OperatorUserInterface/ThirdParty/Chart And Graph/Scenes/Philip/Philip_Construct.unity
     guid: 4bdbe069bc0bc13449b4e090082face0
   - enabled: 0
-    path: Assets/Scenes/Philip/Philip_HUD.unity
+    path: Assets/OperatorUserInterface/ThirdParty/Chart And Graph/Scenes/Philip/Philip_HUD.unity
     guid: 6844f3da6338247418852a76afebd335
   - enabled: 0
-    path: Assets/Scenes/Philip/Animus.unity
+    path: Assets/OperatorUserInterface/ThirdParty/Chart And Graph/Scenes/Philip/Animus.unity
     guid: d25c21126b6c29440b01a2071497ce1e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d,
