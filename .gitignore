@@ -39,6 +39,9 @@ Assets/OperatorUserInterface/Models/Showroom/
 Assets/Prefabs/Animus/AnimusPasswordSetter.prefab
 Assets/Scripts/AnimusPasswordStore.cs
 
+# currently too big for git
+Assets/Wheelchair/LowerLimbs_v50.obj
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 

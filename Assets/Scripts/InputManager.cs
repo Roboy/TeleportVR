@@ -73,6 +73,27 @@ public class InputManager : Singleton<InputManager>
                     RecalibrateUpperBody.Instance.Calibrate();
                     print("Calibrated...");
                 }
+
+                // drive the wheelchair
+                if (StateManager.Instance.currentState == StateManager.States.Construct)
+                {
+                    Vector2 joystick;
+                    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick)) {
+                        // move forward or backwards
+                        DifferentialDriveControl.Instance.V_L = 0.1f * joystick.y;
+                        DifferentialDriveControl.Instance.V_R = 0.1f * joystick.y;
+
+                        //rotate
+                        if (joystick.x > 0)
+                        {
+                            DifferentialDriveControl.Instance.V_R -= 0.05f * joystick.x;
+                        }
+                        else
+                        {
+                            DifferentialDriveControl.Instance.V_L += 0.05f * joystick.x;
+                        }
+                    }
+                }
             }
             else
             {
