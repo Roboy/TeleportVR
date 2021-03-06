@@ -78,19 +78,21 @@ public class InputManager : Singleton<InputManager>
                 if (StateManager.Instance.currentState == StateManager.States.Construct)
                 {
                     Vector2 joystick;
-                    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick)) {
+                    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
+                    {
+                        float speed = 0.05f;
                         // move forward or backwards
-                        DifferentialDriveControl.Instance.V_L = 0.1f * joystick.y;
-                        DifferentialDriveControl.Instance.V_R = 0.1f * joystick.y;
+                        DifferentialDriveControl.Instance.V_L = speed * joystick.y;
+                        DifferentialDriveControl.Instance.V_R = speed * joystick.y;
 
                         //rotate
                         if (joystick.x > 0)
                         {
-                            DifferentialDriveControl.Instance.V_R -= 0.05f * joystick.x;
+                            DifferentialDriveControl.Instance.V_R -= 0.5f * speed * joystick.x;
                         }
                         else
                         {
-                            DifferentialDriveControl.Instance.V_L += 0.05f * joystick.x;
+                            DifferentialDriveControl.Instance.V_L += 0.5f * speed * joystick.x;
                         }
                     }
                 }
