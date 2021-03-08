@@ -8,5 +8,5 @@
 	"icons": [ "Speakers", "SpeakersOff" ],
 	"currentIcon": "Speakers",
 	"onActivate": "ToggleSpeakers",
-	"scale" : 1
+	"scale" : 1.4
 }

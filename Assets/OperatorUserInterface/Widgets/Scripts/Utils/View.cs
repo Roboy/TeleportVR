@@ -57,9 +57,9 @@ namespace Widgets
 
             transform.localPosition = new Vector3(xPositionOffset, yPositionOffset, 0);
 
-            print("xPOSITION: " + xPositionOffset);
-            print("Scale: " + scale);
-            print("Timer: " + dwellTimerDuration);
+            //print("xPOSITION: " + xPositionOffset);
+            //print("Scale: " + scale);
+            //print("Timer: " + dwellTimerDuration);
             
             if (scale != 0)
             {

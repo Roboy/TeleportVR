@@ -110,7 +110,7 @@ public class RaycastManager : MonoBehaviour
              * New Code
              * */
 
-            print("I'm looking at " + hit.transform.name);
+            //print("I'm looking at " + hit.transform.name);
         }
 
         //adjust beam length if something is blocking it

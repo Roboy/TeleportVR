@@ -441,28 +441,13 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
 
 	public bool proprioception_set(Float32Array currSample)
 	{
-		//print(currSample);
-		
-		Widget headWidget = Manager.Instance.FindWidgetWithID(41);
-		Widget rightBodyWidget = Manager.Instance.FindWidgetWithID(42);
-		Widget leftBodyWidget = Manager.Instance.FindWidgetWithID(43);
-		Widget rightHandWidget = Manager.Instance.FindWidgetWithID(44);
-		Widget leftHandWidget = Manager.Instance.FindWidgetWithID(45);
-		Widget wheelchairWidget = Manager.Instance.FindWidgetWithID(46);
-
-		headWidget.GetContext().currentIcon = (int)(currSample.Data[2] + 0.5) == 0 ? "HeadGreen" : "HeadRed";
-		rightBodyWidget.GetContext().currentIcon = currSample.ToString()[15] == 0.0 ? "RightBodyGreen" : "RightBodyRed";
-		leftBodyWidget.GetContext().currentIcon = currSample.ToString()[18] == '0' ? "LeftBodyGreen" : "LeftBodyRed";
-		rightHandWidget.GetContext().currentIcon = currSample.ToString()[21] == '0' ? "RightHandGreen" : "RightHandRed";
-		leftHandWidget.GetContext().currentIcon = currSample.ToString()[24] == '0' ? "LeftHandGreen" : "LeftHandRed";
-		wheelchairWidget.GetContext().currentIcon = currSample.ToString()[27] == '0' ? "WheelchairGreen" : "WheelchairRed";
-
-		headWidget.ProcessRosMessage(headWidget.GetContext());
-		rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
-		leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
-		rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
-		leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
-		wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
+		print(currSample);
+		bodyManager(41,2, currSample);
+		bodyManager(42,0, currSample);
+		bodyManager(43,1, currSample);
+		bodyManager(44,3, currSample);
+		bodyManager(45,4, currSample);
+		bodyManager(46,5, currSample);
 
 		/*
 		if (currSample.CalculateSize() > 1)
@@ -475,6 +460,24 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient> {
 		*/
 		
 		return true;
+	}
+
+	public void bodyManager(int id, int position, Float32Array currSample)
+	{
+		Widget widget = Manager.Instance.FindWidgetWithID(id);
+		if ((int)(currSample.Data[position]) == -1)
+		{
+			widget.GetContext().currentIcon = widget.GetContext().icons[2];
+		} 
+		else if ((int)(currSample.Data[position]) == 0)
+		{
+			widget.GetContext().currentIcon = widget.GetContext().icons[0];
+		}
+		else
+		{
+			widget.GetContext().currentIcon = widget.GetContext().icons[1];
+		}
+		widget.ProcessRosMessage(widget.GetContext());
 	}
 
 	public bool proprioception_close()
