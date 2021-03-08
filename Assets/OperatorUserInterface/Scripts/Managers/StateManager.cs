@@ -82,7 +82,7 @@ public class StateManager : Singleton<StateManager>
             case States.Training:
                 transitionManager.StartTransition(true);
                 additiveSceneManager.ChangeScene(Scenes.TRAINING, null, DelegateOnConstructUnload, null, null);
-                currentState = States.HUD;
+                currentState = States.Training;
                 break;
             default:
                 Debug.LogWarning("Unhandled State: Please specify the next State after " + currentState);

@@ -34,6 +34,8 @@ TagManager:
   - RoboyPart
   - RoboyArms
   - WidgetsBottomLeft
+  - TrainingsCollectable
+  - RoboyCollider
   layers:
   - Default
   - TransparentFX
@@ -46,7 +48,7 @@ TagManager:
   - RightEye
   - LeftEye
   - RoboyHead
-  - 
+  - TrainingsCollectable
   - 
   - 
   - 

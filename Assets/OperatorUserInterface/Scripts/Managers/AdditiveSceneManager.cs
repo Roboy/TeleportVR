@@ -39,6 +39,15 @@ public class AdditiveSceneManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if the current Scene contains the HUD.
+    /// </summary>
+    /// <returns></returns>
+    public static bool CurrentSceneContainsHud()
+    {
+        return currentScene == Scenes.HUD || currentScene == Scenes.TRAINING;
+    }
+
+    /// <summary>
     /// Delegate that executes everytime a scene is loaded to update currentScene variable.
     /// </summary>
     /// <param name="scene">laoded scene</param>

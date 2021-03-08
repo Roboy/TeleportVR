@@ -87,7 +87,8 @@ namespace Widgets
         /// </summary>
         protected override void UpdateInClass()
         {
-            if (IsHudActive())
+            // Check if hud is active to manage timer correctly.
+            if (AdditiveSceneManager.CurrentSceneContainsHud())
             {
                 if (IsToastrTemplateInQueue() && view != null)
                 {
@@ -119,15 +120,6 @@ namespace Widgets
             {
                 timer.SetTimer(toastrActiveQueue.Peek().toastrDuration, DestroyToastr);
             }
-        }
-
-        /// <summary>
-        /// Check if hud is active to manage timer correctly.
-        /// </summary>
-        /// <returns></returns>
-        private bool IsHudActive()
-        {
-            return (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD);
         }
 
         /// <summary>

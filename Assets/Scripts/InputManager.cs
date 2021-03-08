@@ -75,7 +75,8 @@ public class InputManager : Singleton<InputManager>
                 }
 
                 // drive the wheelchair
-                if (StateManager.Instance.currentState == StateManager.States.Construct)
+                if (StateManager.Instance.currentState == StateManager.States.Construct || 
+                    StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
