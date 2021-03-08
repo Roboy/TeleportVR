@@ -204,7 +204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431924708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0, z: 1.8}
+  m_LocalPosition: {x: 0.5, y: 0, z: 1.9}
   m_LocalScale: {x: 2, y: 0.2, z: 2}
   m_Children:
   - {fileID: 1095005448}
@@ -231,7 +231,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431924708}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -242,7 +242,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9d024c6c224418a4c9e35cccbc813e7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -729,7 +729,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredTag: RoboyCollider
   objectToDisable: {fileID: 431924708}
-  requiredStep: 1
+  objectToRecolor: {fileID: 0}
+  requiredStep: 2
+  newColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!65 &1095005450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -803,6 +805,7 @@ GameObject:
   - component: {fileID: 1159584233}
   - component: {fileID: 1159584232}
   - component: {fileID: 1159584235}
+  - component: {fileID: 1159584236}
   m_Layer: 11
   m_Name: Collectable
   m_TagString: TrainingsCollectable
@@ -855,7 +858,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9d024c6c224418a4c9e35cccbc813e7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -897,8 +900,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTag: RoboyArms
-  objectToDisable: {fileID: 1159584230}
-  requiredStep: 2
+  objectToDisable: {fileID: 0}
+  objectToRecolor: {fileID: 1159584230}
+  requiredStep: 4
+  newColor: {r: 0.3137255, g: 1, b: 0, a: 0}
+--- !u!114 &1159584236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159584230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044a446ec73b27a44b680850ebc9a1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 1
+  heightDiff: 0.3
+  speed: 2.5
 --- !u!1001 &1372409936
 PrefabInstance:
   m_ObjectHideFlags: 0
