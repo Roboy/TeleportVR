@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public enum Scenes {
     NONE,
     HUD,
-    CONSTRUCT
+    CONSTRUCT,
+    TRAINING
 }
 
 public class AdditiveSceneManager : MonoBehaviour
@@ -50,6 +51,9 @@ public class AdditiveSceneManager : MonoBehaviour
             case 2:
                 currentScene = Scenes.HUD;
                 break;
+            case 3:
+                currentScene = Scenes.TRAINING;
+                break;
         }
     }
     
@@ -75,6 +79,8 @@ public class AdditiveSceneManager : MonoBehaviour
                 return 1;
             case Scenes.HUD:
                 return 2;
+            case Scenes.TRAINING:
+                return 3;
             default:
                 return -1;
         }
