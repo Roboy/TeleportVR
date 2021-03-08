@@ -4,8 +4,8 @@
 	"title": "aLeftBodyIconHighlight",
 	"widgetPosition": "bottomleft",
 	"unfoldChildDwellTimer": 1.0,
-	"icons": [ "LeftBodyHighlight" ],
-	"currentIcon": "LeftBodyHighlight",
+	"icons": [ "LeftBodyHighlightBlack", "LeftBodyHighlightWhite" ],
+	"currentIcon": "LeftBodyHighlightBlack",
 	"yPositionOffset": 0.0,
 	"xPositionOffset": 55.0,
 	"scale": 1.1
