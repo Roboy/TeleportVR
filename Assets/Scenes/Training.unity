@@ -447,6 +447,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.8127143, z: 0.99952555}
   m_Center: {x: 0, y: 0.90635717, z: -0.34941077}
+--- !u!1 &719627025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6788240421338910640, guid: b2387650d6922924c80d45bd6ee4e9a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 719627018}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &719627026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719627025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb257e2aa559054ab5616b9062217e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1001 &868536913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -708,6 +729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredTag: RoboyCollider
   objectToDisable: {fileID: 431924708}
+  requiredStep: 1
 --- !u!65 &1095005450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -876,6 +898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredTag: RoboyArms
   objectToDisable: {fileID: 1159584230}
+  requiredStep: 2
 --- !u!1001 &1372409936
 PrefabInstance:
   m_ObjectHideFlags: 0

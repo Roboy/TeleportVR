@@ -7,27 +7,17 @@ namespace Training
     {
         [SerializeField] private string requiredTag;
         [SerializeField] private GameObject objectToDisable;
-        
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        [SerializeField] private int requiredStep;
 
         private void OnTriggerEnter(Collider other)
         {
-            print(gameObject.name + " and " + other.name);
-            if (other.CompareTag(requiredTag))
+            if (TutorialSteps.Instance.currentStep == requiredStep && other.CompareTag(requiredTag))
             {
                 TutorialSteps.Instance.NextStep();
-                objectToDisable.SetActive(false);
+                if (objectToDisable != null)
+                {
+                    objectToDisable.SetActive(false);
+                }
             }
         }
     }
