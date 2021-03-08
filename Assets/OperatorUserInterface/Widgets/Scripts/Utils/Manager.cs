@@ -22,10 +22,10 @@ namespace Widgets
         /// </summary>
         void Update()
         {
-            if (!rosSubscriber.IsEmpty())
+            /*if (!rosSubscriber.IsEmpty())
             {
                 ForwardMessageToWidget(rosSubscriber.DequeueInterfaceMessage());
-            }
+            }*/ // uncomment for ros to work
 
             // Mock Area
             /*if (Input.GetKeyDown(KeyCode.T))

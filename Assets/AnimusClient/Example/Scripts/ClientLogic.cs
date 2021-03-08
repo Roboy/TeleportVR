@@ -42,6 +42,7 @@ public class ClientLogic : Singleton<ClientLogic>
         }
 
         // Step 1 - Login user
+        print(AnimusManager);
         AnimusManager.LoginUser(AccountEmail, AccountPassword);
         while (!AnimusManager.loginResultAvailable)
         {
@@ -61,6 +62,11 @@ public class ClientLogic : Singleton<ClientLogic>
             if (AnimusManager.searchReturn == "Cannot search more than once per second")
             {
                 yield return new WaitForSeconds(2);
+                continue;
+            }
+            else if (AnimusManager.searchReturn.Contains("Error"))
+            {
+                yield return new WaitForSeconds(1);
                 continue;
             }
             if (!AnimusManager.searchSuccess) yield break;
