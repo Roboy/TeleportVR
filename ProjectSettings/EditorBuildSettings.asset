@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OUI_HUD.unity
     guid: 72ff9babd829ad149823746cd95b93e4
+  - enabled: 1
+    path: Assets/Scenes/Training.unity
+    guid: 80e85ed0582f44946956cea6c9433139
   - enabled: 0
     path: Assets/Scenes/Philip/Philip_OUI.unity
     guid: 94fca485ed5fbfa419f0132a64999bf8
