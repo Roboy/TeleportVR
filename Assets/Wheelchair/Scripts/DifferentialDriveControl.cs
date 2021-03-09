@@ -76,7 +76,7 @@ public class DifferentialDriveControl : Singleton<DifferentialDriveControl>
 
         (x, y, theta) = diffdrive(V_L, V_R, drivingTime, L);
 
-        Debug.Log($"X: {x}, Y: {y} Theta: {theta}");
+        //Debug.Log($"X: {x}, Y: {y} Theta: {theta}");
 
         Move();
         Turn();
