@@ -17,7 +17,7 @@ public class OrientationTracker : MonoBehaviour
         var orn = objectToTrack.transform.rotation.eulerAngles;
         orn -= new Vector3(0,-270.0f,0);
         transform.rotation = Quaternion.Euler(orn.z, orn.y, -orn.x);
-        Debug.Log(transform.rotation.eulerAngles);
+        //Debug.Log(transform.rotation.eulerAngles);
 
     }
 
