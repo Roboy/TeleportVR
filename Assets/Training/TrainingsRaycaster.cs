@@ -15,10 +15,11 @@ namespace Training
         // Update is called once per frame
         void Update()
         {
+            RaycastHit hit;
             if (TutorialSteps.Instance.currentStep == 0 && 
-                Physics.Raycast(transform.position, -1 * transform.up, 50, layerMask))
+                Physics.Raycast(transform.position, -1 * transform.up, out hit, 50, layerMask))
             {
-                TutorialSteps.Instance.NextStep();
+                hit.collider.GetComponent<TrainingsSphere>().WhileLookedAt(this);
             }
         }
     }
