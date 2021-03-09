@@ -73,13 +73,46 @@ public class InputManager : Singleton<InputManager>
                     RecalibrateUpperBody.Instance.Calibrate();
                     print("Calibrated...");
                 }
+                
+                if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
+                    StateManager.Instance.currentState == StateManager.States.Training)
+                {
+                    // check if the arm is grabbing 
+                    if (Training.TutorialSteps.Instance.currentStep == 5)
+                    {
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep();
+                        }
+                    }
+                    
+                    // check if the arm is grabbing 
+                    if (Training.TutorialSteps.Instance.currentStep == 3)
+                    {
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep();
+                        }
+                    }
+                }
 
                 // drive the wheelchair
-                if (StateManager.Instance.currentState == StateManager.States.Construct)
+                if (//StateManager.Instance.currentState == StateManager.States.Construct || 
+                    StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
                     {
+                        if (Training.TutorialSteps.Instance.currentStep == 1)
+                        {
+                            if (joystick.sqrMagnitude > 0.1f)
+                            {
+                                Training.TutorialSteps.Instance.NextStep();
+                            }
+                        }
+                        
                         float speed = 0.05f;
                         // move forward or backwards
                         DifferentialDriveControl.Instance.V_L = speed * joystick.y;
@@ -121,6 +154,44 @@ public class InputManager : Singleton<InputManager>
                 if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.secondaryButton, out btn))
                 {
                     UnityAnimusClient.Instance.RightButton2 = btn;
+                }
+                
+                if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
+                    StateManager.Instance.currentState == StateManager.States.Training)
+                {
+                    // check if the arm is grabbing 
+                    if (Training.TutorialSteps.Instance.currentStep == 5)
+                    {
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep();
+                        }
+                    }
+                    
+                    // check if the arm is grabbing 
+                    if (Training.TutorialSteps.Instance.currentStep == 3)
+                    {
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep();
+                        }
+                    }
+                }
+
+                if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
+                    StateManager.Instance.currentState == StateManager.States.Training)
+                {
+                    // check if the arm is grabbing 
+                    if (Training.TutorialSteps.Instance.currentStep == 3)
+                    {
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep();
+                        }
+                    }
                 }
             }
             else
