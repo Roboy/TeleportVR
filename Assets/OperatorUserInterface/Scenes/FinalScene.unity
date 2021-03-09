@@ -626,7 +626,7 @@ Transform:
   - {fileID: 329312725}
   - {fileID: 1791348218}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1001686984
 GameObject:
@@ -672,6 +672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KillConstruct: 0
+  currentState: 0
 --- !u!1 &1178167025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,8 +1113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff98778ae051cfd40a6e4effdf851ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timeout: 10
-  Protocol: 0
+  SecondsTimeout: 10
+  Serializer: 0
+  protocol: 0
   RosBridgeServerUrl: ws://192.168.137.1:9090
 --- !u!1 &1791348217
 GameObject:
@@ -1160,6 +1162,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   constructEffectMaterial: {fileID: 2100000, guid: f90bd295413416340ab9da1ea0393177,
     type: 2}
+--- !u!1 &1916782261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 784045273}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916782262}
+  m_Layer: 0
+  m_Name: TobiiXR Initializer (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1916782262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 784045273}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916782261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4641108719142276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8464768416621316043, guid: b128197366bdbbd428de18083cbebd2f,
@@ -3105,6 +3137,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 861750288}
     m_Modifications:
+    - target: {fileID: 580611800290271838, guid: a89fe9b31a87eea4e950417414784a4a,
+        type: 3}
+      propertyPath: allowDwellTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8896569798469850262, guid: a89fe9b31a87eea4e950417414784a4a,
         type: 3}
       propertyPath: m_Name

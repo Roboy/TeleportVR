@@ -1,0 +1,9 @@
+{
+	"id": 106,
+	"type": "Text",
+	"title": "WifiTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "Activate/Deactivate headset \n press escape to hide message",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}

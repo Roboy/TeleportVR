@@ -96,12 +96,11 @@ namespace Widgets
 
             childIsActive = true;
             
-            if (childWidget != null)
+                                                                                                         		     if (childWidget != null && (WidgetInteraction.Instance.showExplanation ||  			childWidget.GetID()==33 || childWidget.GetID()==290 ) )
             {
                 childWidget.GetView().SetParentView(this);
                 childWidget.GetView().ShowView(relativeChildPosition);
             }
-
             dwellTimerActive = false;
         }
 

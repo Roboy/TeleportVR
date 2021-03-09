@@ -20,7 +20,16 @@ namespace Widgets
         public bool allowDwellTime;
 
         public static bool settingsAreActive;
-        
+	public bool showExplanation = true;
+	void Update(){
+		if(Input.GetKeyDown(KeyCode.Escape) && showExplanation == false)
+	{
+			showExplanation = true;	
+	}	else if(Input.GetKeyDown(KeyCode.Escape) && showExplanation == true)
+	{
+			showExplanation = false;	
+	}
+        }
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.
         /// </summary>

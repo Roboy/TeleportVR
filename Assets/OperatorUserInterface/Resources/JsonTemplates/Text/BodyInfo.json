@@ -1,0 +1,9 @@
+{
+	"id": 91,
+	"type": "Text",
+	"title": "BodyTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "Green: Working\n Red: Not Working\n Yellow: Unknown \n press escape to hide message",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}
