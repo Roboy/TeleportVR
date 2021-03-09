@@ -1,0 +1,9 @@
+{
+	"id": 93,
+	"type": "Text",
+	"title": "SpeakersTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "Mutes/Unmutes your speakers ",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ]
+}
