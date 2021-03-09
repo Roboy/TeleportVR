@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public enum Scenes {
     NONE,
     HUD,
-    CONSTRUCT
+    CONSTRUCT,
+    TRAINING
 }
 
 public class AdditiveSceneManager : MonoBehaviour
@@ -38,6 +39,15 @@ public class AdditiveSceneManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if the current Scene contains the HUD.
+    /// </summary>
+    /// <returns></returns>
+    public static bool CurrentSceneContainsHud()
+    {
+        return currentScene == Scenes.HUD || currentScene == Scenes.TRAINING;
+    }
+
+    /// <summary>
     /// Delegate that executes everytime a scene is loaded to update currentScene variable.
     /// </summary>
     /// <param name="scene">laoded scene</param>
@@ -49,6 +59,9 @@ public class AdditiveSceneManager : MonoBehaviour
                 break;
             case 2:
                 currentScene = Scenes.HUD;
+                break;
+            case 3:
+                currentScene = Scenes.TRAINING;
                 break;
         }
     }
@@ -75,6 +88,8 @@ public class AdditiveSceneManager : MonoBehaviour
                 return 1;
             case Scenes.HUD:
                 return 2;
+            case Scenes.TRAINING:
+                return 3;
             default:
                 return -1;
         }
