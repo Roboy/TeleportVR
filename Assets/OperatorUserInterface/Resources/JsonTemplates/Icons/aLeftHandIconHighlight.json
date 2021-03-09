@@ -4,8 +4,8 @@
 	"title": "aLeftHandHighlight",
 	"widgetPosition": "bottomleft",
 	"unfoldChildDwellTimer": 1.0,
-	"icons": [ "LeftHandHighlight" ],
-	"currentIcon": "LeftHandHighlight",
+	"icons": [ "LeftHandHighlightBlack", "LeftHandHighlightWhite" ],
+	"currentIcon": "LeftHandHighlightBlack",
 	"yPositionOffset": -35.0,
 	"xPositionOffset": 135.0,
 	"scale": 0.7
