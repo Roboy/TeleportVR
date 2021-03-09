@@ -21,7 +21,7 @@ public class StateManager : Singleton<StateManager>
     /// </summary>
     public enum States
     {
-        HUD, Construct
+        HUD, Construct, Training
     }
 
     /// <summary>
@@ -51,14 +51,38 @@ public class StateManager : Singleton<StateManager>
         switch (currentState)
         {
             case States.HUD:
+                GoToState(States.Construct);
+                break;
+            case States.Construct:
+                GoToState(States.HUD);
+                break;
+            case States.Training:
+                GoToState(States.Construct);
+                break;
+            default:
+                Debug.LogWarning("Unhandled State: Please specify the next State after " + currentState);
+                break;
+        }
+    }
+    
+    public void GoToState(States newState)
+    {
+        switch (newState)
+        {
+            case States.Construct:
                 transitionManager.StartTransition(false);
                 additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
                 currentState = States.Construct;
                 break;
-            case States.Construct:
+            case States.HUD:
                 transitionManager.StartTransition(true);
                 additiveSceneManager.ChangeScene(Scenes.HUD, null, DelegateOnConstructUnload, null, null);
                 currentState = States.HUD;
+                break;
+            case States.Training:
+                transitionManager.StartTransition(true);
+                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, DelegateOnConstructUnload, null, null);
+                currentState = States.Training;
                 break;
             default:
                 Debug.LogWarning("Unhandled State: Please specify the next State after " + currentState);
@@ -74,6 +98,8 @@ public class StateManager : Singleton<StateManager>
     {
         if (Input.GetKeyDown(KeyCode.Space))
             GoToNextState();
+        if (Input.GetKeyDown(KeyCode.T) && currentState == States.Construct)
+            GoToState(States.Training);
     }
 
     #region Delegates
