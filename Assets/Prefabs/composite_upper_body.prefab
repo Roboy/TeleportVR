@@ -939,9 +939,10 @@ GameObject:
   - component: {fileID: 7670348924313004793}
   - component: {fileID: 7670348924313004795}
   - component: {fileID: 7670348924313004790}
+  - component: {fileID: 2545342680545504703}
   m_Layer: 0
   m_Name: hand_left
-  m_TagString: Untagged
+  m_TagString: RoboyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1045,6 +1046,19 @@ MonoBehaviour:
   TPY: 0
   TPZ: 0
   MaximumError: 0.001
+--- !u!65 &2545342680545504703
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670348924313004796}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 63.716816, y: 81.43972, z: 141.5493}
+  m_Center: {x: 1.5486244, y: -0.23554975, z: 10.861803}
 --- !u!1 &7670348924344358640
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,7 +2861,8 @@ GameObject:
   - component: {fileID: 7670348925238563070}
   - component: {fileID: 7670348925238563071}
   - component: {fileID: 7670348925238563068}
-  m_Layer: 0
+  - component: {fileID: 4096306767652528004}
+  m_Layer: 10
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2951,6 +2966,21 @@ MonoBehaviour:
   Childs: []
   Joint: {fileID: 0}
   Objectives: []
+--- !u!114 &4096306767652528004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670348925238562817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb257e2aa559054ab5616b9062217e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &7670348925242868978
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,9 +4332,10 @@ GameObject:
   - component: {fileID: 7670348925793971279}
   - component: {fileID: 7670348925793971282}
   - component: {fileID: 7670348925793971281}
+  - component: {fileID: 6040215630514160373}
   m_Layer: 0
   m_Name: hand_right
-  m_TagString: Untagged
+  m_TagString: RoboyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4408,6 +4439,19 @@ MonoBehaviour:
   TPY: 0
   TPZ: 0
   MaximumError: 0.001
+--- !u!65 &6040215630514160373
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670348925793971283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 63.716816, y: 81.43972, z: 141.5493}
+  m_Center: {x: -1.5486397, y: -0.23554975, z: 10.861803}
 --- !u!1 &7670348925836131668
 GameObject:
   m_ObjectHideFlags: 0

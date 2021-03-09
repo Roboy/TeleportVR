@@ -3,8 +3,10 @@ using Widgets;
 
 namespace Training
 {
-    public class TutorialSteps : Singleton<TutorialSteps>
+    public class TutorialSteps : MonoBehaviour//Singleton<TutorialSteps>
     {
+        public static TutorialSteps Instance;
+        
         public int currentStep;
         private AudioSource _audioSource;
 
@@ -14,6 +16,10 @@ namespace Training
         // Start is called before the first frame update
         void Start()
         {
+            // get a reference to this singleton, as scripts from other scenes are not able to do this
+            _ = Instance;
+            print(Instance);
+            
             _audioSource = GetComponent<AudioSource>();
             PublishNotification("Welcome to the Training!\n" +
                                 "Take a look around. " +
