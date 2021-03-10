@@ -5595,13 +5595,23 @@ PrefabInstance:
     - target: {fileID: 7670348924458301245, guid: 93435133f121ebd45996e6aa48273fca,
         type: 3}
       propertyPath: Scroll.y
-      value: 1825.3997
+      value: 1801
       objectReference: {fileID: 0}
+    - target: {fileID: 7670348924458301245, guid: 93435133f121ebd45996e6aa48273fca,
+        type: 3}
+      propertyPath: SelectedSegment
+      value: 
+      objectReference: {fileID: 2046044804}
     - target: {fileID: 7670348924458301247, guid: 93435133f121ebd45996e6aa48273fca,
         type: 3}
       propertyPath: m_Name
       value: composite_upper_body
       objectReference: {fileID: 0}
+    - target: {fileID: 7670348925793971281, guid: 93435133f121ebd45996e6aa48273fca,
+        type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 1199351587}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93435133f121ebd45996e6aa48273fca, type: 3}
 --- !u!1001 &3657889360586359341
