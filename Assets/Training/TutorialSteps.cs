@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Widgets;
 
 namespace Training
@@ -8,6 +9,10 @@ namespace Training
         public static TutorialSteps Instance;
         
         public int currentStep;
+        public AudioClip welcome, imAria,headHowTo, leftArmHowTo, rightArmHowTo, driveHowTo, amazing;
+        public AudioSource[] audioSourceArray;
+        int toggle;
+        double prevDuration = 0.0;
         private AudioSource _audioSource;
 
         [SerializeField] private GameObject designatedArea;
@@ -21,11 +26,26 @@ namespace Training
             print(Instance);
             
             _audioSource = GetComponent<AudioSource>();
-            PublishNotification("Welcome to the Training!\n" +
-                                "Take a look around. " +
-                                "In the mirror you can see how you are controlling the Head of Roboy.\n" +
-                                "Look at the blue sphere to get started!");
+
+            //ScheduleAudioClip(welcome);
+            //ScheduleAudioClip(imAria, 2.0);
+           
+            PublishNotification("Welcome to the Training!"); //\n" +
+                                //"Take a look around. " +
+                                //"In the mirror you can see how you are controlling the Head of Roboy.\n" +
+                                //"Look at the blue sphere to get started!");
         }
+
+        private void ScheduleAudioClip(AudioClip clip, double delay=0)
+        {
+            toggle = 1 - toggle;
+            audioSourceArray[toggle].clip = clip;
+            audioSourceArray[toggle].PlayScheduled(AudioSettings.dspTime + prevDuration + delay);
+            prevDuration = (double)clip.samples / clip.frequency;
+
+        }
+
+
 
         public static void PublishNotification(string message)
         {
@@ -40,8 +60,11 @@ namespace Training
             currentStep++;
             if (currentStep == 1)
             {
-                PublishNotification("You can move Roboy's wheelchair by using your left Joystick.");
-                _audioSource.Play();
+                prevDuration = 0;
+                ScheduleAudioClip(headHowTo);
+                PublishNotification("head");
+                //PublishNotification("You can move Roboy's wheelchair by using your left Joystick.");
+                //_audioSource.Play();
                 
             }
             else if (currentStep == 2)
@@ -65,6 +88,7 @@ namespace Training
                 PublishNotification("Well done, young Roboyan. You are now ready to control Roboy.");
             }
         }
+
 
         // Update is called once per frame
         void Update()

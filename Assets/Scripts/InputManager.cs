@@ -7,14 +7,20 @@ public class InputManager : Singleton<InputManager>
     public List<UnityEngine.XR.InputDevice> controllerLeft = new List<UnityEngine.XR.InputDevice>();
     public List<UnityEngine.XR.InputDevice> controllerRight = new List<UnityEngine.XR.InputDevice>();
 
+    [SerializeField] VRGestureRecognizer vrGestureRecognizer;
+
     private bool lastMenuBtn;
     private bool lastGrabLeft;
     private bool lastGrabRight;
+    bool nodded, waiting;
 
     void Start()
     {
         GetLeftController();
         GetRightController();
+
+        vrGestureRecognizer.Nodded += OnNodded;
+        vrGestureRecognizer.HeadShaken += OnHeadShaken;
     }
 
     /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
@@ -35,6 +41,31 @@ public class InputManager : Singleton<InputManager>
             UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, controllerRight);
         }
         return controllerRight.Count > 0;
+    }
+
+    void OnNodded()
+    {
+        nodded = true;
+        Debug.LogError("Yes");
+    }
+
+    void OnHeadShaken()
+    {
+        Debug.LogError("no");
+    }
+
+    IEnumerator WaitForNod()
+    {
+        Debug.Log("waiting for a nod");
+        waiting = true;
+        nodded = false;
+        yield return new WaitUntil(() => nodded);
+        waiting = false;
+        {
+            Debug.Log("moving on");
+            Training.TutorialSteps.Instance.NextStep();
+        }
+        Debug.Log("user confirmed");
     }
 
     void FixedUpdate()
@@ -78,7 +109,7 @@ public class InputManager : Singleton<InputManager>
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 5)
+                    if (Training.TutorialSteps.Instance.currentStep == 10)
                     {
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
                             btn)
@@ -87,10 +118,20 @@ public class InputManager : Singleton<InputManager>
                         }
                     }
                     
-                    // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 3)
+                    // check if the left arm is moving 
+                    if (Training.TutorialSteps.Instance.currentStep == 2)
                     {
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep();
+                        }
+                    }
+
+                    // check if the left arm is moving 
+                    if (Training.TutorialSteps.Instance.currentStep == 3)
+                    {
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
                             Training.TutorialSteps.Instance.NextStep();
@@ -105,7 +146,7 @@ public class InputManager : Singleton<InputManager>
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
                     {
-                        if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 1)
+                        if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 4)
                         {
                             if (joystick.sqrMagnitude > 0.1f)
                             {
@@ -159,6 +200,14 @@ public class InputManager : Singleton<InputManager>
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
+                    if (Training.TutorialSteps.Instance.currentStep == 1)
+                    {
+                        if (!waiting) StartCoroutine(WaitForNod());
+                       // if (nodded)
+                       
+                       
+                    }
+                    
                     // check if the arm is grabbing 
                     if (Training.TutorialSteps.Instance.currentStep == 5)
                     {

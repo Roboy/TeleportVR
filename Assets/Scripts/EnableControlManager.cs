@@ -10,10 +10,26 @@ public class EnableControlManager : MonoBehaviour
 
     bool right_hand_enabled = false;
     bool left_hand_enabled = false;
+
+    public VRGestureRecognizer vrGestureRecognizer;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //vrGestureRecognizer = GetComponent<VRGestureRecognizer>();
+        //vrGestureRecognizer.Nodded += OnNodded;
+        //vrGestureRecognizer.HeadShaken += OnHeadShaken;
+        Debug.LogError(vrGestureRecognizer);
+    }
+
+    void OnNodded()
+    {
+        Debug.LogError("Yes");
+    }
+
+    void OnHeadShaken()
+    {
+        Debug.LogError("no");
     }
 
     // Update is called once per frame
