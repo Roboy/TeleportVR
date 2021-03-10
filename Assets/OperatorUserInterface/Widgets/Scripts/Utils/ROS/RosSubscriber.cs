@@ -76,8 +76,9 @@ namespace Widgets
         {
             Debug.Log("Received Message");
             Debug.Log(message.data);
-            RosJsonMessage msg = JsonUtility.FromJson<RosJsonMessage>(message.data);
-            EnqueueInterfaceMessage(msg);
+            //RosJsonMessage msg = JsonUtility.FromJson<RosJsonMessage>(message.data);
+            //EnqueueInterfaceMessage(msg);
+            //RosPublisher.
         }
     }
 }
