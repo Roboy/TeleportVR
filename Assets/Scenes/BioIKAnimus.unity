@@ -2122,7 +2122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   left_hand: {fileID: 2046044804}
   right_hand: {fileID: 1675208947}
-  vrGestureRecognizer: {fileID: 1383381036}
 --- !u!1 &1383381034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,6 +2313,11 @@ PrefabInstance:
       propertyPath: shouldTransmitHeadRot
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
+      propertyPath: _myIKBody
+      value: 
+      objectReference: {fileID: 2127914740}
     - target: {fileID: 5126804911363041838, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
       propertyPath: m_IsActive
@@ -2801,6 +2805,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3398407343937169872}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2127914740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7670348924458301245, guid: 93435133f121ebd45996e6aa48273fca,
+    type: 3}
+  m_PrefabInstance: {fileID: 3398407343937169872}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127914737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37cfd7ed5d69f41aaa4d87968caf6a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2127914741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7670348924458301244, guid: 93435133f121ebd45996e6aa48273fca,
@@ -5722,7 +5738,7 @@ PrefabInstance:
     - target: {fileID: 7670348924458301245, guid: 93435133f121ebd45996e6aa48273fca,
         type: 3}
       propertyPath: Scroll.y
-      value: 1801
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7670348924458301245, guid: 93435133f121ebd45996e6aa48273fca,
         type: 3}
