@@ -437,6 +437,25 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         auditionEnabled = false;
         return true;
     }
+    
+    
+    // --------------------------Collision Modality----------------------------------
+    
+    public bool collision_initialise()
+    {
+        return true;
+    }
+
+    public bool collision_set(Float32Array collision)
+    {
+        print(collision);
+        return true;
+    }
+    
+    public bool collision_close()
+    {
+        return true;
+    }
 
     // --------------------------Proprioception Modality----------------------------------
     public bool proprioception_initialise()
