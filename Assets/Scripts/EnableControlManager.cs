@@ -1,5 +1,4 @@
 ﻿using BioIK;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,53 +7,74 @@ public class EnableControlManager : MonoBehaviour
     public BioSegment left_hand;
     public BioSegment right_hand;
 
-    bool right_hand_enabled = false;
-    bool left_hand_enabled = false;
+    List<ControllerStruct> controllers = new List<ControllerStruct>();
+    struct ControllerStruct
+    {
+        public BioSegment segment;
+        public UnityEngine.XR.InputDevice controller;
+        bool enabled;
 
-    public VRGestureRecognizer vrGestureRecognizer;
+        public ControllerStruct(BioSegment _segment, UnityEngine.XR.InputDevice _inputDevice)
+        {
+            segment = _segment;
+            controller = _inputDevice;
+            enabled = false;
+        }
+
+        public void SetEnabled(bool _enabled)
+        {
+            enabled = _enabled;
+            if (enabled)
+            {
+                controller.SendHapticImpulse(0, 0.005f, 0.01f);
+            }
+            else
+            {
+                controller.StopHaptics();
+            }
+
+            for (int i = 0; i < segment.Objectives.Length; i++)
+            {
+                segment.Objectives[i].enabled = enabled;
+            }
+        }
+
+        public bool IsEnabled()
+        {
+            return enabled;
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        //vrGestureRecognizer = GetComponent<VRGestureRecognizer>();
-        //vrGestureRecognizer.Nodded += OnNodded;
-        //vrGestureRecognizer.HeadShaken += OnHeadShaken;
-        Debug.LogError(vrGestureRecognizer);
+        if (InputManager.Instance.GetLeftController())
+        {
+            controllers.Add(new ControllerStruct(left_hand, InputManager.Instance.controllerLeft[0]));
+        }
+
+        if (InputManager.Instance.GetRightController())
+        {
+            controllers.Add(new ControllerStruct(right_hand, InputManager.Instance.controllerRight[0]));
+        }
     }
 
-    void OnNodded()
-    {
-        Debug.LogError("Yes");
-    }
-
-    void OnHeadShaken()
-    {
-        Debug.LogError("no");
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.Instance.GetLeftController()) 
-            InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out left_hand_enabled);
-        else 
-            left_hand_enabled = false;
-
-        if (InputManager.Instance.GetRightController())
-            InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out right_hand_enabled);
-        else
-            right_hand_enabled = false;
-
-        foreach (var objective in left_hand.Objectives)
+        for (int i=0;i<controllers.Count;i++)
         {
-            objective.enabled = left_hand_enabled;
-        }
-        foreach (var objective in right_hand.Objectives)
-        {
-            objective.enabled = right_hand_enabled;
-        }
+            var device = controllers[i];
+            var enabled = false;
+            if (device.controller.isValid) {
+                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out enabled);
+            }
+            device.SetEnabled(enabled);
 
-        //    left_hand.EnableControl(left_hand_enabled);
-        //right_hand.EnableControl(right_hand_enabled);
+        }
     }
+
+
 }
