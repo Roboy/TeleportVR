@@ -12,7 +12,6 @@ public class CageInterface : MonoBehaviour
 {
     [SerializeField] private string topicInit;
     [SerializeField] private string topicClose;
-    [SerializeField] private string topicInitResponse;
     
     public static bool cageIsConnected;
     
@@ -27,7 +26,6 @@ public class CageInterface : MonoBehaviour
     void Start()
     {
         _cageRosConnector = GetComponent<RosConnector>();
-        //print(_cageRosConnector);
         StartCoroutine(StartPublisher(1.0f));
     }
     
@@ -50,7 +48,6 @@ public class CageInterface : MonoBehaviour
         {
             yield return new WaitForSeconds(waitTime);
             initPublicationId = _cageRosConnector.RosSocket.Advertise<InitExoforceRequest>(topicInit);
-            initResponsePublicationId = _cageRosConnector.RosSocket.Advertise<ExoforceResponse>(topicInitResponse);
             closePublicationId = _cageRosConnector.RosSocket.Advertise<RosSharp.RosBridgeClient.MessageTypes.Std.Empty>(topicClose);
             started = true;
             break;

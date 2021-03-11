@@ -18,11 +18,11 @@ public class VideoMock : MockUtility
         {
             // update the text 
             RosJsonMessage textMessage = RosJsonMessage.CreateTextMessage(37, "Temperature:\n" + temperature + " C", 0, null);
-            rosPublisher.PublishMessage(textMessage);
+            rosJsonPublisher.PublishMessage(textMessage);
 
             // update the graph
             RosJsonMessage demoMessage = RosJsonMessage.CreateGraphMessage(1, temperature, 0, new byte[] { 10, 10, 250 });
-            rosPublisher.PublishMessage(demoMessage);
+            rosJsonPublisher.PublishMessage(demoMessage);
             tempTimer = 1;
         }
 
@@ -33,13 +33,13 @@ public class VideoMock : MockUtility
             {
                 RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, "Toxic gas detected!", 2,
                     new byte[] { 255, 10, 0, 255 });
-                rosPublisher.PublishMessage(toastrMessage);
+                rosJsonPublisher.PublishMessage(toastrMessage);
             }
             else if (round == 2)
             {
                 RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, "Smell of Zombies detected!", 2,
                     new byte[] { 255, 10, 0, 255 });
-                rosPublisher.PublishMessage(toastrMessage);
+                rosJsonPublisher.PublishMessage(toastrMessage);
             }
             else if (round == 3 || round == 4 || round == 5 || round == 7 || round == 8 || round == 10 || round == 11)
             {

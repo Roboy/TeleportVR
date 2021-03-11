@@ -5,12 +5,12 @@ using Widgets;
 
 public class MockUtility : MonoBehaviour
 {
-    internal RosPublisher rosPublisher;
+    internal RosJsonPublisher rosJsonPublisher;
 
     // Start is called before the first frame update
     void Start()
     {
-        rosPublisher = GameObject.FindGameObjectWithTag("RosManager").GetComponent<RosPublisher>();
+        rosJsonPublisher = GameObject.FindGameObjectWithTag("RosManager").GetComponent<RosJsonPublisher>();
     }
 
     // Update is called once per frame
