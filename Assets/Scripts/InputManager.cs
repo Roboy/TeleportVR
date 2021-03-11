@@ -106,6 +106,7 @@ public class InputManager : Singleton<InputManager>
                 }
                 
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
+                    Training.TutorialSteps.Instance != null &&
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     // check if the arm is grabbing 
@@ -121,20 +122,35 @@ public class InputManager : Singleton<InputManager>
                     // check if the left arm is moving 
                     if (Training.TutorialSteps.Instance.currentStep == 2)
                     {
+                        
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
-                            Training.TutorialSteps.Instance.NextStep();
+                           
+                            Training.TutorialSteps.Instance.NextStep(praise: true);
+                        }
+
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton , out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.CorrectUser();
                         }
                     }
 
-                    // check if the left arm is moving 
+                    // check if the right arm is moving 
                     if (Training.TutorialSteps.Instance.currentStep == 3)
                     {
+                        
                         if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
-                            Training.TutorialSteps.Instance.NextStep();
+                            Training.TutorialSteps.Instance.NextStep(praise: true);
+                        }
+
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.CorrectUser();
                         }
                     }
                 }
@@ -202,45 +218,45 @@ public class InputManager : Singleton<InputManager>
                 {
                     if (Training.TutorialSteps.Instance.currentStep == 1)
                     {
-                        if (!waiting) StartCoroutine(WaitForNod());
+                        //if (!waiting) StartCoroutine(WaitForNod());
                        // if (nodded)
                        
                        
                     }
                     
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 5)
-                    {
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep();
-                        }
-                    }
+                    //if (Training.TutorialSteps.Instance.currentStep == 5)
+                    //{
+                    //    if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.NextStep();
+                    //    }
+                    //}
                     
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 3)
-                    {
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep();
-                        }
-                    }
+                    //if (Training.TutorialSteps.Instance.currentStep == 3)
+                    //{
+                    //    if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.NextStep();
+                    //    }
+                    //}
                 }
 
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 3)
-                    {
-                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep();
-                        }
-                    }
+                    //if (Training.TutorialSteps.Instance.currentStep == 2)
+                    //{
+                    //    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.NextStep();
+                    //    }
+                    //}
                 }
             }
             else
