@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Training;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 //using Valve.VR;
@@ -81,7 +82,7 @@ public class StateManager : Singleton<StateManager>
                 break;
             case States.Training:
                 transitionManager.StartTransition(true);
-                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, DelegateOnConstructUnload, null, null);
+                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, DelegateOnConstructUnload, null, DelegateBeforeTrainingLoad);
                 currentState = States.Training;
                 break;
             default:
@@ -119,6 +120,15 @@ public class StateManager : Singleton<StateManager>
             openMenuButton.GetChild(0).GetComponent<ButtonRigidbodyConstraint>().InitialState();
             openMenuButton.GetChild(1).GetComponent<FrameClickDetection>().highlightOff();
         }
+    }
+    
+    /// <summary>
+    /// Logic that is executed right before the Trainings scene is loaded.
+    /// Gets the reference to the TutorialSteps script
+    /// </summary>
+    void DelegateBeforeTrainingLoad()
+    {
+        TutorialSteps.Instance = GameObject.FindGameObjectWithTag("Tutorial").GetComponent<TutorialSteps>();
     }
 
     /// <summary>

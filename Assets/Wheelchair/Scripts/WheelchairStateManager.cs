@@ -13,10 +13,10 @@ public class WheelchairStateManager : MonoBehaviour
         {
             if (WheelchairModel != null)
             {
-                WheelchairModel.SetActive(StateManager.Instance.currentState == StateManager.States.Construct);
+                WheelchairModel.SetActive(StateManager.Instance.currentState != StateManager.States.HUD);
             }
         }
         // if BioIK is needed for real roboy, only the meshes might need to be disabled, but for now just disable it all
-        UpperBody.SetActive(StateManager.Instance.currentState == StateManager.States.Construct);
+        UpperBody.SetActive(StateManager.Instance.currentState != StateManager.States.HUD);
     }
 }

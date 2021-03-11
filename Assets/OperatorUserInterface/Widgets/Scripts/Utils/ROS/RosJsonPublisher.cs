@@ -9,34 +9,9 @@ namespace Widgets
     /// <summary>
     /// The RosPublisher class is mainly for mocking and debugging purposes.
     /// </summary>
-    public class RosPublisher : UnityPublisher<RosSharp.RosBridgeClient.MessageTypes.Std.String>
+    public class RosJsonPublisher : RosPublisher<RosSharp.RosBridgeClient.MessageTypes.Std.String>
     {
         private float temperature = 20;
-        private bool started = false;
-
-        /// <summary>
-        ///  Start method of InterfaceMessage.
-        /// Starts a coroutine to initialize the publisher after 1 second to prevent race conditions.
-        /// </summary>
-        protected override void Start()
-        {
-            StartCoroutine(StartPublisher(1.0f));
-        }
-        /// <summary>
-        /// Starts the publisher.
-        /// </summary>
-        /// <returns>The publisher.</returns>
-        /// <param name="waitTime">Wait time.</param>
-        private IEnumerator StartPublisher(float waitTime)
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(waitTime);
-                base.Start();
-                started = true;
-                break;
-            }
-        }
 
         /// <summary>
         /// Publishs the json string as a ros message.
