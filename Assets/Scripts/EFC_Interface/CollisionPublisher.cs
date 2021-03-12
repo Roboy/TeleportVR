@@ -17,7 +17,6 @@ public class CollisionPublisher : RosPublisher<Collision>
         }
 
         int collisionCount = rawData.Length / collisionMessageSize;
-        Header header = null;//new Header();
         ContactPoint[] contactPoints = new ContactPoint[collisionCount];
         for (int i = 0; i < collisionCount; i++)
         {
@@ -35,7 +34,7 @@ public class CollisionPublisher : RosPublisher<Collision>
             //PublishMessage(point);
         }
 
-        Collision collision = new Collision(header, contactPoints);
+        Collision collision = new Collision(contactPoints);
         PublishMessage(collision);
         print("published: " + collision);
     }
