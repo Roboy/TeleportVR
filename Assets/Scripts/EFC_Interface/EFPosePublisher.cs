@@ -16,13 +16,18 @@ public class EFPosePublisher : RosPublisher<PoseStamped>
     {
         Pose pose = new Pose(new Point(ef_transform.position.x, ef_transform.position.y, ef_transform.position.z),
             new Quaternion(ef_transform.rotation.x, ef_transform.rotation.y, ef_transform.rotation.z, ef_transform.rotation.w));
-        return new PoseStamped(new Header(0, null, hand_id), pose);
+        //return new PoseStamped(new Header(0, null, hand_id), pose);
+        return new PoseStamped(null, pose);
     }
 
     // Update is called once per frame
     void Update()
     {
-        PublishMessage(transformToPoseStamped(handLeft, "left_hand"));
-        PublishMessage(transformToPoseStamped(handRight, "right_hand"));
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            PublishMessage(transformToPoseStamped(handLeft, "left_hand"));
+        }
+
+        //PublishMessage(transformToPoseStamped(handRight, "right_hand"));
     }
 }

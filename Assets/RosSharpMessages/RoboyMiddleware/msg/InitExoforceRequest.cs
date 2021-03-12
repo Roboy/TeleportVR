@@ -16,7 +16,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware
     public class InitExoforceRequest : Message
     {
         [JsonIgnore]
-        public const string RosMessageName = "roboy_middleware_msgs.msg/InitExoforceRequest";
+        public const string RosMessageName = "roboy_middleware_msgs/msg/InitExoforceRequest";
 
         //  The index of the following lists correspond to one end effector, example:
         //  ef_name[0] name of the first ef

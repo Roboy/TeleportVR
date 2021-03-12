@@ -71,7 +71,8 @@ public class CageInterface : MonoBehaviour
                     RosSharp.RosBridgeClient.MessageTypes.Std.Empty msg =
                         new RosSharp.RosBridgeClient.MessageTypes.Std.Empty();
                     _cageRosConnector.RosSocket.Publish(closePublicationId, msg);
-                    cageIsConnected = false;
+                    
+                    //cageIsConnected = false;
                 }
                 else
                 {
@@ -95,7 +96,7 @@ public class CageInterface : MonoBehaviour
                         new InitExoforceRequest(ef_name, ef_enabled, ef_init_pose, 1.8f);
                     print("Publishing " + msg + " on " + initPublicationId);
                     _cageRosConnector.RosSocket.Publish(initPublicationId, msg);
-                    cageIsConnected = true;
+                    //cageIsConnected = true;
                 }
             }
         }
