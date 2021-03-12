@@ -2381,6 +2381,7 @@ GameObject:
   - component: {fileID: 1702926448}
   - component: {fileID: 1702926449}
   - component: {fileID: 1702926450}
+  - component: {fileID: 1702926451}
   m_Layer: 0
   m_Name: RosManager
   m_TagString: RosManager
@@ -2429,6 +2430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /oui/test
+  debugInformation: 0
 --- !u!114 &1702926446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2487,6 +2489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /exoforce/control/collisions
+  debugInformation: 0
 --- !u!114 &1702926450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2502,6 +2505,22 @@ MonoBehaviour:
   Topic: /exoforce/control/stop_response
   TimeStep: 0
   isInit: 0
+--- !u!114 &1702926451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1c7ec8631870f439668e3b972b556a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /operator/pose
+  debugInformation: 1
+  handLeft: {fileID: 1068641971}
+  handRight: {fileID: 1199351587}
 --- !u!114 &1765238918 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,

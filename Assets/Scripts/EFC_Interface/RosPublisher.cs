@@ -7,6 +7,8 @@ using Collision = RosSharp.RosBridgeClient.MessageTypes.RoboySimulation.Collisio
 public class RosPublisher<T> : UnityPublisher<T> where T : Message
 {
     protected bool started = false;
+
+    [SerializeField] private bool debugInformation;
     
     /// <summary>
     ///  Start method of InterfaceMessage.
@@ -41,7 +43,10 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         if (started)
         {
             Publish(message);
-            print("Published a new message of type " + typeof(T));
+            if (debugInformation)
+            {
+                print("Published new message: " + message);
+            }
         }
         else
         {
