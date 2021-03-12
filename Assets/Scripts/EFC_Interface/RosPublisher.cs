@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using RosSharp.RosBridgeClient;
 using UnityEngine;
@@ -29,6 +30,11 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         {
             yield return new WaitForSeconds(waitTime);
             base.Start();
+            if (debugInformation)
+            {
+                print("Started publisher for " + typeof(T));
+            }
+
             started = true;
             break;
         }

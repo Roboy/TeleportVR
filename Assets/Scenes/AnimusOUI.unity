@@ -2382,6 +2382,8 @@ GameObject:
   - component: {fileID: 1702926449}
   - component: {fileID: 1702926450}
   - component: {fileID: 1702926451}
+  - component: {fileID: 1702926452}
+  - component: {fileID: 1702926453}
   m_Layer: 0
   m_Name: RosManager
   m_TagString: RosManager
@@ -2446,7 +2448,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 1
-  RosBridgeServerUrl: ws://localhost:9090
+  RosBridgeServerUrl: ws://192.168.0.116:9090
 --- !u!114 &1702926447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,7 +2462,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topicInit: /exoforce/control/initialize_request
-  topicClose: /exoforce/control/stop_request
+  head: {fileID: 529700889}
+  leftHand: {fileID: 1068641971}
+  rightHand: {fileID: 1199351587}
 --- !u!114 &1702926448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2488,7 +2492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c7040ef15104a48adf663d521bce12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: /exoforce/control/collisions
+  Topic: /exoforce/collision
   debugInformation: 0
 --- !u!114 &1702926450
 MonoBehaviour:
@@ -2521,6 +2525,37 @@ MonoBehaviour:
   debugInformation: 1
   handLeft: {fileID: 1068641971}
   handRight: {fileID: 1199351587}
+--- !u!114 &1702926452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dfec6d26d45cdd4ca0ca9be31ebd333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /exoforce/control/stop_request
+  debugInformation: 0
+--- !u!114 &1702926453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fb944dfd5c6804fbd5d9b99e4ee94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /exoforce/control/initialize_request
+  debugInformation: 0
+  head: {fileID: 529700889}
+  leftHand: {fileID: 1068641971}
+  rightHand: {fileID: 1199351587}
 --- !u!114 &1765238918 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
