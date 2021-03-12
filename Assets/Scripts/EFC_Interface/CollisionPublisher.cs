@@ -35,7 +35,7 @@ public class CollisionPublisher : RosPublisher<Collision>
             //PublishMessage(point);
         }
 
-        Collision collision = new Collision();//header, contactPoints);
+        Collision collision = new Collision(header, contactPoints);
         PublishMessage(collision);
         print("published: " + collision);
     }
@@ -45,6 +45,10 @@ public class CollisionPublisher : RosPublisher<Collision>
         // Mock
         if (Input.GetKeyDown(KeyCode.X))
         {
+            /*if (contactPointPublicationId == "")
+            {
+                contactPointPublicationId = rosConnector.RosSocket.Advertise<>(Topic);
+            }*/
             PublishCollision(new []{0f, 1, 2, 3, 4, 5, 6, 7, 8});
         }
     }

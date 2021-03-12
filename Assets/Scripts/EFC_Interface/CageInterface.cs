@@ -92,7 +92,7 @@ public class CageInterface : MonoBehaviour
                         {calibration_point1, calibration_point2, calibration_point3};
 
                     InitExoforceRequest msg =
-                        new InitExoforceRequest(ef_name, ef_enabled, ef_init_pose, calibration_points);
+                        new InitExoforceRequest(ef_name, ef_enabled, ef_init_pose, 1.8f);
                     print("Publishing " + msg + " on " + initPublicationId);
                     _cageRosConnector.RosSocket.Publish(initPublicationId, msg);
                     cageIsConnected = true;

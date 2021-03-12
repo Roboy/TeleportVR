@@ -13,7 +13,9 @@ namespace Widgets
         /// <param name="iconTexture"></param>
         public void SetIcon(Texture2D iconTexture)
         {
+            //print("Trying to set texture " + iconTexture);
             image.texture = iconTexture;
+            //print("Set a new texture");
         }
 
         /// <summary>
