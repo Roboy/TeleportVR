@@ -84,6 +84,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     // public NaoAnimusDriver robotDriver;
     public BioIK.BioIK _myIKBody;
+    public BioIK.BioIK _myIKHead;
     private List<BioSegment> _actuatedJoints;
     private bool motorEnabled;
     private float _lastUpdate;
@@ -278,6 +279,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool vision_set(ImageSamples currSamples)
     {
+        //return true;
         try
         {
 
@@ -498,14 +500,14 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         motorMsg = new Float32Array();
         motorSample = new Sample(DataMessage.Types.DataType.Float32Arr, motorMsg);
         string joint_names = "\"";
-        foreach (var segment in _myIKBody.Segments)
+        foreach (var segment in _myIKHead.Segments)
         {
             //Debug.Log(segment.name);
             if (segment.Joint != null)
             {
                 if (segment.Joint.X.Enabled)
                     joint_names += segment.Joint.name + "\", \"";
-             }
+            }
         }
         Debug.LogError(joint_names);
 
@@ -520,6 +522,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     // sends to animus server
     public Sample motor_get()
     {
+        //return null;
         if (!bodyTransitionReady) return null;
         if (!motorEnabled)
         {
@@ -530,6 +533,15 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         if (Time.time * 1000 - _lastUpdate > 50)
         {
             var motorAngles = new List<float>();
+
+            foreach (var segment in _myIKHead.Segments)
+            {
+                if (segment.Joint != null)
+                {
+                    motorAngles.Add((float)segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
+                }
+            }
+
             foreach (var segment in _myIKBody.Segments)
             {
                 //Debug.Log(segment.name);
@@ -539,7 +551,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                     //Debug.Log(segment.Joint.name + " " + segment.Joint.X.CurrentValue + " " + segment.Joint.Y.CurrentValue + " " + segment.Joint.Z.CurrentValue);
                     //if (segment.Joint.X.Enabled)
                     //{
-                        Debug.Log("X " + segment.Joint.X.CurrentValue);
+                       // Debug.Log("X " + segment.Joint.X.CurrentValue);
                     //}
                     //if (segment.Joint.Y.Enabled)
                     //{

@@ -26,7 +26,7 @@ public class EnableControlManager : MonoBehaviour
             enabled = _enabled;
             if (enabled)
             {
-                controller.SendHapticImpulse(0, 0.005f, 0.01f);
+                controller.SendHapticImpulse(0, 0.005f);
             }
             else
             {
