@@ -7,3 +7,4 @@ bool[] ef_enabled
 geometry_msgs/Pose[] ef_init_pose
 
 float32 operator_height
+roboy_simulation_msgs/LinkInformation[] roboy_link_information

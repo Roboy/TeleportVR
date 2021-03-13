@@ -2518,7 +2518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /operator/pose
-  debugInformation: 1
+  debugInformation: 0
   handLeft: {fileID: 1068641971}
   handRight: {fileID: 1199351587}
 --- !u!114 &1702926452
