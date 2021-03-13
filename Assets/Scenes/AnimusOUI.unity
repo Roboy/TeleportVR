@@ -2461,10 +2461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ef4a3f6da5e50458d409cb33b45cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topicInit: /exoforce/control/initialize_request
-  head: {fileID: 529700889}
-  leftHand: {fileID: 1068641971}
-  rightHand: {fileID: 1199351587}
+  connectionTimeout: 5
 --- !u!114 &1702926448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2516,7 +2513,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1c7ec8631870f439668e3b972b556a, type: 3}
   m_Name: 

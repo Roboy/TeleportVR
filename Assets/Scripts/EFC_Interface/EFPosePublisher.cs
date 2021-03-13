@@ -15,9 +15,7 @@ public class EFPosePublisher : RosPublisher<EFPose>
 
     private EFPose transformToEFPose(Transform ef_transform, string hand_id)
     {
-        Pose pose = new Pose(new Point(ef_transform.position.x, ef_transform.position.y, ef_transform.position.z),
-            new Quaternion(ef_transform.rotation.x, ef_transform.rotation.y, ef_transform.rotation.z, ef_transform.rotation.w));
-        //return new PoseStamped(new Header(0, null, hand_id), pose);
+        Pose pose = CageInterface.TransformToPose(ef_transform);
         return new EFPose(hand_id, pose);
     }
 

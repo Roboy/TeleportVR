@@ -12,13 +12,14 @@ public class CageSubscriber : UnitySubscriber<ExoforceResponse>
     protected override void ReceiveMessage(ExoforceResponse message)
     {
         Debug.Log(message.success + ": Received " + message.message);
-        string newIcon = "";
         if (message.success)
         {
             CageInterface.cageIsConnected = isInit;
+            var newIcon = "";
             if (isInit)
             {
                 newIcon = "Cage";
+                CageInterface.sentInitRequest = false;
             }
             else
             {
@@ -33,6 +34,10 @@ public class CageSubscriber : UnitySubscriber<ExoforceResponse>
         }
         else
         {
+            if (isInit)
+            {
+                CageInterface.sentInitRequest = false;
+            }
             Debug.LogWarning("Request to Cage unssuccessfull: " + message.message);
         }
     }
