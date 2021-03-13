@@ -36,7 +36,6 @@ public class CollisionPublisher : RosPublisher<Collision>
 
         Collision collision = new Collision(contactPoints);
         PublishMessage(collision);
-        print("published: " + collision);
     }
 
     private void Update()

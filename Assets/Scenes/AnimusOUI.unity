@@ -2448,7 +2448,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 1
-  RosBridgeServerUrl: ws://192.168.0.116:9090
+  RosBridgeServerUrl: ws://localhost:9090
 --- !u!114 &1702926447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2461,7 +2461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ef4a3f6da5e50458d409cb33b45cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectionTimeout: 5
 --- !u!114 &1702926448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2513,7 +2512,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d1c7ec8631870f439668e3b972b556a, type: 3}
   m_Name: 

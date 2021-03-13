@@ -35,7 +35,8 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
                 print("Started publisher for " + typeof(T));
             }
 
-            started = true;
+            //if (rosConnector.IsConnected.)
+            started = rosConnector.IsConnected.WaitOne(0);
             break;
         }
     }
@@ -56,7 +57,10 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         }
         else
         {
-            Debug.LogWarning("Publisher for " + typeof(T) + " has not been started yet!");
+            if (debugInformation)
+            {
+                Debug.LogWarning("Publisher for " + typeof(T) + " has not been started yet!");
+            }
         }
     }
 }
