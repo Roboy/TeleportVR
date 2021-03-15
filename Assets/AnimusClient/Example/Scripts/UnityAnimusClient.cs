@@ -6,7 +6,7 @@ using Animus.Data;
 using Animus.RobotProto;
 using AnimusCommon;
 using Google.Protobuf.Collections;
-// using BioIK;
+using BioIK;
 #if ANIMUS_USE_OPENCV
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
@@ -33,7 +33,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public GameObject OVRRig;
     public Transform TrackingSpace;
-    public GameObject robotBody;
     public Robot chosenDetails;
 
     // vision variables
@@ -84,8 +83,9 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     private bool trackingLeft;
 
     // public NaoAnimusDriver robotDriver;
-    // private BioIK.BioIK _myIKBody;
-    // private List<BioSegment> _actuatedJoints;
+    public BioIK.BioIK _myIKBody;
+    public BioIK.BioIK _myIKHead;
+    private List<BioSegment> _actuatedJoints;
     private bool motorEnabled;
     private float _lastUpdate;
 
@@ -130,8 +130,9 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         bodyTransitionReady = false;
 
         // controls an led ring (optional)
-        //StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
+        StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
         StartCoroutine(StartBodyTransition());
+
     }
 
 
@@ -278,6 +279,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool vision_set(ImageSamples currSamples)
     {
+        //return true;
         try
         {
 
@@ -318,7 +320,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             //	bytes = all_bytes.Skip(all_bytes.Length / 2).ToArray();
             //}
 
-            Debug.Log($"{currShape[0]}, {currShape[1]}");
+            //Debug.Log($"{currShape[0]}, {currShape[1]}");
 #if ANIMUS_USE_OPENCV
             if (!initMats)
             {
@@ -437,10 +439,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         auditionEnabled = false;
         return true;
     }
-    
-    
+
     // --------------------------Collision Modality----------------------------------
-    
     public bool collision_initialise()
     {
         return true;
@@ -451,7 +451,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         print(collision);
         return true;
     }
-    
+
     public bool collision_close()
     {
         return true;
@@ -516,6 +516,17 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         _lastUpdate = 0;
         motorMsg = new Float32Array();
         motorSample = new Sample(DataMessage.Types.DataType.Float32Arr, motorMsg);
+        string joint_names = "\"";
+        foreach (var segment in _myIKHead.Segments)
+        {
+            //Debug.Log(segment.name);
+            if (segment.Joint != null)
+            {
+                if (segment.Joint.X.Enabled)
+                    joint_names += segment.Joint.name + "\", \"";
+            }
+        }
+        Debug.LogError(joint_names);
 
         StartCoroutine(SendLEDCommand(LEDS_CONNECTED));
         return true;
@@ -528,6 +539,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     // sends to animus server
     public Sample motor_get()
     {
+        //return null;
         if (!bodyTransitionReady) return null;
         if (!motorEnabled)
         {
@@ -537,165 +549,200 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
         if (Time.time * 1000 - _lastUpdate > 50)
         {
-            var headAngles = shouldTransmitHeadRot ? humanHead.eulerAngles : lastHeadRot;
-            //print("should Transmit" + shouldTransmitHeadRot);
-            if (shouldTransmitHeadRot)
-            {
-                lastHeadRot = headAngles;
-            }
-            var roll = ClipAngle(headAngles.x);
-            var pitch = ClipAngle(-headAngles.y);
-            var yaw = ClipAngle(headAngles.z);
+            var motorAngles = new List<float>();
 
-            var motorAngles = new List<float>
-        {
-            0, 0,
-            (float)roll * Mathf.Deg2Rad,
-            -(float)pitch * Mathf.Deg2Rad,
-            (float) yaw * Mathf.Deg2Rad,
-        };
-
-            // // 	if (trackingLeft)
-            // // 	{
-            //motorAngles.Add(OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger));
-            float axis = 0;
-            if (InputManager.Instance.GetLeftControllerAvailable() &&
-                InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out axis))
+            foreach (var segment in _myIKHead.Segments)
             {
-                motorAngles.Add(axis);
-            }
-            else
-            {
-                motorAngles.Add(0);
-            }
-            if (InputManager.Instance.GetLeftControllerAvailable() &&
-                InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out axis))
-            {
-                motorAngles.Add(axis);
-            }
-            else
-            {
-                motorAngles.Add(0);
-            }
-            //motorAngles.Add(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch));
-            robotLeftHandPositionROS = Vector2Ros(humanLeftHand.position);
-            robotLeftHandOrientationROS = Quaternion2Ros(Quaternion.Euler(humanLeftHand.eulerAngles));
-            motorAngles.AddRange(new List<float>()
-        {
-            robotLeftHandPositionROS.x,
-            robotLeftHandPositionROS.y,
-            robotLeftHandPositionROS.z,
-            robotLeftHandOrientationROS.x,
-            robotLeftHandOrientationROS.y,
-            robotLeftHandOrientationROS.z,
-            robotLeftHandOrientationROS.w
-			// Add other robot angles here
-			// leftHandClosed
-		});
-            // // 			} else {
-
-            // // 				motorAngles.Add(0.0f);
-            // // 				motorAngles.AddRange( new List<float>(){0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f});
-            // // 			}
-
-            // // 			if (trackingRight)
-            // // 			{
-            //motorAngles.Add(OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger));
-            //motorAngles.Add(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch));
-            if (InputManager.Instance.GetRightControllerAvailable() &&
-                InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out axis))
-            {
-                motorAngles.Add(axis);
-            }
-            else
-            {
-                motorAngles.Add(0);
-            }
-            if (InputManager.Instance.GetRightControllerAvailable() &&
-                InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out axis))
-            {
-                motorAngles.Add(axis);
-            }
-            else
-            {
-                motorAngles.Add(0);
-            }
-            robotRightHandPositionROS = Vector2Ros(humanRightHand.position);
-            robotRightHandOrientationROS = Quaternion2Ros(Quaternion.Euler(humanRightHand.eulerAngles));
-            motorAngles.AddRange(new List<float>()
-        {
-            robotRightHandPositionROS.x,
-            robotRightHandPositionROS.y,
-            robotRightHandPositionROS.z,
-            robotRightHandOrientationROS.x,
-            robotRightHandOrientationROS.y,
-            robotRightHandOrientationROS.z,
-            robotRightHandOrientationROS.w
-        });
-
-
-            // 			} else {
-            // 				if (RightButton1) motorAngles.Add(2000.0f);
-            // 				motorAngles.Add(0.0f);
-            // 				motorAngles.AddRange( new List<float>(){0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f});
-            // 			}
-
-            // 				motorAngles.Add(1.0f);
-            // 				robotHeadPositionROS = Vector2Ros(humanHead.position);
-            // 				robotHeadOrientationROS = Quaternion2Ros(Quaternion.Euler(humanHead.eulerAngles));
-            // 				motorAngles.AddRange(new List<float>()
-            // 				{
-            // 					robotHeadPositionROS.x,
-            // 					robotHeadPositionROS.y,
-            // 					robotHeadPositionROS.z,
-            // 					robotHeadOrientationROS.x,
-            // 					robotHeadOrientationROS.y,
-            // 					robotHeadOrientationROS.z,
-            // 					robotHeadOrientationROS.w
-            // 				});
-            //
-            Vector2 axis2D;
-            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetRightControllerAvailable() &&
-                InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
-            {
-                motorAngles.Add(axis2D[0]);
-                motorAngles.Add(axis2D[1]);
-            }
-            else
-            {
-                motorAngles.Add(0);
-                motorAngles.Add(0);
+                if (segment.Joint != null)
+                {
+                    motorAngles.Add((float)segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
+                }
             }
 
-            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftControllerAvailable() &&
-                InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
+            foreach (var segment in _myIKBody.Segments)
             {
-                motorAngles.Add(axis2D[0]);
-                motorAngles.Add(axis2D[1]);
-            }
-            else
-            {
-                motorAngles.Add(0);
-                motorAngles.Add(0);
+                //Debug.Log(segment.name);
+                if (segment.Joint != null)
+                {
+                    motorAngles.Add((float)segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
+                    //Debug.Log(segment.Joint.name + " " + segment.Joint.X.CurrentValue + " " + segment.Joint.Y.CurrentValue + " " + segment.Joint.Z.CurrentValue);
+                    //if (segment.Joint.X.Enabled)
+                    //{
+                       // Debug.Log("X " + segment.Joint.X.CurrentValue);
+                    //}
+                    //if (segment.Joint.Y.Enabled)
+                    //{
+                    //    Debug.Log("Y " + segment.Joint.Y.CurrentValue);
+                    //}
+                    //if (segment.Joint.Z.Enabled)
+                    //{
+                    //    Debug.Log("Z " + segment.Joint.Z.CurrentValue);
+                    //}
+                }
+
+
             }
 
-            // RThumbstick = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-            // motorAngles.Add(RThumbstick[0]);
-            // motorAngles.Add(RThumbstick[1]);
 
-            // LThumbstick = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-            // motorAngles.Add(LThumbstick[0]);
-            // motorAngles.Add(LThumbstick[1]);
+            //          var headAngles = shouldTransmitHeadRot ? humanHead.eulerAngles : lastHeadRot;
+            //          //print("should Transmit" + shouldTransmitHeadRot);
+            //          if (shouldTransmitHeadRot)
+            //          {
+            //              lastHeadRot = headAngles;
+            //          }
+            //          var roll = ClipAngle(headAngles.x);
+            //          var pitch = ClipAngle(-headAngles.y);
+            //          var yaw = ClipAngle(headAngles.z);
+
+            //          var motorAngles = new List<float>
+            //      {
+            //          0, 0,
+            //          (float)roll * Mathf.Deg2Rad,
+            //          -(float)pitch * Mathf.Deg2Rad,
+            //          (float) yaw * Mathf.Deg2Rad,
+            //      };
+
+            //          // // 	if (trackingLeft)
+            //          // // 	{
+            //          //motorAngles.Add(OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger));
+            //          float axis = 0;
+            //          if (InputManager.Instance.GetLeftController() &&
+            //              InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out axis))
+            //          {
+            //              motorAngles.Add(axis);
+            //          }
+            //          else
+            //          {
+            //              motorAngles.Add(0);
+            //          }
+            //          if (InputManager.Instance.GetLeftController() &&
+            //              InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out axis))
+            //          {
+            //              motorAngles.Add(axis);
+            //          }
+            //          else
+            //          {
+            //              motorAngles.Add(0);
+            //          }
+            //          //motorAngles.Add(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch));
+            //          robotLeftHandPositionROS = Vector2Ros(humanLeftHand.position);
+            //          robotLeftHandOrientationROS = Quaternion2Ros(Quaternion.Euler(humanLeftHand.eulerAngles));
+            //          motorAngles.AddRange(new List<float>()
+            //      {
+            //          robotLeftHandPositionROS.x,
+            //          robotLeftHandPositionROS.y,
+            //          robotLeftHandPositionROS.z,
+            //          robotLeftHandOrientationROS.x,
+            //          robotLeftHandOrientationROS.y,
+            //          robotLeftHandOrientationROS.z,
+            //          robotLeftHandOrientationROS.w
+            //	// Add other robot angles here
+            //	// leftHandClosed
+            //});
+            //          // // 			} else {
+
+            //          // // 				motorAngles.Add(0.0f);
+            //          // // 				motorAngles.AddRange( new List<float>(){0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f});
+            //          // // 			}
+
+            //          // // 			if (trackingRight)
+            //          // // 			{
+            //          //motorAngles.Add(OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger));
+            //          //motorAngles.Add(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch));
+            //          if (InputManager.Instance.GetRightController() &&
+            //              InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out axis))
+            //          {
+            //              motorAngles.Add(axis);
+            //          }
+            //          else
+            //          {
+            //              motorAngles.Add(0);
+            //          }
+            //          if (InputManager.Instance.GetRightController() &&
+            //              InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out axis))
+            //          {
+            //              motorAngles.Add(axis);
+            //          }
+            //          else
+            //          {
+            //              motorAngles.Add(0);
+            //          }
+            //          robotRightHandPositionROS = Vector2Ros(humanRightHand.position);
+            //          robotRightHandOrientationROS = Quaternion2Ros(Quaternion.Euler(humanRightHand.eulerAngles));
+            //          motorAngles.AddRange(new List<float>()
+            //      {
+            //          robotRightHandPositionROS.x,
+            //          robotRightHandPositionROS.y,
+            //          robotRightHandPositionROS.z,
+            //          robotRightHandOrientationROS.x,
+            //          robotRightHandOrientationROS.y,
+            //          robotRightHandOrientationROS.z,
+            //          robotRightHandOrientationROS.w
+            //      });
+
+
+            //          // 			} else {
+            //          // 				if (RightButton1) motorAngles.Add(2000.0f);
+            //          // 				motorAngles.Add(0.0f);
+            //          // 				motorAngles.AddRange( new List<float>(){0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f});
+            //          // 			}
+
+            //          // 				motorAngles.Add(1.0f);
+            //          // 				robotHeadPositionROS = Vector2Ros(humanHead.position);
+            //          // 				robotHeadOrientationROS = Quaternion2Ros(Quaternion.Euler(humanHead.eulerAngles));
+            //          // 				motorAngles.AddRange(new List<float>()
+            //          // 				{
+            //          // 					robotHeadPositionROS.x,
+            //          // 					robotHeadPositionROS.y,
+            //          // 					robotHeadPositionROS.z,
+            //          // 					robotHeadOrientationROS.x,
+            //          // 					robotHeadOrientationROS.y,
+            //          // 					robotHeadOrientationROS.z,
+            //          // 					robotHeadOrientationROS.w
+            //          // 				});
+            //          //
+            //          Vector2 axis2D;
+            //          if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetRightController() &&
+            //              InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
+            //          {
+            //              motorAngles.Add(axis2D[0]);
+            //              motorAngles.Add(axis2D[1]);
+            //          }
+            //          else
+            //          {
+            //              motorAngles.Add(0);
+            //              motorAngles.Add(0);
+            //          }
+
+            //          if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftController() &&
+            //              InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
+            //          {
+            //              motorAngles.Add(axis2D[0]);
+            //              motorAngles.Add(axis2D[1]);
+            //          }
+            //          else
+            //          {
+            //              motorAngles.Add(0);
+            //              motorAngles.Add(0);
+            //          }
+
+            //          // RThumbstick = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+            //          // motorAngles.Add(RThumbstick[0]);
+            //          // motorAngles.Add(RThumbstick[1]);
+
+            //          // LThumbstick = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+            //          // motorAngles.Add(LThumbstick[0]);
+            //          // motorAngles.Add(LThumbstick[1]);
 
 
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
             motorSample.Data = motorMsg;
-            /*string printmsg = "";
-            foreach (float f in motorAngles) {
-                printmsg += f + ", ";
-            }
-            print(printmsg);*/
+            //          /*string printmsg = "";
+            //          foreach (float f in motorAngles) {
+            //              printmsg += f + ", ";
+            //          }
+            //          print(printmsg);*/
 
             return motorSample;
         }
@@ -844,7 +891,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
 
         emotionMsg.Data = currentEmotion;
-        Debug.Log(currentEmotion);
+        //Debug.Log(currentEmotion);
         EmotionManager.Instance.SetFace(controlCombination);
         emotionSample.Data = emotionMsg;
         return emotionSample;
