@@ -16,9 +16,14 @@ public class CloseCagePublisher : RosPublisher<Empty>
 
             if (CageInterface.cageIsConnected)
             {
-                // Send disconnect message
-                PublishMessage(new Empty());
+                Publish();
             }
         }
+    }
+
+    public void Publish()
+    {
+        // Send disconnect message
+        PublishMessage(new Empty());
     }
 }

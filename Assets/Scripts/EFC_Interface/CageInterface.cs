@@ -13,8 +13,10 @@ using Vector3 = UnityEngine.Vector3;
 //using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 
 [RequireComponent(typeof(RosConnector))]
-public class CageInterface : MonoBehaviour
+public class CageInterface : Singleton<CageInterface>
 {
+    [SerializeField] private CloseCagePublisher closeCagePublisher;
+    
     public static bool cageIsConnected;
     public static bool sentInitRequest;
 
@@ -28,6 +30,12 @@ public class CageInterface : MonoBehaviour
             new RosSharp.RosBridgeClient.MessageTypes.Geometry.Quaternion(q.x, q.y, q.z, q.w);
         Vector3 p = t.position;
         return new Pose(new Point(p.x, p.y, p.z), rot);
+    }
+
+    private void Awake()
+    {
+        // Look for the instance of the Cage in the correct scene and save it
+        _ = Instance;
     }
 
     private void Update()
@@ -46,5 +54,17 @@ public class CageInterface : MonoBehaviour
     {
         sentInitRequest = true;
         _connectionTimer = connectionTimeout;
+    }
+
+    public void CloseCage()
+    {
+        if (cageIsConnected)
+        {
+            closeCagePublisher.Publish();
+        }
+        else
+        {
+            Debug.Log("Tried to close not initialized cage.");
+        }
     }
 }

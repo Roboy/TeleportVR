@@ -7,5 +7,6 @@
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "Cage", "CageRed" ],
 	"currentIcon": "CageRed",
-	"scale" : 1
+	"scale" : 1,
+	"onActivate": "CloseCage"
 }

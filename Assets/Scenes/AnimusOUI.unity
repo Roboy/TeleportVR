@@ -943,9 +943,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 817624087352457729, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 817624087352457729, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 817624087352457729, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1001,6 +1011,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3446754110549594781, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 6021411799948961768, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_Enabled
@@ -2412,7 +2427,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a53eeeb2f1f036f44bef4735f1e35919, type: 3}
   m_Name: 
@@ -2448,7 +2463,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 1
-  RosBridgeServerUrl: ws://localhost:9090
+  RosBridgeServerUrl: ws://192.168.0.116:9090
 --- !u!114 &1702926447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2461,6 +2476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ef4a3f6da5e50458d409cb33b45cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeCagePublisher: {fileID: 0}
 --- !u!114 &1702926448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2468,7 +2484,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48d49ea4d0f6fd841a37c94bd483f4a3, type: 3}
   m_Name: 
@@ -2548,7 +2564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /exoforce/control/initialize_request
-  debugInformation: 0
+  debugInformation: 1
   head: {fileID: 529700889}
   leftHand: {fileID: 1068641971}
   rightHand: {fileID: 1199351587}

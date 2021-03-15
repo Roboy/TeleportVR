@@ -130,7 +130,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         bodyTransitionReady = false;
 
         // controls an led ring (optional)
-        StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
+        //StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
         StartCoroutine(StartBodyTransition());
     }
 
