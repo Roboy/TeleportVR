@@ -17,7 +17,6 @@ public class CollisionPublisher : RosPublisher<Collision>
         }
 
         int collisionCount = rawData.Length / collisionMessageSize;
-        Header header = new Header();
         ContactPoint[] contactPoints = new ContactPoint[collisionCount];
         for (int i = 0; i < collisionCount; i++)
         {
@@ -35,9 +34,8 @@ public class CollisionPublisher : RosPublisher<Collision>
             //PublishMessage(point);
         }
 
-        Collision collision = new Collision();//header, contactPoints);
+        Collision collision = new Collision(contactPoints);
         PublishMessage(collision);
-        print("published: " + collision);
     }
 
     private void Update()
@@ -45,6 +43,10 @@ public class CollisionPublisher : RosPublisher<Collision>
         // Mock
         if (Input.GetKeyDown(KeyCode.X))
         {
+            /*if (contactPointPublicationId == "")
+            {
+                contactPointPublicationId = rosConnector.RosSocket.Advertise<>(Topic);
+            }*/
             PublishCollision(new []{0f, 1, 2, 3, 4, 5, 6, 7, 8});
         }
     }

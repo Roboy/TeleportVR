@@ -9,8 +9,6 @@
 
 using Newtonsoft.Json;
 
-using RosSharp.RosBridgeClient.MessageTypes.Std;
-
 namespace RosSharp.RosBridgeClient.MessageTypes.RoboySimulation
 {
     public class Collision : Message
@@ -18,18 +16,15 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboySimulation
         [JsonIgnore]
         public const string RosMessageName = "roboy_simulation_msgs/msg/Collision";
 
-        public Header header;
         public ContactPoint[] collision;
 
         public Collision()
         {
-            this.header = new Header();
             this.collision = new ContactPoint[0];
         }
 
-        public Collision(Header header, ContactPoint[] collision)
+        public Collision(ContactPoint[] collision)
         {
-            this.header = header;
             this.collision = collision;
         }
     }

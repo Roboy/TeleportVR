@@ -245,5 +245,10 @@ namespace Widgets
 
             wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
         }
+
+        private void CloseCage()
+        {
+            CageInterface.Instance.CloseCage();
+        }
     }
 }

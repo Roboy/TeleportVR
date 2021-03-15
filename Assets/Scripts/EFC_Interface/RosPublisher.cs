@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using RosSharp.RosBridgeClient;
 using UnityEngine;
@@ -7,6 +8,8 @@ using Collision = RosSharp.RosBridgeClient.MessageTypes.RoboySimulation.Collisio
 public class RosPublisher<T> : UnityPublisher<T> where T : Message
 {
     protected bool started = false;
+
+    [SerializeField] private bool debugInformation;
     
     /// <summary>
     ///  Start method of InterfaceMessage.
@@ -27,7 +30,13 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         {
             yield return new WaitForSeconds(waitTime);
             base.Start();
-            started = true;
+            if (debugInformation)
+            {
+                print("Started publisher for " + typeof(T));
+            }
+
+            //if (rosConnector.IsConnected.)
+            started = rosConnector.IsConnected.WaitOne(0);
             break;
         }
     }
@@ -41,11 +50,17 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         if (started)
         {
             Publish(message);
-            print("Published a new message of type " + typeof(T));
+            if (debugInformation)
+            {
+                print("Published new message: " + message);
+            }
         }
         else
         {
-            Debug.LogWarning("Publisher for " + typeof(T) + " has not been started yet!");
+            if (debugInformation)
+            {
+                Debug.LogWarning("Publisher for " + typeof(T) + " has not been started yet!");
+            }
         }
     }
 }

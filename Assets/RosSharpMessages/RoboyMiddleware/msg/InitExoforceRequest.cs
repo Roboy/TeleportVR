@@ -10,6 +10,7 @@
 using Newtonsoft.Json;
 
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
+using RosSharp.RosBridgeClient.MessageTypes.RoboySimulation;
 
 namespace RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware
 {
@@ -26,22 +27,25 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware
         //  posible values ('left_hand'/'right_hand')
         public bool[] ef_enabled;
         public Pose[] ef_init_pose;
-        public Vector3[] calibration_points;
+        public float operator_height;
+        public LinkInformation[] roboy_link_information;
 
         public InitExoforceRequest()
         {
             this.ef_name = new string[0];
             this.ef_enabled = new bool[0];
             this.ef_init_pose = new Pose[0];
-            this.calibration_points = new Vector3[3];
+            this.operator_height = 0.0f;
+            this.roboy_link_information = new LinkInformation[0];
         }
 
-        public InitExoforceRequest(string[] ef_name, bool[] ef_enabled, Pose[] ef_init_pose, Vector3[] calibration_points)
+        public InitExoforceRequest(string[] ef_name, bool[] ef_enabled, Pose[] ef_init_pose, float operator_height, LinkInformation[] roboy_link_information)
         {
             this.ef_name = ef_name;
             this.ef_enabled = ef_enabled;
             this.ef_init_pose = ef_init_pose;
-            this.calibration_points = calibration_points;
+            this.operator_height = operator_height;
+            this.roboy_link_information = roboy_link_information;
         }
     }
 }

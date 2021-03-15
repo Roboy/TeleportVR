@@ -19,12 +19,12 @@ public class EnableControlManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.Instance.GetLeftController()) 
+        if (InputManager.Instance.GetLeftControllerAvailable()) 
             InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out left_hand_enabled);
         else 
             left_hand_enabled = false;
 
-        if (InputManager.Instance.GetRightController())
+        if (InputManager.Instance.GetRightControllerAvailable())
             InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out right_hand_enabled);
         else
             right_hand_enabled = false;
