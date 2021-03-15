@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class InputManager : Singleton<InputManager>
 {
-    public List<UnityEngine.XR.InputDevice> controllerLeft = new List<UnityEngine.XR.InputDevice>();
-    public List<UnityEngine.XR.InputDevice> controllerRight = new List<UnityEngine.XR.InputDevice>();
+    public List<InputDevice> controllerLeft = new List<InputDevice>();
+    public List<InputDevice> controllerRight = new List<InputDevice>();
 
     private bool lastMenuBtn;
     private bool lastGrabLeft;
@@ -13,39 +14,62 @@ public class InputManager : Singleton<InputManager>
 
     void Start()
     {
-        GetLeftController();
-        GetRightController();
+        GetLeftControllerAvailable();
+        GetRightControllerAvailable();
+    }
+
+    private bool GetControllerAvailable(bool leftController)
+    {
+        return leftController ? GetLeftControllerAvailable() : GetRightControllerAvailable();
+    }
+
+    public InputDevice GetController(bool leftController)
+    {
+        return leftController ? controllerLeft[0] : controllerRight[0];
     }
 
     /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
-    public bool GetLeftController()
+    public bool GetLeftControllerAvailable()
     {
         if (controllerLeft.Count == 0)
         {
-            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Left, controllerLeft);
+            InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.Left, controllerLeft);
         }
         return controllerLeft.Count > 0;
     }
 
     /// try to get the right controller, if possible.<!-- return if the controller can be referenced.-->
-    public bool GetRightController()
+    public bool GetRightControllerAvailable()
     {
         if (controllerRight.Count == 0)
         {
-            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, controllerRight);
+            InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.Right, controllerRight);
         }
         return controllerRight.Count > 0;
     }
 
-    void FixedUpdate()
+    public bool GetControllerBtn(InputFeatureUsage<bool> inputFeature, bool leftController)
+    {
+        if (GetControllerAvailable(leftController))
+        {
+            if (GetController(leftController).TryGetFeatureValue(inputFeature, out var btn))
+            {
+                return btn;
+            }
+        }
+
+        return false;
+    }
+
+    void Update()
     {
         if (!Widgets.WidgetInteraction.settingsAreActive)
         {
             bool btn;
-            if (GetLeftController())
+            if (GetLeftControllerAvailable())
             {
                 // Go to the other mode
-                if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out btn) && btn && !lastMenuBtn)
+                if (controllerLeft[0].TryGetFeatureValue(CommonUsages.menuButton, out btn) && btn && !lastMenuBtn)
                 {
                     StateManager.Instance.GoToNextState();
                 }
@@ -97,6 +121,16 @@ public class InputManager : Singleton<InputManager>
                         }
                     }
                 }
+                
+                // check if the arm is grabbing 
+                if (!CageInterface.sentInitRequest)
+                {
+                    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                        btn)
+                    {
+                        
+                    }
+                }
 
                 // drive the wheelchair
                 if (//StateManager.Instance.currentState == StateManager.States.Construct || 
@@ -138,7 +172,7 @@ public class InputManager : Singleton<InputManager>
                     UnityAnimusClient.Instance.LeftButton2 = Input.GetKeyDown(KeyCode.R);
                 }
             }
-            if (GetRightController())
+            if (GetRightControllerAvailable())
             {
                 /*if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn && !lastGrabRight)
                 {

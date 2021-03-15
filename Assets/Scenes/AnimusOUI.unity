@@ -943,9 +943,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 817624087352457729, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 817624087352457729, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 817624087352457729, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1001,6 +1011,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3446754110549594781, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 6021411799948961768, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_Enabled
@@ -2379,6 +2394,11 @@ GameObject:
   - component: {fileID: 1702926444}
   - component: {fileID: 1702926447}
   - component: {fileID: 1702926448}
+  - component: {fileID: 1702926449}
+  - component: {fileID: 1702926450}
+  - component: {fileID: 1702926451}
+  - component: {fileID: 1702926452}
+  - component: {fileID: 1702926453}
   m_Layer: 0
   m_Name: RosManager
   m_TagString: RosManager
@@ -2407,7 +2427,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a53eeeb2f1f036f44bef4735f1e35919, type: 3}
   m_Name: 
@@ -2427,6 +2447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /oui/test
+  debugInformation: 0
 --- !u!114 &1702926446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,7 +2463,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 1
-  RosBridgeServerUrl: ws://:9090
+  RosBridgeServerUrl: ws://192.168.0.116:9090
 --- !u!114 &1702926447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2455,10 +2476,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ef4a3f6da5e50458d409cb33b45cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topicInit: /exoforce/control/initialize
-  topicClose: /exoforce/control/stop
-  topicInitResponse: /exoforce/control/initializeResponse
+  closeCagePublisher: {fileID: 0}
 --- !u!114 &1702926448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d49ea4d0f6fd841a37c94bd483f4a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /exoforce/control/initialize_response
+  TimeStep: 0
+  isInit: 1
+--- !u!114 &1702926449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c7040ef15104a48adf663d521bce12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /exoforce/collision
+  debugInformation: 0
+--- !u!114 &1702926450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2470,8 +2518,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d49ea4d0f6fd841a37c94bd483f4a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: /exoforce/control/initializeResponse
+  Topic: /exoforce/control/stop_response
   TimeStep: 0
+  isInit: 0
+--- !u!114 &1702926451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1c7ec8631870f439668e3b972b556a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /operator/pose
+  debugInformation: 0
+  handLeft: {fileID: 1068641971}
+  handRight: {fileID: 1199351587}
+--- !u!114 &1702926452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dfec6d26d45cdd4ca0ca9be31ebd333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /exoforce/control/stop_request
+  debugInformation: 0
+--- !u!114 &1702926453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702926442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fb944dfd5c6804fbd5d9b99e4ee94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Topic: /exoforce/control/initialize_request
+  debugInformation: 1
+  head: {fileID: 529700889}
+  leftHand: {fileID: 1068641971}
+  rightHand: {fileID: 1199351587}
 --- !u!114 &1765238918 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
@@ -2626,7 +2722,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: robotName
-      value: RoboySimPhilip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}

@@ -130,7 +130,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         bodyTransitionReady = false;
 
         // controls an led ring (optional)
-        StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
+        //StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
         StartCoroutine(StartBodyTransition());
     }
 
@@ -559,7 +559,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             // // 	{
             //motorAngles.Add(OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger));
             float axis = 0;
-            if (InputManager.Instance.GetLeftController() &&
+            if (InputManager.Instance.GetLeftControllerAvailable() &&
                 InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out axis))
             {
                 motorAngles.Add(axis);
@@ -568,7 +568,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             {
                 motorAngles.Add(0);
             }
-            if (InputManager.Instance.GetLeftController() &&
+            if (InputManager.Instance.GetLeftControllerAvailable() &&
                 InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out axis))
             {
                 motorAngles.Add(axis);
@@ -602,7 +602,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             // // 			{
             //motorAngles.Add(OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger));
             //motorAngles.Add(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch));
-            if (InputManager.Instance.GetRightController() &&
+            if (InputManager.Instance.GetRightControllerAvailable() &&
                 InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out axis))
             {
                 motorAngles.Add(axis);
@@ -611,7 +611,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             {
                 motorAngles.Add(0);
             }
-            if (InputManager.Instance.GetRightController() &&
+            if (InputManager.Instance.GetRightControllerAvailable() &&
                 InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out axis))
             {
                 motorAngles.Add(axis);
@@ -655,7 +655,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             // 				});
             //
             Vector2 axis2D;
-            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetRightController() &&
+            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetRightControllerAvailable() &&
                 InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
             {
                 motorAngles.Add(axis2D[0]);
@@ -667,7 +667,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 motorAngles.Add(0);
             }
 
-            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftController() &&
+            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftControllerAvailable() &&
                 InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
             {
                 motorAngles.Add(axis2D[0]);

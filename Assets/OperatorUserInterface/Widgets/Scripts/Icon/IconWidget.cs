@@ -41,11 +41,15 @@ namespace Widgets
             if (!rosMessage.currentIcon.Equals(""))
             {
                 currentIconName = rosMessage.currentIcon;
+                //print("Current Icon name: " + currentIconName);
                 if (icons.TryGetValue(currentIconName, out currentIcon))
                 {
+                    //print("Got value " + currentIcon);
                     if (view != null)
                     {
+                        //print(view);
                         ((IconView)view).SetIcon(currentIcon);
+                        //print("Finito");
                     }
                 }
                 else
