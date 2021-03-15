@@ -8,6 +8,6 @@
 	"currentIcon": "LeftHandGreen",
 	"onActivate": "ToggleLeftHand",
 	"yPositionOffset": -35.0,
-	"xPositionOffset": 135.0,
+	"xPositionOffset": -135.0,
 	"scale" : 0.6
 }
