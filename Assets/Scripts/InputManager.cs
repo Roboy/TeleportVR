@@ -70,6 +70,10 @@ public class InputManager : Singleton<InputManager>
 
     void FixedUpdate()
     {
+        if (StateManager.Instance.currentState == StateManager.States.HUD)
+            UnityAnimusClient.Instance.EnableMotor(true);
+        else
+            UnityAnimusClient.Instance.EnableMotor(false);
         if (!Widgets.WidgetInteraction.settingsAreActive)
         {
             bool btn;
