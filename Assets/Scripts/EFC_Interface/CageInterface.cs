@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using RosSharp;
 using RosSharp.RosBridgeClient;
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 using UnityEngine;
@@ -26,9 +27,11 @@ public class CageInterface : Singleton<CageInterface>
     public static Pose TransformToPose(Transform t)
     {
         Quaternion q = t.rotation;
+        q = q.Unity2Ros();
         RosSharp.RosBridgeClient.MessageTypes.Geometry.Quaternion rot =
             new RosSharp.RosBridgeClient.MessageTypes.Geometry.Quaternion(q.x, q.y, q.z, q.w);
         Vector3 p = t.position;
+        p = p.Unity2Ros();
         return new Pose(new Point(p.x, p.y, p.z), rot);
     }
 
@@ -58,7 +61,7 @@ public class CageInterface : Singleton<CageInterface>
 
     public void CloseCage()
     {
-        if (cageIsConnected)
+        if (true)//cageIsConnected)
         {
             closeCagePublisher.Publish();
         }

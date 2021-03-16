@@ -51,7 +51,7 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
 
     public void InitExoforce()
     {
-        if (!CageInterface.cageIsConnected)
+        if (true) //!CageInterface.cageIsConnected)
         {
             // send init message
             string[] ef_name = {"left_hand", "right_hand"}; // posible values ('left_hand'/'right_hand')
@@ -59,8 +59,9 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
             Pose[] poses = {CageInterface.TransformToPose(leftHand), CageInterface.TransformToPose(rightHand)};
 
             // read out the head position. If it isnt tracked, send 1.7 as a mock
-            float headHeight = head.position.y;
-            if (headHeight == 0)
+            float headHeight = head.localPosition.y;
+            print("Head height: " + headHeight);
+            if (headHeight <= 0)
             {
                 headHeight = 1.7f;
             }

@@ -195,7 +195,7 @@ PlayerSettings:
     Android: aaa.Roboy.aTeleportVR
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 23
+  AndroidMinSdkVersion: 25
   AndroidTargetSdkVersion: 28
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -711,7 +711,7 @@ PlayerSettings:
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
     1: ANIMUS_USE_OPENCV;UNITY_POST_PROCESSING_STACK_V2;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT
-    7: ANIMUS_USE_OPENCV;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT;UNITY_POST_PROCESSING_STACK_V2
+    7: UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT;UNITY_POST_PROCESSING_STACK_V2
     13: UNITY_POST_PROCESSING_STACK_V2
     19: UNITY_POST_PROCESSING_STACK_V2
     21: UNITY_POST_PROCESSING_STACK_V2

@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Philip/Animus.unity
     guid: d25c21126b6c29440b01a2071497ce1e
+  - enabled: 1
+    path: Assets/RosSharp/Scenes/FibonacciActionScene.unity
+    guid: b764064f57e6f9c40ac0a1456ad0ad83
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d,
       type: 2}

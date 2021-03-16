@@ -609,6 +609,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5723939832518863484, guid: e7404d0d9d4a02b4e8535381133f78af,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5723939832518863485, guid: e7404d0d9d4a02b4e8535381133f78af,
         type: 3}
       propertyPath: m_Name
@@ -2210,6 +2215,11 @@ PrefabInstance:
       propertyPath: shouldTransmitHeadRot
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5126804911363041838, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
       propertyPath: m_IsActive
@@ -2427,7 +2437,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a53eeeb2f1f036f44bef4735f1e35919, type: 3}
   m_Name: 
@@ -2461,8 +2471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SecondsTimeout: 10
-  Serializer: 0
-  protocol: 1
+  Serializer: 1
+  protocol: 0
   RosBridgeServerUrl: ws://192.168.0.116:9090
 --- !u!114 &1702926447
 MonoBehaviour:
@@ -2476,7 +2486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ef4a3f6da5e50458d409cb33b45cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeCagePublisher: {fileID: 0}
+  closeCagePublisher: {fileID: 1702926452}
 --- !u!114 &1702926448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2484,7 +2494,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702926442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48d49ea4d0f6fd841a37c94bd483f4a3, type: 3}
   m_Name: 
@@ -2505,7 +2515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /exoforce/collision
-  debugInformation: 0
+  debugInformation: 1
 --- !u!114 &1702926450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2520,7 +2530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Topic: /exoforce/control/stop_response
   TimeStep: 0
-  isInit: 0
+  isInit: 1
 --- !u!114 &1702926451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2550,7 +2560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /exoforce/control/stop_request
-  debugInformation: 0
+  debugInformation: 1
 --- !u!114 &1702926453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2753,6 +2763,11 @@ PrefabInstance:
         type: 3}
       propertyPath: requiredModalities.Array.data[3]
       value: motor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723432400, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}

@@ -30,13 +30,14 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         {
             yield return new WaitForSeconds(waitTime);
             base.Start();
-            if (debugInformation)
-            {
-                print("Started publisher for " + typeof(T));
-            }
 
             //if (rosConnector.IsConnected.)
             started = rosConnector.IsConnected.WaitOne(0);
+            
+            if (debugInformation)
+            {
+                print("Started publisher for " + typeof(T) + " with status " + started);
+            }
             break;
         }
     }
