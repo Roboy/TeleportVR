@@ -9,11 +9,12 @@ namespace Training
         public static TutorialSteps Instance;
         
         public int currentStep;
-        public AudioClip welcome, imAria,headHowTo, leftArmHowTo, rightArmHowTo, driveHowTo, amazing, nod, wrongTrigger;
+        public AudioClip welcome, imAria,headHowTo, leftArmHowTo, rightArmHowTo, handHowTo, driveHowTo, amazing, nod, wrongTrigger;
         public List<AudioClip> praisePhrases = new List<AudioClip>();
         public AudioSource[] audioSourceArray;
         int toggle;
         double prevDuration = 0.0;
+        int lastCorrectedAtStep = -1;
 
         [SerializeField] private GameObject designatedArea;
         //[SerializeField] private GameObject designatedArea;
@@ -24,12 +25,12 @@ namespace Training
             // get a reference to this singleton, as scripts from other scenes are not able to do this
             _ = Instance;
             print(Instance);
-            
-            
+
+
 
             //ScheduleAudioClip(welcome, delay: 1.0);
             //ScheduleAudioClip(imAria, delay: 2.0);
-           
+
             PublishNotification("Welcome to the Training!"); //\n" +
                                                              //"Take a look around. " +
                                                              //"In the mirror you can see how you are controlling the Head of Roboy.\n" +
@@ -69,9 +70,10 @@ namespace Training
 
         public void CorrectUser()
         {
-            if (currentStep == 2 || currentStep == 3)
+            if (lastCorrectedAtStep != currentStep &&  (currentStep == 2 || currentStep == 3))
             {
                 ScheduleAudioClip(wrongTrigger, queue: false);
+                lastCorrectedAtStep = currentStep;
             }
         }
 
@@ -93,7 +95,7 @@ namespace Training
             }
             else if (currentStep == 2)
             {
-                ScheduleAudioClip(leftArmHowTo, queue: false);
+                ScheduleAudioClip(leftArmHowTo, queue: false, delay: 1);
                 PublishNotification("Press and hold the grip trigger and try moving your left arm");
             }
             else if (currentStep == 3)
@@ -108,10 +110,11 @@ namespace Training
                 PublishNotification("Use left joystick to drive around");
                 //PublishNotification("Let's touch the sphere with your hand.");
             }
-            //else if (currentStep == 5)
-            //{
-            //    PublishNotification("Now press the trigger down with your index finger to grab the sphere.");
-            //}
+            else if (currentStep == 5)
+            {
+                ScheduleAudioClip(handHowTo, queue: false, delay: 1);
+                PublishNotification("Press the trigger down with your index finger to close the hand.");
+            }
             //else if (currentStep == 6)
             //{
             //    PublishNotification("Well done, young Roboyan. You are now ready to control Roboy.");

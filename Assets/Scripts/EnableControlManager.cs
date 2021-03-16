@@ -6,17 +6,21 @@ public class EnableControlManager : MonoBehaviour
 {
     public BioSegment left_hand;
     public BioSegment right_hand;
+    public BioIK.BioIK left_fingers;
+    public BioIK.BioIK right_fingers;
 
     List<ControllerStruct> controllers = new List<ControllerStruct>();
     struct ControllerStruct
     {
-        public BioSegment segment;
+        public BioSegment hand_segment;
+        public BioIK.BioIK hand_body;
         public UnityEngine.XR.InputDevice controller;
         bool enabled;
 
-        public ControllerStruct(BioSegment _segment, UnityEngine.XR.InputDevice _inputDevice)
+        public ControllerStruct(BioSegment _segment, BioIK.BioIK _body, UnityEngine.XR.InputDevice _inputDevice)
         {
-            segment = _segment;
+            hand_segment = _segment;
+            hand_body = _body;
             controller = _inputDevice;
             enabled = false;
         }
@@ -33,15 +37,40 @@ public class EnableControlManager : MonoBehaviour
                 controller.StopHaptics();
             }
 
-            for (int i = 0; i < segment.Objectives.Length; i++)
+            for (int i = 0; i < hand_segment.Objectives.Length; i++)
             {
-                segment.Objectives[i].enabled = enabled;
+                hand_segment.Objectives[i].enabled = enabled;
             }
         }
 
         public bool IsEnabled()
         {
             return enabled;
+        }
+
+        public void UpdateFingers(double value)
+        {
+            foreach (var segment in hand_body.Segments)
+            {
+                if (segment.Joint != null)
+                {
+                    //if (segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J1"))
+                    //{
+
+                    //}
+                    if((segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J5") ) || // && !segment.Joint.name.Contains("J2")) ||
+                        (segment.Joint.name.Contains("LF") && !segment.Joint.name.Contains("J5")) ||// && !segment.Joint.name.Contains("J4")) ||
+                        (!segment.Joint.name.Contains("J4")))
+                    {
+                        var range = segment.Joint.X.UpperLimit - segment.Joint.X.LowerLimit;
+
+                        segment.Joint.X.SetTargetValue(value * range - segment.Joint.X.LowerLimit);
+                    }
+                    
+                }
+                    
+
+            }
         }
 
     }
@@ -51,27 +80,32 @@ public class EnableControlManager : MonoBehaviour
     {
         if (InputManager.Instance.GetLeftController())
         {
-            controllers.Add(new ControllerStruct(left_hand, InputManager.Instance.controllerLeft[0]));
+            controllers.Add(new ControllerStruct(left_hand, left_fingers, InputManager.Instance.controllerLeft[0]));
         }
 
         if (InputManager.Instance.GetRightController())
         {
-            controllers.Add(new ControllerStruct(right_hand, InputManager.Instance.controllerRight[0]));
+            controllers.Add(new ControllerStruct(right_hand, right_fingers, InputManager.Instance.controllerRight[0]));
         }
     }
 
+   
 
-    // Update is called once per frame
-    void Update()
+
+        // Update is called once per frame
+        void Update()
     {
         for (int i=0;i<controllers.Count;i++)
         {
             var device = controllers[i];
             var enabled = false;
+            float trigger = 0.0f;
             if (device.controller.isValid) {
                 device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out enabled);
+                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out trigger);
             }
             device.SetEnabled(enabled);
+            device.UpdateFingers(trigger);
 
         }
     }

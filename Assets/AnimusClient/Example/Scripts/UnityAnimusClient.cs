@@ -280,6 +280,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public bool vision_set(ImageSamples currSamples)
     {
         //return true;
+        Debug.LogError("vision set");
         try
         {
 
@@ -304,6 +305,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             var currSample = currSamples.Samples[0];
             var currShape = currSample.DataShape;
+            Debug.Log(currSample.DataShape);
             //currShape[1] /= 2;
 
             //for (int i = 0; i < 2; i++)
@@ -422,7 +424,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     }
 
 
-    // --------------------------Audition Modality----------------------------------
+     //--------------------------Audition Modality----------------------------------
     public bool audition_initialise()
     {
         return auditionEnabled;
@@ -467,14 +469,14 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
         return true;
     }
-    
+
     public void body_manager(int id, int position, Float32Array currSample)
     {
         Widget widget = Manager.Instance.FindWidgetWithID(id);
         if ((int)(currSample.Data[position]) == -1)
         {
             widget.GetContext().currentIcon = widget.GetContext().icons[2];
-        } 
+        }
         else if ((int)(currSample.Data[position]) == 0)
         {
             widget.GetContext().currentIcon = widget.GetContext().icons[0];
@@ -499,20 +501,27 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         _lastUpdate = 0;
         motorMsg = new Float32Array();
         motorSample = new Sample(DataMessage.Types.DataType.Float32Arr, motorMsg);
-        string joint_names = "\"";
-        foreach (var segment in _myIKHead.Segments)
-        {
-            //Debug.Log(segment.name);
-            if (segment.Joint != null)
-            {
-                if (segment.Joint.X.Enabled)
-                    joint_names += segment.Joint.name + "\", \"";
-            }
-        }
-        Debug.LogError(joint_names);
+        //string joint_names = "\"";
+        //foreach (var segment in _myIKHead.Segments)
+        //{
+        //    segment.Joint.X.SetTargetValue(50.0);
+            
+        //    //Debug.Log(segment.name);
+        //    if (segment.Joint != null)
+        //    {
+        //        if (segment.Joint.X.Enabled)
+        //            joint_names += segment.Joint.name + "\", \"";
+        //    }
+        //}
+        //Debug.LogError(joint_names);
 
         StartCoroutine(SendLEDCommand(LEDS_CONNECTED));
         return true;
+    }
+
+    public void EnableMotor(bool enable) 
+    {
+        motorEnabled = enable;
     }
 
     // reads orientation of the headset
@@ -534,6 +543,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         {
             var motorAngles = new List<float>();
 
+            // head joints
             foreach (var segment in _myIKHead.Segments)
             {
                 if (segment.Joint != null)
@@ -542,29 +552,43 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 }
             }
 
+            // torso joints
             foreach (var segment in _myIKBody.Segments)
             {
                 //Debug.Log(segment.name);
                 if (segment.Joint != null)
                 {
                     motorAngles.Add((float)segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
-                    //Debug.Log(segment.Joint.name + " " + segment.Joint.X.CurrentValue + " " + segment.Joint.Y.CurrentValue + " " + segment.Joint.Z.CurrentValue);
-                    //if (segment.Joint.X.Enabled)
-                    //{
-                       // Debug.Log("X " + segment.Joint.X.CurrentValue);
-                    //}
-                    //if (segment.Joint.Y.Enabled)
-                    //{
-                    //    Debug.Log("Y " + segment.Joint.Y.CurrentValue);
-                    //}
-                    //if (segment.Joint.Z.Enabled)
-                    //{
-                    //    Debug.Log("Z " + segment.Joint.Z.CurrentValue);
-                    //}
+
                 }
 
-
             }
+
+            // left hand, right hand
+            float left_open = 0, right_open = 0;
+            if (InputManager.Instance.GetLeftController())
+                InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out left_open);
+
+            if (InputManager.Instance.GetRightController())
+                InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out right_open);
+
+            motorAngles.Add(left_open);
+            motorAngles.Add(right_open);
+
+            // wheelchair
+            Vector2 axis2D;
+            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftController() &&
+                          InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
+            {
+                motorAngles.Add(axis2D[0]);
+                motorAngles.Add(axis2D[1]);
+            }
+            else
+            {
+                motorAngles.Add(0);
+                motorAngles.Add(0);
+            }
+
 
 
             //          var headAngles = shouldTransmitHeadRot ? humanHead.eulerAngles : lastHeadRot;

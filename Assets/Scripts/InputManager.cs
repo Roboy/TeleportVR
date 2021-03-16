@@ -222,7 +222,7 @@ public class InputManager : Singleton<InputManager>
                 {
                     if (Training.TutorialSteps.Instance.currentStep == 1)
                     {
-                        //if (!waiting) StartCoroutine(WaitForNod());
+                        if (!waiting) StartCoroutine(WaitForNod());
                        // if (nodded)
                        
                        
