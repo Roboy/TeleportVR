@@ -148,6 +148,8 @@ public class InputManager : Singleton<InputManager>
                         }
                         
                         float speed = 0.05f;
+                        
+                        if (DifferentialDriveControl.Instance == null) return;
                         // move forward or backwards
                         DifferentialDriveControl.Instance.V_L = speed * joystick.y;
                         DifferentialDriveControl.Instance.V_R = speed * joystick.y;

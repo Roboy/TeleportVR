@@ -7,7 +7,7 @@
  * <https://github.com/siemens/ros-sharp> 
  */
 
-using Newtonsoft.Json;
+
 
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 
@@ -15,17 +15,16 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboySimulation
 {
     public class LinkInformation : Message
     {
-        [JsonIgnore]
-        public const string RosMessageName = "roboy_simulation_msgs/msg/LinkInformation";
+        public const string RosMessageName = "roboy_simulation_msgs/msg//LinkInformation";
 
         //  id of the link in the simulation
-        public int id;
+        public int id { get; set; }
         //  name of the link in the simulation
-        public string name;
+        public string name { get; set; }
         //  dimentions of the link
-        public Vector3 dimensions;
+        public Vector3 dimensions { get; set; }
         //  initial pose of the link
-        public Pose init_pose;
+        public Pose init_pose { get; set; }
 
         public LinkInformation()
         {

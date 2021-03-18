@@ -7,7 +7,7 @@
  * <https://github.com/siemens/ros-sharp> 
  */
 
-using Newtonsoft.Json;
+
 
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 using RosSharp.RosBridgeClient.MessageTypes.RoboySimulation;
@@ -16,19 +16,18 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware
 {
     public class InitExoforceRequest : Message
     {
-        [JsonIgnore]
         public const string RosMessageName = "roboy_middleware_msgs/msg/InitExoforceRequest";
 
         //  The index of the following lists correspond to one end effector, example:
         //  ef_name[0] name of the first ef
         //  ef_enabled[0] enabled flag of the first ef
         //  ef_init_pose[0] init pose of the first ef
-        public string[] ef_name;
+        public string[] ef_name { get; set; }
         //  posible values ('left_hand'/'right_hand')
-        public bool[] ef_enabled;
-        public Pose[] ef_init_pose;
-        public float operator_height;
-        public LinkInformation[] roboy_link_information;
+        public bool[] ef_enabled { get; set; }
+        public Pose[] ef_init_pose { get; set; }
+        public float operator_height { get; set; }
+        public LinkInformation[] roboy_link_information { get; set; }
 
         public InitExoforceRequest()
         {

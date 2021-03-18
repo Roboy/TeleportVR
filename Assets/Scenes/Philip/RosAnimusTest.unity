@@ -306,8 +306,6 @@ GameObject:
   m_Component:
   - component: {fileID: 910327901}
   - component: {fileID: 910327900}
-  - component: {fileID: 910327902}
-  - component: {fileID: 910327903}
   m_Layer: 0
   m_Name: RosConnector
   m_TagString: Untagged
@@ -330,7 +328,7 @@ MonoBehaviour:
   SecondsTimeout: 10
   Serializer: 0
   protocol: 0
-  RosBridgeServerUrl: ws://10.42.0.1:9090
+  RosBridgeServerUrl: ws://localhost:9090
 --- !u!4 &910327901
 Transform:
   m_ObjectHideFlags: 0
@@ -345,38 +343,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &910327902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910327899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e1885e8f089b3f48a0de19e58c6d0d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: fibonacci
-  status: 
-  feedback: 
---- !u!114 &910327903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910327899}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 705f9408f07cb1d42a76f8cf1c3ddfaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: fibonacci
-  fibonacciOrder: 20
-  status: 
-  feedback: 
-  result: 
 --- !u!1 &967372934
 GameObject:
   m_ObjectHideFlags: 0

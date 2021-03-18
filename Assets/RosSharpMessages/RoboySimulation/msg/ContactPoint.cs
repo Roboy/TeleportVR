@@ -7,7 +7,7 @@
  * <https://github.com/siemens/ros-sharp> 
  */
 
-using Newtonsoft.Json;
+
 
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 
@@ -15,19 +15,18 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboySimulation
 {
     public class ContactPoint : Message
     {
-        [JsonIgnore]
-        public const string RosMessageName = "roboy_simulation_msgs/msg/ContactPoint";
+        public const string RosMessageName = "roboy_simulation_msgs/msg//ContactPoint";
 
         // id of roboy link in which a collision happened
-        public long linkid;
+        public long linkid { get; set; }
         // position of contact point on roboy in link frame
-        public Vector3 position;
+        public Vector3 position { get; set; }
         // contact normal on external body, pointing towards roboy
-        public Vector3 contactnormal;
+        public Vector3 contactnormal { get; set; }
         // contact distance, positive for separation, negative for penetration
-        public double contactdistance;
+        public double contactdistance { get; set; }
         // normal force applied during the last 'stepSimulation'
-        public double normalforce;
+        public double normalforce { get; set; }
 
         public ContactPoint()
         {
