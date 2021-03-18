@@ -39,8 +39,10 @@ public class StateManager : Singleton<StateManager>
         rightSenseGlove = GameObject.FindGameObjectWithTag("SenseGloveRight");
         leftSenseGlove.SetActive(false);
         rightSenseGlove.SetActive(false);
-        additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
-        currentState = States.Construct;
+        //additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
+        //currentState = States.Construct;
+        additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateBeforeTrainingLoad);
+        currentState = States.Training;
     }
 
     /// <summary>
