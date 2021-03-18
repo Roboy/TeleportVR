@@ -166,6 +166,8 @@ public class InputManager : Singleton<InputManager>
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
                     {
+                        print(StateManager.Instance);
+                        print(Training.TutorialSteps.Instance);
                         if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 4)
                         {
                             if (joystick.sqrMagnitude > 0.1f)
