@@ -70,6 +70,9 @@ public class StateManager : Singleton<StateManager>
     
     public void GoToState(States newState)
     {
+        // not working because the wheelchair is overwriting the position
+        //WheelchairStateManager.Instance.transform.position = Vector3.zero;
+        
         switch (newState)
         {
             case States.Construct:

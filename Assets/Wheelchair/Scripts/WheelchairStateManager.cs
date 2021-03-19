@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WheelchairStateManager : MonoBehaviour
+public class WheelchairStateManager : Singleton<WheelchairStateManager>
 {
     [SerializeField] private GameObject[] WheelchairModels;
     [SerializeField] private GameObject UpperBody;
