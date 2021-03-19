@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/BioIKAnimus.unity
     guid: 1c8925511a2dca54bbe7977c934eda85
   - enabled: 1
-    path: Assets/Scenes/Philip/BioIKPhilip.unity
+    path: Assets/Scenes/BioIKPhilip.unity
     guid: 847fc950086306b4ca8dee19ce12232e
   - enabled: 0
     path: Assets/Scenes/AnimusOUI.unity

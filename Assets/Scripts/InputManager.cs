@@ -168,7 +168,7 @@ public class InputManager : Singleton<InputManager>
                     {
                         print(StateManager.Instance);
                         print(Training.TutorialSteps.Instance);
-                        if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 4)
+                        if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 5)
                         {
                             if (joystick.sqrMagnitude > 0.1f)
                             {

@@ -15,6 +15,8 @@ namespace Training
         int toggle;
         double prevDuration = 0.0;
         int lastCorrectedAtStep = -1;
+        
+        [SerializeField] private Transform handCollectables;
 
         [SerializeField] private GameObject designatedArea;
         //[SerializeField] private GameObject designatedArea;
@@ -100,6 +102,8 @@ namespace Training
                 ScheduleAudioClip(rightArmHowTo, queue: true, delay: 1);
                 PublishNotification("Press and hold the grip trigger and try moving your right arm");
                 //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
+                handCollectables.transform.position = PlayerRig.Instance.transform.position;
+                handCollectables.gameObject.SetActive(true);
             }
             else if (currentStep == 4)
             {
