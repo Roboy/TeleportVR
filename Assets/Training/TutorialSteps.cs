@@ -24,9 +24,6 @@ namespace Training
         {
             // get a reference to this singleton, as scripts from other scenes are not able to do this
             _ = Instance;
-            print(Instance);
-
-
 
             //ScheduleAudioClip(welcome, delay: 1.0);
             //ScheduleAudioClip(imAria, delay: 2.0);

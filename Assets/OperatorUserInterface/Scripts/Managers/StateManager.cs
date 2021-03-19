@@ -54,13 +54,13 @@ public class StateManager : Singleton<StateManager>
         switch (currentState)
         {
             case States.HUD:
-                GoToState(States.Construct);
+                GoToState(States.Training);
                 break;
             case States.Construct:
                 GoToState(States.HUD);
                 break;
             case States.Training:
-                GoToState(States.Construct);
+                GoToState(States.HUD);
                 break;
             default:
                 Debug.LogWarning("Unhandled State: Please specify the next State after " + currentState);
@@ -79,12 +79,14 @@ public class StateManager : Singleton<StateManager>
                 break;
             case States.HUD:
                 transitionManager.StartTransition(true);
-                additiveSceneManager.ChangeScene(Scenes.HUD, null, DelegateOnConstructUnload, null, null);
+                //additiveSceneManager.ChangeScene(Scenes.HUD, null, DelegateOnConstructUnload, null, null);
+                additiveSceneManager.ChangeScene(Scenes.HUD, null, null, null, null);
                 currentState = States.HUD;
                 break;
             case States.Training:
                 transitionManager.StartTransition(true);
-                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, DelegateOnConstructUnload, null, DelegateBeforeTrainingLoad);
+                //additiveSceneManager.ChangeScene(Scenes.TRAINING, null, DelegateOnConstructUnload, null, DelegateBeforeTrainingLoad);
+                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateBeforeTrainingLoad);
                 currentState = States.Training;
                 break;
             default:
