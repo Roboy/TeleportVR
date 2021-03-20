@@ -16,6 +16,7 @@ using Vector3 = UnityEngine.Vector3;
 [RequireComponent(typeof(RosConnector))]
 public class CageInterface : Singleton<CageInterface>
 {
+    [SerializeField] private CollisionPublisher collisionPublisher;
     [SerializeField] private CloseCagePublisher closeCagePublisher;
     
     public static bool cageIsConnected;
@@ -57,6 +58,11 @@ public class CageInterface : Singleton<CageInterface>
     {
         sentInitRequest = true;
         _connectionTimer = connectionTimeout;
+    }
+
+    public void ForwardCollisions(float[] collisionData)
+    {
+        collisionPublisher.PublishCollision(collisionData);
     }
 
     public void CloseCage()

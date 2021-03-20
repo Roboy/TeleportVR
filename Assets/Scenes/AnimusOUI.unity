@@ -152,6 +152,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4858454a44b54ce41b642bee188e70d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &42374326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4980998344891865930, guid: b59642d167f28bc4c8cd55a5d0098223,
+    type: 3}
+  m_PrefabInstance: {fileID: 4980998345386754875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c7040ef15104a48adf663d521bce12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &86932825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8896569798469850263, guid: a89fe9b31a87eea4e950417414784a4a,
@@ -2535,7 +2547,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -2550,7 +2562,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: robotName
-      value: 
+      value: Roboy3
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -2586,6 +2598,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
+        type: 3}
+      propertyPath: requiredModalities.Array.data[4]
+      value: collision
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723432400, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -4505,10 +4522,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: RosManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4980998344891865940, guid: b59642d167f28bc4c8cd55a5d0098223,
+        type: 3}
+      propertyPath: collisionPublisher
+      value: 
+      objectReference: {fileID: 42374326}
     - target: {fileID: 4980998344891865941, guid: b59642d167f28bc4c8cd55a5d0098223,
         type: 3}
       propertyPath: RosBridgeServerUrl
-      value: ws://192.168.1.116:9090
+      value: ws://192.168.0.116:9090
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b59642d167f28bc4c8cd55a5d0098223, type: 3}

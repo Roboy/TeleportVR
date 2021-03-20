@@ -19,10 +19,90 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
     private static LinkInformation[] linkInfo;
     private static int linkInfoLength = 12;
 
-    private static Dictionary<int, string> linkIdToName = new Dictionary<int, string>()
+    private static string[] linkNames = new[]
+    {
+        "torso",
+        "upperarm_right",
+        "lowerarm_right",
+        "elbow_right",
+        "hand_right",
+        "wrist_right_link1",
+        "wrist_right_link2",
+        "wrist_right_link",
+        "rh_palm",
+        "rh_manipulator",
+        "rh_ffknuckle",
+        "rh_ffproximal",
+        "rh_ffmiddle",
+        "rh_ffdistal",
+        "rh_fftip",
+        "rh_mfknuckle",
+        "rh_mfproximal",
+        "rh_mfmiddle",
+        "rh_mfdistal",
+        "rh_mftip",
+        "rh_rfknuckle",
+        "rh_rfproximal",
+        "rh_rfmiddle",
+        "rh_rfdistal",
+        "rh_rftip",
+        "rh_lfmetacarpal",
+        "rh_lfknuckle",
+        "rh_lfproximal",
+        "rh_lfmiddle",
+        "rh_lfdistal",
+        "rh_lftip",
+        "rh_thbase",
+        "rh_thproximal",
+        "rh_thhub",
+        "rh_thmiddle",
+        "upperarm_left",
+        "lowerarm_left",
+        "elbow_left",
+        "hand_left",
+        "wrist_left_link1",
+        "wrist_left_link2",
+        "wrist_left_link",
+        "lh_palm",
+        "lh_manipulator",
+        "lh_ffknuckle",
+        "lh_ffproximal",
+        "lh_ffmiddle",
+        "lh_ffdistal",
+        "lh_fftip",
+        "lh_mfknuckle",
+        "lh_mfproximal",
+        "lh_mfmiddle",
+        "lh_mfdistal",
+        "lh_mftip",
+        "lh_rfknuckle",
+        "lh_rfproximal",
+        "lh_rfmiddle",
+        "lh_rfdistal",
+        "lh_rftip",
+        "lh_lfmetacarpal",
+        "lh_lfknuckle",
+        "lh_lfproximal",
+        "lh_lfmiddle",
+        "lh_lfdistal",
+        "lh_lftip",
+        "lh_thbase",
+        "lh_thproximal",
+        "lh_thhub",
+        "lh_thmiddle",
+        "lh_thdistal",
+        "lh_thtip",
+        "head",
+        "head_link2",
+        "head_link1",
+        "camera_left",
+        "camera_right"
+    };
+
+    /*private static Dictionary<int, string> linkIdToName = new Dictionary<int, string>()
     {
         {0, "LinkName" },
-    };
+    };*/
 
     public static void StoreLinkInformation(float[] info)
     {
@@ -37,7 +117,8 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
         {
             int o = i * linkInfoLength;
             int id = (int)(info[o]);
-            string linkName = linkIdToName[(int)(info[o+1])];
+            //string linkName = linkIdToName[(int)(info[o+1])];
+            string linkName = linkNames[(int)(info[o+1])];
             RosSharp.RosBridgeClient.MessageTypes.Geometry.Vector3 dimensions =
                 new RosSharp.RosBridgeClient.MessageTypes.Geometry.Vector3(info[o + 2], info[o + 3], info[o + 4]);
             Point point = new Point(info[o + 5], info[o + 6], info[o + 7]);

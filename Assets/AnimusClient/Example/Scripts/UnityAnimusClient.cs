@@ -200,7 +200,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     {
         // Present the latency and fps
         Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
-        if (latency < 0)
+        if (latency < 0 || latency > 100000)
         {
             latencyWidget.GetContext().textMessage = $"FPS: {fps:F2}";
         }
@@ -449,6 +449,24 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public bool collision_set(Float32Array collision)
     {
         print(collision);
+        int collisionLen = collision.Data.Count - 1;
+        if (collisionLen <= 0) return true;
+
+        float[] collisionArr = new float[collisionLen];
+        for (int i = 0; i < collisionLen; i++)
+        {
+            collisionArr[i + 1] = collision.Data[i + 1];
+        }
+        
+        if (collision.Data[0] == 0)
+        {
+            CageInterface.Instance.ForwardCollisions(collisionArr);
+        }
+        else
+        {
+            InitExoforcePublisher.StoreLinkInformation(collisionArr);
+        }
+
         return true;
     }
     
