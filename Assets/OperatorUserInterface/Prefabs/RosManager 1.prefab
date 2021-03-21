@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ef4a3f6da5e50458d409cb33b45cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionPublisher: {fileID: 4980998344891865930}
   closeCagePublisher: {fileID: 4980998344891865935}
 --- !u!114 &4980998344891865931
 MonoBehaviour:

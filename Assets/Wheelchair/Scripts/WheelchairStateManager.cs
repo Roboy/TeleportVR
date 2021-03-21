@@ -17,6 +17,10 @@ public class WheelchairStateManager : Singleton<WheelchairStateManager>
             }
         }
         // if BioIK is needed for real roboy, only the meshes might need to be disabled, but for now just disable it all
-        UpperBody.SetActive(StateManager.Instance.currentState != StateManager.States.HUD);
+        //UpperBody.SetActive(StateManager.Instance.currentState != StateManager.States.HUD);
+        /*foreach (Renderer r in UpperBody.GetComponentsInChildren<Renderer>())
+        {
+            r.enabled = false;
+        }*/
     }
 }

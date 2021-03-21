@@ -297,6 +297,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 return true;
             }*/
 
+            //return true;
+
             if (currSamples == null)
             {
                 return false;
@@ -336,7 +338,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 return true;
             }
 
-            if (currShape[0] <= 100 || currShape[1] <= 100)
+            if (currShape[0] <= 100 || currShape[1] <= 100) // TODO delete the / 5
             {
                 return true;
             }
@@ -387,6 +389,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                     Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
                     Utils.matToTexture2D(rgb_l, _leftTexture);
                     _leftRenderer.material.mainTexture = _leftTexture;
+                    print("Set the left image");
                 }
                 //else if (currSample.Source == "RightCamera")
                 else if (i == 1)
@@ -786,11 +789,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
             motorSample.Data = motorMsg;
-            //          /*string printmsg = "";
-            //          foreach (float f in motorAngles) {
-            //              printmsg += f + ", ";
-            //          }
-            //          print(printmsg);*/
+            
+            /*string printmsg = "";
+            foreach (float f in motorAngles) {
+                printmsg += f + ", ";
+            }
+            //print(printmsg);*/
 
             return motorSample;
         }
@@ -940,7 +944,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
         emotionMsg.Data = currentEmotion;
         //Debug.Log(currentEmotion);
-        EmotionManager.Instance.SetFace(controlCombination);
+        if (currentEmotion != "off")
+        {
+            EmotionManager.Instance.SetFace(controlCombination);
+        }
+
         emotionSample.Data = emotionMsg;
         return emotionSample;
 
