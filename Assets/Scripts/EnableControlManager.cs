@@ -1,5 +1,4 @@
 ﻿using BioIK;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,38 +6,109 @@ public class EnableControlManager : MonoBehaviour
 {
     public BioSegment left_hand;
     public BioSegment right_hand;
+    public BioIK.BioIK left_fingers;
+    public BioIK.BioIK right_fingers;
 
-    bool right_hand_enabled = false;
-    bool left_hand_enabled = false;
+    List<ControllerStruct> controllers = new List<ControllerStruct>();
+    struct ControllerStruct
+    {
+        public BioSegment hand_segment;
+        public BioIK.BioIK hand_body;
+        public UnityEngine.XR.InputDevice controller;
+        bool enabled;
+
+        public ControllerStruct(BioSegment _segment, BioIK.BioIK _body, UnityEngine.XR.InputDevice _inputDevice)
+        {
+            hand_segment = _segment;
+            hand_body = _body;
+            controller = _inputDevice;
+            enabled = false;
+        }
+
+        public void SetEnabled(bool _enabled)
+        {
+            enabled = _enabled;
+            if (enabled)
+            {
+                controller.SendHapticImpulse(0, 0.005f);
+            }
+            else
+            {
+                controller.StopHaptics();
+            }
+
+            for (int i = 0; i < hand_segment.Objectives.Length; i++)
+            {
+                hand_segment.Objectives[i].enabled = enabled;
+            }
+        }
+
+        public bool IsEnabled()
+        {
+            return enabled;
+        }
+
+        public void UpdateFingers(double value)
+        {
+            foreach (var segment in hand_body.Segments)
+            {
+                if (segment.Joint != null)
+                {
+                    //if (segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J1"))
+                    //{
+
+                    //}
+                    if((segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J5") ) || // && !segment.Joint.name.Contains("J2")) ||
+                        (segment.Joint.name.Contains("LF") && !segment.Joint.name.Contains("J5")) ||// && !segment.Joint.name.Contains("J4")) ||
+                        (!segment.Joint.name.Contains("J4")))
+                    {
+                        var range = segment.Joint.X.UpperLimit - segment.Joint.X.LowerLimit;
+
+                        segment.Joint.X.SetTargetValue(value * range - segment.Joint.X.LowerLimit);
+                    }
+                    
+                }
+                    
+
+            }
+        }
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (InputManager.Instance.GetLeftController())
+        {
+            controllers.Add(new ControllerStruct(left_hand, left_fingers, InputManager.Instance.controllerLeft[0]));
+        }
+
+        if (InputManager.Instance.GetRightController())
+        {
+            controllers.Add(new ControllerStruct(right_hand, right_fingers, InputManager.Instance.controllerRight[0]));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+   
+
+
+        // Update is called once per frame
+        void Update()
     {
-        if (InputManager.Instance.GetLeftControllerAvailable()) 
-            InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out left_hand_enabled);
-        else 
-            left_hand_enabled = false;
-
-        if (InputManager.Instance.GetRightControllerAvailable())
-            InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out right_hand_enabled);
-        else
-            right_hand_enabled = false;
-
-        foreach (var objective in left_hand.Objectives)
+        for (int i=0;i<controllers.Count;i++)
         {
-            objective.enabled = left_hand_enabled;
-        }
-        foreach (var objective in right_hand.Objectives)
-        {
-            objective.enabled = right_hand_enabled;
-        }
+            var device = controllers[i];
+            var enabled = false;
+            float trigger = 0.0f;
+            if (device.controller.isValid) {
+                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out enabled);
+                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out trigger);
+            }
+            device.SetEnabled(enabled);
+            device.UpdateFingers(trigger);
 
-        //    left_hand.EnableControl(left_hand_enabled);
-        //right_hand.EnableControl(right_hand_enabled);
+        }
     }
+
+
 }
