@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -22,6 +23,36 @@ public class InputManager : Singleton<InputManager>
         vrGestureRecognizer.Nodded += OnNodded;
         vrGestureRecognizer.HeadShaken += OnHeadShaken;
     }
+    
+    private bool GetControllerAvailable(bool leftController)
+    {
+        return leftController ? GetLeftControllerAvailable() : GetRightControllerAvailable();
+    }
+
+    public InputDevice GetController(bool leftController)
+    {
+        return leftController ? controllerLeft[0] : controllerRight[0];
+    }
+    
+    /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
+    public bool GetLeftControllerAvailable()
+    {
+        if (controllerLeft.Count == 0)
+        {
+            InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.Left, controllerLeft);
+        }
+        return controllerLeft.Count > 0;
+    }
+
+    /// try to get the right controller, if possible.<!-- return if the controller can be referenced.-->
+    public bool GetRightControllerAvailable()
+    {
+        if (controllerRight.Count == 0)
+        {
+            InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.Right, controllerRight);
+        }
+        return controllerRight.Count > 0;
+    }
 
     /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
     public bool GetLeftController()
@@ -41,6 +72,19 @@ public class InputManager : Singleton<InputManager>
             UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, controllerRight);
         }
         return controllerRight.Count > 0;
+    }
+    
+    public bool GetControllerBtn(InputFeatureUsage<bool> inputFeature, bool leftController)
+    {
+        if (GetControllerAvailable(leftController))
+        {
+            if (GetController(leftController).TryGetFeatureValue(inputFeature, out var btn))
+            {
+                return btn;
+            }
+        }
+
+        return false;
     }
 
     void OnNodded()
