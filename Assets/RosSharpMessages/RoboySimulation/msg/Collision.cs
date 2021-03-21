@@ -15,16 +15,16 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboySimulation
     {
         public const string RosMessageName = "roboy_simulation_msgs/msg/Collision";
 
-        public ContactPoint[] collision { get; set; }
+        public ContactPoint[] contact_points { get; set; }
 
         public Collision()
         {
-            this.collision = new ContactPoint[0];
+            this.contact_points = new ContactPoint[0];
         }
 
-        public Collision(ContactPoint[] collision)
+        public Collision(ContactPoint[] contact_points)
         {
-            this.collision = collision;
+            this.contact_points = contact_points;
         }
     }
 }

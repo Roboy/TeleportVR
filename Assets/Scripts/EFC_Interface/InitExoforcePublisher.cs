@@ -23,6 +23,8 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
     {
         "torso",
         "upperarm_right",
+        "shoulder_right_link1",
+        "shoulder_right_link2",
         "lowerarm_right",
         "elbow_right",
         "hand_right",
@@ -57,6 +59,8 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
         "rh_thhub",
         "rh_thmiddle",
         "upperarm_left",
+        "shoulder_left_link1",
+        "shoulder_left_link2",
         "lowerarm_left",
         "elbow_left",
         "hand_left",
@@ -147,7 +151,7 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
                 headHeight = 1.7f;
             }
 
-            LinkInformation[] linkInfo = null;
+            //LinkInformation[] linkInfo = null;
                     
             InitExoforceRequest msg =
                 new InitExoforceRequest(ef_name, ef_enabled, poses, headHeight, linkInfo);

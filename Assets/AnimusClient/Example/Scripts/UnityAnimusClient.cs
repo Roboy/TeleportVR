@@ -448,22 +448,27 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool collision_set(Float32Array collision)
     {
-        print(collision);
+        print("Col: " + collision);
         int collisionLen = collision.Data.Count - 1;
+        print("CollisionLen: " + collisionLen);
         if (collisionLen <= 0) return true;
 
         float[] collisionArr = new float[collisionLen];
         for (int i = 0; i < collisionLen; i++)
         {
-            collisionArr[i + 1] = collision.Data[i + 1];
+            collisionArr[i] = collision.Data[i + 1];
         }
         
-        if (collision.Data[0] == 0)
+        // if first float is 1 it's a collison
+        if (collision.Data[0] > 0.5f && collision.Data[0] < 1.5)
         {
+            print("Collis Publishing collsion");
             CageInterface.Instance.ForwardCollisions(collisionArr);
         }
-        else
+        // if first float is a 2 it's link information
+        else if (collision.Data[0] > 1.5f)
         {
+            print("Collis Storing information");
             InitExoforcePublisher.StoreLinkInformation(collisionArr);
         }
 
@@ -862,7 +867,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
 
         emotionMsg.Data = currentEmotion;
-        Debug.Log(currentEmotion);
+        //Debug.Log(currentEmotion);
         EmotionManager.Instance.SetFace(controlCombination);
         emotionSample.Data = emotionMsg;
         return emotionSample;

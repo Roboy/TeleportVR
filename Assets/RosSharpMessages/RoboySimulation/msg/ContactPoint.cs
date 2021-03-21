@@ -15,7 +15,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboySimulation
 {
     public class ContactPoint : Message
     {
-        public const string RosMessageName = "roboy_simulation_msgs/msg//ContactPoint";
+        public const string RosMessageName = "roboy_simulation_msgs/msg/ContactPoint";
 
         // id of roboy link in which a collision happened
         public long linkid { get; set; }

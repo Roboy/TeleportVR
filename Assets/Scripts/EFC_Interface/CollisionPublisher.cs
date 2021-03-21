@@ -17,6 +17,7 @@ public class CollisionPublisher : RosPublisher<Collision>
         }
 
         int collisionCount = rawData.Length / collisionMessageSize;
+        print("CollisionCount: " + collisionCount);
         ContactPoint[] contactPoints = new ContactPoint[collisionCount];
         for (int i = 0; i < collisionCount; i++)
         {
@@ -35,6 +36,7 @@ public class CollisionPublisher : RosPublisher<Collision>
         }
 
         Collision collision = new Collision(contactPoints);
+        print("NewCollision: " + collision.contact_points.Length);
         PublishMessage(collision);
     }
 

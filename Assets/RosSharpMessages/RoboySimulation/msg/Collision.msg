@@ -1,1 +1,1 @@
-ContactPoint[] collision
+ContactPoint[] contact_points
