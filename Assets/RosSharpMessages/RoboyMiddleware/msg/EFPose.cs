@@ -7,7 +7,7 @@
  * <https://github.com/siemens/ros-sharp> 
  */
 
-using Newtonsoft.Json;
+
 
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 
@@ -15,11 +15,10 @@ namespace RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware
 {
     public class EFPose : Message
     {
-        [JsonIgnore]
         public const string RosMessageName = "roboy_middleware_msgs/msg/EFPose";
 
-        public string ef_name;
-        public Pose ef_pose;
+        public string ef_name { get; set; }
+        public Pose ef_pose { get; set; }
 
         public EFPose()
         {

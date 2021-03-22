@@ -7,17 +7,16 @@
  * <https://github.com/siemens/ros-sharp> 
  */
 
-using Newtonsoft.Json;
+
 
 namespace RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware
 {
     public class ExoforceResponse : Message
     {
-        [JsonIgnore]
         public const string RosMessageName = "roboy_middleware_msgs/msg/ExoforceResponse";
 
-        public bool success;
-        public string message;
+        public bool success { get; set; }
+        public string message { get; set; }
 
         public ExoforceResponse()
         {

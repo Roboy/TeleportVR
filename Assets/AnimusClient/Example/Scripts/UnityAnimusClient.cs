@@ -132,7 +132,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         // controls an led ring (optional)
         StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
         StartCoroutine(StartBodyTransition());
-
     }
 
 
@@ -201,7 +200,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     {
         // Present the latency and fps
         Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
-        if (latency < 0)
+        if (latency < 0 || latency > 100000)
         {
             latencyWidget.GetContext().textMessage = $"FPS: {fps:F2}";
         }
@@ -280,6 +279,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public bool vision_set(ImageSamples currSamples)
     {
         //return true;
+        Debug.LogError("vision set");
         try
         {
 
@@ -297,6 +297,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 return true;
             }*/
 
+            //return true;
+
             if (currSamples == null)
             {
                 return false;
@@ -304,6 +306,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             var currSample = currSamples.Samples[0];
             var currShape = currSample.DataShape;
+            Debug.Log(currSample.DataShape);
             //currShape[1] /= 2;
 
             //for (int i = 0; i < 2; i++)
@@ -335,7 +338,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 return true;
             }
 
-            if (currShape[0] <= 100 || currShape[1] <= 100)
+            if (currShape[0] <= 100 || currShape[1] <= 100) // TODO delete the / 5
             {
                 return true;
             }
@@ -386,6 +389,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                     Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
                     Utils.matToTexture2D(rgb_l, _leftTexture);
                     _leftRenderer.material.mainTexture = _leftTexture;
+                    print("Set the left image");
                 }
                 //else if (currSample.Source == "RightCamera")
                 else if (i == 1)
@@ -422,7 +426,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     }
 
 
-    // --------------------------Audition Modality----------------------------------
+     //--------------------------Audition Modality----------------------------------
     public bool audition_initialise()
     {
         return auditionEnabled;
@@ -439,8 +443,10 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         auditionEnabled = false;
         return true;
     }
-
+    
+    
     // --------------------------Collision Modality----------------------------------
+    
     public bool collision_initialise()
     {
         return true;
@@ -448,10 +454,33 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool collision_set(Float32Array collision)
     {
-        print(collision);
+        print("Col: " + collision);
+        int collisionLen = collision.Data.Count - 1;
+        print("CollisionLen: " + collisionLen);
+        if (collisionLen <= 0) return true;
+
+        float[] collisionArr = new float[collisionLen];
+        for (int i = 0; i < collisionLen; i++)
+        {
+            collisionArr[i] = collision.Data[i + 1];
+        }
+        
+        // if first float is 1 it's a collison
+        if (collision.Data[0] > 0.5f && collision.Data[0] < 1.5)
+        {
+            print("Collis Publishing collsion");
+            CageInterface.Instance.ForwardCollisions(collisionArr);
+        }
+        // if first float is a 2 it's link information
+        else if (collision.Data[0] > 1.5f)
+        {
+            print("Collis Storing information");
+            InitExoforcePublisher.StoreLinkInformation(collisionArr);
+        }
+
         return true;
     }
-
+    
     public bool collision_close()
     {
         return true;
@@ -484,14 +513,14 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
         return true;
     }
-    
+
     public void body_manager(int id, int position, Float32Array currSample)
     {
         Widget widget = Manager.Instance.FindWidgetWithID(id);
         if ((int)(currSample.Data[position]) == -1)
         {
             widget.GetContext().currentIcon = widget.GetContext().icons[2];
-        } 
+        }
         else if ((int)(currSample.Data[position]) == 0)
         {
             widget.GetContext().currentIcon = widget.GetContext().icons[0];
@@ -516,20 +545,27 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         _lastUpdate = 0;
         motorMsg = new Float32Array();
         motorSample = new Sample(DataMessage.Types.DataType.Float32Arr, motorMsg);
-        string joint_names = "\"";
-        foreach (var segment in _myIKHead.Segments)
-        {
-            //Debug.Log(segment.name);
-            if (segment.Joint != null)
-            {
-                if (segment.Joint.X.Enabled)
-                    joint_names += segment.Joint.name + "\", \"";
-            }
-        }
-        Debug.LogError(joint_names);
+        //string joint_names = "\"";
+        //foreach (var segment in _myIKHead.Segments)
+        //{
+        //    segment.Joint.X.SetTargetValue(50.0);
+            
+        //    //Debug.Log(segment.name);
+        //    if (segment.Joint != null)
+        //    {
+        //        if (segment.Joint.X.Enabled)
+        //            joint_names += segment.Joint.name + "\", \"";
+        //    }
+        //}
+        //Debug.LogError(joint_names);
 
         StartCoroutine(SendLEDCommand(LEDS_CONNECTED));
         return true;
+    }
+
+    public void EnableMotor(bool enable) 
+    {
+        motorEnabled = enable;
     }
 
     // reads orientation of the headset
@@ -551,6 +587,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         {
             var motorAngles = new List<float>();
 
+            // head joints
             foreach (var segment in _myIKHead.Segments)
             {
                 if (segment.Joint != null)
@@ -559,29 +596,43 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 }
             }
 
+            // torso joints
             foreach (var segment in _myIKBody.Segments)
             {
                 //Debug.Log(segment.name);
                 if (segment.Joint != null)
                 {
                     motorAngles.Add((float)segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
-                    //Debug.Log(segment.Joint.name + " " + segment.Joint.X.CurrentValue + " " + segment.Joint.Y.CurrentValue + " " + segment.Joint.Z.CurrentValue);
-                    //if (segment.Joint.X.Enabled)
-                    //{
-                       // Debug.Log("X " + segment.Joint.X.CurrentValue);
-                    //}
-                    //if (segment.Joint.Y.Enabled)
-                    //{
-                    //    Debug.Log("Y " + segment.Joint.Y.CurrentValue);
-                    //}
-                    //if (segment.Joint.Z.Enabled)
-                    //{
-                    //    Debug.Log("Z " + segment.Joint.Z.CurrentValue);
-                    //}
+
                 }
 
-
             }
+
+            // left hand, right hand
+            float left_open = 0, right_open = 0;
+            if (InputManager.Instance.GetLeftController())
+                InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out left_open);
+
+            if (InputManager.Instance.GetRightController())
+                InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out right_open);
+
+            motorAngles.Add(left_open);
+            motorAngles.Add(right_open);
+
+            // wheelchair
+            Vector2 axis2D;
+            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftController() &&
+                          InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2D))
+            {
+                motorAngles.Add(axis2D[0]);
+                motorAngles.Add(axis2D[1]);
+            }
+            else
+            {
+                motorAngles.Add(0);
+                motorAngles.Add(0);
+            }
+
 
 
             //          var headAngles = shouldTransmitHeadRot ? humanHead.eulerAngles : lastHeadRot;
@@ -738,11 +789,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
             motorSample.Data = motorMsg;
-            //          /*string printmsg = "";
-            //          foreach (float f in motorAngles) {
-            //              printmsg += f + ", ";
-            //          }
-            //          print(printmsg);*/
+            
+            /*string printmsg = "";
+            foreach (float f in motorAngles) {
+                printmsg += f + ", ";
+            }
+            //print(printmsg);*/
 
             return motorSample;
         }
@@ -892,7 +944,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
         emotionMsg.Data = currentEmotion;
         //Debug.Log(currentEmotion);
-        EmotionManager.Instance.SetFace(controlCombination);
+        if (currentEmotion != "off")
+        {
+            EmotionManager.Instance.SetFace(controlCombination);
+        }
+
         emotionSample.Data = emotionMsg;
         return emotionSample;
 
@@ -918,12 +974,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     // Utilities
 
-    public Vector3 Vector2Ros(Vector3 vector3)
+    public static Vector3 Vector2Ros(Vector3 vector3)
     {
         return new Vector3(vector3.z, -vector3.x, vector3.y);
     }
 
-    public Quaternion Quaternion2Ros(Quaternion quaternion)
+    public static Quaternion Quaternion2Ros(Quaternion quaternion)
     {
         return new Quaternion(-quaternion.z, quaternion.x, -quaternion.y, quaternion.w);
     }

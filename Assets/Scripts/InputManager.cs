@@ -5,19 +5,25 @@ using UnityEngine.XR;
 
 public class InputManager : Singleton<InputManager>
 {
-    public List<InputDevice> controllerLeft = new List<InputDevice>();
-    public List<InputDevice> controllerRight = new List<InputDevice>();
+    public List<UnityEngine.XR.InputDevice> controllerLeft = new List<UnityEngine.XR.InputDevice>();
+    public List<UnityEngine.XR.InputDevice> controllerRight = new List<UnityEngine.XR.InputDevice>();
+
+    [SerializeField] VRGestureRecognizer vrGestureRecognizer;
 
     private bool lastMenuBtn;
     private bool lastGrabLeft;
     private bool lastGrabRight;
+    bool nodded, waiting;
 
     void Start()
     {
-        GetLeftControllerAvailable();
-        GetRightControllerAvailable();
-    }
+        GetLeftController();
+        GetRightController();
 
+        vrGestureRecognizer.Nodded += OnNodded;
+        vrGestureRecognizer.HeadShaken += OnHeadShaken;
+    }
+    
     private bool GetControllerAvailable(bool leftController)
     {
         return leftController ? GetLeftControllerAvailable() : GetRightControllerAvailable();
@@ -27,7 +33,7 @@ public class InputManager : Singleton<InputManager>
     {
         return leftController ? controllerLeft[0] : controllerRight[0];
     }
-
+    
     /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
     public bool GetLeftControllerAvailable()
     {
@@ -48,6 +54,26 @@ public class InputManager : Singleton<InputManager>
         return controllerRight.Count > 0;
     }
 
+    /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
+    public bool GetLeftController()
+    {
+        if (controllerLeft.Count == 0)
+        {
+            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Left, controllerLeft);
+        }
+        return controllerLeft.Count > 0;
+    }
+
+    /// try to get the right controller, if possible.<!-- return if the controller can be referenced.-->
+    public bool GetRightController()
+    {
+        if (controllerRight.Count == 0)
+        {
+            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(UnityEngine.XR.InputDeviceCharacteristics.Right, controllerRight);
+        }
+        return controllerRight.Count > 0;
+    }
+    
     public bool GetControllerBtn(InputFeatureUsage<bool> inputFeature, bool leftController)
     {
         if (GetControllerAvailable(leftController))
@@ -61,15 +87,44 @@ public class InputManager : Singleton<InputManager>
         return false;
     }
 
-    void Update()
+    void OnNodded()
     {
+        nodded = true;
+        Debug.LogError("Yes");
+    }
+
+    void OnHeadShaken()
+    {
+        Debug.LogError("no");
+    }
+
+    IEnumerator WaitForNod()
+    {
+        Debug.Log("waiting for a nod");
+        waiting = true;
+        nodded = false;
+        yield return new WaitUntil(() => nodded);
+        waiting = false;
+        {
+            Debug.Log("moving on");
+            Training.TutorialSteps.Instance.NextStep();
+        }
+        Debug.Log("user confirmed");
+    }
+
+    void FixedUpdate()
+    {
+        if (StateManager.Instance.currentState == StateManager.States.HUD)
+            UnityAnimusClient.Instance.EnableMotor(true);
+        else
+            UnityAnimusClient.Instance.EnableMotor(false);
         if (!Widgets.WidgetInteraction.settingsAreActive)
         {
             bool btn;
-            if (GetLeftControllerAvailable())
+            if (GetLeftController())
             {
                 // Go to the other mode
-                if (controllerLeft[0].TryGetFeatureValue(CommonUsages.menuButton, out btn) && btn && !lastMenuBtn)
+                if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out btn) && btn && !lastMenuBtn)
                 {
                     StateManager.Instance.GoToNextState();
                 }
@@ -99,10 +154,11 @@ public class InputManager : Singleton<InputManager>
                 }
                 
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
+                    Training.TutorialSteps.Instance != null &&
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 5)
+                    if (Training.TutorialSteps.Instance.currentStep == 10)
                     {
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
                             btn)
@@ -111,24 +167,39 @@ public class InputManager : Singleton<InputManager>
                         }
                     }
                     
-                    // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 3)
+                    // check if the left arm is moving 
+                    if (Training.TutorialSteps.Instance.currentStep == 2)
                     {
+                        
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
-                            Training.TutorialSteps.Instance.NextStep();
+                           
+                            Training.TutorialSteps.Instance.NextStep(praise: true);
+                        }
+
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton , out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.CorrectUser();
                         }
                     }
-                }
-                
-                // check if the arm is grabbing 
-                if (!CageInterface.sentInitRequest)
-                {
-                    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                        btn)
+
+                    // check if the right arm is moving 
+                    if (Training.TutorialSteps.Instance.currentStep == 3)
                     {
                         
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep(praise: true);
+                        }
+
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.CorrectUser();
+                        }
                     }
                 }
 
@@ -139,7 +210,9 @@ public class InputManager : Singleton<InputManager>
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
                     {
-                        if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 1)
+                        print(StateManager.Instance);
+                        print(Training.TutorialSteps.Instance);
+                        if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 5)
                         {
                             if (joystick.sqrMagnitude > 0.1f)
                             {
@@ -172,7 +245,7 @@ public class InputManager : Singleton<InputManager>
                     UnityAnimusClient.Instance.LeftButton2 = Input.GetKeyDown(KeyCode.R);
                 }
             }
-            if (GetRightControllerAvailable())
+            if (GetRightController())
             {
                 /*if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn && !lastGrabRight)
                 {
@@ -193,39 +266,47 @@ public class InputManager : Singleton<InputManager>
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
-                    // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 5)
+                    if (Training.TutorialSteps.Instance.currentStep == 1)
                     {
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep();
-                        }
+                        if (!waiting) StartCoroutine(WaitForNod());
+                       // if (nodded)
+                       
+                       
                     }
                     
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 3)
-                    {
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep();
-                        }
-                    }
+                    //if (Training.TutorialSteps.Instance.currentStep == 5)
+                    //{
+                    //    if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.NextStep();
+                    //    }
+                    //}
+                    
+                    // check if the arm is grabbing 
+                    //if (Training.TutorialSteps.Instance.currentStep == 3)
+                    //{
+                    //    if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.NextStep();
+                    //    }
+                    //}
                 }
 
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 3)
-                    {
-                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep();
-                        }
-                    }
+                    //if (Training.TutorialSteps.Instance.currentStep == 2)
+                    //{
+                    //    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.NextStep();
+                    //    }
+                    //}
                 }
             }
             else

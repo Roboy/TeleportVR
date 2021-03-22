@@ -20,7 +20,7 @@ namespace Training
             _renderer = objectToRecolor.GetComponent<MeshRenderer>();
         }
 
-        private void OnTriggerEnter(Collider other)
+        /*private void OnTriggerEnter(Collider other)
         {
             if (TutorialSteps.Instance.currentStep == requiredStep && other.CompareTag(requiredTag))
             {
@@ -31,7 +31,7 @@ namespace Training
                     _renderer.material.color = newColor;
                 }
             }
-        }
+        }*/
 
         public void WhileLookedAt(TrainingsRaycaster raycaster)
         {

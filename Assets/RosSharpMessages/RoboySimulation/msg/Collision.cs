@@ -7,25 +7,24 @@
  * <https://github.com/siemens/ros-sharp> 
  */
 
-using Newtonsoft.Json;
+
 
 namespace RosSharp.RosBridgeClient.MessageTypes.RoboySimulation
 {
     public class Collision : Message
     {
-        [JsonIgnore]
         public const string RosMessageName = "roboy_simulation_msgs/msg/Collision";
 
-        public ContactPoint[] collision;
+        public ContactPoint[] contact_points { get; set; }
 
         public Collision()
         {
-            this.collision = new ContactPoint[0];
+            this.contact_points = new ContactPoint[0];
         }
 
-        public Collision(ContactPoint[] collision)
+        public Collision(ContactPoint[] contact_points)
         {
-            this.collision = collision;
+            this.contact_points = contact_points;
         }
     }
 }

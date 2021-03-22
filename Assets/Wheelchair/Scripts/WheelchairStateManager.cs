@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WheelchairStateManager : MonoBehaviour
+public class WheelchairStateManager : Singleton<WheelchairStateManager>
 {
     [SerializeField] private GameObject[] WheelchairModels;
     [SerializeField] private GameObject UpperBody;
@@ -17,6 +17,10 @@ public class WheelchairStateManager : MonoBehaviour
             }
         }
         // if BioIK is needed for real roboy, only the meshes might need to be disabled, but for now just disable it all
-        UpperBody.SetActive(StateManager.Instance.currentState != StateManager.States.HUD);
+        //UpperBody.SetActive(StateManager.Instance.currentState != StateManager.States.HUD);
+        /*foreach (Renderer r in UpperBody.GetComponentsInChildren<Renderer>())
+        {
+            r.enabled = false;
+        }*/
     }
 }
