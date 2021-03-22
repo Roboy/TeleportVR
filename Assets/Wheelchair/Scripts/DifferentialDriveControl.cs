@@ -38,7 +38,6 @@ public class DifferentialDriveControl : Singleton<DifferentialDriveControl>
 
     private void Update()
     {
-        bool isMoving = true;
         if (Input.GetKey(KeyCode.RightArrow))
         {
             V_L = 0.2f;
@@ -64,12 +63,6 @@ public class DifferentialDriveControl : Singleton<DifferentialDriveControl>
             V_L = -0.2f;
             V_R = -0.2f;
         }
-        else
-        {
-            isMoving = false;
-        }
-        // Show that the wheelchair is active in the state manager
-        WidgetInteraction.SetBodyPartActive(56, isMoving);
 
         frontRightWheel.transform.Rotate(-V_R / 0.1407802f * Time.deltaTime * 100f, 0f, 0f);
         frontLeftWheel.transform.Rotate(V_L / 0.1407802f * Time.deltaTime * 100f, 0f, 0f);

@@ -136,7 +136,7 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
 
     public void InitExoforce()
     {
-        if (true) //!CageInterface.cageIsConnected)
+        if (!CageInterface.cageIsConnected)
         {
             // send init message
             string[] ef_name = {"left_hand", "right_hand"}; // posible values ('left_hand'/'right_hand')

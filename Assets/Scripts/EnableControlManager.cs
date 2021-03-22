@@ -106,11 +106,8 @@ public class EnableControlManager : MonoBehaviour
                 device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out trigger);
             }
             
-            if (_enabled != enabled)
-            {
-                // Show that the arm is active in the state manager
-                WidgetInteraction.SetBodyPartActive(53 - i, _enabled);
-            }
+            // Show that the arm is active in the state manager
+            WidgetInteraction.SetBodyPartActive(53 - i, _enabled);
 
             // Show that the fingers are active in the state manager
             WidgetInteraction.SetBodyPartActive(55 - i, trigger > 0.05f);

@@ -21,8 +21,10 @@ public class EFPosePublisher : RosPublisher<EFPose>
 
     void Update()
     {
-        PublishMessage(transformToEFPose(handLeft, "left_hand"));
-        PublishMessage(transformToEFPose(handRight, "right_hand"));
-
+        if (CageInterface.cageIsConnected)
+        {
+            PublishMessage(transformToEFPose(handLeft, "left_hand"));
+            PublishMessage(transformToEFPose(handRight, "right_hand"));
+        }
     }
 }

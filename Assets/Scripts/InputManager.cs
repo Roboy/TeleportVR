@@ -211,8 +211,6 @@ public class InputManager : Singleton<InputManager>
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
                     {
-                        print(StateManager.Instance);
-                        print(Training.TutorialSteps.Instance);
                         bool wheelchairIsActive = joystick.sqrMagnitude > 0.01f;
                         
                         // Show that the wheelchair is active in the state manager
