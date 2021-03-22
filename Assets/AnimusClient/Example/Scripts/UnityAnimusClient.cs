@@ -266,7 +266,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     {
         if (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD)
         {
-            _rightPlane.SetActive(true);
+            _rightPlane.SetActive(false);
             _leftPlane.SetActive(true);
         }
         else
@@ -279,7 +279,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public bool vision_set(ImageSamples currSamples)
     {
         //return true;
-        Debug.LogError("vision set");
+        Debug.Log("vision set");
         try
         {
 
@@ -362,14 +362,14 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
                 currentScale.x = scaleX;
 
-                _leftPlane.transform.localScale = currentScale;
-                //_leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
-                _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                //_leftPlane.transform.localScale = currentScale;
+                _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+                //_leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
                 {
                     wrapMode = TextureWrapMode.Clamp
                 };
 
-                _rightPlane.transform.localScale = currentScale;
+               // _rightPlane.transform.localScale = currentScale;
                 //_rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
                 _rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
                 {
@@ -379,30 +379,33 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
             // Debug.Log("matToTexture2D");
 
-            for (int i = 0; i < 2; i++)
-            {
+            Utils.matToTexture2D(rgb, _leftTexture);
+            _leftRenderer.material.mainTexture = _leftTexture;
 
-                //TODO apply stereo images
-                //if (currSample.Source == "LeftCamera")
-                if (i == 0)
-                {
-                    Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
-                    Utils.matToTexture2D(rgb_l, _leftTexture);
-                    _leftRenderer.material.mainTexture = _leftTexture;
-                    print("Set the left image");
-                }
-                //else if (currSample.Source == "RightCamera")
-                else if (i == 1)
-                {
-                    Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
-                    Utils.matToTexture2D(rgb_r, _rightTexture);
-                    _rightRenderer.material.mainTexture = _rightTexture;
-                }
-                else
-                {
-                    print("Unknown image source: " + currSample.Source);
-                }
-            }
+            //for (int i = 0; i < 2; i++)
+            //{
+
+            //    //TODO apply stereo images
+            //    //if (currSample.Source == "LeftCamera")
+            //    if (i == 0)
+            //    {
+            //        Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
+            //        Utils.matToTexture2D(rgb_l, _leftTexture);
+            //        _leftRenderer.material.mainTexture = _leftTexture;
+            //        print("Set the left image");
+            //    }
+            //    //else if (currSample.Source == "RightCamera")
+            //    else if (i == 1)
+            //    {
+            //        Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
+            //        Utils.matToTexture2D(rgb_r, _rightTexture);
+            //        _rightRenderer.material.mainTexture = _rightTexture;
+            //    }
+            //    else
+            //    {
+            //        print("Unknown image source: " + currSample.Source);
+            //    }
+            //}
 #endif
         }
         catch (Exception e)

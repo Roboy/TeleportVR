@@ -1,5 +1,5 @@
 {
-    "m_SelectedDeviceId": "1PASH9A1J19152",
+    "m_SelectedDeviceId": "1WMHH810YA0342",
     "m_SelectedPackage": {
         "deviceId": "",
         "name": "",
@@ -12,6 +12,18 @@
             "deviceId": "1PASH9A1J19152",
             "name": "com.oculus.xrstreamingclient",
             "processId": 23631,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "aaa.Roboy.TeleportVR",
+            "processId": 14588,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "com.oculus.xrstreamingclient",
+            "processId": 15551,
             "exited": false
         }
     ],
