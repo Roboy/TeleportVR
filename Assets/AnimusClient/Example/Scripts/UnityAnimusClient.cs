@@ -469,13 +469,13 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         if (collision.Data[0] > 0.5f && collision.Data[0] < 1.5)
         {
             print("Collis Publishing collsion");
-            CageInterface.Instance.ForwardCollisions(collisionArr);
+            //CageInterface.Instance.ForwardCollisions(collisionArr);
         }
         // if first float is a 2 it's link information
         else if (collision.Data[0] > 1.5f)
         {
             print("Collis Storing information");
-            InitExoforcePublisher.StoreLinkInformation(collisionArr);
+            //InitExoforcePublisher.StoreLinkInformation(collisionArr);
         }
 
         return true;
@@ -946,7 +946,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         //Debug.Log(currentEmotion);
         if (currentEmotion != "off")
         {
-            EmotionManager.Instance.SetFace(controlCombination);
+            //EmotionManager.Instance.SetFace(controlCombination);
         }
 
         emotionSample.Data = emotionMsg;

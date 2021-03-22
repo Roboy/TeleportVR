@@ -664,6 +664,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b59642d167f28bc4c8cd55a5d0098223, type: 3}
+--- !u!1001 &1875249046
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5203517135630179334, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_Name
+      value: AnimusPasswordSetter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203517135630179335, guid: d38f385f6dde9a143969de15d981a2cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d38f385f6dde9a143969de15d981a2cc, type: 3}
 --- !u!1 &2117867714
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +779,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OVRRig: {fileID: 913203036}
   TrackingSpace: {fileID: 913203037}
-  robotBody: {fileID: 0}
   LeftEye: {fileID: 913203044}
   RightEye: {fileID: 913203042}
   _leftPlane: {fileID: 913203043}
@@ -727,6 +795,8 @@ MonoBehaviour:
   ForwardDeadzone: 0
   SidewaysDeadzone: 0
   RotationDeadzone: 0
+  _myIKBody: {fileID: 0}
+  _myIKHead: {fileID: 0}
   LeftButton1: 0
   LeftButton2: 0
   RightButton1: 0

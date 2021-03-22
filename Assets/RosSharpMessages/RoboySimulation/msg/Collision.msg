@@ -1,1 +1,0 @@
-ContactPoint[] contact_points

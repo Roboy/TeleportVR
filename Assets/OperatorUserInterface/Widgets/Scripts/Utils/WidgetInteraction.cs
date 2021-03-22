@@ -256,7 +256,7 @@ namespace Widgets
 
         private void CloseCage()
         {
-            CageInterface.Instance.CloseCage();
+            //CageInterface.Instance.CloseCage();
         }
     }
 }

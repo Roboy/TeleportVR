@@ -23,16 +23,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/AnimusOUI.unity
     guid: c2558d01c9eb3394cb1f355533c3e8e6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BioIKPhilip.unity
     guid: 847fc950086306b4ca8dee19ce12232e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OUI_Construct.unity
     guid: ca09c4df27ac2aa4aa1a81330d7938a1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OUI_HUD.unity
     guid: 72ff9babd829ad149823746cd95b93e4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TrainingPhilip.unity
     guid: ea196a5116fd22840b4032c29b91258f
   - enabled: 0
@@ -51,8 +51,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Philip/Animus.unity
     guid: d25c21126b6c29440b01a2071497ce1e
   - enabled: 0
-    path: Assets/RosSharp/Scenes/FibonacciActionScene.unity
-    guid: b764064f57e6f9c40ac0a1456ad0ad83
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/Philip/AnimusRosTest.unity
     guid: 92088a8c39f712e4a8025a9a23038a64
@@ -62,6 +62,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Philip/EmptyScene.unity
     guid: fc157fbd8744c4f43a0a0ae18c52fc32
+  - enabled: 1
+    path: Assets/Scenes/Philip/UnityXRTest.unity
+    guid: 7fb73fe48364b7741a5aee51dfc70c62
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d,
       type: 2}

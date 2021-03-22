@@ -6,7 +6,7 @@ namespace Widgets
     public class Manager : Singleton<Manager>
     {
         public List<Widget> widgets;
-        public RosSubscriber rosSubscriber;
+        //public RosSubscriber rosSubscriber;
 
         /// <summary>
         /// Create all registered widgets from their template files.

@@ -215,6 +215,12 @@ Transform:
   m_Father: {fileID: 2117867715}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -270, y: 0, z: -90}
+--- !u!1 &192690173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2459119425388815567, guid: 672391305442d4247958d25d550bd81f,
+    type: 3}
+  m_PrefabInstance: {fileID: 443496784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &443496784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -376,6 +382,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1316907363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6958796702040240223, guid: 672391305442d4247958d25d550bd81f,
+    type: 3}
+  m_PrefabInstance: {fileID: 443496784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1391792526
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,9 +645,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OVRRig: {fileID: 443496791}
   TrackingSpace: {fileID: 443496790}
-  robotBody: {fileID: 0}
   LeftEye: {fileID: 443496789}
   RightEye: {fileID: 443496788}
+  _leftPlane: {fileID: 192690173}
+  _rightPlane: {fileID: 1316907363}
+  shouldTransmitHeadRot: 1
   robotHead: {fileID: 0}
   robotBase: {fileID: 0}
   robotLeftHandObjective: {fileID: 0}
@@ -647,6 +661,8 @@ MonoBehaviour:
   ForwardDeadzone: 0
   SidewaysDeadzone: 0
   RotationDeadzone: 0
+  _myIKBody: {fileID: 0}
+  _myIKHead: {fileID: 0}
   LeftButton1: 0
   LeftButton2: 0
   RightButton1: 0
