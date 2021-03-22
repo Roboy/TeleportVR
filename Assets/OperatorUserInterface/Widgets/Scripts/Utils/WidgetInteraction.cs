@@ -246,6 +246,14 @@ namespace Widgets
             wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
         }
 
+        public static void SetBodyPartActive(int id, bool active)
+        {
+            Widget widget = Manager.Instance.FindWidgetWithID(id);
+            int iconNr = active ? 1 : 0;
+            widget.GetContext().currentIcon = widget.GetContext().icons[iconNr];
+            widget.ProcessRosMessage(widget.GetContext());
+        }
+
         private void CloseCage()
         {
             CageInterface.Instance.CloseCage();

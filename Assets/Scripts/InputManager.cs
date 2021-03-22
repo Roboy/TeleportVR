@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using Widgets;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -147,11 +148,11 @@ public class InputManager : Singleton<InputManager>
                 }
 
                 // recalibrate the roboybody
-                if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out btn) && btn)
+                /*if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out btn) && btn)
                 {
                     RecalibrateUpperBody.Instance.Calibrate();
                     print("Calibrated...");
-                }
+                }*/
                 
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     Training.TutorialSteps.Instance != null &&
@@ -212,9 +213,14 @@ public class InputManager : Singleton<InputManager>
                     {
                         print(StateManager.Instance);
                         print(Training.TutorialSteps.Instance);
-                        if (StateManager.Instance.currentState == StateManager.States.Training && Training.TutorialSteps.Instance.currentStep == 5)
-                        {
-                            if (joystick.sqrMagnitude > 0.1f)
+                        bool wheelchairIsActive = joystick.sqrMagnitude > 0.01f;
+                        
+                        // Show that the wheelchair is active in the state manager
+                        WidgetInteraction.SetBodyPartActive(56, wheelchairIsActive);
+                        
+                        if (wheelchairIsActive) {
+                            if (StateManager.Instance.currentState == StateManager.States.Training &&
+                                Training.TutorialSteps.Instance.currentStep == 5)
                             {
                                 Training.TutorialSteps.Instance.NextStep();
                             }

@@ -1,6 +1,7 @@
 ﻿using BioIK;
 using System.Collections.Generic;
 using UnityEngine;
+using Widgets;
 
 public class EnableControlManager : MonoBehaviour
 {
@@ -98,13 +99,23 @@ public class EnableControlManager : MonoBehaviour
         for (int i=0;i<controllers.Count;i++)
         {
             var device = controllers[i];
-            var enabled = false;
+            var _enabled = false;
             float trigger = 0.0f;
             if (device.controller.isValid) {
-                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out enabled);
+                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out _enabled);
                 device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out trigger);
             }
-            device.SetEnabled(enabled);
+            
+            if (_enabled != enabled)
+            {
+                // Show that the arm is active in the state manager
+                WidgetInteraction.SetBodyPartActive(53 - i, _enabled);
+            }
+
+            // Show that the fingers are active in the state manager
+            WidgetInteraction.SetBodyPartActive(55 - i, trigger > 0.05f);
+            
+            device.SetEnabled(_enabled);
             device.UpdateFingers(trigger);
 
         }
