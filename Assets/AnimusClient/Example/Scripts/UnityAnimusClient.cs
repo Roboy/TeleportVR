@@ -471,7 +471,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         }
         
         // if first float is 1 it's a collison
-        if (collision.Data[0] > 0.5f && collision.Data[0] < 1.5)
+        if (collision.Data[0] > 0.5f && collision.Data[0] < 1.5 && CageInterface.cageIsConnected)
         {
             print("Collis Publishing collsion");
             CageInterface.Instance.ForwardCollisions(collisionArr);

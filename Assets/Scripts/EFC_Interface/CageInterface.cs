@@ -67,7 +67,7 @@ public class CageInterface : Singleton<CageInterface>
 
     public void CloseCage()
     {
-        if (true)//cageIsConnected)
+        if (cageIsConnected)
         {
             closeCagePublisher.Publish();
         }
