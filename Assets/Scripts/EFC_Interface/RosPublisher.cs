@@ -32,7 +32,7 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
             base.Start();
 
             //if (rosConnector.IsConnected.)
-            started = rosConnector.IsConnected.WaitOne(0);
+          //  started = rosConnector.IsConnected.WaitOne(0);
             
             if (debugInformation)
             {

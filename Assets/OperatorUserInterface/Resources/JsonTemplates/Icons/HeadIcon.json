@@ -3,6 +3,8 @@
 	"type": "Icon",
 	"title": "HeadIcon",
 	"widgetPosition": "bottomleft",
+	"childWidgetId": 91,
+	"relativeChildPosition": "top",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "HeadGreen", "HeadYellow", "HeadRed" ],
 	"currentIcon": "HeadGreen",
