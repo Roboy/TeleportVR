@@ -967,6 +967,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8980600751590378022, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
+      propertyPath: MotionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980600751590378022, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
       propertyPath: SelectedSegment
       value: 
       objectReference: {fileID: 1524232621}
@@ -3318,7 +3323,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
