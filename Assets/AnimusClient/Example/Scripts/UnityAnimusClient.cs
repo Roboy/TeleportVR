@@ -262,6 +262,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         return visionEnabled;
     }
 
+    public Texture2D[] GetVisionTextures()
+    {
+        return new[] {_leftTexture, _rightTexture};
+    }
+
     public void SetDisplaystate()
     {
         if (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD)
