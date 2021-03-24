@@ -46,6 +46,7 @@ namespace Widgets
         public string textMessage;      
         public int textFontSize;
         public byte[] textColor;
+	public bool trainingInfo;
         #endregion
 
         #region Icon
@@ -103,7 +104,7 @@ namespace Widgets
         /// <param name="graphDatapoint"></param>
         /// <param name="graphTimestamp"></param>
         /// <param name="graphColor"></param>
-        public RosJsonMessage(int id, string title, string type, string widgetPosition, string relativeChildPosition, int childWidgetId, string textMessage, int textFontSize, byte[] textColor) : this(id, title)
+        public RosJsonMessage(int id, string title, string type, string widgetPosition, string relativeChildPosition, int childWidgetId, string textMessage, int textFontSize, byte[] textColor, bool trainingInfo) : this(id, title)
         {
             this.type = type;
             this.widgetPosition = widgetPosition;
@@ -112,6 +113,7 @@ namespace Widgets
             this.textMessage = textMessage;
             this.textFontSize = textFontSize;
             this.textColor = textColor;
+	    this.trainingInfo = trainingInfo;
         }
 
         /// <summary>
