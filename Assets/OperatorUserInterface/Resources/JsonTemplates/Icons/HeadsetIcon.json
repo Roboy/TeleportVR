@@ -3,6 +3,7 @@
 	"type": "Icon",
 	"title": "HeadsetIcon",
 	"widgetPosition": "top",
+	"childWidgetId": 133,
 	"relativeChildPosition": "bottom",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "HeadsetGreen", "HeadsetYellow", "HeadsetRed" ],

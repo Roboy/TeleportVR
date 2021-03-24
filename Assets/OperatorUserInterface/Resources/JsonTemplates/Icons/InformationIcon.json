@@ -1,0 +1,13 @@
+{
+	"id": 214,
+	"type": "Icon",
+	"title": "InformationIcon",
+	"widgetPosition": "top",
+	"childWidgetId": 313,
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "info1","info2" ],
+	"currentIcon": "info1",
+	"onActivate" : "ToggleInformation",
+	"scale" : 1
+}
