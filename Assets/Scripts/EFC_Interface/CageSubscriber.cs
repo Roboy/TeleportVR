@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using RosSharp.RosBridgeClient;
 using RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware;
@@ -18,12 +19,12 @@ public class CageSubscriber : UnitySubscriber<ExoforceResponse>
             var newIcon = "";
             if (isInit)
             {
-                newIcon = "Cage";
+                newIcon = "CageGreen";
                 CageInterface.sentInitRequest = false;
             }
             else
             {
-                newIcon = "CageRed";
+                newIcon = "CageYellow";
             }
             // turn the icon to the corresponding icon
             Widget cageWidget = Manager.Instance.FindWidgetWithID(60);
@@ -40,5 +41,11 @@ public class CageSubscriber : UnitySubscriber<ExoforceResponse>
             }
             Debug.LogWarning("Request to Cage unssuccessfull: " + message.message);
         }
+    }
+
+    private void Update()
+    {
+        //Widget cageWidget = Manager.Instance.FindWidgetWithID(60);
+        //cageWidget.ProcessRosMessage(cageWidget.GetContext());
     }
 }

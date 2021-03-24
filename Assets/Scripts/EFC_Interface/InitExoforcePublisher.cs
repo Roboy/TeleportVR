@@ -6,6 +6,7 @@ using UnityEngine;
 using RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware;
 using RosSharp.RosBridgeClient.MessageTypes.RoboySimulation;
 using UnityEngine.InputSystem;
+using Widgets;
 using Pose = RosSharp.RosBridgeClient.MessageTypes.Geometry.Pose;
 using Quaternion = UnityEngine.Quaternion;
 using Transform = UnityEngine.Transform;
@@ -158,6 +159,16 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
             PublishMessage(msg);
             CageInterface.OnInitRequest();
         }
+    }
+
+    protected override void OnConnect(bool success)
+    {
+        // turn the icon to the corresponding icon
+        Widget cageWidget = Manager.Instance.FindWidgetWithID(60);
+        //var context = cageWidget.GetContext();
+        cageWidget.GetContext().currentIcon = "CageRed";
+        print("context.currentIcon" + cageWidget.GetContext().currentIcon);
+        cageWidget.ProcessRosMessage(cageWidget.GetContext());
     }
     
     void Update()

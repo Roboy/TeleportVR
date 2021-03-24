@@ -34,12 +34,19 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
             //if (rosConnector.IsConnected.)
             started = rosConnector.IsConnected.WaitOne(0);
             
+            OnConnect(started);
+            
             if (debugInformation)
             {
                 print("Started publisher for " + typeof(T) + " with status " + started);
             }
             break;
         }
+    }
+
+    protected virtual void OnConnect(bool success)
+    {
+        
     }
     
     /// <summary>
