@@ -20,6 +20,7 @@ namespace Widgets
         public bool allowDwellTime;
 
         public static bool settingsAreActive;
+	public bool showExplanations = false;
         
         /// <summary>
         /// Call this function to execute the function with the name given in the argument.
@@ -30,16 +31,38 @@ namespace Widgets
             Invoke(function, 0);
         }
 
+        public void ToggleInformation()
+        {
+            Widget widget = Manager.Instance.FindWidgetWithID(214);
+            if (widget.GetContext().currentIcon == "infoInactive")
+            {
+		showExplanations = true;
+                widget.GetContext().currentIcon = "infoActive";
+		
+		
+            }
+            else
+            {
+		showExplanations = false;
+                widget.GetContext().currentIcon = "infoInactive";
+		
+            }
+
+            widget.ProcessRosMessage(widget.GetContext());
+        }
+
         public void ToggleHeadControl()
         {
             Widget widget = Manager.Instance.FindWidgetWithID(24);
             if (widget.GetContext().currentIcon == "HeadsetGreen")
             {
                 widget.GetContext().currentIcon = "HeadsetYellow";
+		
             }
             else
             {
                 widget.GetContext().currentIcon = "HeadsetGreen";
+		
             }
 
             widget.ProcessRosMessage(widget.GetContext());

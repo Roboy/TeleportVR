@@ -1,0 +1,10 @@
+{
+	"id": 92,
+	"type": "Text",
+	"title": "MicroTextinfo",
+	"widgetPosition": "child",
+	"textMessage": "Mutes/Unmutes your mic upon looking",
+	"textFontSize": 20,
+	"textColor": [ 255, 255, 255, 255 ],
+	"trainingInfo" : true
+}
