@@ -122,6 +122,19 @@ namespace Widgets
             widget.ProcessRosMessage(widget.GetContext());
         }
 
+        public static void SetAnimusStatus(string icon, string message)
+        {
+            // Set the text
+            Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
+            latencyWidget.GetContext().textMessage = message;
+            latencyWidget.ProcessRosMessage(latencyWidget.GetContext());
+
+            // Set the icon
+            Widget wifiWidget = Manager.Instance.FindWidgetWithID(23);
+            wifiWidget.GetContext().currentIcon = icon;
+            wifiWidget.ProcessRosMessage(wifiWidget.GetContext());
+        }
+
         public void OpenDisplaySettings() {
             settingsAreActive = true;
             print("Opened Display settings!");

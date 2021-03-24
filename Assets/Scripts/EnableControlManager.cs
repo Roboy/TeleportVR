@@ -1,6 +1,7 @@
 ﻿using BioIK;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using Widgets;
 
 public class EnableControlManager : MonoBehaviour
@@ -24,6 +25,11 @@ public class EnableControlManager : MonoBehaviour
             hand_body = _body;
             controller = _inputDevice;
             enabled = false;
+        }
+
+        public void SetController(InputDevice newController)
+        {
+            controller = newController;
         }
 
         public void SetEnabled(bool _enabled)
@@ -96,6 +102,22 @@ public class EnableControlManager : MonoBehaviour
         // Update is called once per frame
         void Update()
     {
+        if (controllers.Count < 2)
+        {
+            controllers.Clear();
+            if (InputManager.Instance.GetLeftController())
+            {
+                controllers.Add(new ControllerStruct(left_hand, left_fingers, InputManager.Instance.controllerLeft[0]));
+            }
+
+            if (InputManager.Instance.GetRightController())
+            {
+                controllers.Add(new ControllerStruct(right_hand, right_fingers, InputManager.Instance.controllerRight[0]));
+            }
+        }
+        //controllers[0].SetController(InputManager.Instance.controllerLeft[0]);
+        //controllers[1].SetController(InputManager.Instance.controllerRight[0]);
+        
         for (int i=0;i<controllers.Count;i++)
         {
             var device = controllers[i];
