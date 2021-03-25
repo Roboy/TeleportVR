@@ -494,12 +494,20 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool proprioception_set(Float32Array currSample)
     {
-        body_manager(41,2, currSample);
-        body_manager(42,0, currSample);
-        body_manager(43,1, currSample);
-        body_manager(44,3, currSample);
-        body_manager(45,4, currSample);
-        body_manager(46,5, currSample);
+        if (currSample.CalculateSize()==6)
+        {
+            body_manager(41,0, currSample);
+            body_manager(42,1, currSample);
+            body_manager(43,2, currSample);
+            body_manager(44,3, currSample);
+            body_manager(45,4, currSample);
+            body_manager(46,5, currSample);
+        }
+        else
+        {
+            return true;
+        }
+
 
         /*
 		if (currSample.CalculateSize() > 1)
