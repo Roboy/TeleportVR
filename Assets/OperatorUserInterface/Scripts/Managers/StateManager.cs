@@ -17,6 +17,8 @@ public class StateManager : Singleton<StateManager>
     GameObject leftSenseGlove;
     GameObject rightSenseGlove;
 
+    List<StateManager.States> visitedStates = new List<States>();
+
     /// <summary>
     /// The states the operator can be in
     /// </summary>
@@ -43,6 +45,7 @@ public class StateManager : Singleton<StateManager>
         //currentState = States.Construct;
         additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateBeforeTrainingLoad);
         currentState = States.Training;
+        visitedStates.Add(States.Training);
     }
 
     /// <summary>
@@ -96,8 +99,13 @@ public class StateManager : Singleton<StateManager>
                 Debug.LogWarning("Unhandled State: Please specify the next State after " + currentState);
                 break;
         }
+        visitedStates.Add(currentState);
     }
 
+    public int TimesStateVisited(StateManager.States state)
+    {
+        return visitedStates.FindAll(x => x==state).Count;
+    }
     /// <summary>
     /// For debugging.
     /// Initiate transition to next state by pressing space on your keyboard while in play mode in Unity.

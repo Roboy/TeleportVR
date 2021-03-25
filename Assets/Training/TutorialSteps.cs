@@ -15,6 +15,7 @@ namespace Training
         int toggle;
         double prevDuration = 0.0;
         int lastCorrectedAtStep = -1;
+        bool trainingStarted = false;
         
         [SerializeField] private Transform handCollectables;
 
@@ -24,9 +25,13 @@ namespace Training
         // Start is called before the first frame update
         void Start()
         {
+            Debug.Log(StateManager.Instance.TimesStateVisited(StateManager.States.Training));
             // get a reference to this singleton, as scripts from other scenes are not able to do this
             _ = Instance;
-
+            if (StateManager.Instance.TimesStateVisited(StateManager.States.Training) <= 1)
+                Debug.Log("tutorial started");
+            else
+                Debug.Log("skipping training");
             ScheduleAudioClip(welcome, delay: 1.0);
             ScheduleAudioClip(imAria, delay: 2.0);
 
@@ -35,7 +40,7 @@ namespace Training
                                                              //"In the mirror you can see how you are controlling the Head of Roboy.\n" +
                                                              //"Look at the blue sphere to get started!");
             PublishNotification("I am Aria - your personal telepresence trainer.");
-
+            trainingStarted = true;
         }
 
         private void ScheduleAudioClip(AudioClip clip, bool queue=true, double delay=0)
@@ -82,7 +87,7 @@ namespace Training
                 PraiseUser();
             currentStep++;
             Debug.Log("current step: " + currentStep);
-            if (currentStep == 1)
+            if (currentStep == 0)
             {
                 ScheduleAudioClip(headHowTo, false);
                 PublishNotification("Try moving your head around");
@@ -92,7 +97,7 @@ namespace Training
                 //_audioSource.Play();
                 
             }
-            else if (currentStep == 2)
+            else if (currentStep == 1)
             {
                 ScheduleAudioClip(leftArmHowTo, queue: false, delay: 1);
                 PublishNotification("Press and hold the grip trigger and try moving your left arm");
@@ -102,6 +107,11 @@ namespace Training
                 handCollectables.transform.position = colTF;
                 handCollectables.Find("HandCollectableLeft").gameObject.SetActive(true);
             }
+            else if (currentStep == 2)
+            {
+                ScheduleAudioClip(handHowTo, queue: false, delay: 1);
+                PublishNotification("Press the trigger down with your index finger to close the hand.");
+            }
             else if (currentStep == 3)
             {
                 ScheduleAudioClip(rightArmHowTo, queue: true, delay: 1);
@@ -110,27 +120,39 @@ namespace Training
                 handCollectables.Find("HandCollectableRight").gameObject.SetActive(true);
                 //handCollectables.gameObject.SetActive(true);
             }
+           
             else if (currentStep == 4)
             {
                 ScheduleAudioClip(driveHowTo, queue: true, delay:1);
                 PublishNotification("Use left joystick to drive around");
                 //PublishNotification("Let's touch the sphere with your hand.");
             }
-            else if (currentStep == 5)
-            {
-                ScheduleAudioClip(handHowTo, queue: false, delay: 1);
-                PublishNotification("Press the trigger down with your index finger to close the hand.");
-            }
+            
             //else if (currentStep == 6)
             //{
             //    PublishNotification("Well done, young Roboyan. You are now ready to control Roboy.");
             //}
         }
 
+        bool isAudioPlaying()
+        {
+            bool playing = false;
+            foreach (var source in audioSourceArray)
+            {
+                playing = playing || source.isPlaying;
+            }
+            return playing;
+        }
 
         // Update is called once per frame
         void Update()
         {
+            
+            if (!trainingStarted && !isAudioPlaying())
+            {
+                currentStep = 0;
+                trainingStarted = true;
+            }
             if (Input.GetKeyDown(KeyCode.N))
             {
                 NextStep();
