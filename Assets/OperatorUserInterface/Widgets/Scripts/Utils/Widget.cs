@@ -13,6 +13,7 @@ namespace Widgets
         public int childWidgetId;
         public Widget childWidget;
         public RelativeChildPosition relativeChildPosition;
+	public bool trainingInfo;
         
         protected View view;
 
@@ -28,6 +29,7 @@ namespace Widgets
             childWidgetId = context.childWidgetId;
             position = WidgetUtility.StringToWidgetPosition(context.widgetPosition);
             relativeChildPosition = WidgetUtility.StringToRelativeChildPosition(context.relativeChildPosition);
+	    trainingInfo = context.trainingInfo;
 
             this.viewDesignPrefab = viewDesignPrefab;
         }

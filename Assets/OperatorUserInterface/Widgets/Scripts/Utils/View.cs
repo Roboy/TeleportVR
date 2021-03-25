@@ -96,8 +96,8 @@ namespace Widgets
 
             childIsActive = true;
             
-            if (childWidget != null)
-            {
+            if (childWidget !=null && ( WidgetInteraction.Instance.showExplanations || !childWidget.trainingInfo)) 
+	    {
                 childWidget.GetView().SetParentView(this);
                 childWidget.GetView().ShowView(relativeChildPosition);
             }
