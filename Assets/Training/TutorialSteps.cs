@@ -27,8 +27,8 @@ namespace Training
             // get a reference to this singleton, as scripts from other scenes are not able to do this
             _ = Instance;
 
-            //ScheduleAudioClip(welcome, delay: 1.0);
-            //ScheduleAudioClip(imAria, delay: 2.0);
+            ScheduleAudioClip(welcome, delay: 1.0);
+            ScheduleAudioClip(imAria, delay: 2.0);
 
             PublishNotification("Welcome to the Training!"); //\n" +
                                                              //"Take a look around. " +
@@ -96,14 +96,19 @@ namespace Training
             {
                 ScheduleAudioClip(leftArmHowTo, queue: false, delay: 1);
                 PublishNotification("Press and hold the grip trigger and try moving your left arm");
+                var colTF = PlayerRig.Instance.transform.position;
+                colTF.y -= 0.1f;
+                colTF.z += 0.2f;
+                handCollectables.transform.position = colTF;
+                handCollectables.Find("HandCollectableLeft").gameObject.SetActive(true);
             }
             else if (currentStep == 3)
             {
                 ScheduleAudioClip(rightArmHowTo, queue: true, delay: 1);
                 PublishNotification("Press and hold the grip trigger and try moving your right arm");
                 //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
-                handCollectables.transform.position = PlayerRig.Instance.transform.position;
-                handCollectables.gameObject.SetActive(true);
+                handCollectables.Find("HandCollectableRight").gameObject.SetActive(true);
+                //handCollectables.gameObject.SetActive(true);
             }
             else if (currentStep == 4)
             {

@@ -37,6 +37,8 @@ TagManager:
   - WidgetsBottomRight
   - RoboyCollider
   - Tutorial
+  - RoboyRightHand
+  - RoboyLeftHand
   layers:
   - Default
   - TransparentFX

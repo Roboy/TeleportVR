@@ -1620,13 +1620,14 @@ GameObject:
   - component: {fileID: 125511955}
   - component: {fileID: 125511954}
   - component: {fileID: 125511953}
+  - component: {fileID: 125511957}
   m_Layer: 0
   m_Name: HandCollectableRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &125511952
 Transform:
   m_ObjectHideFlags: 0
@@ -1653,9 +1654,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8d04ddeadd464429ec2951dd03b6ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredTag: RoboyArms
+  requiredTag: RoboyRightHand
   objectToRecolor: {fileID: 125511951}
-  requiredSteps: 04000000
+  requiredSteps: 03000000
   newColor: {r: 0, g: 1, b: 0, a: 0}
   _gradient:
     serializedVersion: 2
@@ -1749,6 +1750,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125511951}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &125511957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125511951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044a446ec73b27a44b680850ebc9a1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 1
+  heightDiff: 0.1
+  speed: 2
 --- !u!1 &127757447
 GameObject:
   m_ObjectHideFlags: 0
@@ -2704,13 +2720,14 @@ GameObject:
   - component: {fileID: 173185196}
   - component: {fileID: 173185195}
   - component: {fileID: 173185198}
+  - component: {fileID: 173185199}
   m_Layer: 0
   m_Name: HandCollectableLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &173185194
 Transform:
   m_ObjectHideFlags: 0
@@ -2799,9 +2816,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8d04ddeadd464429ec2951dd03b6ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredTag: RoboyArms
+  requiredTag: RoboyLeftHand
   objectToRecolor: {fileID: 173185193}
-  requiredSteps: 0400000005000000
+  requiredSteps: 02000000
   newColor: {r: 0, g: 1, b: 0, a: 0}
   _gradient:
     serializedVersion: 2
@@ -2833,6 +2850,21 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   dwellTime: 0
+--- !u!114 &173185199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173185193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044a446ec73b27a44b680850ebc9a1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 1
+  heightDiff: 0.1
+  speed: 2
 --- !u!1 &180432944
 GameObject:
   m_ObjectHideFlags: 0
@@ -11831,7 +11863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &850975195
 Transform:
   m_ObjectHideFlags: 0
@@ -11840,7 +11872,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 850975194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 173185194}
@@ -17776,7 +17808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1159584231
 Transform:
   m_ObjectHideFlags: 0

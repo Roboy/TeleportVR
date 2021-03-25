@@ -107,8 +107,8 @@ public class InputManager : Singleton<InputManager>
         yield return new WaitUntil(() => nodded);
         waiting = false;
         {
-            Debug.Log("moving on");
-            Training.TutorialSteps.Instance.NextStep();
+            //Debug.Log("moving on");
+            //Training.TutorialSteps.Instance.NextStep();
         }
         Debug.Log("user confirmed");
     }
@@ -168,16 +168,16 @@ public class InputManager : Singleton<InputManager>
                         }
                     }
                     
-                    // check if the left arm is moving 
+                    // check left arm
                     if (Training.TutorialSteps.Instance.currentStep == 2)
                     {
                         
-                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
+                        //if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                        //    btn)
+                        //{
                            
-                            Training.TutorialSteps.Instance.NextStep(praise: true);
-                        }
+                        //    Training.TutorialSteps.Instance.NextStep(praise: true);
+                        //}
 
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton , out btn) &&
                             btn)
@@ -186,15 +186,15 @@ public class InputManager : Singleton<InputManager>
                         }
                     }
 
-                    // check if the right arm is moving 
+                    // check left arm
                     if (Training.TutorialSteps.Instance.currentStep == 3)
                     {
                         
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep(praise: true);
-                        }
+                        //if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                        //    btn)
+                        //{
+                        //    Training.TutorialSteps.Instance.NextStep(praise: true);
+                        //}
 
                         if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
                             btn)
