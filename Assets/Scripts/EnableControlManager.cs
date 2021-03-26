@@ -59,6 +59,7 @@ public class EnableControlManager : MonoBehaviour
         {
             foreach (var segment in hand_body.Segments)
             {
+                
                 if (segment.Joint != null)
                 {
                     //if (segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J1"))

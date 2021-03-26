@@ -205,8 +205,7 @@ public class InputManager : Singleton<InputManager>
                 }
 
                 // drive the wheelchair
-                if (//StateManager.Instance.currentState == StateManager.States.Construct || 
-                    StateManager.Instance.currentState != StateManager.States.HUD)
+                if (StateManager.Instance.currentState != StateManager.States.HUD)
                 {
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
@@ -239,6 +238,11 @@ public class InputManager : Singleton<InputManager>
                             DifferentialDriveControl.Instance.V_L += 0.5f * speed * joystick.x;
                         }
                     }
+                }
+                else
+                {
+                    // Show that the wheelchair is active in the state manager
+                    WidgetInteraction.SetBodyPartActive(56, false);
                 }
             }
             else

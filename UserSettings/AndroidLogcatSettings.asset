@@ -13,6 +13,12 @@
             "name": "org.telegram.messenger",
             "processId": 20236,
             "exited": false
+        },
+        {
+            "deviceId": "1PASH9A1J19152",
+            "name": "com.oculus.shellenv",
+            "processId": 2355,
+            "exited": false
         }
     ],
     "m_Tags": {

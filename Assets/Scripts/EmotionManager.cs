@@ -27,18 +27,74 @@ public class EmotionManager : Singleton<EmotionManager>
         {17,    "rolling"},
         {18,    "surprise_mit_augen"},
     };
+    
+    private static Dictionary<string, string> stringToEmotion = new Dictionary<string, string>() {
+        {"A",     "hearts"},
+        {"B",     "shy"},
+        {"X",     "blink"},
+        {"Y",     "img:money"},
+    };
 
     void Update()
     {
-        if (StateManager.Instance.currentState == StateManager.States.HUD)
+        if (true)//StateManager.Instance.currentState == StateManager.States.HUD)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 4; i++)
             {
                 if (Input.GetKeyDown("" + i))
                 {
-                    SetFace(i);
+                    if (i == 0)
+                    {
+                        UnityAnimusClient.Instance.LeftButton1 = true;
+                    }
+                    if (i == 1)
+                    {
+                        UnityAnimusClient.Instance.LeftButton2 = true;
+                    }
+                    if (i == 2)
+                    {
+                        UnityAnimusClient.Instance.RightButton1 = true;
+                    }
+                    if (i == 3)
+                    {
+                        UnityAnimusClient.Instance.RightButton2 = true;
+                    }
+                    //SetFace(i);
+                }
+                
+                if (Input.GetKeyUp("" + i))
+                {
+                    if (i == 0)
+                    {
+                        UnityAnimusClient.Instance.LeftButton1 = false;
+                    }
+                    if (i == 1)
+                    {
+                        UnityAnimusClient.Instance.LeftButton2 = false;
+                    }
+                    if (i == 2)
+                    {
+                        UnityAnimusClient.Instance.RightButton1 = false;
+                    }
+                    if (i == 3)
+                    {
+                        UnityAnimusClient.Instance.RightButton2 = false;
+                    }
+                    //SetFace(i);
                 }
             }
+        }
+    }
+
+    public void SetFaceByKey(string key)
+    {
+        if (stringToEmotion.ContainsKey(key))
+        {
+            SetFace(stringToEmotion[key]);
+        }
+        else
+        {
+            print("Trying to set undefined Emotion: " + key);
         }
     }
 
@@ -69,5 +125,6 @@ public class EmotionManager : Singleton<EmotionManager>
             }
         }
         faceAnimator.SetEmotion(emotion);
+        print("Set emotion " + emotion);
     }
 }

@@ -6,7 +6,7 @@
 	"relativeChildPosition": "bottom",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "CageGreen", "CageYellow", "CageRed" ],
-	"currentIcon": "CageYellow",
+	"currentIcon": "CageGreen",
 	"scale" : 1,
 	"onActivate": "CloseCage"
 }

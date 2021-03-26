@@ -27,11 +27,11 @@ public class CageInterface : Singleton<CageInterface>
 
     public static Pose TransformToPose(Transform t)
     {
-        Quaternion q = t.rotation;
+        Quaternion q = t.localRotation;
         q = q.Unity2Ros();
         RosSharp.RosBridgeClient.MessageTypes.Geometry.Quaternion rot =
             new RosSharp.RosBridgeClient.MessageTypes.Geometry.Quaternion(q.x, q.y, q.z, q.w);
-        Vector3 p = t.position;
+        Vector3 p = t.localPosition;
         p = p.Unity2Ros();
         return new Pose(new Point(p.x, p.y, p.z), rot);
     }

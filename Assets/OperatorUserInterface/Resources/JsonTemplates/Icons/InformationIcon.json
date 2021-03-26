@@ -6,8 +6,8 @@
 	"childWidgetId": 313,
 	"relativeChildPosition": "bottom",
 	"unfoldChildDwellTimer": 1.0,
-	"icons": [ "info1","info2" ],
-	"currentIcon": "info1",
+	"icons": [ "InfoActive","InfoInactive" ],
+	"currentIcon": "InfoInactive",
 	"onActivate" : "ToggleInformation",
 	"scale" : 1
 }

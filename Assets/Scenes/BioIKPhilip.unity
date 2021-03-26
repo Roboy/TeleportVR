@@ -1486,7 +1486,7 @@ PrefabInstance:
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Scroll.y
-      value: 1027.3999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
@@ -3030,7 +3030,7 @@ PrefabInstance:
     - target: {fileID: 4980998344891865941, guid: b59642d167f28bc4c8cd55a5d0098223,
         type: 3}
       propertyPath: RosBridgeServerUrl
-      value: ws://localhost:9090
+      value: ws://192.168.0.116:9090
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b59642d167f28bc4c8cd55a5d0098223, type: 3}
@@ -5398,7 +5398,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: robotName
-      value: Roboy2XavierA
+      value: Roboy2Xavier
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -5423,7 +5423,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -5443,12 +5443,12 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.data[3]
-      value: motor
+      value: collision
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.data[4]
-      value: collision
+      value: emotion
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723432400, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}

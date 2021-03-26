@@ -34,17 +34,17 @@ namespace Widgets
         public void ToggleInformation()
         {
             Widget widget = Manager.Instance.FindWidgetWithID(214);
-            if (widget.GetContext().currentIcon == "infoInactive")
+            if (widget.GetContext().currentIcon == "InfoInactive")
             {
 		showExplanations = true;
-                widget.GetContext().currentIcon = "infoActive";
+                widget.GetContext().currentIcon = "InfoActive";
 		
 		
             }
             else
             {
 		showExplanations = false;
-                widget.GetContext().currentIcon = "infoInactive";
+                widget.GetContext().currentIcon = "InfoInactive";
 		
             }
 

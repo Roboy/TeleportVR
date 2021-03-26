@@ -163,10 +163,15 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
 
     protected override void OnConnect(bool success)
     {
+        string icon = success ? "CageGreen" : "CageRed";
+        if (success == false)
+        {
+            // TODO
+        }
         // turn the icon to the corresponding icon
         Widget cageWidget = Manager.Instance.FindWidgetWithID(60);
         //var context = cageWidget.GetContext();
-        cageWidget.GetContext().currentIcon = "CageRed";
+        cageWidget.GetContext().currentIcon = icon;
         print("context.currentIcon" + cageWidget.GetContext().currentIcon);
         cageWidget.ProcessRosMessage(cageWidget.GetContext());
     }

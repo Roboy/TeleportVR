@@ -459,9 +459,9 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool collision_set(Float32Array collision)
     {
-        print("Col: " + collision);
+        //print("Col: " + collision);
         int collisionLen = collision.Data.Count - 1;
-        print("CollisionLen: " + collisionLen);
+        //print("CollisionLen: " + collisionLen);
         if (collisionLen <= 0) return true;
 
         float[] collisionArr = new float[collisionLen];
@@ -499,12 +499,32 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool proprioception_set(Float32Array currSample)
     {
-        body_manager(41,2, currSample);
-        body_manager(42,0, currSample);
-        body_manager(43,1, currSample);
-        body_manager(44,3, currSample);
-        body_manager(45,4, currSample);
-        body_manager(46,5, currSample);
+        print("Proprio: " + currSample.Data);
+        //string pr = "";
+        //foreach (float d in currSample.Data) {
+        //    print(d);
+        //}
+        //print();
+        if (currSample.CalculateSize() >= 6)
+        {
+            //body_manager(41,0, currSample);
+            //body_manager(42,1, currSample);
+            //body_manager(43,2, currSample);
+            //body_manager(44,3, currSample);
+            //body_manager(45,4, currSample);
+            //body_manager(46,5, currSample);
+            
+            body_manager(41,0, currSample);
+            body_manager(42,1, currSample);
+            body_manager(43,2, currSample);
+            body_manager(44,3, currSample);
+            body_manager(45,4, currSample);
+            body_manager(46,5, currSample);
+        }
+        else
+        {
+            return true;
+        }
 
         /*
 		if (currSample.CalculateSize() > 1)
@@ -524,7 +544,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         Widget widget = Manager.Instance.FindWidgetWithID(id);
         if ((int)(currSample.Data[position]) == -1)
         {
-            widget.GetContext().currentIcon = widget.GetContext().icons[2];
+            widget.GetContext().currentIcon = widget.GetContext().icons[1];
         }
         else if ((int)(currSample.Data[position]) == 0)
         {
@@ -532,7 +552,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         }
         else
         {
-            widget.GetContext().currentIcon = widget.GetContext().icons[1];
+            widget.GetContext().currentIcon = widget.GetContext().icons[2];
         }
         widget.ProcessRosMessage(widget.GetContext());
     }
@@ -617,6 +637,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             float left_open = 0, right_open = 0;
             if (InputManager.Instance.GetLeftController())
                 InputManager.Instance.controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out left_open);
+            print("left_open: " + left_open);
 
             if (InputManager.Instance.GetRightController())
                 InputManager.Instance.controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out right_open);
@@ -904,6 +925,28 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                                  ((LeftButton2 ? 1 : 0) * 2) +
                                  ((RightButton1 ? 1 : 0) * 4) +
                                  ((RightButton2 ? 1 : 0) * 8);
+        
+        print(controlCombination);
+
+        /*switch (controlCombination)
+        {
+            case 0:
+                // All off
+                currentEmotion = "A";
+                break;
+            case 1:
+                // Left Button 1
+                currentEmotion = "B";
+                break;
+            case 2:
+                // Left Button 2
+                currentEmotion = "X";
+                break;
+            case 4:
+                // Right Button 1
+                currentEmotion = "Y";
+                break;
+        }*/
 
         switch (controlCombination)
         {
@@ -951,7 +994,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         //Debug.Log(currentEmotion);
         if (currentEmotion != "off")
         {
-            EmotionManager.Instance.SetFace(controlCombination);
+            //EmotionManager.Instance.SetFace(controlCombination);
+            EmotionManager.Instance.SetFaceByKey(currentEmotion);
         }
 
         emotionSample.Data = emotionMsg;
