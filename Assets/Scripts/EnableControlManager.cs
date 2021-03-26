@@ -96,6 +96,21 @@ public class EnableControlManager : MonoBehaviour
         // Update is called once per frame
         void Update()
     {
+
+        if (controllers.Count != 2)
+        {
+            controllers = new List<ControllerStruct>();
+            if (InputManager.Instance.GetLeftController())
+            {
+                controllers.Add(new ControllerStruct(left_hand, left_fingers, InputManager.Instance.controllerLeft[0]));
+            }
+
+            if (InputManager.Instance.GetRightController())
+            {
+                controllers.Add(new ControllerStruct(right_hand, right_fingers, InputManager.Instance.controllerRight[0]));
+            }
+        }
+
         for (int i=0;i<controllers.Count;i++)
         {
             var device = controllers[i];

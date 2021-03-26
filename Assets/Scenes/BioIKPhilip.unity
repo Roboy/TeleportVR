@@ -894,6 +894,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 1.7763568e-15
       objectReference: {fileID: 0}
+    - target: {fileID: 8980600750862689947, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: m_TagString
+      value: RoboyLeftHand
+      objectReference: {fileID: 0}
     - target: {fileID: 8980600750893642669, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: objectToTrack
@@ -924,6 +929,11 @@ PrefabInstance:
       propertyPath: X.Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8980600751439830742, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: m_TagString
+      value: RoboyRightHand
+      objectReference: {fileID: 0}
     - target: {fileID: 8980600751590378022, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Scroll.y
@@ -939,6 +949,11 @@ PrefabInstance:
       propertyPath: SelectedSegment
       value: 
       objectReference: {fileID: 1524232621}
+    - target: {fileID: 8980600751590378027, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: m_TagString
+      value: RoboyLeftHand
+      objectReference: {fileID: 0}
     - target: {fileID: 8980600751714240473, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Scroll.y
@@ -954,6 +969,11 @@ PrefabInstance:
       propertyPath: SelectedSegment
       value: 
       objectReference: {fileID: 449078330}
+    - target: {fileID: 8980600751714240478, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: m_TagString
+      value: RoboyRightHand
+      objectReference: {fileID: 0}
     - target: {fileID: 8980600752011401555, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: DRX
@@ -3163,7 +3183,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: robotName
-      value: Roboy
+      value: Roboy2Xavier
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -3188,12 +3208,12 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.data[0]
-      value: vision
+      value: audition
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}

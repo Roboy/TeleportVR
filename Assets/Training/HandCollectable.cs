@@ -7,7 +7,7 @@ namespace Training
     {
         [SerializeField] private string requiredTag;
         [SerializeField] private GameObject objectToRecolor;
-        [SerializeField] private int[] requiredSteps;
+        [SerializeField] private TutorialSteps.TrainingStep[] requiredSteps;
         [SerializeField] private Color newColor;
         [SerializeField] private Gradient _gradient;
         private MeshRenderer _renderer;

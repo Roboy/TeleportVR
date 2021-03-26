@@ -4,7 +4,7 @@ namespace Training
 {
     public class PlayerInArea : MonoBehaviour
     {
-        [SerializeField] private int requiredStep;
+        [SerializeField] private TutorialSteps.TrainingStep requiredStep;
         [SerializeField] private string requiredTag;
         [SerializeField] private GameObject objectToDisable;
 
