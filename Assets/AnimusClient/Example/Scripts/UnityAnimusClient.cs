@@ -459,7 +459,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool collision_set(Float32Array collision)
     {
-        //print("Col: " + collision);
+        print("Col: " + collision);
         int collisionLen = collision.Data.Count - 1;
         //print("CollisionLen: " + collisionLen);
         if (collisionLen <= 0) return true;
