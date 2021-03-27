@@ -24,7 +24,7 @@ public struct PoseSample
 
 public class VRGestureRecognizer : MonoBehaviour
 {
-    [SerializeField] float recognitionInterval = 2f;
+    [SerializeField] float recognitionInterval = 10f;
 
     public event Action Nodded;
     public event Action HeadShaken;
