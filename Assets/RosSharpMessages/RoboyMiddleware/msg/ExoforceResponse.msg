@@ -1,2 +1,0 @@
-bool success
-string message

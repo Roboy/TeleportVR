@@ -1,6 +1,5 @@
-﻿using System;
+﻿#if ROSSHARP
 using System.Collections;
-using System.Collections.Generic;
 using RosSharp.RosBridgeClient;
 using UnityEngine;
 using Collision = RosSharp.RosBridgeClient.MessageTypes.RoboySimulation.Collision;
@@ -34,12 +33,19 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
             //if (rosConnector.IsConnected.)
             started = rosConnector.IsConnected.WaitOne(0);
             
+            OnConnect(started);
+            
             if (debugInformation)
             {
                 print("Started publisher for " + typeof(T) + " with status " + started);
             }
             break;
         }
+    }
+
+    protected virtual void OnConnect(bool success)
+    {
+        
     }
     
     /// <summary>
@@ -65,3 +71,4 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         }
     }
 }
+#endif

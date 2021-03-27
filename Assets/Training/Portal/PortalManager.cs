@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PortalManager : MonoBehaviour
 {
+    [SerializeField] private Renderer backgroundRenderer;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,5 +13,10 @@ public class PortalManager : MonoBehaviour
         {
             StateManager.Instance.GoToState(StateManager.States.HUD);
         }
+    }
+
+    private void Update()
+    {
+        backgroundRenderer.material.mainTexture = UnityAnimusClient.Instance.GetVisionTextures()[0];
     }
 }

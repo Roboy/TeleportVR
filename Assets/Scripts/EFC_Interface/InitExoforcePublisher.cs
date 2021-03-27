@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using RosSharp.RosBridgeClient;
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 using UnityEngine;
 using RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware;
 using RosSharp.RosBridgeClient.MessageTypes.RoboySimulation;
 using UnityEngine.InputSystem;
+using Widgets;
 using Pose = RosSharp.RosBridgeClient.MessageTypes.Geometry.Pose;
 using Quaternion = UnityEngine.Quaternion;
 using Transform = UnityEngine.Transform;
@@ -136,7 +136,7 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
 
     public void InitExoforce()
     {
-        if (true) //!CageInterface.cageIsConnected)
+        if (!CageInterface.cageIsConnected)
         {
             // send init message
             string[] ef_name = {"left_hand", "right_hand"}; // posible values ('left_hand'/'right_hand')
@@ -159,6 +159,21 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
             CageInterface.OnInitRequest();
         }
     }
+
+    protected override void OnConnect(bool success)
+    {
+        string icon = success ? "CageGreen" : "CageRed";
+        if (success == false)
+        {
+            // TODO
+        }
+        // turn the icon to the corresponding icon
+        Widget cageWidget = Manager.Instance.FindWidgetWithID(60);
+        //var context = cageWidget.GetContext();
+        cageWidget.GetContext().currentIcon = icon;
+        print("context.currentIcon" + cageWidget.GetContext().currentIcon);
+        cageWidget.ProcessRosMessage(cageWidget.GetContext());
+    }
     
     void Update()
     {
@@ -175,3 +190,4 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
         }
     }
 }
+#endif

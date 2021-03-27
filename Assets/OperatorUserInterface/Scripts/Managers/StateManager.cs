@@ -83,7 +83,7 @@ public class StateManager : Singleton<StateManager>
             case States.HUD:
                 transitionManager.StartTransition(true);
                 //additiveSceneManager.ChangeScene(Scenes.HUD, null, DelegateOnConstructUnload, null, null);
-                additiveSceneManager.ChangeScene(Scenes.HUD, null, null, null, null);
+                additiveSceneManager.ChangeScene(Scenes.HUD, null, null, DelegateBeforeHudLoad, null);
                 currentState = States.HUD;
                 break;
             case States.Training:
@@ -190,6 +190,28 @@ public class StateManager : Singleton<StateManager>
 
             constructFXManager.ToggleEffects(false);
         }
+    }
+    
+    /// <summary>
+    /// Logic that is executed right before the construc scene is loaded.
+    /// Enables both sense gloves and the OpenMenuButton
+    /// </summary>
+    void DelegateBeforeHudLoad()
+    {
+        print("DelegateBeforeHudLoad");
+        var bioIks = FindObjectsOfType<BioIK.BioIK>();
+        foreach (var body in bioIks)
+        {
+            foreach (var segment in body.Segments)
+            {
+                if (segment.Joint != null)
+                {
+                    segment.Joint.X.SetTargetValue(0.0);
+                }
+            }
+        }
+        
+        
     }
     #endregion
 }

@@ -5,7 +5,7 @@
 	"widgetPosition": "bottomleft",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "LeftHandGreen", "LeftHandYellow", "LeftHandRed" ],
-	"currentIcon": "LeftHandGreen",
+	"currentIcon": "LeftHandYellow",
 	"onActivate": "ToggleLeftHand",
 	"yPositionOffset": -35.0,
 	"xPositionOffset": -135.0,

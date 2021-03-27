@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 using RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware;
 using RosSharp.RosBridgeClient.MessageTypes.Std;
@@ -21,8 +20,11 @@ public class EFPosePublisher : RosPublisher<EFPose>
 
     void Update()
     {
-        PublishMessage(transformToEFPose(handLeft, "left_hand"));
-        PublishMessage(transformToEFPose(handRight, "right_hand"));
-
+        if (CageInterface.cageIsConnected)
+        {
+            PublishMessage(transformToEFPose(handLeft, "left_hand"));
+            PublishMessage(transformToEFPose(handRight, "right_hand"));
+        }
     }
 }
+#endif

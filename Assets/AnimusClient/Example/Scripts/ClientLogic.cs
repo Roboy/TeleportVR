@@ -4,6 +4,7 @@ using Animus.RobotProto;
 using AnimusClient;
 using AnimusManager;
 using UnityEngine;
+using Widgets;
 
 public class ClientLogic : Singleton<ClientLogic>
 {
@@ -86,6 +87,7 @@ public class ClientLogic : Singleton<ClientLogic>
         if (_chosenRobot == null)
         {
             Debug.Log($"Robot {robotName} not found");
+            WidgetInteraction.SetAnimusStatus("WifiRed", $"Robot {robotName} not found");
             yield break;
         }
 

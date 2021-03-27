@@ -1,4 +1,5 @@
-﻿using RosSharp.RosBridgeClient.MessageTypes.Std;
+﻿#if ROSSHARP
+using RosSharp.RosBridgeClient.MessageTypes.Std;
 using UnityEngine;
 using ContactPoint = RosSharp.RosBridgeClient.MessageTypes.RoboySimulation.ContactPoint;
 using Collision = RosSharp.RosBridgeClient.MessageTypes.RoboySimulation.Collision;
@@ -53,3 +54,4 @@ public class CollisionPublisher : RosPublisher<Collision>
         }
     }
 }
+#endif

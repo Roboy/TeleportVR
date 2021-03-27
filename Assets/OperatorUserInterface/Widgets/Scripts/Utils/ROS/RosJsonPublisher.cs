@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿#if ROSSHARP
 using UnityEngine;
 using RosSharp.RosBridgeClient;
 using System.IO;
-using System;
 
 namespace Widgets
 {
@@ -135,3 +134,4 @@ namespace Widgets
         }
     }
 }
+#endif

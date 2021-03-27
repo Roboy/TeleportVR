@@ -34,17 +34,17 @@ namespace Widgets
         public void ToggleInformation()
         {
             Widget widget = Manager.Instance.FindWidgetWithID(214);
-            if (widget.GetContext().currentIcon == "infoInactive")
+            if (widget.GetContext().currentIcon == "InfoInactive")
             {
 		showExplanations = true;
-                widget.GetContext().currentIcon = "infoActive";
+                widget.GetContext().currentIcon = "InfoActive";
 		
 		
             }
             else
             {
 		showExplanations = false;
-                widget.GetContext().currentIcon = "infoInactive";
+                widget.GetContext().currentIcon = "InfoInactive";
 		
             }
 
@@ -143,6 +143,19 @@ namespace Widgets
             }*/
 
             widget.ProcessRosMessage(widget.GetContext());
+        }
+
+        public static void SetAnimusStatus(string icon, string message)
+        {
+            // Set the text
+            Widget latencyWidget = Manager.Instance.FindWidgetWithID(33);
+            latencyWidget.GetContext().textMessage = message;
+            latencyWidget.ProcessRosMessage(latencyWidget.GetContext());
+
+            // Set the icon
+            Widget wifiWidget = Manager.Instance.FindWidgetWithID(23);
+            wifiWidget.GetContext().currentIcon = icon;
+            wifiWidget.ProcessRosMessage(wifiWidget.GetContext());
         }
 
         public void OpenDisplaySettings() {
@@ -269,9 +282,21 @@ namespace Widgets
             wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
         }
 
+        public static void SetBodyPartActive(int id, bool active)
+        {
+            Widget widget = Manager.Instance.FindWidgetWithID(id);
+            int iconNr = active ? 1 : 0;
+            widget.GetContext().currentIcon = widget.GetContext().icons[iconNr];
+            widget.ProcessRosMessage(widget.GetContext());
+        }
+
         private void CloseCage()
         {
+#if ROSSHARP
             CageInterface.Instance.CloseCage();
+#else 
+            Debug.LogWarning("Trying to close cage, but RosSharp is not activated.");
+#endif
         }
     }
 }

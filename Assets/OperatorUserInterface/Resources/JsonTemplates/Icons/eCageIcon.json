@@ -1,0 +1,12 @@
+{
+	"id": 60,
+	"type": "Icon",
+	"title": "CageIcon",
+	"widgetPosition": "top",
+	"relativeChildPosition": "bottom",
+	"unfoldChildDwellTimer": 1.0,
+	"icons": [ "CageGreen", "CageYellow", "CageRed" ],
+	"currentIcon": "CageGreen",
+	"scale" : 1,
+	"onActivate": "CloseCage"
+}

@@ -19,7 +19,7 @@ namespace Widgets
         private Timer dwellTimer;
 
         public bool keepChildUnfolded = false;
-        public bool dwellTimerActive = false;
+        public bool dwellTimerActive;
 
         public string onActivate;
 
@@ -89,7 +89,8 @@ namespace Widgets
         /// </summary>
         public void UnfoldChild()
         {
-            if ((!childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onActivate != null)
+            //if ((!childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onActivate != null)
+            if (!childIsActive && onActivate != null)
             {
                 WidgetInteraction.Instance.InvokeFunction(onActivate);
             }
@@ -110,7 +111,7 @@ namespace Widgets
         /// </summary>
         public void FoldChildIn()
         {
-            if ((childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onClose != null) // is allowDwelltime needed?
+            if (childIsActive && onClose != null)
             {
                 WidgetInteraction.Instance.InvokeFunction(onClose);
             }

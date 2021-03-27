@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using UnityEngine;
 
 namespace RosSharp.RosBridgeClient
@@ -99,3 +98,4 @@ namespace RosSharp.RosBridgeClient
         }
     }
 }
+#endif

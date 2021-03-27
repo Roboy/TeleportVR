@@ -7,7 +7,7 @@
 	"relativeChildPosition": "top",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "HeadGreen", "HeadYellow", "HeadRed" ],
-	"currentIcon": "HeadGreen",
+	"currentIcon": "HeadYellow",
 	"onActivate": "ToggleHead",
 	"yPositionOffset": 105.0,
 	"xPositionOffset": 0.0,

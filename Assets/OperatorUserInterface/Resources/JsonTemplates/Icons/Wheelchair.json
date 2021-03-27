@@ -5,7 +5,7 @@
 	"widgetPosition": "bottomleft",
 	"unfoldChildDwellTimer": 1.0,
 	"icons": [ "WheelchairGreen", "WheelchairYellow", "WheelchairRed" ],
-	"currentIcon": "WheelchairGreen",
+	"currentIcon": "WheelchairYellow",
 	"onActivate": "ToggleWheelchair",
 	"yPositionOffset": -110.0,
 	"xPositionOffset": 0.0,

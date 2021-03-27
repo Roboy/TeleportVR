@@ -262,6 +262,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         return visionEnabled;
     }
 
+    public Texture2D[] GetVisionTextures()
+    {
+        return new[] {_leftTexture, _rightTexture};
+    }
+
     public void SetDisplaystate()
     {
         if (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD)
@@ -454,9 +459,10 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool collision_set(Float32Array collision)
     {
+        #if ROSSHARP
         print("Col: " + collision);
         int collisionLen = collision.Data.Count - 1;
-        print("CollisionLen: " + collisionLen);
+        //print("CollisionLen: " + collisionLen);
         if (collisionLen <= 0) return true;
 
         float[] collisionArr = new float[collisionLen];
@@ -466,7 +472,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         }
         
         // if first float is 1 it's a collison
-        if (collision.Data[0] > 0.5f && collision.Data[0] < 1.5)
+        if (collision.Data[0] > 0.5f && collision.Data[0] < 1.5 && CageInterface.cageIsConnected)
         {
             print("Collis Publishing collsion");
             CageInterface.Instance.ForwardCollisions(collisionArr);
@@ -477,6 +483,9 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             print("Collis Storing information");
             InitExoforcePublisher.StoreLinkInformation(collisionArr);
         }
+        #else
+        Debug.LogWarning("Collision Modality active while RosSharp is deactivated.");
+        #endif
 
         return true;
     }
@@ -494,12 +503,32 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool proprioception_set(Float32Array currSample)
     {
-        body_manager(41,2, currSample);
-        body_manager(42,0, currSample);
-        body_manager(43,1, currSample);
-        body_manager(44,3, currSample);
-        body_manager(45,4, currSample);
-        body_manager(46,5, currSample);
+        print("Proprio: " + currSample.Data);
+        //string pr = "";
+        //foreach (float d in currSample.Data) {
+        //    print(d);
+        //}
+        //print();
+        if (currSample.CalculateSize() >= 6)
+        {
+            //body_manager(41,0, currSample);
+            //body_manager(42,1, currSample);
+            //body_manager(43,2, currSample);
+            //body_manager(44,3, currSample);
+            //body_manager(45,4, currSample);
+            //body_manager(46,5, currSample);
+            
+            body_manager(41,0, currSample);
+            body_manager(42,1, currSample);
+            body_manager(43,2, currSample);
+            body_manager(44,3, currSample);
+            body_manager(45,4, currSample);
+            body_manager(46,5, currSample);
+        }
+        else
+        {
+            return true;
+        }
 
         /*
 		if (currSample.CalculateSize() > 1)
@@ -519,7 +548,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         Widget widget = Manager.Instance.FindWidgetWithID(id);
         if ((int)(currSample.Data[position]) == -1)
         {
-            widget.GetContext().currentIcon = widget.GetContext().icons[2];
+            widget.GetContext().currentIcon = widget.GetContext().icons[1];
         }
         else if ((int)(currSample.Data[position]) == 0)
         {
@@ -527,7 +556,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         }
         else
         {
-            widget.GetContext().currentIcon = widget.GetContext().icons[1];
+            widget.GetContext().currentIcon = widget.GetContext().icons[2];
         }
         widget.ProcessRosMessage(widget.GetContext());
     }
@@ -899,6 +928,28 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                                  ((LeftButton2 ? 1 : 0) * 2) +
                                  ((RightButton1 ? 1 : 0) * 4) +
                                  ((RightButton2 ? 1 : 0) * 8);
+        
+        print(controlCombination);
+
+        /*switch (controlCombination)
+        {
+            case 0:
+                // All off
+                currentEmotion = "A";
+                break;
+            case 1:
+                // Left Button 1
+                currentEmotion = "B";
+                break;
+            case 2:
+                // Left Button 2
+                currentEmotion = "X";
+                break;
+            case 4:
+                // Right Button 1
+                currentEmotion = "Y";
+                break;
+        }*/
 
         switch (controlCombination)
         {
@@ -946,7 +997,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         //Debug.Log(currentEmotion);
         if (currentEmotion != "off")
         {
-            EmotionManager.Instance.SetFace(controlCombination);
+            //EmotionManager.Instance.SetFace(controlCombination);
+            EmotionManager.Instance.SetFaceByKey(currentEmotion);
         }
 
         emotionSample.Data = emotionMsg;
