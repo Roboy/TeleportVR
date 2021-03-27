@@ -51,7 +51,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Philip/Animus.unity
     guid: d25c21126b6c29440b01a2071497ce1e
   - enabled: 0
-    path: Assets/RosSharp/Scenes/FibonacciActionScene.unity
+    path: Assets/OperatorUserInterface/Plugins/RosSharp/Scenes/FibonacciActionScene.unity
     guid: b764064f57e6f9c40ac0a1456ad0ad83
   - enabled: 0
     path: Assets/Scenes/Philip/AnimusRosTest.unity

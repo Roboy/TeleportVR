@@ -292,7 +292,11 @@ namespace Widgets
 
         private void CloseCage()
         {
+#if ROSSHARP
             CageInterface.Instance.CloseCage();
+#else 
+            Debug.LogWarning("Trying to close cage, but RosSharp is not activated.");
+#endif
         }
     }
 }

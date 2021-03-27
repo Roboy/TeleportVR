@@ -1,6 +1,5 @@
-﻿using System;
+﻿#if ROSSHARP
 using System.Collections;
-using System.Collections.Generic;
 using RosSharp.RosBridgeClient;
 using UnityEngine;
 using Collision = RosSharp.RosBridgeClient.MessageTypes.RoboySimulation.Collision;
@@ -72,3 +71,4 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         }
     }
 }
+#endif

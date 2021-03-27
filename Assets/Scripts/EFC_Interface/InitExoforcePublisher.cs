@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using RosSharp.RosBridgeClient;
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 using UnityEngine;
@@ -191,3 +190,4 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
         }
     }
 }
+#endif

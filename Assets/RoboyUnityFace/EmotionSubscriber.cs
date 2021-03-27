@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if ROSSHARP
 namespace RosSharp.RosBridgeClient
 {
     public class EmotionSubscriber : UnitySubscriber<MessageTypes.RoboyControl.Emotion>
@@ -40,3 +41,4 @@ namespace RosSharp.RosBridgeClient
         }
     }
 }
+#endif

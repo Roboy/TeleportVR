@@ -8,8 +8,8 @@ public class VideoMock : MockUtility
     int round;
     int temperature = 4;
     float tempTimer;
-
-    // Update is called once per frame
+    
+#if ROSSHARP
     void Update()
     {
         // update the temperature every second
@@ -56,4 +56,5 @@ public class VideoMock : MockUtility
             }
         }
     }
+#endif
 }

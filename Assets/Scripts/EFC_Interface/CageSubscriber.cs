@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using RosSharp.RosBridgeClient;
 using RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware;
 using UnityEngine;
@@ -49,3 +47,4 @@ public class CageSubscriber : UnitySubscriber<ExoforceResponse>
         //cageWidget.ProcessRosMessage(cageWidget.GetContext());
     }
 }
+#endif

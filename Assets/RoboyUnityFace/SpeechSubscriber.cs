@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if ROSSHARP
 namespace RosSharp.RosBridgeClient
 {
     public class SpeechSubscriber : UnitySubscriber<MessageTypes.RoboyCognition.SpeechSynthesis>
@@ -41,3 +42,4 @@ namespace RosSharp.RosBridgeClient
         }
     }
 }
+#endif

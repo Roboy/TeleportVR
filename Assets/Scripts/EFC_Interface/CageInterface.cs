@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using RosSharp;
 using RosSharp.RosBridgeClient;
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
@@ -77,3 +75,4 @@ public class CageInterface : Singleton<CageInterface>
         }
     }
 }
+#endif

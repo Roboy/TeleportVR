@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using RosSharp.RosBridgeClient.MessageTypes.Geometry;
 using RosSharp.RosBridgeClient.MessageTypes.RoboyMiddleware;
 using RosSharp.RosBridgeClient.MessageTypes.Std;
@@ -28,3 +27,4 @@ public class EFPosePublisher : RosPublisher<EFPose>
         }
     }
 }
+#endif

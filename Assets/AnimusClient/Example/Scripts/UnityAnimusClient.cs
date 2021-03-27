@@ -459,6 +459,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool collision_set(Float32Array collision)
     {
+        #if ROSSHARP
         print("Col: " + collision);
         int collisionLen = collision.Data.Count - 1;
         //print("CollisionLen: " + collisionLen);
@@ -482,6 +483,9 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             print("Collis Storing information");
             InitExoforcePublisher.StoreLinkInformation(collisionArr);
         }
+        #else
+        Debug.LogWarning("Collision Modality active while RosSharp is deactivated.");
+        #endif
 
         return true;
     }

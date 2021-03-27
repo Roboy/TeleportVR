@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿#if ROSSHARP
 using RosSharp.RosBridgeClient.MessageTypes.Std;
 using UnityEngine;
 
@@ -27,3 +25,4 @@ public class CloseCagePublisher : RosPublisher<Empty>
         PublishMessage(new Empty());
     }
 }
+#endif

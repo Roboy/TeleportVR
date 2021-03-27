@@ -1,3 +1,4 @@
+#if ROSSHARP
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -82,3 +83,4 @@ namespace Widgets
         }
     }
 }
+#endif

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RosSharp.RosBridgeClient;
+//using RosSharp.RosBridgeClient;
 /*using RosSharp.RosBridgeClient.Messages.Roboy;
 /// <summary>
 /// Motor status subscriber.

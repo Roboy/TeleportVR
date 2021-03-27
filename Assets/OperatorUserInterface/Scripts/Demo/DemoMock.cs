@@ -5,6 +5,7 @@ using Widgets;
 
 public class DemoMock : MockUtility
 {
+#if ROSSHARP
     bool sensgloves_working = true;
 
     // Update is called once per frame
@@ -40,4 +41,5 @@ public class DemoMock : MockUtility
             sensgloves_working = !sensgloves_working;
         }
     }
+#endif
 }
