@@ -43,6 +43,12 @@
             "name": "org.Roboy.TeleportVR",
             "processId": 6336,
             "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "com.oculus.vrguardianservice.ptodactivity",
+            "processId": 3903,
+            "exited": false
         }
     ],
     "m_Tags": {

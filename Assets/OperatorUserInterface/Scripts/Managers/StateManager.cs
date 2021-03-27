@@ -17,6 +17,7 @@ public class StateManager : Singleton<StateManager>
     GameObject leftSenseGlove;
     GameObject rightSenseGlove;
 
+    List<StateManager.States> visitedStates = new List<States>();
     /// <summary>
     /// The states the operator can be in
     /// </summary>
@@ -96,6 +97,10 @@ public class StateManager : Singleton<StateManager>
                 Debug.LogWarning("Unhandled State: Please specify the next State after " + currentState);
                 break;
         }
+    }
+    public int TimesStateVisited(StateManager.States state)
+    {
+        return visitedStates.FindAll(x => x == state).Count;
     }
 
     /// <summary>

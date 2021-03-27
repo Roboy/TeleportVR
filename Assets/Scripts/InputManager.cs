@@ -153,48 +153,57 @@ public class InputManager : Singleton<InputManager>
                     RecalibrateUpperBody.Instance.Calibrate();
                     print("Calibrated...");
                 }*/
-                
+
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     Training.TutorialSteps.Instance != null &&
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     // check if the arm is grabbing 
-                    if (Training.TutorialSteps.Instance.currentStep == 10)
+                    if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.LEFT_HAND)
                     {
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
                             btn)
                         {
-                            Training.TutorialSteps.Instance.NextStep();
-                        }
-                    }
-                    
-                    // check if the left arm is moving 
-                    if (Training.TutorialSteps.Instance.currentStep == 2)
-                    {
-                        
-                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
-                           
                             Training.TutorialSteps.Instance.NextStep(praise: true);
                         }
+                    }
 
-                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton , out btn) &&
+                    if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.RIGHT_HAND)
+                    {
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.NextStep(praise: true);
+                        }
+                    }
+
+                    // check left arm
+                    if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.LEFT_ARM)
+                    {
+
+                        //if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                        //    btn)
+                        //{
+
+                        //    Training.TutorialSteps.Instance.NextStep(praise: true);
+                        //}
+
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
                             btn)
                         {
                             Training.TutorialSteps.Instance.CorrectUser();
                         }
                     }
 
-                    // check if the right arm is moving 
-                    if (Training.TutorialSteps.Instance.currentStep == 3)
+                    //// check right arm
+                    if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.RIGHT_ARM)
                     {
-                        
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                            btn)
-                        {
-                            Training.TutorialSteps.Instance.NextStep(praise: true);
-                        }
+
+                        //if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
+                        //    btn)
+                        //{
+                        //    Training.TutorialSteps.Instance.NextStep(praise: true);
+                        //}
 
                         if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
                             btn)
@@ -205,24 +214,26 @@ public class InputManager : Singleton<InputManager>
                 }
 
                 // drive the wheelchair
-                if (StateManager.Instance.currentState != StateManager.States.HUD)
+                if (//StateManager.Instance.currentState == StateManager.States.Construct || 
+                    StateManager.Instance.currentState != StateManager.States.HUD)
                 {
                     Vector2 joystick;
                     if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out joystick))
                     {
                         bool wheelchairIsActive = joystick.sqrMagnitude > 0.01f;
-                        
+
                         // Show that the wheelchair is active in the state manager
                         WidgetInteraction.SetBodyPartActive(56, wheelchairIsActive);
-                        
-                        if (wheelchairIsActive) {
+
+                        if (wheelchairIsActive)
+                        {
                             if (StateManager.Instance.currentState == StateManager.States.Training &&
-                                Training.TutorialSteps.Instance.currentStep == 5)
+                                Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.WHEELCHAIR)
                             {
                                 Training.TutorialSteps.Instance.NextStep();
                             }
                         }
-                        
+
                         float speed = 0.05f;
                         // move forward or backwards
                         DifferentialDriveControl.Instance.V_L = speed * joystick.y;
@@ -238,8 +249,9 @@ public class InputManager : Singleton<InputManager>
                             DifferentialDriveControl.Instance.V_L += 0.5f * speed * joystick.x;
                         }
                     }
-                }
-                else
+                
+            }
+            else
                 {
                     // Show that the wheelchair is active in the state manager
                     WidgetInteraction.SetBodyPartActive(56, false);
@@ -274,14 +286,14 @@ public class InputManager : Singleton<InputManager>
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
-                    if (Training.TutorialSteps.Instance.currentStep == 1)
+                    if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.HEAD)
                     {
-                        if (!waiting) StartCoroutine(WaitForNod());
-                       // if (nodded)
-                       
-                       
+                        if (!waiting & Training.TutorialSteps.Instance.waitingForNod) StartCoroutine(WaitForNod());
+                        // if (nodded)
+
+
                     }
-                    
+
                     // check if the arm is grabbing 
                     //if (Training.TutorialSteps.Instance.currentStep == 5)
                     //{
@@ -291,7 +303,7 @@ public class InputManager : Singleton<InputManager>
                     //        Training.TutorialSteps.Instance.NextStep();
                     //    }
                     //}
-                    
+
                     // check if the arm is grabbing 
                     //if (Training.TutorialSteps.Instance.currentStep == 3)
                     //{
