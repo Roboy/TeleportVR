@@ -9,7 +9,7 @@ namespace Training
         public static TutorialSteps Instance;
 
         public TrainingStep currentStep;
-        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, rightArmHowTo, handHowTo, hand2HowTo, driveHowTo, amazing, nod, wrongTrigger;
+        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn;
         public List<AudioClip> praisePhrases = new List<AudioClip>();
         public AudioSource[] audioSourceArray;
         public bool waitingForNod = false;
@@ -27,7 +27,8 @@ namespace Training
             LEFT_HAND,
             RIGHT_ARM,
             RIGHT_HAND,
-            WHEELCHAIR
+            WHEELCHAIR,
+            DONE
         }
 
         [SerializeField] private Transform handCollectables;
@@ -44,10 +45,10 @@ namespace Training
             _ = Instance;
             if (StateManager.Instance.TimesStateVisited(StateManager.States.Training) <= 1)
             {
-               // ScheduleAudioClip(welcome, delay: 1.0);
-                //ScheduleAudioClip(imAria, delay: 2.0);
+                ScheduleAudioClip(welcome, delay: 1.0);
+                ScheduleAudioClip(imAria);//, delay: 2.0);
 
-                PublishNotification("Welcome to the Training!"); //\n" +
+                PublishNotification("Welcome to Teleport VR!"); //\n" +
                                                                  //"Take a look around. " +
                                                                  //"In the mirror you can see how you are controlling the Head of Roboy.\n" +
                                                                  //"Look at the blue sphere to get started!");
@@ -135,6 +136,7 @@ namespace Training
             else if (currentStep == TrainingStep.LEFT_ARM)
             {
                 ScheduleAudioClip(leftArmHowTo, delay: 1);
+                ScheduleAudioClip(leftBall);
                 PublishNotification("Press and hold the grip trigger and try moving your left arm");
                 var colTF = PlayerRig.Instance.transform.position;
                 colTF.y -= 0.1f;
@@ -150,6 +152,7 @@ namespace Training
             else if (currentStep == TrainingStep.RIGHT_ARM)
             {
                 ScheduleAudioClip(rightArmHowTo, delay: 0);
+                ScheduleAudioClip(rightBall);
                 PublishNotification("Press and hold the grip trigger and try moving your right arm");
                 //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
                 handCollectables.Find("HandCollectableRight").gameObject.SetActive(true);
@@ -164,8 +167,13 @@ namespace Training
             else if (currentStep == TrainingStep.WHEELCHAIR)
             {
                 ScheduleAudioClip(driveHowTo, delay: 1);
+                ScheduleAudioClip(portal);
                 PublishNotification("Use left joystick to drive around");
                 //PublishNotification("Let's touch the sphere with your hand.");
+            }
+            else if (currentStep == TrainingStep.DONE)
+            {
+                ScheduleAudioClip(enterbtn);
             }
 
             //else if (currentStep == 6)

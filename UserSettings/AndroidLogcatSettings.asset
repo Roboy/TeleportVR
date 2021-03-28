@@ -22,33 +22,45 @@
         },
         {
             "deviceId": "1WMHH810YA0342",
+            "name": "com.oculus.shellenv",
+            "processId": 2512,
+            "exited": false
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
             "name": "org.Roboy.TeleportVR",
-            "processId": 4658,
+            "processId": 4962,
             "exited": true
         },
         {
             "deviceId": "1WMHH810YA0342",
-            "name": "com.oculus.shellenv",
-            "processId": 2525,
-            "exited": false
+            "name": "org.Roboy.TeleportVR",
+            "processId": 5519,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "org.Roboy.TeleportVR",
+            "processId": 5720,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "org.Roboy.TeleportVR",
+            "processId": 6290,
+            "exited": true
         },
         {
             "deviceId": "1WMHH810YA0342",
             "name": "com.oculus.xrstreamingclient",
-            "processId": 3765,
+            "processId": 7465,
             "exited": false
         },
         {
             "deviceId": "1WMHH810YA0342",
             "name": "org.Roboy.TeleportVR",
-            "processId": 6336,
+            "processId": 9066,
             "exited": true
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "com.oculus.vrguardianservice.ptodactivity",
-            "processId": 3903,
-            "exited": false
         }
     ],
     "m_Tags": {

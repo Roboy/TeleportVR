@@ -309,7 +309,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public bool vision_set(ImageSamples currSamples)
     {
         //return true;
-        Debug.LogError("vision set");
+        //Debug.LogError("vision set");
         try
         {
 
@@ -336,7 +336,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             var currSample = currSamples.Samples[0];
             var currShape = currSample.DataShape;
-            Debug.Log(currSample.DataShape);
+            //Debug.Log(currSample.DataShape);
             //currShape[1] /= 2;
 
             //for (int i = 0; i < 2; i++)
@@ -378,7 +378,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             yuv.put(0, 0, all_bytes);
 
             Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
-            Debug.Log(_imageDims);
+            //Debug.Log(_imageDims);
             if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] ||
                 currShape[2] != _imageDims[2])
             {
@@ -645,15 +645,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         motorEnabled = enable;
     }
 
-    // reads orientation of the headset
-    // reads pose of each Controller
-    // reads trigger values
-    // packs this data in correct order
-    // sends to animus server
     public Sample motor_get()
     {
         //return null;
-        if (!bodyTransitionReady) return null;
+        //if (!bodyTransitionReady) return null;
+        Debug.LogError("Motor get");
         if (!motorEnabled)
         {
             Debug.Log("Motor modality not enabled");
@@ -662,6 +658,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
         if (Time.time * 1000 - _lastUpdate > 50)
         {
+            //Debug.LogError("Motor modality enabled");
             var motorAngles = new List<float>();
 
             // head joints
@@ -866,7 +863,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
             motorSample.Data = motorMsg;
-            
+            _lastUpdate = Time.time * 1000;
+
             /*string printmsg = "";
             foreach (float f in motorAngles) {
                 printmsg += f + ", ";

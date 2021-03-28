@@ -12,6 +12,7 @@ namespace Training
         {
             if (TutorialSteps.Instance.currentStep == requiredStep && other.CompareTag(requiredTag))
             {
+                Debug.Log(requiredTag + " " + other.tag);
                 TutorialSteps.Instance.NextStep();
                 if (objectToDisable != null)
                 {
