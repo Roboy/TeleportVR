@@ -36,6 +36,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public Robot chosenDetails;
 
     // vision variables
+    public bool stereovision = false;
     public GameObject LeftEye;
     public GameObject RightEye;
     [SerializeField] private GameObject _leftPlane;
@@ -128,6 +129,22 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         voiceEnabled = false;
         initMats = false;
         bodyTransitionReady = false;
+
+        var camRight = RightEye.transform.GetComponentInParent<Camera>();
+        var camLeft = LeftEye.transform.GetComponentInParent<Camera>();
+        if (!stereovision)
+        {
+            
+            camRight.stereoTargetEye = StereoTargetEyeMask.None;
+            
+            camLeft.stereoTargetEye = StereoTargetEyeMask.Both;   
+        }
+        else
+        {
+            camRight.stereoTargetEye = StereoTargetEyeMask.Right;
+
+            camLeft.stereoTargetEye = StereoTargetEyeMask.Left;
+        }
 
         // controls an led ring (optional)
         StartCoroutine(SendLEDCommand(LEDS_CONNECTING));
@@ -271,8 +288,16 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     {
         if (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD)
         {
-            _rightPlane.SetActive(true);
+            if (stereovision)
+                _rightPlane.SetActive(true);
+            //else
+            //{
+            //    var cam = LeftEye.transform.GetComponentInParent<Camera>();
+            //    cam.stereoTargetEye = StereoTargetEyeMask.Both;
+                
+            //}
             _leftPlane.SetActive(true);
+           
         }
         else
         {
@@ -367,47 +392,69 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
                 currentScale.x = scaleX;
 
-                _leftPlane.transform.localScale = currentScale;
-                //_leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
-                _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                if (stereovision)
                 {
-                    wrapMode = TextureWrapMode.Clamp
-                };
 
-                _rightPlane.transform.localScale = currentScale;
-                //_rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
-                _rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+
+                    _leftPlane.transform.localScale = currentScale;
+                    //_leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+                    _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                    {
+                        wrapMode = TextureWrapMode.Clamp
+                    };
+
+                    _rightPlane.transform.localScale = currentScale;
+                    //_rightTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+                    _rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                    {
+                        wrapMode = TextureWrapMode.Clamp
+                    };
+                }
+                else
                 {
-                    wrapMode = TextureWrapMode.Clamp
-                };
+                    _leftPlane.transform.localScale = currentScale;
+                    _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+                    {
+                        wrapMode = TextureWrapMode.Clamp
+                    };
+                }
                 // 	            return true;
             }
             // Debug.Log("matToTexture2D");
 
-            for (int i = 0; i < 2; i++)
+            if (stereovision)
             {
+                for (int i = 0; i < 2; i++)
+                {
 
-                //TODO apply stereo images
-                //if (currSample.Source == "LeftCamera")
-                if (i == 0)
-                {
-                    Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
-                    Utils.matToTexture2D(rgb_l, _leftTexture);
-                    _leftRenderer.material.mainTexture = _leftTexture;
-                    print("Set the left image");
-                }
-                //else if (currSample.Source == "RightCamera")
-                else if (i == 1)
-                {
-                    Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
-                    Utils.matToTexture2D(rgb_r, _rightTexture);
-                    _rightRenderer.material.mainTexture = _rightTexture;
-                }
-                else
-                {
-                    print("Unknown image source: " + currSample.Source);
+                    //TODO apply stereo images
+                    //if (currSample.Source == "LeftCamera")
+                    if (i == 0)
+                    {
+                        Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
+                        Utils.matToTexture2D(rgb_l, _leftTexture);
+                        _leftRenderer.material.mainTexture = _leftTexture;
+                        print("Set the left image");
+                    }
+                    //else if (currSample.Source == "RightCamera")
+                    else if (i == 1)
+                    {
+                        Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
+                        Utils.matToTexture2D(rgb_r, _rightTexture);
+                        _rightRenderer.material.mainTexture = _rightTexture;
+                    }
+                    else
+                    {
+                        print("Unknown image source: " + currSample.Source);
+                    }
                 }
             }
+            else
+            {
+                Utils.matToTexture2D(rgb, _leftTexture);
+                _leftRenderer.material.mainTexture = _leftTexture;
+            }
+            
 #endif
         }
         catch (Exception e)

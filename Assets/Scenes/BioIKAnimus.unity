@@ -2518,6 +2518,11 @@ PrefabInstance:
       objectReference: {fileID: 1895679797}
     - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
+      propertyPath: stereovision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
       propertyPath: TrackingSpace
       value: 
       objectReference: {fileID: 577365870}
