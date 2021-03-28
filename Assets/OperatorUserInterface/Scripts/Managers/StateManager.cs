@@ -44,6 +44,7 @@ public class StateManager : Singleton<StateManager>
         //currentState = States.Construct;
         additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateBeforeTrainingLoad);
         currentState = States.Training;
+        visitedStates.Add(States.Training);
     }
 
     /// <summary>
@@ -97,6 +98,7 @@ public class StateManager : Singleton<StateManager>
                 Debug.LogWarning("Unhandled State: Please specify the next State after " + currentState);
                 break;
         }
+        visitedStates.Add(currentState);
     }
     public int TimesStateVisited(StateManager.States state)
     {
