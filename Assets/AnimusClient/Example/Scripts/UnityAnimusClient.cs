@@ -378,7 +378,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             yuv.put(0, 0, all_bytes);
 
             Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
-
+            Debug.Log(_imageDims);
             if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] ||
                 currShape[2] != _imageDims[2])
             {
@@ -391,6 +391,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
                 UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
                 currentScale.x = scaleX;
+                currentScale.z /= scaleX;
 
                 if (stereovision)
                 {

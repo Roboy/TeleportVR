@@ -2519,7 +2519,7 @@ PrefabInstance:
     - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
       propertyPath: stereovision
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
