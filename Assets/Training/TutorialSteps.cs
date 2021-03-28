@@ -9,9 +9,10 @@ namespace Training
         public static TutorialSteps Instance;
 
         public TrainingStep currentStep;
-        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn, emergency, wrongGrip, wrongButton;
+        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn, emergency, wrongGrip, wrongButton, siren;
         public List<AudioClip> praisePhrases = new List<AudioClip>();
         public AudioSource[] audioSourceArray;
+        public AudioSource sirenAudioSource;
         public bool waitingForNod = false;
         int toggle;
         double prevDuration = 0.0;
@@ -48,11 +49,11 @@ namespace Training
                 ScheduleAudioClip(welcome, delay: 1.0);
                 ScheduleAudioClip(imAria);//, delay: 2.0);
 
-                PublishNotification("Welcome to Teleport VR!"); //\n" +
+               // PublishNotification("Welcome to Teleport VR!"); //\n" +
                                                                  //"Take a look around. " +
                                                                  //"In the mirror you can see how you are controlling the Head of Roboy.\n" +
                                                                  //"Look at the blue sphere to get started!");
-                PublishNotification("I am Aria - your personal telepresence trainer.");
+               // PublishNotification("I am Aria - your personal telepresence trainer.");
 
             }
             else
@@ -60,7 +61,8 @@ namespace Training
                 Debug.Log("Training routine skipped.");
                 startTraining = false;
             }
-
+            //currentStep = TrainingStep.RIGHT_HAND;
+            //NextStep();
             //trainingStarted = false;
         }
 
@@ -73,6 +75,7 @@ namespace Training
                 timeLeft = prevDuration - (AudioSettings.dspTime - prevStart);
                 if (timeLeft > 0) delay = timeLeft;
             }
+            
 
             toggle = 1 - toggle;
             audioSourceArray[toggle].clip = clip;
@@ -181,6 +184,9 @@ namespace Training
             {
                 ScheduleAudioClip(driveHowTo, delay: 1);
                 ScheduleAudioClip(emergency);
+                
+                sirenAudioSource.PlayDelayed(25.0f);
+                sirenAudioSource.SetScheduledEndTime(AudioSettings.dspTime + 35.0f);
                 //ScheduleAudioClip(portal);
                 PublishNotification("Use left joystick to drive around");
             }
@@ -217,6 +223,8 @@ namespace Training
                 startTraining = false;
                 //trainingStarted = true;
             }
+            if (currentStep == TrainingStep.WHEELCHAIR && !isAudioPlaying())
+                StateManager.Instance.GoToState(StateManager.States.HUD);
             //if (currentStep == TrainingStep.HEAD && !isAudioPlaying())
             //    waitingForNod = true;
             if (Input.GetKeyDown(KeyCode.N))
