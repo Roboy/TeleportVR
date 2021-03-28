@@ -161,19 +161,30 @@ public class InputManager : Singleton<InputManager>
                     // check if the arm is grabbing 
                     if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.LEFT_HAND)
                     {
-                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
                             Training.TutorialSteps.Instance.NextStep(praise: true);
+                        }
+
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                           btn)
+                        {
+                            Training.TutorialSteps.Instance.CorrectUser("grip");
                         }
                     }
 
                     if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.RIGHT_HAND)
                     {
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
                             Training.TutorialSteps.Instance.NextStep(praise: true);
+                        }
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                            btn)
+                        {
+                            Training.TutorialSteps.Instance.CorrectUser("grip");
                         }
                     }
 
@@ -188,10 +199,10 @@ public class InputManager : Singleton<InputManager>
                         //    Training.TutorialSteps.Instance.NextStep(praise: true);
                         //}
 
-                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                        if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
-                            Training.TutorialSteps.Instance.CorrectUser();
+                            Training.TutorialSteps.Instance.CorrectUser("index");
                         }
                     }
 
@@ -205,12 +216,30 @@ public class InputManager : Singleton<InputManager>
                         //    Training.TutorialSteps.Instance.NextStep(praise: true);
                         //}
 
-                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                        if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
-                            Training.TutorialSteps.Instance.CorrectUser();
+                            Training.TutorialSteps.Instance.CorrectUser("index");
                         }
                     }
+
+                    //if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.RIGHT_HAND)
+                    //{
+                    //    if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.CorrectUser("grip");
+                    //    }
+                    //}
+
+                    //if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.LEFT_HAND)
+                    //{
+                    //    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
+                    //        btn)
+                    //    {
+                    //        Training.TutorialSteps.Instance.CorrectUser("grip");
+                    //    }
+                    //}
                 }
 
                 // drive the wheelchair

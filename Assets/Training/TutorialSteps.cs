@@ -9,7 +9,7 @@ namespace Training
         public static TutorialSteps Instance;
 
         public TrainingStep currentStep;
-        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn;
+        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn, emergency, wrongGrip, wrongButton;
         public List<AudioClip> praisePhrases = new List<AudioClip>();
         public AudioSource[] audioSourceArray;
         public bool waitingForNod = false;
@@ -106,8 +106,21 @@ namespace Training
             ScheduleAudioClip(praisePhrases[Random.Range(0, praisePhrases.Count)]);
         }
 
-        public void CorrectUser()
+        public void CorrectUser(string correctButton)
         {
+            AudioClip audio;
+            switch (correctButton)
+            {
+                case "tigger":
+                    audio = wrongTrigger;
+                    break;
+                case "grip":
+                    audio = wrongGrip;
+                    break;
+                default:
+                    audio = wrongButton;
+                    break;
+            }
             Debug.Log("Correcting User");
             if (lastCorrectedAtStep != currentStep && (currentStep == TrainingStep.LEFT_ARM || currentStep == TrainingStep.RIGHT_ARM))
             {
@@ -167,13 +180,13 @@ namespace Training
             else if (currentStep == TrainingStep.WHEELCHAIR)
             {
                 ScheduleAudioClip(driveHowTo, delay: 1);
-                ScheduleAudioClip(portal);
+                ScheduleAudioClip(emergency);
+                //ScheduleAudioClip(portal);
                 PublishNotification("Use left joystick to drive around");
-                //PublishNotification("Let's touch the sphere with your hand.");
             }
             else if (currentStep == TrainingStep.DONE)
             {
-                ScheduleAudioClip(enterbtn);
+                //ScheduleAudioClip(enterbtn);
             }
 
             //else if (currentStep == 6)

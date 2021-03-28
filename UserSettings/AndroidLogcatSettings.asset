@@ -29,12 +29,6 @@
         {
             "deviceId": "1WMHH810YA0342",
             "name": "org.Roboy.TeleportVR",
-            "processId": 4962,
-            "exited": true
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "org.Roboy.TeleportVR",
             "processId": 5519,
             "exited": true
         },
@@ -60,6 +54,12 @@
             "deviceId": "1WMHH810YA0342",
             "name": "org.Roboy.TeleportVR",
             "processId": 9066,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "org.Roboy.TeleportVR",
+            "processId": 9814,
             "exited": true
         }
     ],
