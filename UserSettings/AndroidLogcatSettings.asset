@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "1WMHH810YA0342",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "1WMHH810YA0342",
+        "name": "org.Roboy.TeleportVR",
+        "processId": 21399,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -61,6 +61,12 @@
             "name": "org.Roboy.TeleportVR",
             "processId": 9814,
             "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "org.Roboy.TeleportVR",
+            "processId": 21399,
+            "exited": false
         }
     ],
     "m_Tags": {

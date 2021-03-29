@@ -10,6 +10,7 @@ namespace Training
         [SerializeField] private TutorialSteps.TrainingStep[] requiredSteps;
         [SerializeField] private Color newColor;
         [SerializeField] private Gradient _gradient;
+        [SerializeField] private AudioClip sound;
         private MeshRenderer _renderer;
 
         private static int collectedSpheres;
@@ -31,6 +32,8 @@ namespace Training
             {
 
                 collectedSpheres++;
+                if (sound != null)
+                    TutorialSteps.Instance.ScheduleAudioClip(sound);
                 gameObject.SetActive(false);
                 //if (collectedSpheres == 2)
                 //{

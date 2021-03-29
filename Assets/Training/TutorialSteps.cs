@@ -46,8 +46,8 @@ namespace Training
             _ = Instance;
             if (StateManager.Instance.TimesStateVisited(StateManager.States.Training) <= 1)
             {
-                ScheduleAudioClip(welcome, delay: 1.0);
-                ScheduleAudioClip(imAria);//, delay: 2.0);
+                //ScheduleAudioClip(welcome, queue: true, delay: 1.0);
+                //ScheduleAudioClip(imAria, queue: true);//, delay: 2.0);
 
                // PublishNotification("Welcome to Teleport VR!"); //\n" +
                                                                  //"Take a look around. " +
@@ -66,18 +66,18 @@ namespace Training
             //trainingStarted = false;
         }
 
-        private void ScheduleAudioClip(AudioClip clip, double delay = 0)
+        public void ScheduleAudioClip(AudioClip clip, bool queue = false, double delay = 0)
         {
             var timeLeft = 0.0;
-
-            if (isAudioPlaying())
+            //queue = false;
+            if (isAudioPlaying() && queue)
             {
                 timeLeft = prevDuration - (AudioSettings.dspTime - prevStart);
                 if (timeLeft > 0) delay = timeLeft;
             }
             
 
-            toggle = 1 - toggle;
+            if (queue) toggle = 1 - toggle;
             audioSourceArray[toggle].clip = clip;
             //if (queue)
             //    prevStart = AudioSettings.dspTime + prevDuration + delay;
@@ -134,8 +134,8 @@ namespace Training
 
         public void NextStep(bool praise = false)
         {
-            if (praise)
-                PraiseUser();
+            //if (praise)
+            //    PraiseUser();
             currentStep++;
             Debug.Log("current step: " + currentStep);
             if (currentStep == TrainingStep.HEAD)
@@ -151,8 +151,8 @@ namespace Training
             }
             else if (currentStep == TrainingStep.LEFT_ARM)
             {
-                ScheduleAudioClip(leftArmHowTo, delay: 1);
-                ScheduleAudioClip(leftBall);
+                ScheduleAudioClip(leftArmHowTo, queue: true);
+                ScheduleAudioClip(leftBall, queue: true);
                 PublishNotification("Press and hold the grip trigger and try moving your left arm");
                 var colTF = PlayerRig.Instance.transform.position;
                 colTF.y -= 0.1f;
@@ -162,13 +162,13 @@ namespace Training
             }
             else if (currentStep == TrainingStep.LEFT_HAND)
             {
-                ScheduleAudioClip(handHowTo, delay: 0);
+                ScheduleAudioClip(handHowTo, queue: true, delay: 0);
                 PublishNotification("Press the trigger down with your index finger to close the hand.");
             }
             else if (currentStep == TrainingStep.RIGHT_ARM)
             {
                 ScheduleAudioClip(rightArmHowTo, delay: 0);
-                ScheduleAudioClip(rightBall);
+                ScheduleAudioClip(rightBall,queue: true);
                 PublishNotification("Press and hold the grip trigger and try moving your right arm");
                 //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
                 handCollectables.Find("HandCollectableRight").gameObject.SetActive(true);
@@ -183,10 +183,10 @@ namespace Training
             else if (currentStep == TrainingStep.WHEELCHAIR)
             {
                 ScheduleAudioClip(driveHowTo, delay: 1);
-                ScheduleAudioClip(emergency);
+                ScheduleAudioClip(emergency, queue: true);
                 
                 sirenAudioSource.PlayDelayed(25.0f);
-                sirenAudioSource.SetScheduledEndTime(AudioSettings.dspTime + 35.0f);
+                sirenAudioSource.SetScheduledEndTime(AudioSettings.dspTime + 45.0f);
                 //ScheduleAudioClip(portal);
                 PublishNotification("Use left joystick to drive around");
             }
