@@ -9,7 +9,7 @@ namespace Training
         public static TutorialSteps Instance;
 
         public TrainingStep currentStep;
-        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn, emergency, wrongGrip, wrongButton, siren;
+        public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn, emergency, wrongGrip, wrongButton, siren, ready;
         public List<AudioClip> praisePhrases = new List<AudioClip>();
         public AudioSource[] audioSourceArray;
         public AudioSource sirenAudioSource;
@@ -46,14 +46,14 @@ namespace Training
             _ = Instance;
             if (StateManager.Instance.TimesStateVisited(StateManager.States.Training) <= 1)
             {
-                //ScheduleAudioClip(welcome, queue: true, delay: 1.0);
-                //ScheduleAudioClip(imAria, queue: true);//, delay: 2.0);
+                ScheduleAudioClip(welcome, queue: true, delay: 1.0);
+                ScheduleAudioClip(imAria, queue: true);//, delay: 2.0);
 
-               // PublishNotification("Welcome to Teleport VR!"); //\n" +
+                PublishNotification("Welcome to Teleport VR!"); //\n" +
                                                                  //"Take a look around. " +
                                                                  //"In the mirror you can see how you are controlling the Head of Roboy.\n" +
                                                                  //"Look at the blue sphere to get started!");
-               // PublishNotification("I am Aria - your personal telepresence trainer.");
+                PublishNotification("I am Aria - your personal telepresence trainer.");
 
             }
             else
@@ -153,7 +153,7 @@ namespace Training
             {
                 ScheduleAudioClip(leftArmHowTo, queue: true);
                 ScheduleAudioClip(leftBall, queue: true);
-                PublishNotification("Press and hold the grip trigger and try moving your left arm");
+                PublishNotification("Press and hold the index trigger and try moving your left arm");
                 var colTF = PlayerRig.Instance.transform.position;
                 colTF.y -= 0.1f;
                 colTF.z += 0.2f;
@@ -163,36 +163,36 @@ namespace Training
             else if (currentStep == TrainingStep.LEFT_HAND)
             {
                 ScheduleAudioClip(handHowTo, queue: true, delay: 0);
-                PublishNotification("Press the trigger down with your index finger to close the hand.");
+                PublishNotification("Press the grip button on the side to close the hand.");
             }
             else if (currentStep == TrainingStep.RIGHT_ARM)
             {
                 ScheduleAudioClip(rightArmHowTo, delay: 0);
                 ScheduleAudioClip(rightBall,queue: true);
-                PublishNotification("Press and hold the grip trigger and try moving your right arm");
+                PublishNotification("Press and hold the index trigger and try moving your right arm");
                 //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
                 handCollectables.Find("HandCollectableRight").gameObject.SetActive(true);
                 //handCollectables.gameObject.SetActive(true);
             }
             else if (currentStep == TrainingStep.RIGHT_HAND)
             {
-                ScheduleAudioClip(hand2HowTo, delay: 0);
-                PublishNotification("Press the trigger down with your index finger to close the hand.");
+                ScheduleAudioClip(hand2HowTo, queue: true, delay: 0);
+                PublishNotification("Press the grip button to close the hand.");
             }
 
             else if (currentStep == TrainingStep.WHEELCHAIR)
             {
                 ScheduleAudioClip(driveHowTo, delay: 1);
-                ScheduleAudioClip(emergency, queue: true);
+                //ScheduleAudioClip(emergency, queue: true);
                 
-                sirenAudioSource.PlayDelayed(25.0f);
-                sirenAudioSource.SetScheduledEndTime(AudioSettings.dspTime + 45.0f);
+                //sirenAudioSource.PlayDelayed(25.0f);
+                //sirenAudioSource.SetScheduledEndTime(AudioSettings.dspTime + 45.0f);
                 //ScheduleAudioClip(portal);
                 PublishNotification("Use left joystick to drive around");
             }
             else if (currentStep == TrainingStep.DONE)
             {
-                //ScheduleAudioClip(enterbtn);
+                ScheduleAudioClip(ready, delay: 3);
             }
 
             //else if (currentStep == 6)
@@ -223,7 +223,7 @@ namespace Training
                 startTraining = false;
                 //trainingStarted = true;
             }
-            if (currentStep == TrainingStep.WHEELCHAIR && !isAudioPlaying())
+            if (currentStep == TrainingStep.DONE && !isAudioPlaying())
                 StateManager.Instance.GoToState(StateManager.States.HUD);
             //if (currentStep == TrainingStep.HEAD && !isAudioPlaying())
             //    waitingForNod = true;

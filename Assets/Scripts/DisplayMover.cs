@@ -49,7 +49,7 @@ public class DisplayMover : MonoBehaviour
 
         DisplayOffsetKey = isLeft ? LeftDisplayOffsetKey : RightDisplayOffsetKey;
         transform.localPosition = new Vector3(  PlayerPrefs.GetFloat(DisplayOffsetKey + "X", 0),
-                                                PlayerPrefs.GetFloat(DisplayOffsetKey + "Y", 0),
+                                                PlayerPrefs.GetFloat(DisplayOffsetKey + "Y", -2),
                                                 PlayerPrefs.GetFloat(DisplayOffsetKey + "Z", 6));
     }
 

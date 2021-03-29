@@ -774,6 +774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: composite_upper_body_w_hands
       objectReference: {fileID: 0}
+    - target: {fileID: 4177823133908182030, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4177823134180775677, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Target
@@ -1233,6 +1238,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
+--- !u!1 &935502828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5220743749167930356, guid: 62144f27e4481434eb5df25761971f60,
+    type: 3}
+  m_PrefabInstance: {fileID: 1242744592450020038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &974874983
 GameObject:
   m_ObjectHideFlags: 0
@@ -5720,6 +5731,7 @@ GameObject:
   - component: {fileID: 3112793307756572317}
   - component: {fileID: 3112793306941609136}
   - component: {fileID: 3112793306941609138}
+  - component: {fileID: 3112793306941609140}
   m_Layer: 0
   m_Name: Wheelchair
   m_TagString: RoboyCollider
@@ -5774,6 +5786,7 @@ MonoBehaviour:
   - {fileID: 3112793306941609133}
   - {fileID: 0}
   UpperBody: {fileID: 595011564}
+  Legs: {fileID: 935502828}
 --- !u!1 &3112793306941609139
 GameObject:
   m_ObjectHideFlags: 0
@@ -5793,6 +5806,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3112793306941609140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112793306941609135}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f22b92f9ec42f40b14f724e82a6a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3112793306941609141
 GameObject:
   m_ObjectHideFlags: 0

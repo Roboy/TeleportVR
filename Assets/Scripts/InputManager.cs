@@ -259,7 +259,7 @@ public class InputManager : Singleton<InputManager>
                             if (StateManager.Instance.currentState == StateManager.States.Training &&
                                 Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.WHEELCHAIR)
                             {
-                               // Training.TutorialSteps.Instance.NextStep();
+                               Training.TutorialSteps.Instance.NextStep();
                             }
                         }
 

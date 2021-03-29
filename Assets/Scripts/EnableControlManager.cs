@@ -35,14 +35,14 @@ public class EnableControlManager : MonoBehaviour
         public void SetEnabled(bool _enabled)
         {
             enabled = _enabled;
-            if (enabled)
-            {
-                controller.SendHapticImpulse(0, 0.005f);
-            }
-            else
-            {
-                controller.StopHaptics();
-            }
+            //if (enabled)
+            //{
+            //    controller.SendHapticImpulse(0, 0.005f);
+            //}
+            //else
+            //{
+            //    controller.StopHaptics();
+            //}
 
             for (int i = 0; i < hand_segment.Objectives.Length; i++)
             {
