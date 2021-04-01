@@ -159,8 +159,16 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d, type: 2}
   - {fileID: 11400000, guid: 2091b301190b6ea4981018c99508541a, type: 2}
+  - {fileID: 0}
+  - {fileID: -8249906856686166943, guid: 3c38ff90e79f0b34f8a863505ee60407, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -178,7 +186,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: aaa.Roboy.TeleportVR
+    Android: org.Roboy.TeleportVR
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -186,7 +194,7 @@ PlayerSettings:
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 23
-  AndroidTargetSdkVersion: 28
+  AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -433,7 +441,7 @@ PlayerSettings:
     m_GraphicsJobMode: 0
   m_BuildTargetGraphicsAPIs:
   - m_BuildTarget: AndroidPlayer
-    m_APIs: 0b00000015000000
+    m_APIs: 0b000000
     m_Automatic: 0
   - m_BuildTarget: iOSSupport
     m_APIs: 10000000
@@ -700,7 +708,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: ANIMUS_USE_OPENCV;UNITY_POST_PROCESSING_STACK_V2;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT;ROSSHARP
+    1: ANIMUS_USE_OPENCV;UNITY_POST_PROCESSING_STACK_V2;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT
     4: UNITY_POST_PROCESSING_STACK_V2
     7: ANIMUS_USE_OPENCV;UNITY_CCU;CURVEDUI_TMP;CURVEDUI_STEAMVR_INT;UNITY_POST_PROCESSING_STACK_V2
     13: UNITY_POST_PROCESSING_STACK_V2

@@ -32,7 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OUI_HUD.unity
     guid: 72ff9babd829ad149823746cd95b93e4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TrainingPhilip.unity
     guid: ea196a5116fd22840b4032c29b91258f
   - enabled: 0
@@ -62,6 +62,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Philip/EmptyScene.unity
     guid: fc157fbd8744c4f43a0a0ae18c52fc32
+  - enabled: 1
+    path: Assets/Scenes/MaldivesTraining.unity
+    guid: c43dc1cd0ab917841b0aefc9e8b753e6
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e7b0686d0e93c8149a14068d0ef7311d,
       type: 2}

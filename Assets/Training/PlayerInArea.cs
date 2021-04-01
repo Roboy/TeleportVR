@@ -4,7 +4,7 @@ namespace Training
 {
     public class PlayerInArea : MonoBehaviour
     {
-        [SerializeField] private int requiredStep;
+        [SerializeField] private TutorialSteps.TrainingStep requiredStep;
         [SerializeField] private string requiredTag;
         [SerializeField] private GameObject objectToDisable;
 
@@ -12,6 +12,7 @@ namespace Training
         {
             if (TutorialSteps.Instance.currentStep == requiredStep && other.CompareTag(requiredTag))
             {
+                Debug.Log(requiredTag + " " + other.tag);
                 TutorialSteps.Instance.NextStep();
                 if (objectToDisable != null)
                 {

@@ -35,14 +35,14 @@ public class EnableControlManager : MonoBehaviour
         public void SetEnabled(bool _enabled)
         {
             enabled = _enabled;
-            if (enabled)
-            {
-                controller.SendHapticImpulse(0, 0.005f);
-            }
-            else
-            {
-                controller.StopHaptics();
-            }
+            //if (enabled)
+            //{
+            //    controller.SendHapticImpulse(0, 0.005f);
+            //}
+            //else
+            //{
+            //    controller.StopHaptics();
+            //}
 
             for (int i = 0; i < hand_segment.Objectives.Length; i++)
             {
@@ -122,21 +122,21 @@ public class EnableControlManager : MonoBehaviour
         for (int i=0;i<controllers.Count;i++)
         {
             var device = controllers[i];
-            var _enabled = false;
-            float trigger = 0.0f;
+            var _enabled = 0.0f;
+            var trigger = false;
             if (device.controller.isValid) {
-                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out _enabled);
-                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out trigger);
+                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out _enabled);
+                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out trigger);
             }
             
             // Show that the arm is active in the state manager
-            WidgetInteraction.SetBodyPartActive(53 - i, _enabled);
+            WidgetInteraction.SetBodyPartActive(53 - i, _enabled > 0.9f);
 
             // Show that the fingers are active in the state manager
-            WidgetInteraction.SetBodyPartActive(55 - i, trigger > 0.05f);
+            WidgetInteraction.SetBodyPartActive(55 - i, trigger);
             
-            device.SetEnabled(_enabled);
-            device.UpdateFingers(trigger);
+            device.SetEnabled(_enabled>0.9f);
+            device.UpdateFingers(System.Convert.ToDouble(trigger));
 
         }
     }
