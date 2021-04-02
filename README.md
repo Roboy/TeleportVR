@@ -16,6 +16,16 @@ Teleport App WS 20/21
 * You are now be able to start and use the application!
 * For further functionality and support for more hardware, look at the section "Plugins"
 
+## Build Instructions
+The App can be run on a computer without VR, with a PC VR headset (tested with the Quest) in the Editor or in a build. Furthermore, it can run (without RosSharp) standalone on the Oculus Quest. To build it, select the plattform you want to use in the BuildSettings, select the scenes you want to have in the build (e.g. Training for PC VR and TrainingMobile) in the order 
+
+0. Main
+1. Construct
+2. HUD
+3. Training
+
+For non-Quest headsets or the VR Mock, it might be needed to change the XR-Plugin Management in the Project Settings.
+
 ## How to use
 The tutorial in the app explains how to use the app. I can recommend to use the Tutorial if you have a headset. If not available, here is a short overview of interactions:
 * Press space or the left menu button to switch between the training and the HUD
