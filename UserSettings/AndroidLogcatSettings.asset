@@ -1,5 +1,5 @@
 {
-    "m_SelectedDeviceId": "1WMHH810YA0342",
+    "m_SelectedDeviceId": "1PASH9A1J19152",
     "m_SelectedPackage": {
         "deviceId": "",
         "name": "",
@@ -18,48 +18,6 @@
             "deviceId": "1PASH9A1J19152",
             "name": "com.oculus.shellenv",
             "processId": 2355,
-            "exited": false
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "com.oculus.shellenv",
-            "processId": 2512,
-            "exited": false
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "org.Roboy.TeleportVR",
-            "processId": 9066,
-            "exited": true
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "org.Roboy.TeleportVR",
-            "processId": 9814,
-            "exited": true
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "org.Roboy.TeleportVR",
-            "processId": 21399,
-            "exited": true
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "org.Roboy.TeleportVR",
-            "processId": 32043,
-            "exited": true
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "org.Roboy.TeleportVR",
-            "processId": 8510,
-            "exited": true
-        },
-        {
-            "deviceId": "1WMHH810YA0342",
-            "name": "com.oculus.xrstreamingclient",
-            "processId": 9289,
             "exited": false
         }
     ],

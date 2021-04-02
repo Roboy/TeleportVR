@@ -42,7 +42,7 @@ public class StateManager : Singleton<StateManager>
         rightSenseGlove.SetActive(false);
         //additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
         //currentState = States.Construct;
-        additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateBeforeTrainingLoad);
+        additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateAfterTrainingLoad);
         currentState = States.Training;
         visitedStates.Add(States.Training);
     }
@@ -70,9 +70,13 @@ public class StateManager : Singleton<StateManager>
         }
     }
     
+    /// <summary>
+    /// Load the specified state.
+    /// </summary>
+    /// <param name="newState">The name of the state the state that should be loaded.</param>
     public void GoToState(States newState)
     {
-        // not working because the wheelchair is overwriting the position
+        // TODO: not working because the wheelchair is overwriting the position but needed to reset the user
         //WheelchairStateManager.Instance.transform.position = Vector3.zero;
         
         switch (newState)
@@ -84,14 +88,12 @@ public class StateManager : Singleton<StateManager>
                 break;
             case States.HUD:
                 transitionManager.StartTransition(true);
-                //additiveSceneManager.ChangeScene(Scenes.HUD, null, DelegateOnConstructUnload, null, null);
                 additiveSceneManager.ChangeScene(Scenes.HUD, null, null, DelegateBeforeHudLoad, null);
                 currentState = States.HUD;
                 break;
             case States.Training:
                 transitionManager.StartTransition(true);
-                //additiveSceneManager.ChangeScene(Scenes.TRAINING, null, DelegateOnConstructUnload, null, DelegateBeforeTrainingLoad);
-                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateBeforeTrainingLoad);
+                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateAfterTrainingLoad);
                 currentState = States.Training;
                 break;
             default:
@@ -138,9 +140,9 @@ public class StateManager : Singleton<StateManager>
     
     /// <summary>
     /// Logic that is executed right before the Trainings scene is loaded.
-    /// Gets the reference to the TutorialSteps script
+    /// Gets the reference to the TutorialSteps script.
     /// </summary>
-    void DelegateBeforeTrainingLoad()
+    void DelegateAfterTrainingLoad()
     {
         TutorialSteps.Instance = GameObject.FindGameObjectWithTag("Tutorial").GetComponent<TutorialSteps>();
     }

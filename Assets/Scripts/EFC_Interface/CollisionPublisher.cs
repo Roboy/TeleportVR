@@ -9,6 +9,10 @@ public class CollisionPublisher : RosPublisher<Collision>
 {
     private int collisionMessageSize = 9;
     
+    /// <summary>
+    /// Publish a collision received from animus to the EFC Team via Animus.
+    /// </summary>
+    /// <param name="rawData">The data that should be forwarded.</param>
     public void PublishCollision(float[] rawData)
     {
         if (rawData.Length % collisionMessageSize != 0)
@@ -18,7 +22,6 @@ public class CollisionPublisher : RosPublisher<Collision>
         }
 
         int collisionCount = rawData.Length / collisionMessageSize;
-        print("CollisionCount: " + collisionCount);
         ContactPoint[] contactPoints = new ContactPoint[collisionCount];
         for (int i = 0; i < collisionCount; i++)
         {
@@ -32,24 +35,17 @@ public class CollisionPublisher : RosPublisher<Collision>
                 (double)(rawData[8])
                 );
             contactPoints[i] = point;
-            
-            //PublishMessage(point);
         }
 
         Collision collision = new Collision(contactPoints);
-        print("NewCollision: " + collision.contact_points.Length);
         PublishMessage(collision);
     }
 
     private void Update()
     {
-        // Mock
+        // // Allows to send a mock collision message with the keyboard
         if (Input.GetKeyDown(KeyCode.X))
         {
-            /*if (contactPointPublicationId == "")
-            {
-                contactPointPublicationId = rosConnector.RosSocket.Advertise<>(Topic);
-            }*/
             PublishCollision(new []{0f, 1, 2, 3, 4, 5, 6, 7, 8});
         }
     }

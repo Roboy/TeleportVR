@@ -8,6 +8,9 @@ public class Levitate : MonoBehaviour
     [SerializeField] private float heightDiff;
     [SerializeField] private float speed = 1;
     
+    /// <summary>
+    /// Levitates this gameObject with the specified attributes
+    /// </summary>
     void Update()
     {
         transform.localPosition = new Vector3(transform.localPosition.x, 0, transform.localPosition.z)

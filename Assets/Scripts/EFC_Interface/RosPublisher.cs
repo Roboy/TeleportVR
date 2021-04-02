@@ -43,6 +43,10 @@ public class RosPublisher<T> : UnityPublisher<T> where T : Message
         }
     }
 
+    /// <summary>
+    /// Allows to execute code when the server is connected.
+    /// </summary>
+    /// <param name="success"></param>
     protected virtual void OnConnect(bool success)
     {
         

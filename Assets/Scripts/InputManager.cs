@@ -113,12 +113,16 @@ public class InputManager : Singleton<InputManager>
         Debug.Log("user confirmed");
     }
 
-    void FixedUpdate()
+    /// <summary>
+    /// Handle input from the controllers.
+    /// </summary>
+    void Update()
     {
         if (StateManager.Instance.currentState == StateManager.States.HUD)
             UnityAnimusClient.Instance.EnableMotor(true);
         else
             UnityAnimusClient.Instance.EnableMotor(false);
+        
         if (!Widgets.WidgetInteraction.settingsAreActive)
         {
             bool btn;
@@ -131,12 +135,6 @@ public class InputManager : Singleton<InputManager>
                 }
                 lastMenuBtn = btn;
 
-                /*if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn && !lastGrabLeft)
-                {
-                    Widgets.WidgetInteraction.Instance.ToggleRightBody();
-                }
-                lastGrabLeft = btn;*/
-
                 // update the emotion buttons
                 if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out btn))
                 {
@@ -147,15 +145,7 @@ public class InputManager : Singleton<InputManager>
                     UnityAnimusClient.Instance.LeftButton2 = btn;
                 }
 
-                // recalibrate the roboybody
-                /*if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out btn) && btn)
-                {
-                    RecalibrateUpperBody.Instance.Calibrate();
-                    print("Calibrated...");
-                }*/
-
-                if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
-                    Training.TutorialSteps.Instance != null &&
+                if (Training.TutorialSteps.Instance != null &&
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
                     // check if the arm is grabbing 
@@ -191,14 +181,6 @@ public class InputManager : Singleton<InputManager>
                     // check left arm
                     if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.LEFT_ARM)
                     {
-
-                        //if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                        //    btn)
-                        //{
-
-                        //    Training.TutorialSteps.Instance.NextStep(praise: true);
-                        //}
-
                         if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
                             btn)
                         {
@@ -278,9 +260,8 @@ public class InputManager : Singleton<InputManager>
                             DifferentialDriveControl.Instance.V_L += 0.5f * speed * joystick.x;
                         }
                     }
-                
-            }
-            else
+                }
+                else
                 {
                     // Show that the wheelchair is active in the state manager
                     WidgetInteraction.SetBodyPartActive(56, false);
@@ -296,12 +277,6 @@ public class InputManager : Singleton<InputManager>
             }
             if (GetRightController())
             {
-                /*if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) && btn && !lastGrabRight)
-                {
-                    Widgets.WidgetInteraction.Instance.ToggleLeftBody();
-                }
-                lastGrabRight = btn;*/
-
                 // update the emotion buttons
                 if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out btn))
                 {
@@ -322,40 +297,6 @@ public class InputManager : Singleton<InputManager>
 
 
                     }
-
-                    // check if the arm is grabbing 
-                    //if (Training.TutorialSteps.Instance.currentStep == 5)
-                    //{
-                    //    if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out btn) &&
-                    //        btn)
-                    //    {
-                    //        Training.TutorialSteps.Instance.NextStep();
-                    //    }
-                    //}
-
-                    // check if the arm is grabbing 
-                    //if (Training.TutorialSteps.Instance.currentStep == 3)
-                    //{
-                    //    if (controllerRight[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                    //        btn)
-                    //    {
-                    //        Training.TutorialSteps.Instance.NextStep();
-                    //    }
-                    //}
-                }
-
-                if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
-                    StateManager.Instance.currentState == StateManager.States.Training)
-                {
-                    // check if the arm is grabbing 
-                    //if (Training.TutorialSteps.Instance.currentStep == 2)
-                    //{
-                    //    if (controllerLeft[0].TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out btn) &&
-                    //        btn)
-                    //    {
-                    //        Training.TutorialSteps.Instance.NextStep();
-                    //    }
-                    //}
                 }
             }
             else
@@ -366,16 +307,6 @@ public class InputManager : Singleton<InputManager>
                     UnityAnimusClient.Instance.RightButton2 = Input.GetKeyDown(KeyCode.T);
                 }
             }
-
         }
-
-        /*if (Input.GetKeyDown(KeyCode.F))
-        {
-            Widgets.WidgetInteraction.Instance.ToggleRightBody();
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Widgets.WidgetInteraction.Instance.ToggleLeftBody();
-        }*/
     }
 }

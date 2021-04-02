@@ -9,8 +9,9 @@ using Quaternion = UnityEngine.Quaternion;
 using Transform = UnityEngine.Transform;
 using Vector3 = UnityEngine.Vector3;
 
-//using RosSharp.RosBridgeClient.MessageTypes.Geometry;
-
+/// <summary>
+/// This is the Class which should handle all interfaces between animus or Teleport and the cage.
+/// </summary>
 [RequireComponent(typeof(RosConnector))]
 public class CageInterface : Singleton<CageInterface>
 {
@@ -40,6 +41,9 @@ public class CageInterface : Singleton<CageInterface>
         _ = Instance;
     }
 
+    /// <summary>
+    /// Update the timer for the connection
+    /// </summary>
     private void Update()
     {
         if (_connectionTimer <= 0)
@@ -52,17 +56,20 @@ public class CageInterface : Singleton<CageInterface>
         }
     }
 
+    // Reset the timer that only allows to send a request every <connectionTimeout> seconds
     public static void OnInitRequest()
     {
         sentInitRequest = true;
         _connectionTimer = connectionTimeout;
     }
 
+    // Delegate the collision Data to the corresponding publisher
     public void ForwardCollisions(float[] collisionData)
     {
         collisionPublisher.PublishCollision(collisionData);
     }
 
+    // Delegate the information to close the cage to the corresponding publisher
     public void CloseCage()
     {
         if (cageIsConnected)

@@ -37,10 +37,9 @@ namespace Training
         [SerializeField] private GameObject designatedArea;
         //[SerializeField] private GameObject designatedArea;
 
-        // Start is called before the first frame update
+
         void Start()
         {
-
             Debug.Log(StateManager.Instance.TimesStateVisited(StateManager.States.Training));
             // get a reference to this singleton, as scripts from other scenes are not able to do this
             _ = Instance;
@@ -94,7 +93,10 @@ namespace Training
         }
 
 
-
+        /// <summary>
+        /// Shows a message on the notification widget
+        /// </summary>
+        /// <param name="message"></param>
         public static void PublishNotification(string message)
         {
             Widget notificationWidget = Manager.Instance.FindWidgetWithID(10);
@@ -132,6 +134,10 @@ namespace Training
             }
         }
 
+        /// <summary>
+        /// Continues to the next step in the Tutorial
+        /// </summary>
+        /// <param name="praise"></param>
         public void NextStep(bool praise = false)
         {
             //if (praise)
@@ -144,9 +150,6 @@ namespace Training
                 PublishNotification("Try moving your head around");
                 ScheduleAudioClip(nod, delay: 0);
                 waitingForNod = true;
-
-                //PublishNotification("You can move Roboy's wheelchair by using your left Joystick.");
-                //_audioSource.Play();
 
             }
             else if (currentStep == TrainingStep.LEFT_ARM)
@@ -172,7 +175,6 @@ namespace Training
                 PublishNotification("Press and hold the index trigger and try moving your right arm");
                 //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
                 handCollectables.Find("HandCollectableRight").gameObject.SetActive(true);
-                //handCollectables.gameObject.SetActive(true);
             }
             else if (currentStep == TrainingStep.RIGHT_HAND)
             {
@@ -194,11 +196,6 @@ namespace Training
             {
                 ScheduleAudioClip(ready, delay: 3);
             }
-
-            //else if (currentStep == 6)
-            //{
-            //    PublishNotification("Well done, young Roboyan. You are now ready to control Roboy.");
-            //}
         }
 
         bool isAudioPlaying()
@@ -211,10 +208,9 @@ namespace Training
             return playing;
         }
 
-        // Update is called once per frame
+        
         void Update()
         {
-
             if (startTraining && !isAudioPlaying())
             {
                 currentStep = TrainingStep.IDLE;
@@ -227,6 +223,8 @@ namespace Training
                 StateManager.Instance.GoToState(StateManager.States.HUD);
             //if (currentStep == TrainingStep.HEAD && !isAudioPlaying())
             //    waitingForNod = true;
+            
+            // allows to continue to the next step when pressing 'n'
             if (Input.GetKeyDown(KeyCode.N))
             {
                 NextStep();
