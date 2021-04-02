@@ -17,22 +17,36 @@ Teleport App WS 20/21
 * For further functionality and support for more hardware, look at the section "Plugins"
 
 ## How to use
-* Press space or the left menu button to switch between the construct and the HUD
+The tutorial in the app explains how to use the app. I can recommend to use the Tutorial if you have a headset. If not available, here is a short overview of interactions:
+* Press space or the left menu button to switch between the training and the HUD
 * Hover the right laser over the connection widget and press the left mouse button or right trigger to unfold the child widget
-* Move the laser away from the widgets to fold in the child widget
+* Click again on the widget to fold in the child widget
 * Hover the right laser over the connection widget and press the left mouse button or right trigger to interact with them (e.g. mute)
-* Press the left/right grip trigger to toggle the left/right body state
-* Use the joystick and Primary and secondary controller buttons to move the displays
+* Press the left/right grip trigger to open or close the left/right body hand
+* Press the left/right index trigger to move the left/right arm
+* Use the joystick or arrow keys to move around the wheelchair
+* Use the joystick and Primary and secondary controller buttons to move the displays after clicking the Display widget
+* Show emotions by pressing the Primary or Secondary buttons on the controllers
+* If rossharp is installed and enabled and the cage is running, press both grip triggers simulatneously while performing the initial pose (put down both hands next to your hips) to send the init messagee to the cage
 
 ### Changing between Controllers and Mouse input
-* Go to the scene Scenes/OUI_HUD
+* Go to the scene Scenes/HUD
 * In the editor in the Hierarchy window, go the object HUD_Managers/PointerManager and set the Pointer Technique to the required Input (e.g. controller for oculus touch)
 * Go back to Scenes/AnimusOUI
 * Under the XR Rig, make sure the HandAnchors are enabled if you want to use controllers. You can disable them if you are using the mouse as input.
 
 ## Known Problems
-* Going from the HUD to the construct and back again into the HUD can cause problems
-* There are many bugs that have a low chance of ocurring that crash the application or lead to receiving no messages from the server. Try again in case it was not working the first time. 
+* The animus connection is often not working. There are many problems from animus, that can crash or freeze the application. Furthermore, some modalities are sometimes not opening. Try restarting the App, Unity, your computer, the animus server or the pybullet simulation on the server computer.
+* Runnning Animus, Unity XR Interaction and Rossharp on android crashes the app after a few seconds, most likely because animus and rossharp need different versions of the same dll's.
+* If Unity gives a lot of compile errors that say UnityEngine.UI or similar is unknown, try to reimport the Package UnityUI. If it persists, try restarting your coomputer and look if the file Packages/UnityUI/Editor/UnityEditor.UI is showing errors in the editor.
+* I think Mouse Input for the laser is currently not working in the editor. This might be because some settings are not correctly set.
+* The help widget might not work as expected.
+* The headset control widget is currently not implemented, since the head control implementation was changed. The functionality should be added to the WidgetInteractions script.
+* The microphone functionality might not work, as it might disable the micro for Unity, not for animus. I never had a chance to test it, so I can't say if it will work or not.
+* The sound widget is currently not working, as animus is not providing the utility to open and close modalities.
+* When using the app with Oculus Link, you might disconnect often. This might be caused by a bad cable.
+* When using Oculus Link, Unity might show a black screen, flimmer, or not start. Try restarting the app, Unity or your PC. 
+* Oculus Link sometimes does not allow to reset the view. Neiither restarting the Quest nor my Laptop did help here, but after some time it usually works again.
 
 ## Plugins
 ### RosSharp
