@@ -57,6 +57,7 @@ The tutorial in the app explains how to use the app. I can recommend to use the 
 * When using the app with Oculus Link, you might disconnect often. This might be caused by a bad cable.
 * When using Oculus Link, Unity might show a black screen, flimmer, or not start. Try restarting the app, Unity or your PC. 
 * Oculus Link sometimes does not allow to reset the view. Neiither restarting the Quest nor my Laptop did help here, but after some time it usually works again.
+* A ROS message is not received by either side: ROS messages should not contain Timestamps or Durations, as these Ros Types are not supported for RosSharp and ROS 2
 
 ## Plugins
 ### RosSharp
