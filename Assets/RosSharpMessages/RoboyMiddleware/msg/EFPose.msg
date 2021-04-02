@@ -1,0 +1,2 @@
+string ef_name
+geometry_msgs/Pose ef_pose
