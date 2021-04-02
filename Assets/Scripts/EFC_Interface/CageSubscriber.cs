@@ -6,8 +6,13 @@ using Widgets;
 
 public class CageSubscriber : UnitySubscriber<ExoforceResponse>
 {
+    [Tooltip("determines if this subscriber is listening to init responses or stop responses")]
     [SerializeField] private bool isInit;
 
+    /// <summary>
+    /// Receive and handle simple responses (bool + string) from the cage.
+    /// </summary>
+    /// <param name="message"></param>
     protected override void ReceiveMessage(ExoforceResponse message)
     {
         Debug.Log(message.success + ": Received " + message.message);
@@ -26,9 +31,9 @@ public class CageSubscriber : UnitySubscriber<ExoforceResponse>
             }
             // turn the icon to the corresponding icon
             Widget cageWidget = Manager.Instance.FindWidgetWithID(60);
-            //var context = cageWidget.GetContext();
             cageWidget.GetContext().currentIcon = newIcon;
-            print("context.currentIcon" + cageWidget.GetContext().currentIcon);
+            // TODO: next line should be commented in to show if the cage is connected, but this isn't working as Unity
+            // is not updating the icon.
             //cageWidget.ProcessRosMessage(cageWidget.GetContext());
         }
         else
@@ -39,12 +44,6 @@ public class CageSubscriber : UnitySubscriber<ExoforceResponse>
             }
             Debug.LogWarning("Request to Cage unssuccessfull: " + message.message);
         }
-    }
-
-    private void Update()
-    {
-        //Widget cageWidget = Manager.Instance.FindWidgetWithID(60);
-        //cageWidget.ProcessRosMessage(cageWidget.GetContext());
     }
 }
 #endif

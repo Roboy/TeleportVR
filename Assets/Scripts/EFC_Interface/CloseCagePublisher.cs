@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class CloseCagePublisher : RosPublisher<Empty>
 {
+    // Allows to send a closeCage message with the keyboard
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            //InitExoforceResponse response = new InitExoforceResponse();
-            //_cageRosConnector.RosSocket.Publish(initResponsePublicationId, response);
-            //print("Send a response");
-
-            //if (CageInterface.cageIsConnected)
-            //{
-                Publish();
-            //}
+            Publish();
         }
     }
 
+    // publish a message to close the cage to the EFC Team
     public void Publish()
     {
         // Send disconnect message

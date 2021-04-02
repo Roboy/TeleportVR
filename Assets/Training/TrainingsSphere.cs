@@ -20,19 +20,11 @@ namespace Training
             _renderer = objectToRecolor.GetComponent<MeshRenderer>();
         }
 
-        /*private void OnTriggerEnter(Collider other)
-        {
-            if (TutorialSteps.Instance.currentStep == requiredStep && other.CompareTag(requiredTag))
-            {
-                TutorialSteps.Instance.NextStep();
-
-                if (objectToRecolor != null)
-                {
-                    _renderer.material.color = newColor;
-                }
-            }
-        }*/
-
+        /// <summary>
+        /// Updates the gradient when the sphere is being looked at and goes to the next step after looking at it for
+        /// some time
+        /// </summary>
+        /// <param name="raycaster"></param>
         public void WhileLookedAt(TrainingsRaycaster raycaster)
         {
             timer += Time.deltaTime;

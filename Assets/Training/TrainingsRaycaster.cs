@@ -6,6 +6,9 @@ namespace Training
     {
         [SerializeField] private LayerMask layerMask;
 
+        /// <summary>
+        /// Checks if the User is looking at the trainings sphere.
+        /// </summary>
         void Update()
         {
             if (TutorialSteps.Instance != null)

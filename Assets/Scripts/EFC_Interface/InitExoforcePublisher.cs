@@ -103,11 +103,10 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
         "camera_right"
     };
 
-    /*private static Dictionary<int, string> linkIdToName = new Dictionary<int, string>()
-    {
-        {0, "LinkName" },
-    };*/
-
+    /// <summary>
+    /// Stores Link information as a Ros message so that it will be send the next time when the user initializes to the cage
+    /// </summary>
+    /// <param name="info">the Link info.</param>
     public static void StoreLinkInformation(float[] info)
     {
         if (info.Length % linkInfoLength != 0)
@@ -115,13 +114,13 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
             Debug.LogWarning("Shape mismatch: Received array length " + info.Length + " not dividable by " + 
                              linkInfoLength);
         }
+        
         int numLinks = info.Length / linkInfoLength;
         linkInfo = new LinkInformation[numLinks];
         for (int i = 0; i < numLinks; i++)
         {
             int o = i * linkInfoLength;
             int id = (int)(info[o]);
-            //string linkName = linkIdToName[(int)(info[o+1])];
             string linkName = linkNames[(int)(info[o+1])];
             RosSharp.RosBridgeClient.MessageTypes.Geometry.Vector3 dimensions =
                 new RosSharp.RosBridgeClient.MessageTypes.Geometry.Vector3(info[o + 2], info[o + 3], info[o + 4]);
@@ -134,6 +133,9 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
         }
     }
 
+    /// <summary>
+    /// Send an initialization request to the cage.
+    /// </summary>
     public void InitExoforce()
     {
         if (!CageInterface.cageIsConnected)
@@ -150,8 +152,6 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
             {
                 headHeight = 1.7f;
             }
-
-            //LinkInformation[] linkInfo = null;
                     
             InitExoforceRequest msg =
                 new InitExoforceRequest(ef_name, ef_enabled, poses, headHeight, linkInfo);
@@ -175,6 +175,7 @@ public class InitExoforcePublisher : RosPublisher<InitExoforceRequest>
         cageWidget.ProcessRosMessage(cageWidget.GetContext());
     }
     
+    // Check if an initialization request should be currently send
     void Update()
     {
         if (Input.GetKey(KeyCode.C) && !CageInterface.sentInitRequest)
