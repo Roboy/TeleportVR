@@ -86,6 +86,9 @@ namespace Widgets
 
         /// <summary>
         /// Sets child widget position according to parents values and visibility active
+	/// checks showExplanation attribute of the WidgetInteraction instance to determine
+	/// if the explanation childwidgets (childWidgets with the attribute trainingInfo = true)
+	/// should be shown or not.  
         /// </summary>
         public void UnfoldChild()
         {

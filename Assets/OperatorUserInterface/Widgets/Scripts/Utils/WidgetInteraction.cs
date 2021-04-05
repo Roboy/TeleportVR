@@ -17,7 +17,8 @@ namespace Widgets
 
         // determines if the Displays can be currently moved or not
         public static bool settingsAreActive;
-        
+
+        // determines if the explanation childWidgets are shown or not (called in the method UnfoldChild() in the script View.cs)
         public bool showExplanations = false;
 
         /// <summary>
@@ -29,6 +30,11 @@ namespace Widgets
             Invoke(function, 0);
         }
 
+        /// <summary>
+	/// allows to toggle if the explanation childWidgets with the attribute "trainingInfo" set to true 
+	/// are shown (by setting the showExplanation attribute to true) or not shown (by setting the showExplanation
+	/// attribute to false) 
+	///</summary>
         public void ToggleInformation()
         {
             Widget widget = Manager.Instance.FindWidgetWithID(214);

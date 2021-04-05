@@ -46,7 +46,7 @@ namespace Widgets
         public string textMessage;      
         public int textFontSize;
         public byte[] textColor;
-	public bool trainingInfo;
+	public bool trainingInfo; //an attribute to make childWidgets dedicated to displaying information regarding their parent widgets optional
         #endregion
 
         #region Icon
