@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3234,7 +3234,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: robotName
-      value: Roboy2Xavier
+      value: RoboyMaxSpatial
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -3259,17 +3259,17 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.data[0]
-      value: vision
+      value: proprioception
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: requiredModalities.Array.data[1]
-      value: motor
+      value: proprioception
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
