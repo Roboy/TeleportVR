@@ -93,7 +93,9 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     private Animus.Data.Float32Array motorMsg;
     private Sample motorSample;
-
+    
+    public static bool sendTransformToCam = true;
+    
     // audition variables
     private bool auditionEnabled;
     // public GameObject Audio;
@@ -207,6 +209,83 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         }
     }
 
+    
+	// --------------------------Spatial Modality----------------------------------
+    	public bool spatial_initialise()
+    	{
+    		return true;
+    	}
+    
+    	public bool spatial_set(Animus.Data.BlobSample currSample)
+        {
+	        int[] header = new int[4];
+	        header[0] = (int)currSample.IntArray[0];
+	        header[1] = (int)currSample.IntArray[1];
+	        header[2] = (int)currSample.IntArray[2];
+	        header[3] = (int)currSample.IntArray[3];
+	        Debug.Log("Got packet " + currSample.IntArray[3]);
+	        
+	        InfiniTAMSender.instance.SendData(header, currSample.BytesArray[0].ToByteArray());
+	        
+    		return true;
+    	}
+    
+    	public bool spatial_close()
+    	{
+    		return true;
+    	}
+	
+	// --------------------------SpatialSlam Modality----------------------------------
+	public bool spatialSlam_initialise()
+	{
+		return false;
+	}
+
+	public bool spatialSlam_set(Float32Array currSample)
+	{
+		Matrix4x4 cameraPos;
+		
+		#region MatrixCopy
+		cameraPos.m00 = currSample.Data[0];
+		cameraPos.m01 = currSample.Data[1];
+		cameraPos.m02 = currSample.Data[2];
+		cameraPos.m03 = currSample.Data[3];
+		cameraPos.m10 = currSample.Data[4];
+		cameraPos.m11 = currSample.Data[5];
+		cameraPos.m12 = currSample.Data[6];
+		cameraPos.m13 = currSample.Data[7];
+		cameraPos.m20 = currSample.Data[8];
+		cameraPos.m21 = currSample.Data[9];
+		cameraPos.m22 = currSample.Data[10];
+		cameraPos.m23 = currSample.Data[11];
+		cameraPos.m30 = currSample.Data[12];
+		cameraPos.m31 = currSample.Data[13];
+		cameraPos.m32 = currSample.Data[14];
+		cameraPos.m33 = currSample.Data[15];
+		#endregion
+        
+		cameraPos = cameraPos.transpose;
+		
+		// TRANSLATION: invert y 
+		Vector3 posTemp = new Vector3(cameraPos.m03, -cameraPos.m13, cameraPos.m23);
+		// ROTATION: invert x and z axis
+		Quaternion rotTemp = new Quaternion(-cameraPos.rotation.x, cameraPos.rotation.y, -cameraPos.rotation.z, cameraPos.rotation.w);
+
+		if (sendTransformToCam)
+		{
+			Camera.main.transform.rotation = rotTemp;
+			Camera.main.transform.position = posTemp;
+		}
+		
+		//Debug.Log(currSample.Data[0] + ", " + currSample.Data[1] + ", " + currSample.Data[2]);
+		return true;
+	}
+
+	public bool spatialSlam_close()
+	{
+		return false;
+	}
+    
     // --------------------------Vision Modality----------------------------------
     /// <summary>
     /// This method allows to display the current latency and fps in the connection widget. 
