@@ -9,7 +9,7 @@ using UnityEngine;
 public class InfiniTAMSender : MonoBehaviour
 {
 	public string ipAddress = "localhost";
-	public int port = 5447;
+	public int port = 5446;
 	public static InfiniTAMSender instance;
 	
 	#region private members 	

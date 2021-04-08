@@ -224,10 +224,13 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 	        header[2] = (int)currSample.IntArray[2];
 	        header[3] = (int)currSample.IntArray[3];
 	        Debug.Log("Got packet " + currSample.IntArray[3]);
-	        
-	        InfiniTAMSender.instance.SendData(header, currSample.BytesArray[0].ToByteArray());
-	        
-    		return true;
+
+            if (InfiniTAMSender.instance != null)
+            {
+                InfiniTAMSender.instance.SendData(header, currSample.BytesArray[0].ToByteArray());    
+            }
+
+            return true;
     	}
     
     	public bool spatial_close()

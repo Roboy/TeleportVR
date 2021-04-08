@@ -60,6 +60,9 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
     // Start is called before the first frame update
     void Start()
     {
+        this.gameObject.AddComponent<InfiniTAMSender>();
+        reconstructionParentInScene = new GameObject("SurfaceReconstructionTest");
+        
         if (activeMeshes == null)
         {
             activeMeshes = new Dictionary<int, GameObject>();
