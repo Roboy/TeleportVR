@@ -611,19 +611,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         _lastUpdate = 0;
         motorMsg = new Float32Array();
         motorSample = new Sample(DataMessage.Types.DataType.Float32Arr, motorMsg);
-        //string joint_names = "\"";
-        //foreach (var segment in _myIKHead.Segments)
-        //{
-        //    segment.Joint.X.SetTargetValue(50.0);
-
-        //    //Debug.Log(segment.name);
-        //    if (segment.Joint != null)
-        //    {
-        //        if (segment.Joint.X.Enabled)
-        //            joint_names += segment.Joint.name + "\", \"";
-        //    }
-        //}
-        //Debug.LogError(joint_names);
 
         StartCoroutine(SendLEDCommand(LEDS_CONNECTED));
         return true;
