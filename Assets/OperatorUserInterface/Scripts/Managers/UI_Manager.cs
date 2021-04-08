@@ -28,6 +28,7 @@ public class UI_Manager : Singleton<UI_Manager>
 
     public void Start()
     {
+        // automatically switch between mouse or controller input based on the platform. I'm not sure if it is working
         if (pointerTechnique == PointerTechnique.Auto) {
             if (Application.platform == RuntimePlatform.Android) {
                 pointerTechnique = PointerTechnique.PointerController;

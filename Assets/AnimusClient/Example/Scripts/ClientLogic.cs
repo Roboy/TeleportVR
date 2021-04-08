@@ -27,12 +27,6 @@ public class ClientLogic : Singleton<ClientLogic>
         StartCoroutine(ClientManagerLogic());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     IEnumerator ClientManagerLogic()
     {
         // Yield for 10 frames to allow other scripts to initialise first
@@ -105,10 +99,6 @@ public class ClientLogic : Singleton<ClientLogic>
         if (!AnimusManager.connectedToRobotSuccess) yield break;
 
         // Step 5 - Starting all modalities
-        // var requiredModalities = new string[] {"vision", "audition", "voice" };
-        //var requiredModalities = new string[] {"vision", "audition"};
-        //var requiredModalities = new string[] {"audition"};
-        //var requiredModalities = new string[] {};
         AnimusManager.OpenModalities(requiredModalities);
     }
 }

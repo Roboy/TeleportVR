@@ -159,10 +159,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         // humanHead = TrackingSpace.Find("CenterEyeAnchor");
         humanLeftHand = TrackingSpace.Find("LeftHandAnchor");
         humanRightHand = TrackingSpace.Find("RightHandAnchor");
-
-        // LeftEye = this.transform.Find("LeftEye").gameObject;
-        // RightEye = this.transform.Find("RightEye").gameObject;
-
+        
+        // The code below might be needed if the Body Transition gets implemented again
         // robotDriver = robotBody.GetComponent<NaoAnimusDriver>();
         // if (robotDriver != null)
         // {
