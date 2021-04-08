@@ -38,6 +38,11 @@ namespace Widgets
         /// </summary>
         /// <param name="relativeChildPosition"></param>
         /// <param name="dwellTimerDuration"></param>
+        /// <param name="onActivate"></param>
+        /// <param name="onClose"></param>
+        /// <param name="xPositionOffset">x Position offset in json file for better adjustment</param>
+        /// <param name="yPositionOffset">y Position offset in json file for better adjustment</param>
+        /// <param name="scale">scale in json file for better adjustment</param>
         public void Init(RelativeChildPosition relativeChildPosition, float dwellTimerDuration, string onActivate, string onClose, float xPositionOffset, float yPositionOffset, float scale)
         {
             SetRelativeChildPosition(relativeChildPosition);
@@ -54,11 +59,13 @@ namespace Widgets
                 keepChildUnfoldedTimer = new Timer();
             }
             dwellTimer = new Timer();
-
+            
+            // set x and y position of the widget, z position can be ignored
             transform.localPosition = new Vector3(xPositionOffset, yPositionOffset, 0);
 
             if (scale != 0)
             {
+                // if scale is set in json file adjust scale for x,y,z
                 transform.localScale = new Vector3(scale, scale, scale);
             }
 
@@ -86,6 +93,9 @@ namespace Widgets
 
         /// <summary>
         /// Sets child widget position according to parents values and visibility active
+	/// checks showExplanation attribute of the WidgetInteraction instance to determine
+	/// if the explanation childwidgets (childWidgets with the attribute trainingInfo = true)
+	/// should be shown or not.  
         /// </summary>
         public void UnfoldChild()
         {
@@ -268,8 +278,7 @@ namespace Widgets
                 dwellTimerImage.fillAmount = dwellTimer.GetFraction();
             }
 
-            
-            // Input to activate or deactivate Highlights by Button down
+            // Input to highlight or dehighlight by button down for the 6 body parts
             if (Input.GetKeyDown(KeyCode.C))
             {
                 highlight(51);
@@ -323,9 +332,12 @@ namespace Widgets
             {
                 dehighlight(56);
             }
-
         }
         
+        /// <summary>
+        /// highlight changes the icon/ outlining of the body part to white
+        /// </summary>
+        /// <param name="id">ID of the icon in the json file</param>
         public void highlight(int id)
         {
             Widget widget = Manager.Instance.FindWidgetWithID(id);
@@ -333,6 +345,10 @@ namespace Widgets
             widget.ProcessRosMessage(widget.GetContext());
         }
 
+        /// <summary>
+        /// dehighlight changes the icon( outlining of the body part to black
+        /// </summary>
+        /// <param name="id">ID of the icon in the json file</param>
         public void dehighlight(int id)
         {
             Widget widget = Manager.Instance.FindWidgetWithID(id);

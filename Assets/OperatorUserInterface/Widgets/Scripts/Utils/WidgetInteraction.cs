@@ -17,7 +17,8 @@ namespace Widgets
 
         // determines if the Displays can be currently moved or not
         public static bool settingsAreActive;
-        
+
+        // determines if the explanation childWidgets are shown or not (called in the method UnfoldChild() in the script View.cs)
         public bool showExplanations = false;
 
         /// <summary>
@@ -29,6 +30,11 @@ namespace Widgets
             Invoke(function, 0);
         }
 
+        /// <summary>
+	/// allows to toggle if the explanation childWidgets with the attribute "trainingInfo" set to true 
+	/// are shown (by setting the showExplanation attribute to true) or not shown (by setting the showExplanation
+	/// attribute to false) 
+	///</summary>
         public void ToggleInformation()
         {
             Widget widget = Manager.Instance.FindWidgetWithID(214);
@@ -187,118 +193,74 @@ namespace Widgets
             settingsAreActive = false;
         }
 
+        /// <summary>
+        /// Toggle Head icon on activate
+        /// </summary>
         public void ToggleHead()
         {
-            Widget headWidget = Manager.Instance.FindWidgetWithID(41);
-            if (headWidget.GetContext().currentIcon == "HeadGreen")
-            {
-                headWidget.GetContext().currentIcon = "HeadYellow";
-            }
-            else if (headWidget.GetContext().currentIcon == "HeadYellow")
-            {
-                headWidget.GetContext().currentIcon = "HeadRed";
-            }
-            else
-            {
-                headWidget.GetContext().currentIcon = "HeadGreen";
-            }
-
-            headWidget.ProcessRosMessage(headWidget.GetContext());
+            ChangeIcon(41);
         }
 
+        /// <summary>
+        /// Toggle Right Body icon on activate
+        /// </summary>
         public void ToggleRightBody()
         {
-            Widget rightBodyWidget = Manager.Instance.FindWidgetWithID(42);
-            if (rightBodyWidget.GetContext().currentIcon == "RightBodyGreen")
-            {
-                rightBodyWidget.GetContext().currentIcon = "RightBodyYellow";
-            }
-            else if (rightBodyWidget.GetContext().currentIcon == "RightBodyYellow")
-            {
-                rightBodyWidget.GetContext().currentIcon = "RightBodyRed";
-            }
-            else
-            {
-                rightBodyWidget.GetContext().currentIcon = "RightBodyGreen";
-            }
-
-            rightBodyWidget.ProcessRosMessage(rightBodyWidget.GetContext());
+            ChangeIcon(42);
         }
 
+        /// <summary>
+        /// Toggle Left Body icon on activate
+        /// </summary>
         public void ToggleLeftBody()
         {
-            Widget leftBodyWidget = Manager.Instance.FindWidgetWithID(43);
-            if (leftBodyWidget.GetContext().currentIcon == "LeftBodyGreen")
-            {
-                leftBodyWidget.GetContext().currentIcon = "LeftBodyYellow";
-            }
-            else if (leftBodyWidget.GetContext().currentIcon == "LeftBodyYellow")
-            {
-                leftBodyWidget.GetContext().currentIcon = "LeftBodyRed";
-            }
-            else
-            {
-                leftBodyWidget.GetContext().currentIcon = "LeftBodyGreen";
-            }
-
-            leftBodyWidget.ProcessRosMessage(leftBodyWidget.GetContext());
+            ChangeIcon(43);
         }
 
+        /// <summary>
+        /// Toggle Right Hand icon on activate
+        /// </summary>
         public void ToggleRightHand()
         {
-            Widget rightHandWidget = Manager.Instance.FindWidgetWithID(44);
-            if (rightHandWidget.GetContext().currentIcon == "RightHandGreen")
-            {
-                rightHandWidget.GetContext().currentIcon = "RightHandYellow";
-            }
-            else if (rightHandWidget.GetContext().currentIcon == "RightHandYellow")
-            {
-                rightHandWidget.GetContext().currentIcon = "RightHandRed";
-            }
-            else
-            {
-                rightHandWidget.GetContext().currentIcon = "RightHandGreen";
-            }
-
-            rightHandWidget.ProcessRosMessage(rightHandWidget.GetContext());
+            ChangeIcon(44);
         }
 
+        /// <summary>
+        /// Toggle Left Hand icon on activate
+        /// </summary>
         public void ToggleLeftHand()
         {
-            Widget leftHandWidget = Manager.Instance.FindWidgetWithID(45);
-            if (leftHandWidget.GetContext().currentIcon == "LeftHandGreen")
-            {
-                leftHandWidget.GetContext().currentIcon = "LeftHandYellow";
-            }
-            else if (leftHandWidget.GetContext().currentIcon == "LeftHandYellow")
-            {
-                leftHandWidget.GetContext().currentIcon = "LeftHandRed";
-            }
-            else
-            {
-                leftHandWidget.GetContext().currentIcon = "LeftHandGreen";
-            }
-
-            leftHandWidget.ProcessRosMessage(leftHandWidget.GetContext());
+            ChangeIcon(45);
         }
 
+        /// <summary>
+        /// Toggle Wheelchair icon on activate
+        /// </summary>
         public void ToggleWheelchair()
         {
-            Widget wheelchairWidget = Manager.Instance.FindWidgetWithID(46);
-            if (wheelchairWidget.GetContext().currentIcon == "WheelchairGreen")
+            ChangeIcon(46);
+        }
+        
+        /// <summary>
+        /// change the icon on activate. Changes from green to yellow, yellow to red, red to green
+        /// </summary>
+        /// <param name="id">ID of the icon in the json file</param>
+        public static void ChangeIcon(int id)
+        {
+            Widget widget = Manager.Instance.FindWidgetWithID(id);
+            if (widget.GetContext().currentIcon == widget.GetContext().icons[0])
             {
-                wheelchairWidget.GetContext().currentIcon = "WheelchairYellow";
+                widget.GetContext().currentIcon = widget.GetContext().icons[1];
             }
-            else if (wheelchairWidget.GetContext().currentIcon == "WheelchairYellow")
+            else if (widget.GetContext().currentIcon == widget.GetContext().icons[1])
             {
-                wheelchairWidget.GetContext().currentIcon = "WheelchairRed";
+                widget.GetContext().currentIcon = widget.GetContext().icons[2];
             }
             else
             {
-                wheelchairWidget.GetContext().currentIcon = "WheelchairGreen";
+                widget.GetContext().currentIcon = widget.GetContext().icons[0];
             }
-
-            wheelchairWidget.ProcessRosMessage(wheelchairWidget.GetContext());
+            widget.ProcessRosMessage(widget.GetContext());
         }
 
         public static void SetBodyPartActive(int id, bool active)

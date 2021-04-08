@@ -522,28 +522,38 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     }
 
     // --------------------------Proprioception Modality----------------------------------
+    /// <summary>
+    /// Nothing to do on startup, but the method will still be called by animus.
+    /// </summary>
+    /// <returns>Success.</returns>
     public bool proprioception_initialise()
     {
         return true;
     }
 
+    /// <summary>
+    /// Receive body parts information
+    /// </summary>
+    /// <param name="currSample">
+    /// The float array containing the body parts statuses. The parameters are -1.0 for no connection,
+    /// 1.0 for connected but a problem with the system/ motor, 0.0 connected and no problem.
+    /// </param>
+    /// <returns>Success.</returns>
     public bool proprioception_set(Float32Array currSample)
     {
         print("Proprio: " + currSample.Data);
-        //string pr = "";
-        //foreach (float d in currSample.Data) {
-        //    print(d);
-        //}
-        //print();
+        // check if the float array contains information for the 6 body parts
         if (currSample.CalculateSize() >= 6)
         {
-            //body_manager(41,0, currSample);
-            //body_manager(42,1, currSample);
-            //body_manager(43,2, currSample);
-            //body_manager(44,3, currSample);
-            //body_manager(45,4, currSample);
-            //body_manager(46,5, currSample);
-
+            /* body_manager() handles the information in currSample for the 6 body parts
+            mapping: 
+            41 id of the head icon, position in currSample 0
+            42 id of the right_body icon, position in currSample 1
+            43 id of the left_body icon, position in currSample 2
+            44 id of the right_hand icon, position in currSample 3
+            45 id of the left_hand icon, position in currSample 4
+            46 id of the wheelchair icon, position in currSample 5
+            */
             body_manager(41, 0, currSample);
             body_manager(42, 1, currSample);
             body_manager(43, 2, currSample);
@@ -551,44 +561,44 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             body_manager(45, 4, currSample);
             body_manager(46, 5, currSample);
         }
-        else
-        {
-            return true;
-        }
-
-        /*
-		if (currSample.CalculateSize() > 1)
-		{
- 			if (currSample[0]>0) { 
-	            OVRInput.SetControllerVibration(currSample[0], currSample[1], OVRInput.Controller.LTouch);
-			// TODO: maybe add vibration as well?
- 			}
-		}
-		*/
-
         return true;
     }
 
+    /// <summary>
+    /// Method to handle the information in currSample and control the color of the 6 body parts
+    /// </summary>
+    /// <param name="id">ID of the icon in the json file</param>
+    /// <param name="position">Position of the float in currSample</param>
+    /// <param name="currSample">Float array with 6 floats (-1.0; 0.0; 1.0)</param>
     public void body_manager(int id, int position, Float32Array currSample)
     {
+        // get the instance of the widget with this id
         Widget widget = Manager.Instance.FindWidgetWithID(id);
         if ((int) (currSample.Data[position]) == -1)
         {
+            // float equal to -1 then the widget changes to the icon/color at position 1 in the json file (yellow)
             widget.GetContext().currentIcon = widget.GetContext().icons[1];
         }
         else if ((int) (currSample.Data[position]) == 0)
         {
+            // float equal to 0 then the widget changes to the icon/color at position 0 in the json file (green)
             widget.GetContext().currentIcon = widget.GetContext().icons[0];
         }
         else
         {
+            // else or equal to 1 the widget changes to the icon/color at position 2 in the json file (red)
             widget.GetContext().currentIcon = widget.GetContext().icons[2];
         }
 
+        // Apply the changes to the instance of the widget with ProcessRosMessage
         widget.ProcessRosMessage(widget.GetContext());
     }
 
 
+    /// <summary>
+    /// Nothing to do on close, but the method will still be called by animus.
+    /// </summary>
+    /// <returns>Success.</returns>
     public bool proprioception_close()
     {
         return true;
