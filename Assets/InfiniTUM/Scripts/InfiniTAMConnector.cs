@@ -20,8 +20,8 @@ public struct Matrix4
 
 public class InfiniTAMConnector : MonoBehaviour
 {
-    public GameObject prefab;
-    public GameObject parent;
+    public GameObject meshPrefab;
+    private GameObject parent;
 
     public static bool sendTransformToCam = true;
     
@@ -58,6 +58,9 @@ public class InfiniTAMConnector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Create all meshes as children of this game object
+        parent = this.gameObject;
+        
         if (activeMeshes == null)
         {
             activeMeshes = new Dictionary<int, GameObject>();
@@ -211,7 +214,7 @@ public class InfiniTAMConnector : MonoBehaviour
         // Create new mesh
         else
         {
-            GameObject newGameObject = Instantiate(prefab, parent.transform);
+            GameObject newGameObject = Instantiate(meshPrefab, parent.transform);
             newGameObject.name = "Mesh" + meshInfo.meshId;
             UpdateMesh(newGameObject, vertices, normals, faceIndices, colors);
             activeMeshes.Add(meshInfo.meshId, newGameObject);
