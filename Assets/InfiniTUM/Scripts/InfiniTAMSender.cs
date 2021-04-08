@@ -37,13 +37,13 @@ public class InfiniTAMSender : MonoBehaviour
 		try
 		{
 			socketConnection = new TcpClient(ipAddress, port);
-			Debug.Log("Successfully connected to server.");
+			Debug.Log("Successfully connected to InfiniTUM client.");
 			UIManager.WriteToLogger("Socket connection successful.");
 			UIManager.SetConnectionState(1, true);
 		}
 		catch (Exception e)
 		{
-			Debug.Log("On client connect exception " + e);
+			Debug.Log("On InfiniTUM client connect exception " + e);
 			UIManager.WriteToLogger("Client socket connection failed.");
 		}
 	}

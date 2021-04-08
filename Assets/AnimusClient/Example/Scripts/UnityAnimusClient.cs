@@ -94,7 +94,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     private Animus.Data.Float32Array motorMsg;
     private Sample motorSample;
     
-    public static bool sendTransformToCam = true;
+    public static bool sendTransformToCam = false;
     
     // audition variables
     private bool auditionEnabled;

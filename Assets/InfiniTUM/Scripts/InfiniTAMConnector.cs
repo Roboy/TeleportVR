@@ -18,10 +18,11 @@ public struct Matrix4
         m30, m31, m32, m33;
 };
 
-public class InfiniTAMConnector : MonoBehaviour
+public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
 {
-    public GameObject meshPrefab;
-    private GameObject parent;
+    //public GameObject meshPrefab;
+    [Tooltip("Create all meshes as children of this game object")]
+    public GameObject reconstructionParentInScene;
 
     public static bool sendTransformToCam = true;
     
@@ -54,13 +55,11 @@ public class InfiniTAMConnector : MonoBehaviour
 
     private bool sharedMemoryInitialized = false;
     private bool clientReady = false;
+    private bool showReconstruction = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Create all meshes as children of this game object
-        parent = this.gameObject;
-        
         if (activeMeshes == null)
         {
             activeMeshes = new Dictionary<int, GameObject>();
@@ -76,13 +75,13 @@ public class InfiniTAMConnector : MonoBehaviour
         catch (Exception e)
         {
             UIManager.WriteToLogger("Shared Memory not found with " + e.GetType());
-            Debug.Log("Client not found." + e.GetType());
+            Debug.Log("InfiniTUM Client not found." + e.GetType());
             return;
         }
 
         // Wait for shared memory allocation of client
         UIManager.WriteToLogger("Client found. Wait for green light.");
-        Debug.Log("Client found. Wait for shared memory allocation.");
+        Debug.Log("InfiniTUM Client found. Wait for shared memory allocation.");
     }
 
     // Update is called once per frame
@@ -189,8 +188,6 @@ public class InfiniTAMConnector : MonoBehaviour
         currentBuffer.sharedMemories[1].accessor.ReadArray<Vector3>(0, vertices, 0, meshInfo.numVertices);
         currentBuffer.sharedMemories[1].Unlock();
 
-        // TODO NORMALS
-        
         Vector3[] normals = new Vector3[meshInfo.numVertices];
         currentBuffer.sharedMemories[1].Lock();
         currentBuffer.sharedMemories[1].accessor.ReadArray<Vector3>(0, normals, 0, meshInfo.numVertices);
@@ -214,12 +211,16 @@ public class InfiniTAMConnector : MonoBehaviour
         // Create new mesh
         else
         {
-            GameObject newGameObject = Instantiate(meshPrefab, parent.transform);
+            GameObject newGameObject = Instantiate(Resources.Load("MeshPrefab", typeof(GameObject)), reconstructionParentInScene.transform) as GameObject;
             newGameObject.name = "Mesh" + meshInfo.meshId;
             UpdateMesh(newGameObject, vertices, normals, faceIndices, colors);
             activeMeshes.Add(meshInfo.meshId, newGameObject);
             // Meshes come in upside down
             newGameObject.transform.localScale = new Vector3(1,-1,1);
+            if (!showReconstruction)
+            {
+                newGameObject.GetComponent<Renderer>().enabled = false;
+            }
         }
         
         // mark update as read
@@ -245,6 +246,26 @@ public class InfiniTAMConnector : MonoBehaviour
             {
                 sharedMeshBuffers[i].sharedMemories[j].Destroy();
             }
+        }
+    }
+
+    public void HideSurfaceReconstruction()
+    {
+        showReconstruction = false;
+
+        foreach (KeyValuePair<int, GameObject> activeMesh in activeMeshes)
+        {
+            activeMesh.Value.GetComponent<Renderer>().enabled = false;
+        }
+    }
+    
+    public void ShowSurfaceReconstruction()
+    {
+        showReconstruction = true;
+        
+        foreach (KeyValuePair<int, GameObject> activeMesh in activeMeshes)
+        {
+            activeMesh.Value.GetComponent<Renderer>().enabled = true;
         }
     }
 

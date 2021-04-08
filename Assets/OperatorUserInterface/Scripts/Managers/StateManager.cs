@@ -40,11 +40,14 @@ public class StateManager : Singleton<StateManager>
         rightSenseGlove = GameObject.FindGameObjectWithTag("SenseGloveRight");
         leftSenseGlove.SetActive(false);
         rightSenseGlove.SetActive(false);
-        //additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
-        //currentState = States.Construct;
-        additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateAfterTrainingLoad);
-        currentState = States.Training;
-        visitedStates.Add(States.Training);
+        
+        additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
+        currentState = States.Construct;
+        visitedStates.Add(States.Construct);
+        
+        //additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateAfterTrainingLoad);
+        //currentState = States.Training;
+        //visitedStates.Add(States.Training);
     }
 
     /// <summary>
@@ -56,7 +59,7 @@ public class StateManager : Singleton<StateManager>
         switch (currentState)
         {
             case States.HUD:
-                GoToState(States.Training);
+                GoToState(States.Construct);
                 break;
             case States.Construct:
                 GoToState(States.HUD);
@@ -161,6 +164,7 @@ public class StateManager : Singleton<StateManager>
             Transform cameraOrigin = GameObject.FindGameObjectWithTag("CameraOrigin").transform;
             Transform constructObjects = GameObject.FindGameObjectWithTag("ConstructObjects").transform;
             GameObject roboy = GameObject.FindGameObjectWithTag("Roboy");
+            InfiniTAMConnector.Instance.ShowSurfaceReconstruction();
 
             if (roboy != null)
             {
@@ -208,6 +212,7 @@ public class StateManager : Singleton<StateManager>
     void DelegateBeforeHudLoad()
     {
         print("DelegateBeforeHudLoad");
+        InfiniTAMConnector.Instance.HideSurfaceReconstruction();
         var bioIks = FindObjectsOfType<BioIK.BioIK>();
         foreach (var body in bioIks)
         {
