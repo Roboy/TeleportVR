@@ -38,8 +38,8 @@ namespace Widgets
         /// </summary>
         /// <param name="relativeChildPosition"></param>
         /// <param name="dwellTimerDuration"></param>
-        /// <param name="onActivate"></param>
-        /// <param name="onClose"></param>
+        /// <param name="onActivate">The name of the function that should be called when the widget gets activated.</param>
+        /// <param name="onClose">The name of the function that should be called when the widget gets activated.</param>
         /// <param name="xPositionOffset">x Position offset in json file for better adjustment</param>
         /// <param name="yPositionOffset">y Position offset in json file for better adjustment</param>
         /// <param name="scale">scale in json file for better adjustment</param>
@@ -99,7 +99,7 @@ namespace Widgets
         /// </summary>
         public void UnfoldChild()
         {
-            //if ((!childIsActive || !WidgetInteraction.Instance.allowDwellTime) && onActivate != null)
+            // call the function on activation of this widget (e.g. when activating the child)
             if (!childIsActive && onActivate != null)
             {
                 WidgetInteraction.Instance.InvokeFunction(onActivate);
@@ -121,6 +121,7 @@ namespace Widgets
         /// </summary>
         public void FoldChildIn()
         {
+            // call the function on deactivation of this widget (e.g. when deactivating the child)
             if (childIsActive && onClose != null)
             {
                 WidgetInteraction.Instance.InvokeFunction(onClose);
