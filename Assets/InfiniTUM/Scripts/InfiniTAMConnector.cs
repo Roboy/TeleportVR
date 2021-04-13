@@ -28,7 +28,7 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
     
     private static Dictionary<int, GameObject> activeMeshes;
     
-    // we have two buffers in InfiniTAM Client
+    // we have two buffers in InfiniTAM Client for parallel processing
     private const int NUMBUFFERS = 2;
     private int currentBufferNumber = 0;
     private SharedMeshData[] sharedMeshBuffers = new SharedMeshData[NUMBUFFERS];
@@ -47,19 +47,18 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
     
     private const string colorsMutexName = "COLORS_MUTEX_";
     private const string colorsFileName = "COLORS_SHAREDMEMORY_";
-    
-    private const string cameraPosMutexName = "CAMERA_POS_MUTEX";
-    private const string cameraPosFileName = "CAMERA_POS_SHAREDMEMORY";
 
     private SharedMemoryAccess cameraPosSharedMemory;
 
-    private bool sharedMemoryInitialized = false;
-    private bool clientReady = false;
+    public bool sharedMemoryInitialized = false;
+    public bool clientReady = false;
     private bool showReconstruction = false;
-
+    
     // Start is called before the first frame update
     void Start()
     {
+        // Define this symbol in player settings to 
+        #if SURFACE_RECONSTRUCTION
         this.gameObject.AddComponent<InfiniTAMSender>();
         reconstructionParentInScene = new GameObject("SurfaceReconstructionTest");
         
@@ -70,7 +69,6 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
         
         try
         {
-            //cameraPosSharedMemory = new SharedMemoryAccess(cameraPosMutexName, cameraPosFileName);
             sharedMeshBuffers[0] = new SharedMeshData(0);
             sharedMeshBuffers[1] = new SharedMeshData(1);
             sharedMemoryInitialized = true;
@@ -85,6 +83,8 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
         // Wait for shared memory allocation of client
         UIManager.WriteToLogger("Client found. Wait for green light.");
         Debug.Log("InfiniTUM Client found. Wait for shared memory allocation.");
+
+        #endif
     }
 
     // Update is called once per frame
@@ -123,48 +123,6 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
     
     public void ReadSharedMemory()
     {
-        /*
-        Matrix4 cameraPosTemp;
-        
-        cameraPosSharedMemory.Lock();
-        cameraPosSharedMemory.accessor.Read<Matrix4>(0, out cameraPosTemp);
-        cameraPosSharedMemory.Unlock();
-
-        Matrix4x4 cameraPos;
-        
-        #region MatrixCopy
-        cameraPos.m00 = cameraPosTemp.m00;
-        cameraPos.m01 = cameraPosTemp.m01;
-        cameraPos.m02 = cameraPosTemp.m02;
-        cameraPos.m03 = cameraPosTemp.m03;
-        cameraPos.m10 = cameraPosTemp.m10;
-        cameraPos.m11 = cameraPosTemp.m11;
-        cameraPos.m12 = cameraPosTemp.m12;
-        cameraPos.m13 = cameraPosTemp.m13;
-        cameraPos.m20 = cameraPosTemp.m20;
-        cameraPos.m21 = cameraPosTemp.m21;
-        cameraPos.m22 = cameraPosTemp.m22;
-        cameraPos.m23 = cameraPosTemp.m23;
-        cameraPos.m30 = cameraPosTemp.m30;
-        cameraPos.m31 = cameraPosTemp.m31;
-        cameraPos.m32 = cameraPosTemp.m32;
-        cameraPos.m33 = cameraPosTemp.m33;
-        #endregion
-        
-        cameraPos = cameraPos.transpose;
-
-        // TRANSLATION: invert y 
-        Vector3 posTemp = new Vector3(cameraPos.m03, -cameraPos.m13, cameraPos.m23);
-        // ROTATION: invert x and z axis
-        Quaternion rotTemp = new Quaternion(-cameraPos.rotation.x, cameraPos.rotation.y, -cameraPos.rotation.z, cameraPos.rotation.w);
-        
-        if (sendTransformToCam)
-        {
-            Camera.main.transform.rotation = rotTemp;
-            Camera.main.transform.position = posTemp;
-        }
-        */
-        
         MeshInfo meshInfo;
         SharedMeshData currentBuffer = sharedMeshBuffers[currentBufferNumber];
         

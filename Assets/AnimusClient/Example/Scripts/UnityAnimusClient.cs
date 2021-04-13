@@ -241,7 +241,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 	// --------------------------SpatialSlam Modality----------------------------------
 	public bool spatialSlam_initialise()
 	{
-		return false;
+		return true;
 	}
 
 	public bool spatialSlam_set(Float32Array currSample)

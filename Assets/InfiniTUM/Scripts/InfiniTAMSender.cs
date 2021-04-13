@@ -19,6 +19,7 @@ public class InfiniTAMSender : MonoBehaviour
 
 	void Start()
 	{
+		#if SURFACE_RECONSTRUCTION
 		if (instance != null)
 		{
 			Destroy(instance);
@@ -27,6 +28,7 @@ public class InfiniTAMSender : MonoBehaviour
 		instance = this;
 			
 		ConnectToTcpServer();
+		#endif
 	}
 	
 	/// <summary> 	
