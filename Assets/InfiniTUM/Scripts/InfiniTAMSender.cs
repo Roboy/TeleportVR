@@ -11,6 +11,7 @@ public class InfiniTAMSender : MonoBehaviour
 	public string ipAddress = "localhost";
 	public int port = 5446;
 	public static InfiniTAMSender instance;
+	public bool connectionUp = false;
 	
 	#region private members 	
 	private TcpClient socketConnection;
@@ -42,6 +43,7 @@ public class InfiniTAMSender : MonoBehaviour
 			Debug.Log("Successfully connected to InfiniTUM client.");
 			UIManager.WriteToLogger("Socket connection successful.");
 			UIManager.SetConnectionState(1, true);
+			connectionUp = true;
 		}
 		catch (Exception e)
 		{
