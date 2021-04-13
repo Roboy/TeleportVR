@@ -20,12 +20,7 @@ public struct Matrix4
 
 public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
 {
-    //public GameObject meshPrefab;
-    [Tooltip("Create all meshes as children of this game object")]
-    public GameObject reconstructionParentInScene;
-
-    public static bool sendTransformToCam = true;
-    
+    private GameObject reconstructionParentInScene;
     private static Dictionary<int, GameObject> activeMeshes;
     
     // we have two buffers in InfiniTAM Client for parallel processing
@@ -60,7 +55,7 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
         // Define this symbol in player settings to 
         #if SURFACE_RECONSTRUCTION
         this.gameObject.AddComponent<InfiniTAMSender>();
-        reconstructionParentInScene = new GameObject("SurfaceReconstructionTest");
+        reconstructionParentInScene = new GameObject("SurfaceReconstruction");
         
         if (activeMeshes == null)
         {
