@@ -45,8 +45,8 @@ namespace Training
             _ = Instance;
             if (StateManager.Instance.TimesStateVisited(StateManager.States.Training) <= 1)
             {
-                ScheduleAudioClip(welcome, queue: true, delay: 1.0);
-                ScheduleAudioClip(imAria, queue: true);//, delay: 2.0);
+                //ScheduleAudioClip(welcome, queue: true, delay: 1.0);
+                //ScheduleAudioClip(imAria, queue: true);//, delay: 2.0);
 
                 PublishNotification("Welcome to Teleport VR!"); //\n" +
                                                                  //"Take a look around. " +
@@ -225,10 +225,10 @@ namespace Training
             //    waitingForNod = true;
             
             // allows to continue to the next step when pressing 'n'
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                NextStep();
-            }
+            //if (Input.GetKeyDown(KeyCode.N))
+            //{
+            //    NextStep();
+            //}
         }
     }
 }

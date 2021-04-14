@@ -48,86 +48,86 @@ public class RoboyAnimator : MonoBehaviour
         //if (UnityEngine.Random.value < 0.001f)
         //    anim.SetTrigger("blink");
 
-        KeyboardControls();
+        //KeyboardControls();
 
     }
 
-    void KeyboardControls()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SetEmotion("url:https:upload.wikimedia.org/wikipedia/commons/7/7e/Cute-Ball-Favorites-icon.png");
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SetEmotion("img:money");
-        }
+    //void KeyboardControls()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.T))
+    //    {
+    //        SetEmotion("url:https:upload.wikimedia.org/wikipedia/commons/7/7e/Cute-Ball-Favorites-icon.png");
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.E))
+    //    {
+    //        SetEmotion("img:money");
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.A))
-            SetEmotion("angry_new");
-        if (Input.GetKeyDown(KeyCode.S))
-            SetEmotion("shy");
-        if (Input.GetKeyDown(KeyCode.K))
-            SetEmotion("kiss");
-        if (Input.GetKeyDown(KeyCode.L))
-            SetEmotion("lookleft");
-        if (Input.GetKeyDown(KeyCode.R))
-            SetEmotion("lookright");
-        if (Input.GetKeyDown(KeyCode.B))
-            SetEmotion("blink");
-        if (Input.GetKeyDown(KeyCode.D))
-            SetEmotion("tongue_out");
-        if (Input.GetKeyDown(KeyCode.W))
-            SetEmotion("smileblink");
-        if (Input.GetKeyDown(KeyCode.Q))
-            SetEmotion("happy");
-        if (Input.GetKeyDown(KeyCode.Y))
-            SetEmotion("happy2");
-        if (Input.GetKeyDown(KeyCode.H))
-            SetEmotion("hearts");
-        if (Input.GetKeyDown(KeyCode.N))
-            SetEmotion("angry");
-        if (Input.GetKeyDown(KeyCode.X))
-            SetEmotion("pissed");
-        if (Input.GetKeyDown(KeyCode.V))
-            SetEmotion("hypno");
-        if (Input.GetKeyDown(KeyCode.U))
-            SetEmotion("hypno_color");
-        if (Input.GetKeyDown(KeyCode.I))
-            SetEmotion("rolling");
-        if (Input.GetKeyDown(KeyCode.Z))
-            SetEmotion("surprise_mit_augen");
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            pirate = !pirate;
-        }
+    //    if (Input.GetKeyDown(KeyCode.A))
+    //        SetEmotion("angry_new");
+    //    if (Input.GetKeyDown(KeyCode.S))
+    //        SetEmotion("shy");
+    //    if (Input.GetKeyDown(KeyCode.K))
+    //        SetEmotion("kiss");
+    //    if (Input.GetKeyDown(KeyCode.L))
+    //        SetEmotion("lookleft");
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //        SetEmotion("lookright");
+    //    if (Input.GetKeyDown(KeyCode.B))
+    //        SetEmotion("blink");
+    //    if (Input.GetKeyDown(KeyCode.D))
+    //        SetEmotion("tongue_out");
+    //    if (Input.GetKeyDown(KeyCode.W))
+    //        SetEmotion("smileblink");
+    //    if (Input.GetKeyDown(KeyCode.Q))
+    //        SetEmotion("happy");
+    //    if (Input.GetKeyDown(KeyCode.Y))
+    //        SetEmotion("happy2");
+    //    if (Input.GetKeyDown(KeyCode.H))
+    //        SetEmotion("hearts");
+    //    if (Input.GetKeyDown(KeyCode.N))
+    //        SetEmotion("angry");
+    //    if (Input.GetKeyDown(KeyCode.X))
+    //        SetEmotion("pissed");
+    //    if (Input.GetKeyDown(KeyCode.V))
+    //        SetEmotion("hypno");
+    //    if (Input.GetKeyDown(KeyCode.U))
+    //        SetEmotion("hypno_color");
+    //    if (Input.GetKeyDown(KeyCode.I))
+    //        SetEmotion("rolling");
+    //    if (Input.GetKeyDown(KeyCode.Z))
+    //        SetEmotion("surprise_mit_augen");
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        pirate = !pirate;
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            cryingRoboy = !cryingRoboy;
-        }
+    //    if (Input.GetKeyDown(KeyCode.C))
+    //    {
+    //        cryingRoboy = !cryingRoboy;
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            specs = !specs;
-        }
+    //    if (Input.GetKeyDown(KeyCode.G))
+    //    {
+    //        specs = !specs;
+    //    }
 
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            moustache = !moustache;
-        }
+    //    if (Input.GetKeyDown(KeyCode.M))
+    //    {
+    //        moustache = !moustache;
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            sunglasses_on = !sunglasses_on;
-        }
+    //    if (Input.GetKeyDown(KeyCode.F))
+    //    {
+    //        sunglasses_on = !sunglasses_on;
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            talking = true;
-        if (Input.GetKeyUp(KeyCode.Space))
-            talking = false;
-    }
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //        talking = true;
+    //    if (Input.GetKeyUp(KeyCode.Space))
+    //        talking = false;
+    //}
 
     public void SetEmotion(string emotion)
     {

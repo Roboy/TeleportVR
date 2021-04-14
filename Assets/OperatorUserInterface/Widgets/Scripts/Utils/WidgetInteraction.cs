@@ -82,12 +82,12 @@ namespace Widgets
             if (widget.GetContext().currentIcon == "MicroDisabled")
             {
                 widget.GetContext().currentIcon = "Micro";
-                Microphone.Start(null, true, 10, 44100);
+                //Microphone.Start(null, true, 10, 44100);
             }
             else
             {
                 widget.GetContext().currentIcon = "MicroDisabled";
-                Microphone.End(null);
+                //Microphone.End(null);
             }
 
             widget.ProcessRosMessage(widget.GetContext());

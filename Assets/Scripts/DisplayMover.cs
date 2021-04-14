@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 /// <summary>
@@ -101,10 +102,11 @@ public class DisplayMover : MonoBehaviour
 
                 foreach (KeyCode key in moveDict.Keys)
                 {
-                    if (Input.GetKey(key))
-                    {
-                        transform.localPosition += Time.deltaTime * _speed * moveDict[key];
-                    }
+                    // TODO bring it back!
+                    //if (Input.GetKey(key))
+                    //{
+                    //    transform.localPosition += Time.deltaTime * _speed * moveDict[key];
+                    //}
                 }
             }
         }

@@ -113,10 +113,10 @@ public class StateManager : Singleton<StateManager>
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            GoToNextState();
-        if (Input.GetKeyDown(KeyCode.T) && currentState == States.Construct)
-            GoToState(States.Training);
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    GoToNextState();
+        //if (Input.GetKeyDown(KeyCode.T) && currentState == States.Construct)
+        //    GoToState(States.Training);
     }
 
     #region Delegates

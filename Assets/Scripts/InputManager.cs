@@ -18,6 +18,8 @@ public class InputManager : Singleton<InputManager>
 
     void Start()
     {
+        Debug.Log("MICS Input manager: >>>>>> ");
+        Debug.Log(Microphone.devices.Length);
         GetLeftController();
         GetRightController();
 
@@ -271,8 +273,8 @@ public class InputManager : Singleton<InputManager>
             {
                 if (UnityAnimusClient.Instance != null)
                 {
-                    UnityAnimusClient.Instance.LeftButton1 = Input.GetKeyDown(KeyCode.F);
-                    UnityAnimusClient.Instance.LeftButton2 = Input.GetKeyDown(KeyCode.R);
+                    //UnityAnimusClient.Instance.LeftButton1 = Input.GetKeyDown(KeyCode.F);
+                    //UnityAnimusClient.Instance.LeftButton2 = Input.GetKeyDown(KeyCode.R);
                 }
             }
             if (GetRightController())
@@ -287,24 +289,28 @@ public class InputManager : Singleton<InputManager>
                     UnityAnimusClient.Instance.RightButton2 = btn;
                 }
                 
-                if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
-                    StateManager.Instance.currentState == StateManager.States.Training)
+                if (Training.TutorialSteps.Instance != null)
                 {
-                    if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.HEAD)
+                    if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
+                    StateManager.Instance.currentState == StateManager.States.Training)
                     {
-                        if (!waiting & Training.TutorialSteps.Instance.waitingForNod) StartCoroutine(WaitForNod());
-                        // if (nodded)
+                        if (Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.HEAD)
+                        {
+                            if (!waiting & Training.TutorialSteps.Instance.waitingForNod) StartCoroutine(WaitForNod());
+                            // if (nodded)
 
 
+                        }
                     }
                 }
+                
             }
             else
             {
                 if (UnityAnimusClient.Instance != null)
                 {
-                    UnityAnimusClient.Instance.RightButton1 = Input.GetKeyDown(KeyCode.G);
-                    UnityAnimusClient.Instance.RightButton2 = Input.GetKeyDown(KeyCode.T);
+                    //UnityAnimusClient.Instance.RightButton1 = Input.GetKeyDown(KeyCode.G);
+                    //UnityAnimusClient.Instance.RightButton2 = Input.GetKeyDown(KeyCode.T);
                 }
             }
         }

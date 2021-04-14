@@ -280,59 +280,59 @@ namespace Widgets
             }
 
             // Input to highlight or dehighlight by button down for the 6 body parts
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                highlight(51);
-            }
-            else if (Input.GetKeyUp(KeyCode.C))
-            {
-                dehighlight(51);
-            }
+            //if (Input.GetKeyDown(KeyCode.C))
+            //{
+            //    highlight(51);
+            //}
+            //else if (Input.GetKeyUp(KeyCode.C))
+            //{
+            //    dehighlight(51);
+            //}
             
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                highlight(52);
-            }
-            else if (Input.GetKeyUp(KeyCode.V))
-            {
-                dehighlight(52);
-            }
+            //if (Input.GetKeyDown(KeyCode.V))
+            //{
+            //    highlight(52);
+            //}
+            //else if (Input.GetKeyUp(KeyCode.V))
+            //{
+            //    dehighlight(52);
+            //}
             
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                highlight(53);
-            }
-            else if (Input.GetKeyUp(KeyCode.B))
-            {
-                dehighlight(53);
-            }
+            //if (Input.GetKeyDown(KeyCode.B))
+            //{
+            //    highlight(53);
+            //}
+            //else if (Input.GetKeyUp(KeyCode.B))
+            //{
+            //    dehighlight(53);
+            //}
             
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                highlight(54);
-            }
-            else if (Input.GetKeyUp(KeyCode.N))
-            {
-                dehighlight(54);
-            }
+            //if (Input.GetKeyDown(KeyCode.N))
+            //{
+            //    highlight(54);
+            //}
+            //else if (Input.GetKeyUp(KeyCode.N))
+            //{
+            //    dehighlight(54);
+            //}
             
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                highlight(55);
-            }
-            else if (Input.GetKeyUp(KeyCode.M))
-            {
-                dehighlight(55);
-            }
+            //if (Input.GetKeyDown(KeyCode.M))
+            //{
+            //    highlight(55);
+            //}
+            //else if (Input.GetKeyUp(KeyCode.M))
+            //{
+            //    dehighlight(55);
+            //}
             
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                highlight(56);
-            }
-            else if (Input.GetKeyUp(KeyCode.X))
-            {
-                dehighlight(56);
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    highlight(56);
+            //}
+            //else if (Input.GetKeyUp(KeyCode.X))
+            //{
+            //    dehighlight(56);
+            //}
         }
         
         /// <summary>

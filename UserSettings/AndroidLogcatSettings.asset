@@ -1,5 +1,5 @@
 {
-    "m_SelectedDeviceId": "1PASH9A1J19152",
+    "m_SelectedDeviceId": "1WMHH810YA0342",
     "m_SelectedPackage": {
         "deviceId": "",
         "name": "",
@@ -29,7 +29,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -45,7 +45,7 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
+                "m_Selected": true
             },
             {
                 "m_Name": "CRASH",

@@ -728,7 +728,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     // --------------------------Voice Modality----------------------------------
     public bool voice_initialise()
     {
-        return voiceEnabled;
+        //return voiceEnabled;
+        return false;
     }
 
     public AudioSample voice_get()
