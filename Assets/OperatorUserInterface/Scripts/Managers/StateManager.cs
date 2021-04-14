@@ -164,7 +164,10 @@ public class StateManager : Singleton<StateManager>
             Transform cameraOrigin = GameObject.FindGameObjectWithTag("CameraOrigin").transform;
             Transform constructObjects = GameObject.FindGameObjectWithTag("ConstructObjects").transform;
             GameObject roboy = GameObject.FindGameObjectWithTag("Roboy");
+            
             InfiniTAMConnector.Instance.ShowSurfaceReconstruction();
+            UnityAnimusClient.Instance.sendSlamToWheelchair = true;
+            GameObject.FindGameObjectWithTag("RoboyCollider").GetComponent<DifferentialDriveControl>().enabled = false;
 
             if (roboy != null)
             {
@@ -213,6 +216,9 @@ public class StateManager : Singleton<StateManager>
     {
         print("DelegateBeforeHudLoad");
         InfiniTAMConnector.Instance.HideSurfaceReconstruction();
+        UnityAnimusClient.Instance.sendSlamToWheelchair = false;
+        GameObject.FindGameObjectWithTag("RoboyCollider").GetComponent<DifferentialDriveControl>().enabled = true;
+        
         var bioIks = FindObjectsOfType<BioIK.BioIK>();
         foreach (var body in bioIks)
         {

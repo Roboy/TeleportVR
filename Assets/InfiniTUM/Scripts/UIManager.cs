@@ -39,25 +39,26 @@ public class UIManager : MonoBehaviour
             newMessage = false;
         }
         
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             useTracking = !useTracking;
 
             if (useTracking)
             {
-                UnityAnimusClient.sendTransformToCam = true;
+                //UnityAnimusClient.sendTransformToCam = true;
                 FlyCam.sendTransformToCamera = false;
 
                 trackingStateText.text = "Tracking";
             }
             else
             {
-                UnityAnimusClient.sendTransformToCam = false;
+                //UnityAnimusClient.sendTransformToCam = false;
                 FlyCam.sendTransformToCamera = true;
                 
                 trackingStateText.text = "Free View";
             }
-        }
+        }*/
     }
 
     public static void WriteToLogger(string logMessage)

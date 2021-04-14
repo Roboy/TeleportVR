@@ -93,8 +93,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     private Animus.Data.Float32Array motorMsg;
     private Sample motorSample;
-    
-    public static bool sendTransformToCam = false;
+
+    public bool sendSlamToWheelchair = false;
     public Transform wheelchair;
     
     // audition variables
@@ -275,16 +275,13 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 		// ROTATION: invert x and z axis
 		Quaternion rotTemp = new Quaternion(-cameraPos.rotation.x, cameraPos.rotation.y, -cameraPos.rotation.z, cameraPos.rotation.w);
 
-		if (sendTransformToCam)
+		if (sendSlamToWheelchair)
 		{
-			Camera.main.transform.rotation = rotTemp;
-			Camera.main.transform.position = posTemp;
-		}
-
-        wheelchair.transform.position = new Vector3(posTemp.x, wheelchair.transform.position.y, posTemp.z);
-        Vector3 eulerAngles = wheelchair.transform.eulerAngles;
-        eulerAngles.x = rotTemp.eulerAngles.y;
-        wheelchair.transform.eulerAngles = eulerAngles; 
+            wheelchair.transform.position = new Vector3(posTemp.x, wheelchair.transform.position.y, posTemp.z);
+            Vector3 eulerAngles = wheelchair.transform.eulerAngles;
+            eulerAngles.y = rotTemp.eulerAngles.y;
+            wheelchair.transform.eulerAngles = eulerAngles; 
+        }
         
 		//Debug.Log(currSample.Data[0] + ", " + currSample.Data[1] + ", " + currSample.Data[2]);
 		return true;
