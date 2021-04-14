@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -56,6 +56,7 @@ public class InfiniTAMConnector : Singleton<InfiniTAMConnector>
         #if SURFACE_RECONSTRUCTION
         this.gameObject.AddComponent<InfiniTAMSender>();
         reconstructionParentInScene = new GameObject("SurfaceReconstruction");
+        reconstructionParentInScene.transform.position = new Vector3(0, 0.7f, 0);
         
         if (activeMeshes == null)
         {

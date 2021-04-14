@@ -422,36 +422,6 @@ MonoBehaviour:
   TrashCube: {fileID: 8467620798328199860, guid: 13895ecc4b113f345a7719dbac69a239,
     type: 3}
   NumberOfCubes: 10
---- !u!1 &333956677
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 333956680}
-  m_Layer: 0
-  m_Name: SurfaceReconstruction
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &333956680
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333956677}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &389697611
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +591,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd9de71002a5004e8301bd4be44e8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reconstructionParentInScene: {fileID: 333956677}
+  sharedMemoryInitialized: 0
+  clientReady: 0
 --- !u!1 &577365868 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6021411800084439517, guid: 672391305442d4247958d25d550bd81f,
@@ -2864,6 +2835,11 @@ PrefabInstance:
       propertyPath: _leftPlane
       value: 
       objectReference: {fileID: 689167815}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
+      propertyPath: wheelchair
+      value: 
+      objectReference: {fileID: 3112793306941114511}
     - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
       propertyPath: _rightPlane

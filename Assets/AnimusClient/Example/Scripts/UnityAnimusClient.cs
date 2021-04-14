@@ -95,6 +95,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     private Sample motorSample;
     
     public static bool sendTransformToCam = false;
+    public Transform wheelchair;
     
     // audition variables
     private bool auditionEnabled;
@@ -279,7 +280,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 			Camera.main.transform.rotation = rotTemp;
 			Camera.main.transform.position = posTemp;
 		}
-		
+
+        wheelchair.transform.position = new Vector3(posTemp.x, wheelchair.transform.position.y, posTemp.z);
+        Vector3 eulerAngles = wheelchair.transform.eulerAngles;
+        eulerAngles.x = rotTemp.eulerAngles.y;
+        wheelchair.transform.eulerAngles = eulerAngles; 
+        
 		//Debug.Log(currSample.Data[0] + ", " + currSample.Data[1] + ", " + currSample.Data[2]);
 		return true;
 	}
