@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "1PASH9BTED0133",
         "name": "org.Roboy.TeleportVR",
-        "processId": 10213,
+        "processId": 10567,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -66,6 +66,12 @@
             "deviceId": "1PASH9BTED0133",
             "name": "org.Roboy.TeleportVR",
             "processId": 10213,
+            "exited": false
+        },
+        {
+            "deviceId": "1PASH9BTED0133",
+            "name": "org.Roboy.TeleportVR",
+            "processId": 10567,
             "exited": false
         }
     ],
