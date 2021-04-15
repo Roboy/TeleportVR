@@ -96,6 +96,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     public bool sendSlamToWheelchair = false;
     public Transform wheelchair;
+    public int packetsReceived = 0;
     
     // audition variables
     private bool auditionEnabled;
@@ -226,6 +227,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 	        header[3] = (int)currSample.IntArray[3];
 	        Debug.Log("Got packet " + currSample.IntArray[3]);
 
+            packetsReceived++;
+            
             if (InfiniTAMSender.instance != null)
             {
                 InfiniTAMSender.instance.SendData(header, currSample.BytesArray[0].ToByteArray());    
