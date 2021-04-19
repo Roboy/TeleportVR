@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class OrientationOffset : MonoBehaviour
 {
+
+    public bool trackOrientation = true;
     // Controller GameObject to take orientation from
     public Transform controller;
+    // Objective Script controlling the hand orienation
+    public BioIK.Orientation orientationObjective;
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
     }
 
     // Update is called once per frame
@@ -21,6 +25,15 @@ public class OrientationOffset : MonoBehaviour
         // hand with the Oculus controllers we derived the following constants
         const float rx = -189.118f, ry = -8.403992f, rz = 15.2381f;
         Quaternion offset = Quaternion.Euler(rx, ry, rz);
-        transform.rotation = controller.rotation * offset;
+
+        if (trackOrientation)
+        {
+            orientationObjective.Weight = 1;
+            transform.rotation = controller.rotation * offset;
+        }
+        else
+        {
+            orientationObjective.Weight = 0;
+        }
     }
 }
