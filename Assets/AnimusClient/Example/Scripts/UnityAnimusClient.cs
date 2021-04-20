@@ -359,7 +359,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         _rightRenderer = _rightPlane.GetComponent<Renderer>();
         _imageDims = new RepeatedField<uint>();
         visionEnabled = true;
-
+        Debug.Log("in vision_init");
         return visionEnabled;
     }
 
@@ -397,6 +397,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     /// <returns>Success of this method.</returns>
     public bool vision_set(ImageSamples currSamples)
     {
+        Debug.Log("in vision_set");
         try
         {
             if (!bodyTransitionReady) return true;
@@ -528,7 +529,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             Debug.Log("Vision modality not enabled. Cannot close");
             return false;
         }
-
+        Debug.Log("in vision_close");
         visionEnabled = false;
         return true;
     }
