@@ -41,13 +41,13 @@ public class StateManager : Singleton<StateManager>
         leftSenseGlove.SetActive(false);
         rightSenseGlove.SetActive(false);
         
-        additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
-        currentState = States.Construct;
-        visitedStates.Add(States.Construct);
+        //additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
+        //currentState = States.Construct;
+        //visitedStates.Add(States.Construct);
         
-        //additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateAfterTrainingLoad);
-        //currentState = States.Training;
-        //visitedStates.Add(States.Training);
+        additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateAfterTrainingLoad);
+        currentState = States.Training;
+        visitedStates.Add(States.Training);
     }
 
     /// <summary>
