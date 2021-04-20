@@ -170,6 +170,9 @@ MonoBehaviour:
   trackOrientation: 1
   controller: {fileID: 1199351587}
   orientationObjective: {fileID: 1200840931}
+  rotationX: -189.118
+  rotationY: -8.403992
+  rotationZ: 15.2381
 --- !u!114 &17241002 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8980600750384922078, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -1990,6 +1993,9 @@ MonoBehaviour:
   trackOrientation: 1
   controller: {fileID: 1068641971}
   orientationObjective: {fileID: 23973654}
+  rotationX: -189.118
+  rotationY: -8.403992
+  rotationZ: 15.2381
 --- !u!1 &1178167025
 GameObject:
   m_ObjectHideFlags: 0
