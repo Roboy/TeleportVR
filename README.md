@@ -78,6 +78,11 @@ Removal:
 ### Portals
 The Portals Package can give out errors that will sometimes cause the building process to fail. It can be installed from the "UsedPackages" UnityPackage and can be removed by deleting the Folder Assets/OperatorUserInterface/Plugins/PortalsPackage
 
+### SenseGlove
+If you want to use SenseGlove to controlle the position of each finger in Roboy's hand individually, you need to install the the package `SenseGloveSDK v1_2.unitypackage` from the [Google Drive Folder](https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R).
+
+Import all files from the package and start the Traning scene. If the SenseGloves were detected correctly on your system, Roboy's fingers will imitate the movement of your own ones.
+
 ### Hardware
 If you want to use hardware that was implemented for the Vive Pro Eye and XTal, but is not used with the Oculus Quest, download the UnityPackage "UnusedHardarePlugins" from the Google Drive Folder https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R. In the Unity Project, add the corresponding symbols to the Scripting Define Symbols in the Project settings:
 * TOBII

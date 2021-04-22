@@ -19,6 +19,9 @@ Assets/Plugins/Editor/JetBrains*
 #exclude all ProjectSettings
 /[Pp]rojectSettings/
 
+# exclude SenseGlove SDK
+/Assets/SenseGlove/
+
 # exclude the Animus SDK
 /Assets/AnimusClient/
 # except for the UnityAnimusClient and ClientLogic, because we change them
