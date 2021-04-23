@@ -84,6 +84,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     // public NaoAnimusDriver robotDriver;
     public BioIK.BioIK _myIKBody;
     public BioIK.BioIK _myIKHead;
+    public BioIK.BioIK _myLeftHand;
+    public BioIK.BioIK _myRightHand;
     private List<BioSegment> _actuatedJoints;
     private bool motorEnabled;
     private float _lastUpdate;
@@ -673,17 +675,22 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 
             // left hand, right hand
-            float left_open = 0, right_open = 0;
-            if (InputManager.Instance.GetLeftController())
-                InputManager.Instance.controllerLeft[0]
-                    .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out left_open);
+            //float left_open = 0, right_open = 0;
+            //if (InputManager.Instance.GetLeftController())
+            //    InputManager.Instance.controllerLeft[0]
+            //        .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out left_open);
 
-            if (InputManager.Instance.GetRightController())
-                InputManager.Instance.controllerRight[0]
-                    .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out right_open);
+            //if (InputManager.Instance.GetRightController())
+            //    InputManager.Instance.controllerRight[0]
+            //        .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out right_open);
 
-            motorAngles.Add(left_open);
-            motorAngles.Add(right_open);
+            //motorAngles.Add(left_open);
+            //motorAngles.Add(right_open);
+            // TODO: Enocde hand angles
+            foreach (var segment in _myLeftHand.Segments)
+            {
+                if (segment.Joint == null) continue;
+            }
 
             // wheelchair
             Vector2 axis2D;

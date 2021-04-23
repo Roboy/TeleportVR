@@ -8,6 +8,7 @@ public class InputManager : Singleton<InputManager>
 {
     public List<UnityEngine.XR.InputDevice> controllerLeft = new List<UnityEngine.XR.InputDevice>();
     public List<UnityEngine.XR.InputDevice> controllerRight = new List<UnityEngine.XR.InputDevice>();
+    public HandController handController;
 
     [SerializeField] VRGestureRecognizer vrGestureRecognizer;
 
@@ -18,13 +19,14 @@ public class InputManager : Singleton<InputManager>
 
     void Start()
     {
+        handController.Init();
         GetLeftController();
         GetRightController();
 
         vrGestureRecognizer.Nodded += OnNodded;
         vrGestureRecognizer.HeadShaken += OnHeadShaken;
     }
-    
+
     private bool GetControllerAvailable(bool leftController)
     {
         return leftController ? GetLeftControllerAvailable() : GetRightControllerAvailable();
@@ -34,7 +36,7 @@ public class InputManager : Singleton<InputManager>
     {
         return leftController ? controllerLeft[0] : controllerRight[0];
     }
-    
+
     /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
     public bool GetLeftControllerAvailable()
     {
@@ -74,7 +76,7 @@ public class InputManager : Singleton<InputManager>
         }
         return controllerRight.Count > 0;
     }
-    
+
     public bool GetControllerBtn(InputFeatureUsage<bool> inputFeature, bool leftController)
     {
         if (GetControllerAvailable(leftController))
@@ -122,7 +124,7 @@ public class InputManager : Singleton<InputManager>
             UnityAnimusClient.Instance.EnableMotor(true);
         else
             UnityAnimusClient.Instance.EnableMotor(false);
-        
+
         if (!Widgets.WidgetInteraction.settingsAreActive)
         {
             bool btn;
@@ -241,7 +243,7 @@ public class InputManager : Singleton<InputManager>
                             if (StateManager.Instance.currentState == StateManager.States.Training &&
                                 Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.WHEELCHAIR)
                             {
-                               Training.TutorialSteps.Instance.NextStep();
+                                Training.TutorialSteps.Instance.NextStep();
                             }
                         }
 
@@ -286,7 +288,7 @@ public class InputManager : Singleton<InputManager>
                 {
                     UnityAnimusClient.Instance.RightButton2 = btn;
                 }
-                
+
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
@@ -309,4 +311,96 @@ public class InputManager : Singleton<InputManager>
             }
         }
     }
+
+    [System.Serializable]
+    public class HandController
+    {
+        public BioIK.BioIK rightHand;
+        public BioIK.BioIK leftHand;
+
+        public int minMotorStep = 0;
+        public int maxMotorStep = 800;
+
+
+        private List<double> minRightAngles = new List<double>();
+        private List<double> maxRightAngles = new List<double>();
+        private List<double> minLeftAngles = new List<double>();
+        private List<double> maxLeftAngles = new List<double>();
+
+        private double rightDist = 0;
+        private double leftDist = 0;
+
+        public void Init()
+        {
+            //List<BioIK.BioIK> hands = new List<BioIK.BioIK>() { leftHand, rightHand };
+
+            foreach (var segment in rightHand.Segments)
+            {
+                if (segment.Joint == null) continue;
+                minRightAngles.Add(segment.Joint.X.LowerLimit * Mathf.Deg2Rad);
+                maxRightAngles.Add(segment.Joint.X.UpperLimit * Mathf.Deg2Rad);
+            }
+            foreach (var segment in leftHand.Segments)
+            {
+                if (segment.Joint == null) continue;
+                maxLeftAngles.Add(segment.Joint.X.LowerLimit * Mathf.Deg2Rad);
+                minLeftAngles.Add(segment.Joint.X.UpperLimit * Mathf.Deg2Rad);
+            }
+            rightDist = L2Distance(minRightAngles, maxRightAngles);
+            leftDist = L2Distance(minLeftAngles, maxLeftAngles);
+        }
+
+        private double L2Distance(List<double> a, List<double> b)
+        {
+            if (a.Count != b.Count)
+            {
+                return double.NegativeInfinity;
+            }
+            double dist = 0;
+            for (int i = 0; i < a.Count; i++)
+            {
+                dist += (a[i] - b[i]) * (a[i] - b[i]);
+            }
+            return dist / a.Count;
+        }
+
+
+        // rotations interface: 
+        // Right hand: 
+        // rh_FFJ3 [0..800]
+        // rh_FFJ2 [0..800]
+        // rh_MFJ3 [0..800]
+        // rh_MFJ2 [0..800]
+        // rh_RFJ3 [0..800]
+        // rh_RFJ2 [0..800]
+        // rh_LFJ3 [0..800]
+        // rh_LFJ2 [0..800]
+        // rh_THJ4 [0..800]
+        //
+        // Left hand:
+        // lh_FFJ3 [0..800]
+        // lh_FFJ2 [0..800]
+        // lh_MFJ3 [0..800]
+        // lh_MFJ2 [0..800]
+        // lh_RFJ3 [0..800]
+        // lh_RFJ2 [0..800]
+        // lh_LFJ3 [0..800]
+        // lh_LFJ2 [0..800]
+        // lh_THJ4 [0..800]
+        public List<float> GetMotorPositions()
+        {
+            List<float> currentLeft = new List<float>();
+            List<float> currentRight = new List<float>();
+            foreach (var segment in rightHand.Segments)
+            {
+                if (segment.Joint == null) continue;
+                
+            }
+
+            return currentRight + currentLeft;
+        }
+
+
+    }
 }
+
