@@ -120,6 +120,7 @@ public class InputManager : Singleton<InputManager>
     /// </summary>
     void Update()
     {
+        handController.GetMotorPositions();
         if (StateManager.Instance.currentState == StateManager.States.HUD)
             UnityAnimusClient.Instance.EnableMotor(true);
         else
@@ -318,36 +319,24 @@ public class InputManager : Singleton<InputManager>
         public BioIK.BioIK rightHand;
         public BioIK.BioIK leftHand;
 
-        public int minMotorStep = 0;
-        public int maxMotorStep = 800;
+        public const int maxMotorStep = 800;
 
-
-        private List<double> minRightAngles = new List<double>();
-        private List<double> maxRightAngles = new List<double>();
-        private List<double> minLeftAngles = new List<double>();
-        private List<double> maxLeftAngles = new List<double>();
-
-        private double rightDist = 0;
-        private double leftDist = 0;
+        private Dictionary<string, double> minAngles = new Dictionary<string, double>();
+        private Dictionary<string, double> maxAngles = new Dictionary<string, double>();
 
         public void Init()
         {
-            //List<BioIK.BioIK> hands = new List<BioIK.BioIK>() { leftHand, rightHand };
+            List<BioIK.BioIK> hands = new List<BioIK.BioIK>() { leftHand, rightHand };
+            foreach (var hand in hands)
+            {
+                foreach (var segment in hand.Segments)
+                {
+                    if (segment.Joint == null) continue;
+                    minAngles[segment.name] = segment.Joint.X.LowerLimit;
+                    maxAngles[segment.name] = segment.Joint.X.UpperLimit;
+                }
+            }
 
-            foreach (var segment in rightHand.Segments)
-            {
-                if (segment.Joint == null) continue;
-                minRightAngles.Add(segment.Joint.X.LowerLimit * Mathf.Deg2Rad);
-                maxRightAngles.Add(segment.Joint.X.UpperLimit * Mathf.Deg2Rad);
-            }
-            foreach (var segment in leftHand.Segments)
-            {
-                if (segment.Joint == null) continue;
-                maxLeftAngles.Add(segment.Joint.X.LowerLimit * Mathf.Deg2Rad);
-                minLeftAngles.Add(segment.Joint.X.UpperLimit * Mathf.Deg2Rad);
-            }
-            rightDist = L2Distance(minRightAngles, maxRightAngles);
-            leftDist = L2Distance(minLeftAngles, maxLeftAngles);
         }
 
         private double L2Distance(List<double> a, List<double> b)
@@ -368,36 +357,58 @@ public class InputManager : Singleton<InputManager>
         // rotations interface: 
         // Right hand: 
         // rh_FFJ3 [0..800]
-        // rh_FFJ2 [0..800]
         // rh_MFJ3 [0..800]
-        // rh_MFJ2 [0..800]
         // rh_RFJ3 [0..800]
-        // rh_RFJ2 [0..800]
-        // rh_LFJ3 [0..800]
-        // rh_LFJ2 [0..800]
         // rh_THJ4 [0..800]
         //
         // Left hand:
         // lh_FFJ3 [0..800]
-        // lh_FFJ2 [0..800]
         // lh_MFJ3 [0..800]
-        // lh_MFJ2 [0..800]
         // lh_RFJ3 [0..800]
-        // lh_RFJ2 [0..800]
-        // lh_LFJ3 [0..800]
-        // lh_LFJ2 [0..800]
         // lh_THJ4 [0..800]
         public List<float> GetMotorPositions()
         {
-            List<float> currentLeft = new List<float>();
-            List<float> currentRight = new List<float>();
-            foreach (var segment in rightHand.Segments)
+            List<List<string>> jointSets = new List<List<string>>()
             {
-                if (segment.Joint == null) continue;
-                
+                new List<string>() {"rh_FFJ3", "rh_FFJ2"},
+                new List<string>() {"rh_MFJ3", "rh_MFJ2"},
+                new List<string>() {"rh_RFJ3", "rh_RFJ2"},
+                new List<string>() {"rh_THJ4"},
+                new List<string>() {"lh_FFJ3", "lh_FFJ2"},
+                new List<string>() {"lh_MFJ3", "lh_MFJ2"},
+                new List<string>() {"lh_RFJ3", "lh_RFJ2"},
+                new List<string>() {"lh_THJ4"},
+
+            };
+
+            Dictionary<string, double> currentAngles = new Dictionary<string, double>();
+            foreach (var hand in new List<BioIK.BioIK>() { rightHand, leftHand })
+            {
+                foreach (var segment in hand.Segments)
+                {
+                    if (segment.Joint == null) continue;
+                    currentAngles[segment.name] = segment.Joint.X.CurrentValue;
+                }
             }
 
-            return currentRight + currentLeft;
+            List<float> motorPos = new List<float>();
+            foreach (var joints in jointSets)
+            {
+                List<double> min = new List<double>();
+                List<double> max = new List<double>();
+                List<double> current = new List<double>();
+                foreach (var name in joints)
+                {
+                    min.Add(minAngles[name]);
+                    max.Add(maxAngles[name]);
+                    current.Add(currentAngles[name]);
+                }
+
+                double range = L2Distance(min, max);
+                double dist = L2Distance(min, current);
+                motorPos.Add((int)(maxMotorStep * dist / range));
+            }
+            return motorPos;
         }
 
 

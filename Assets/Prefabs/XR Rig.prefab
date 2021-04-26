@@ -215,6 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61867a8db159d4744a90374d94abbe8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handController:
+    leftHand: {fileID: 0}
+    rightHand: {fileID: 0}
   vrGestureRecognizer: {fileID: 0}
 --- !u!1 &6021411799948961774
 GameObject:
