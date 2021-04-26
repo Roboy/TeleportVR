@@ -320,6 +320,7 @@ public class InputManager : Singleton<InputManager>
         public BioIK.BioIK leftHand;
         public int minMotorStep = 0;
         public int maxMotorStep = 800;
+        //public AnimationCurve jointSpaceMap = new AnimationCurve(new Keyframe(0f, 0f, -1f, -1f), new Keyframe(1f, 1f, 1f, 1f));
 
         private Dictionary<string, double> minAngles = new Dictionary<string, double>();
         private Dictionary<string, double> maxAngles = new Dictionary<string, double>();
@@ -340,15 +341,15 @@ public class InputManager : Singleton<InputManager>
         }
 
         // Right hand: 
-        // rh_FF [0..800]
-        // rh_MF [0..800]
-        // rh_RF [0..800]
-        // rh_TH [0..800]
+        // rh_FF [0,1] 
+        // rh_MF [0,1]
+        // rh_RF [0,1]
+        // rh_TH [0,1]
         // Left hand:
-        // lh_FF [0..800]
-        // lh_MF [0..800]
-        // lh_RF [0..800]
-        // lh_TH [0..800]
+        // lh_FF [0,1]
+        // lh_MF [0,1]
+        // lh_RF [0,1]
+        // lh_TH [0,1]
         public List<float> GetMotorPositions()
         {
             List<List<string>> jointSets = new List<List<string>>()
@@ -389,7 +390,7 @@ public class InputManager : Singleton<InputManager>
 
                 double range = L2Distance(min, max);
                 double dist = L2Distance(min, current);
-                motorPos.Add((int)(minMotorStep + (maxMotorStep - minMotorStep) * dist / range));
+                motorPos.Add((float)(dist / range));
             }
             return motorPos;
         }

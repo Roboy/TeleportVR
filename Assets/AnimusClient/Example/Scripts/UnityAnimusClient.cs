@@ -679,15 +679,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             {
                 motorAngles.Add(step);
             }
-            // left hand, right hand
-            //float left_open = 0, right_open = 0;
-            //if (InputManager.Instance.GetLeftController())
-            //    InputManager.Instance.controllerLeft[0]
-            //        .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out left_open);
-
-            //if (InputManager.Instance.GetRightController())
-            //    InputManager.Instance.controllerRight[0]
-            //        .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out right_open);
 
             // wheelchair
             Vector2 axis2D;
