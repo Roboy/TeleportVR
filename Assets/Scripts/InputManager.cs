@@ -339,18 +339,16 @@ public class InputManager : Singleton<InputManager>
 
         }
 
-        // rotations interface: 
         // Right hand: 
-        // rh_FFJ3 [0..800]
-        // rh_MFJ3 [0..800]
-        // rh_RFJ3 [0..800]
-        // rh_THJ4 [0..800]
-        //
+        // rh_FF [0..800]
+        // rh_MF [0..800]
+        // rh_RF [0..800]
+        // rh_TH [0..800]
         // Left hand:
-        // lh_FFJ3 [0..800]
-        // lh_MFJ3 [0..800]
-        // lh_RFJ3 [0..800]
-        // lh_THJ4 [0..800]
+        // lh_FF [0..800]
+        // lh_MF [0..800]
+        // lh_RF [0..800]
+        // lh_TH [0..800]
         public List<float> GetMotorPositions()
         {
             List<List<string>> jointSets = new List<List<string>>()
@@ -393,10 +391,6 @@ public class InputManager : Singleton<InputManager>
                 double dist = L2Distance(min, current);
                 motorPos.Add((int)(minMotorStep + (maxMotorStep - minMotorStep) * dist / range));
             }
-            Debug.Log("motorPos = " + string.Join(", ",
-                motorPos
-                .ConvertAll(i => i.ToString())
-                .ToArray()));
             return motorPos;
         }
 
