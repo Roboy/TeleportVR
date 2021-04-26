@@ -392,6 +392,7 @@ public class InputManager : Singleton<InputManager>
                 double dist = L2Distance(min, current);
                 motorPos.Add((float)(dist / range));
             }
+            Debug.Log($"motor_set() motoAngles = [{ string.Join(", ", motorPos.ConvertAll(x => x.ToString()).ToArray())}]");
             return motorPos;
         }
 

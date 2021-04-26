@@ -695,6 +695,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 motorAngles.Add(0);
             }
 
+            //Debug.Log($"motor_set() motoAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
+
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
             motorSample.Data = motorMsg;
