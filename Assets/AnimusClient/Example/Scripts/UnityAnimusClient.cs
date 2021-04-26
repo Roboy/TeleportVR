@@ -674,6 +674,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 }
             }
 
+            // right_hand, left_hand
+            foreach (var step in InputManager.Instance.handController.GetMotorPositions())
+            {
+                motorAngles.Add(step);
+            }
             // left hand, right hand
             //float left_open = 0, right_open = 0;
             //if (InputManager.Instance.GetLeftController())
@@ -683,14 +688,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             //if (InputManager.Instance.GetRightController())
             //    InputManager.Instance.controllerRight[0]
             //        .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out right_open);
-
-            //motorAngles.Add(left_open);
-            //motorAngles.Add(right_open);
-            // TODO: Enocde hand angles
-            foreach (var segment in _myLeftHand.Segments)
-            {
-                if (segment.Joint == null) continue;
-            }
 
             // wheelchair
             Vector2 axis2D;

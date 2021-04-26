@@ -12735,7 +12735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foreArmTransform: {fileID: 4148966159883927}
-  wristTransform: {fileID: 1340356127}
+  wristTransform: {fileID: 4148966159883927}
   thumbJoints:
   - {fileID: 1190597983}
   - {fileID: 1354218119}
@@ -16442,7 +16442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb44316cfcf18346b9dacf2ba9fe1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DLL_debugLevel: 7
+  DLL_debugLevel: 1
   unityEnabled: 1
 --- !u!114 &1924193644 stripped
 MonoBehaviour:
@@ -16841,6 +16841,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
+        type: 3}
       propertyPath: robotName
       value: Roboy2Xavier
       objectReference: {fileID: 0}
@@ -16908,7 +16913,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1944402364}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6f22a5669377b559b7a27c87025aa96, type: 3}
   m_Name: 
@@ -22577,7 +22582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114011009080188208
 MonoBehaviour:
@@ -22592,7 +22597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114020355392787564
 MonoBehaviour:
@@ -22611,33 +22616,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114026411524297693
 MonoBehaviour:
@@ -22652,7 +22657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114027558875134451
 MonoBehaviour:
@@ -22667,7 +22672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114089300711360898
 MonoBehaviour:
@@ -22682,13 +22687,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hardware: {fileID: 114984307621373810}
-  grabReference: {fileID: 1935547969077054}
-  grabAnchor: {fileID: 54530531361427844}
+  grabReference: {fileID: 0}
+  grabAnchor: {fileID: 0}
   handModel: {fileID: 114664666210364938}
-  palmTouch: {fileID: 114666409905758978}
-  thumbTouch: {fileID: 114566854789428634}
-  indexTouch: {fileID: 114682802162636892}
-  middleTouch: {fileID: 114371201891813930}
+  palmTouch: {fileID: 0}
+  thumbTouch: {fileID: 0}
+  indexTouch: {fileID: 0}
+  middleTouch: {fileID: 0}
 --- !u!114 &114208693959336394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22706,33 +22711,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114212269231115946
 MonoBehaviour:
@@ -22747,7 +22752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114245982728482899
 MonoBehaviour:
@@ -22762,7 +22767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114251863152029992
 MonoBehaviour:
@@ -22777,7 +22782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114262185256246272
 MonoBehaviour:
@@ -22796,33 +22801,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114273913757141328
 MonoBehaviour:
@@ -22837,7 +22842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114301510852341298
 MonoBehaviour:
@@ -22852,7 +22857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114318581717989523
 MonoBehaviour:
@@ -22867,7 +22872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114332817625743211
 MonoBehaviour:
@@ -22886,33 +22891,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114333455996399011
 MonoBehaviour:
@@ -22927,13 +22932,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hardware: {fileID: 114700155604916893}
-  grabReference: {fileID: 1142141582219729}
-  grabAnchor: {fileID: 54060740366407949}
+  grabReference: {fileID: 0}
+  grabAnchor: {fileID: 0}
   handModel: {fileID: 1340356128}
-  palmTouch: {fileID: 114822690284786995}
-  thumbTouch: {fileID: 114673847920822023}
-  indexTouch: {fileID: 114518090172234145}
-  middleTouch: {fileID: 114456275158818897}
+  palmTouch: {fileID: 0}
+  thumbTouch: {fileID: 0}
+  indexTouch: {fileID: 0}
+  middleTouch: {fileID: 0}
 --- !u!114 &114353572674825346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22947,13 +22952,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handModel: {fileID: 114664666210364938}
-  wristObj: {fileID: 114614568275309736}
-  fingerObjs:
-  - {fileID: 114379634909658650}
-  - {fileID: 114853421569209484}
-  - {fileID: 114749560438430594}
-  - {fileID: 114212269231115946}
-  - {fileID: 114011009080188208}
+  wristObj: {fileID: 0}
+  fingerObjs: []
 --- !u!114 &114371201891813930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22967,7 +22967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114379634909658650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22981,7 +22981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114411397060148945
 MonoBehaviour:
@@ -23000,33 +23000,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114415659857108546
 MonoBehaviour:
@@ -23041,7 +23041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114431664394858943
 MonoBehaviour:
@@ -23056,7 +23056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114436442625976329
 MonoBehaviour:
@@ -23075,33 +23075,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114456275158818897
 MonoBehaviour:
@@ -23116,7 +23116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114457488828704333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23132,7 +23132,7 @@ MonoBehaviour:
   senseGlove: {fileID: 114700155604916893}
   updateWrist: 0
   foreArmTransfrom: {fileID: 4148966159883927}
-  wristTransfrom: {fileID: 1340356127}
+  wristTransfrom: {fileID: 4148966159883927}
   handModelInfo: {fileID: 1340356128}
 --- !u!114 &114473962284883618
 MonoBehaviour:
@@ -23147,13 +23147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handModel: {fileID: 114664666210364938}
-  wristObj: {fileID: 114541990947252752}
-  fingerObjs:
-  - {fileID: 114273913757141328}
-  - {fileID: 114415659857108546}
-  - {fileID: 114251863152029992}
-  - {fileID: 114301510852341298}
-  - {fileID: 114952482764155532}
+  wristObj: {fileID: 0}
+  fingerObjs: []
 --- !u!114 &114491087052725128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23172,32 +23167,32 @@ MonoBehaviour:
   handLocation: 6
   impactFeedbackEnabled: 1
   impactCooldown: 0.5
-  minImpactSpeed: 2
-  maxImpactSpeed: 4
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
 --- !u!114 &114498778095420807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23211,7 +23206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114518090172234145
 MonoBehaviour:
@@ -23226,7 +23221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114520883590110031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23240,7 +23235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114535024421998249
 MonoBehaviour:
@@ -23255,7 +23250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114539831484592383
 MonoBehaviour:
@@ -23270,13 +23265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handModel: {fileID: 1340356128}
-  wristObj: {fileID: 114026411524297693}
-  fingerObjs:
-  - {fileID: 114520883590110031}
-  - {fileID: 114535024421998249}
-  - {fileID: 114936019404826141}
-  - {fileID: 114009993559435717}
-  - {fileID: 114245982728482899}
+  wristObj: {fileID: 0}
+  fingerObjs: []
 --- !u!114 &114541990947252752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23290,7 +23280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114566854789428634
 MonoBehaviour:
@@ -23305,7 +23295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114570233417970699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23320,7 +23310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hardware: {fileID: 114700155604916893}
   trackedObject: {fileID: 0}
-  trackingHardware: 0
+  trackingHardware: 1
   trackingMethod: 0
   handModel: {fileID: 1340356128}
   handAnimation: {fileID: 114457488828704333}
@@ -23343,7 +23333,7 @@ MonoBehaviour:
   senseGlove: {fileID: 114984307621373810}
   updateWrist: 0
   foreArmTransfrom: {fileID: 4048154453501420}
-  wristTransfrom: {fileID: 4399208337831974}
+  wristTransfrom: {fileID: 4048154453501420}
   handModelInfo: {fileID: 114664666210364938}
 --- !u!114 &114614568275309736
 MonoBehaviour:
@@ -23358,7 +23348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114624150102786805
 MonoBehaviour:
@@ -23373,7 +23363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114631787507750779
 MonoBehaviour:
@@ -23388,13 +23378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handModel: {fileID: 1340356128}
-  wristObj: {fileID: 114027558875134451}
-  fingerObjs:
-  - {fileID: 114431664394858943}
-  - {fileID: 114498778095420807}
-  - {fileID: 114318581717989523}
-  - {fileID: 114771513724593289}
-  - {fileID: 114624150102786805}
+  wristObj: {fileID: 0}
+  fingerObjs: []
 --- !u!114 &114663271535926434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23412,33 +23397,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114664666210364938
 MonoBehaviour:
@@ -23453,7 +23438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foreArmTransform: {fileID: 4048154453501420}
-  wristTransform: {fileID: 4399208337831974}
+  wristTransform: {fileID: 4048154453501420}
   thumbJoints:
   - {fileID: 1905366619}
   - {fileID: 825784482}
@@ -23492,7 +23477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114673847920822023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23506,7 +23491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114682802162636892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23520,7 +23505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114683564034018673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23538,33 +23523,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114700155604916893
 MonoBehaviour:
@@ -23626,32 +23611,32 @@ MonoBehaviour:
   handLocation: 6
   impactFeedbackEnabled: 1
   impactCooldown: 0.5
-  minImpactSpeed: 2
-  maxImpactSpeed: 4
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
 --- !u!114 &114749560438430594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23665,7 +23650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114771513724593289
 MonoBehaviour:
@@ -23680,7 +23665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114822690284786995
 MonoBehaviour:
@@ -23695,7 +23680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 2
+  updateTime: 0
 --- !u!114 &114853421569209484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23709,7 +23694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114869714302398469
 MonoBehaviour:
@@ -23728,33 +23713,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114871340710318678
 MonoBehaviour:
@@ -23770,13 +23755,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectedGlove: {fileID: 114984307621373810}
   handModel: {fileID: 114664666210364938}
-  wristFeedbackScript: {fileID: 114491087052725128}
-  fingerFeedbackScripts:
-  - {fileID: 114020355392787564}
-  - {fileID: 114208693959336394}
-  - {fileID: 114663271535926434}
-  - {fileID: 114262185256246272}
-  - {fileID: 114947580476157074}
+  wristFeedbackScript: {fileID: 0}
+  fingerFeedbackScripts: []
 --- !u!114 &114890762435446797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23803,7 +23783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7fdcf64c3b1954d995c1126ad9a5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackingTarget: {fileID: 4399208337831974}
+  trackingTarget: {fileID: 0}
   updateTime: 0
 --- !u!114 &114936019404826141
 MonoBehaviour:
@@ -23818,7 +23798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114947580476157074
 MonoBehaviour:
@@ -23837,33 +23817,33 @@ MonoBehaviour:
   linkedGlove: {fileID: 0}
   handLocation: 6
   impactFeedbackEnabled: 1
-  impactCooldown: 0.3
-  minImpactSpeed: 0.1
-  maxImpactSpeed: 1
+  impactCooldown: 0.5
+  minImpactSpeed: 0.01
+  maxImpactSpeed: 0.1
   impactProfile:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
+      inSlope: 0
       outSlope: 1
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 1
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   debugDirections: 0
 --- !u!114 &114952482764155532
 MonoBehaviour:
@@ -23878,7 +23858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackingTarget: {fileID: 0}
-  updateTime: 1
+  updateTime: 0
   physicsBody: {fileID: 0}
 --- !u!114 &114984307621373810
 MonoBehaviour:
@@ -23914,13 +23894,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectedGlove: {fileID: 114700155604916893}
   handModel: {fileID: 1340356128}
-  wristFeedbackScript: {fileID: 114737020513005921}
-  fingerFeedbackScripts:
-  - {fileID: 114436442625976329}
-  - {fileID: 114869714302398469}
-  - {fileID: 114411397060148945}
-  - {fileID: 114683564034018673}
-  - {fileID: 114332817625743211}
+  wristFeedbackScript: {fileID: 0}
+  fingerFeedbackScripts: []
 --- !u!135 &135044563075360408
 SphereCollider:
   m_ObjectHideFlags: 0

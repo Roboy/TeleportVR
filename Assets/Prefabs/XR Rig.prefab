@@ -216,8 +216,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handController:
-    leftHand: {fileID: 0}
     rightHand: {fileID: 0}
+    leftHand: {fileID: 0}
+    minMotorStep: 0
+    maxMotorStep: 800
   vrGestureRecognizer: {fileID: 0}
 --- !u!1 &6021411799948961774
 GameObject:

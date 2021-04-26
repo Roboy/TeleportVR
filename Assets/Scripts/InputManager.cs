@@ -318,8 +318,8 @@ public class InputManager : Singleton<InputManager>
     {
         public BioIK.BioIK rightHand;
         public BioIK.BioIK leftHand;
-
-        public const int maxMotorStep = 800;
+        public int minMotorStep = 0;
+        public int maxMotorStep = 800;
 
         private Dictionary<string, double> minAngles = new Dictionary<string, double>();
         private Dictionary<string, double> maxAngles = new Dictionary<string, double>();
@@ -338,21 +338,6 @@ public class InputManager : Singleton<InputManager>
             }
 
         }
-
-        private double L2Distance(List<double> a, List<double> b)
-        {
-            if (a.Count != b.Count)
-            {
-                return double.NegativeInfinity;
-            }
-            double dist = 0;
-            for (int i = 0; i < a.Count; i++)
-            {
-                dist += (a[i] - b[i]) * (a[i] - b[i]);
-            }
-            return dist / a.Count;
-        }
-
 
         // rotations interface: 
         // Right hand: 
@@ -406,9 +391,27 @@ public class InputManager : Singleton<InputManager>
 
                 double range = L2Distance(min, max);
                 double dist = L2Distance(min, current);
-                motorPos.Add((int)(maxMotorStep * dist / range));
+                motorPos.Add((int)(minMotorStep + (maxMotorStep - minMotorStep) * dist / range));
             }
+            Debug.Log("motorPos = " + string.Join(", ",
+                motorPos
+                .ConvertAll(i => i.ToString())
+                .ToArray()));
             return motorPos;
+        }
+
+        private double L2Distance(List<double> a, List<double> b)
+        {
+            if (a.Count != b.Count)
+            {
+                return double.NegativeInfinity;
+            }
+            double dist = 0;
+            for (int i = 0; i < a.Count; i++)
+            {
+                dist += (a[i] - b[i]) * (a[i] - b[i]);
+            }
+            return dist / a.Count;
         }
 
 
