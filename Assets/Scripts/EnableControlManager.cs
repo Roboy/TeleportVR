@@ -59,14 +59,14 @@ public class EnableControlManager : MonoBehaviour
         {
             foreach (var segment in hand_body.Segments)
             {
-                
+
                 if (segment.Joint != null)
                 {
                     //if (segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J1"))
                     //{
 
                     //}
-                    if((segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J5") ) || // && !segment.Joint.name.Contains("J2")) ||
+                    if ((segment.Joint.name.Contains("TH") && !segment.Joint.name.Contains("J5")) || // && !segment.Joint.name.Contains("J2")) ||
                         (segment.Joint.name.Contains("LF") && !segment.Joint.name.Contains("J5")) ||// && !segment.Joint.name.Contains("J4")) ||
                         (!segment.Joint.name.Contains("J4")))
                     {
@@ -74,9 +74,9 @@ public class EnableControlManager : MonoBehaviour
 
                         segment.Joint.X.SetTargetValue(value * range - segment.Joint.X.LowerLimit);
                     }
-                    
+
                 }
-                    
+
 
             }
         }
@@ -97,11 +97,11 @@ public class EnableControlManager : MonoBehaviour
         }
     }
 
-   
 
 
-        // Update is called once per frame
-        void Update()
+
+    // Update is called once per frame
+    void Update()
     {
         if (controllers.Count < 2)
         {
@@ -118,26 +118,30 @@ public class EnableControlManager : MonoBehaviour
         }
         //controllers[0].SetController(InputManager.Instance.controllerLeft[0]);
         //controllers[1].SetController(InputManager.Instance.controllerRight[0]);
-        
-        for (int i=0;i<controllers.Count;i++)
+
+        for (int i = 0; i < controllers.Count; i++)
         {
             var device = controllers[i];
             var _enabled = 0.0f;
             var trigger = false;
-            if (device.controller.isValid) {
+            if (device.controller.isValid)
+            {
                 device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out _enabled);
                 device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out trigger);
             }
-            
+
             // Show that the arm is active in the state manager
             WidgetInteraction.SetBodyPartActive(53 - i, _enabled > 0.9f);
 
             // Show that the fingers are active in the state manager
             WidgetInteraction.SetBodyPartActive(55 - i, trigger);
-            
+
+#if SENSEGLOVE
+            device.SetEnabled(true);
+#else
             device.SetEnabled(_enabled>0.9f);
             device.UpdateFingers(System.Convert.ToDouble(trigger));
-
+#endif
         }
     }
 
