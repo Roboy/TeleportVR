@@ -7,18 +7,18 @@ using UnityEngine;
 /// </summary>
 public class PointerSenseGlove : Pointer
 {
-#if SENSEGLOVE
-    private SenseGlove_Teleport teleport;
-#endif
+//#if SENSEGLOVE
+//    private SenseGlove_Teleport teleport;
+//#endif
 
     /// <summary>
     /// Send the ray the sense glove is pointing at.
     /// </summary>
     public override void GetPointerPosition()
     {
-#if SENSEGLOVE
-        PushPointerPosition(teleport.pointerOriginZ.position, teleport.pointerOriginZ.rotation.eulerAngles);
-#endif
+//#if SENSEGLOVE
+//        PushPointerPosition(teleport.pointerOriginZ.position, teleport.pointerOriginZ.rotation.eulerAngles);
+//#endif
     }
 
     /// <summary>
@@ -26,13 +26,13 @@ public class PointerSenseGlove : Pointer
     /// </summary>
     public override void SubclassStart()
     {
-#if SENSEGLOVE
-        Object[] objects = Resources.FindObjectsOfTypeAll(typeof(SenseGlove_Teleport));
-        if (objects.Length > 0)
-        {
-            teleport = (SenseGlove_Teleport) objects[0];
-        }
-#endif
+//#if SENSEGLOVE
+//        Object[] objects = Resources.FindObjectsOfTypeAll(typeof(SenseGlove_Teleport));
+//        if (objects.Length > 0)
+//        {
+//            teleport = (SenseGlove_Teleport) objects[0];
+//        }
+//#endif
     }
 
     /// <summary>

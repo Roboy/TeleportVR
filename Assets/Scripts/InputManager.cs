@@ -8,7 +8,7 @@ public class InputManager : Singleton<InputManager>
 {
     public List<UnityEngine.XR.InputDevice> controllerLeft = new List<UnityEngine.XR.InputDevice>();
     public List<UnityEngine.XR.InputDevice> controllerRight = new List<UnityEngine.XR.InputDevice>();
-    public HandController handController;
+    public HandManager handManager;
 
     [SerializeField] VRGestureRecognizer vrGestureRecognizer;
 
@@ -19,7 +19,6 @@ public class InputManager : Singleton<InputManager>
 
     void Start()
     {
-        handController.Init();
         GetLeftController();
         GetRightController();
 
@@ -120,7 +119,6 @@ public class InputManager : Singleton<InputManager>
     /// </summary>
     void Update()
     {
-        handController.GetMotorPositions();
         if (StateManager.Instance.currentState == StateManager.States.HUD)
             UnityAnimusClient.Instance.EnableMotor(true);
         else
@@ -313,104 +311,5 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    [System.Serializable]
-    public class HandController
-    {
-        public BioIK.BioIK rightHand;
-        public BioIK.BioIK leftHand;
-        public int minMotorStep = 0;
-        public int maxMotorStep = 800;
-        //public AnimationCurve jointSpaceMap = new AnimationCurve(new Keyframe(0f, 0f, -1f, -1f), new Keyframe(1f, 1f, 1f, 1f));
-
-        private Dictionary<string, double> minAngles = new Dictionary<string, double>();
-        private Dictionary<string, double> maxAngles = new Dictionary<string, double>();
-
-        public void Init()
-        {
-            List<BioIK.BioIK> hands = new List<BioIK.BioIK>() { leftHand, rightHand };
-            foreach (var hand in hands)
-            {
-                foreach (var segment in hand.Segments)
-                {
-                    if (segment.Joint == null) continue;
-                    minAngles[segment.name] = segment.Joint.X.LowerLimit;
-                    maxAngles[segment.name] = segment.Joint.X.UpperLimit;
-                }
-            }
-
-        }
-
-        // Right hand: 
-        // rh_FF [0,1] 
-        // rh_MF [0,1]
-        // rh_RF [0,1]
-        // rh_TH [0,1]
-        // Left hand:
-        // lh_FF [0,1]
-        // lh_MF [0,1]
-        // lh_RF [0,1]
-        // lh_TH [0,1]
-        public List<float> GetMotorPositions()
-        {
-            List<List<string>> jointSets = new List<List<string>>()
-            {
-                new List<string>() {"rh_FFJ3", "rh_FFJ2"},
-                new List<string>() {"rh_MFJ3", "rh_MFJ2"},
-                new List<string>() {"rh_RFJ3", "rh_RFJ2"},
-                new List<string>() {"rh_THJ4"},
-                new List<string>() {"lh_FFJ3", "lh_FFJ2"},
-                new List<string>() {"lh_MFJ3", "lh_MFJ2"},
-                new List<string>() {"lh_RFJ3", "lh_RFJ2"},
-                new List<string>() {"lh_THJ4"},
-
-            };
-
-            Dictionary<string, double> currentAngles = new Dictionary<string, double>();
-            foreach (var hand in new List<BioIK.BioIK>() { rightHand, leftHand })
-            {
-                foreach (var segment in hand.Segments)
-                {
-                    if (segment.Joint == null) continue;
-                    currentAngles[segment.name] = segment.Joint.X.CurrentValue;
-                }
-            }
-
-            List<float> motorPos = new List<float>();
-            foreach (var joints in jointSets)
-            {
-                List<double> min = new List<double>();
-                List<double> max = new List<double>();
-                List<double> current = new List<double>();
-                foreach (var name in joints)
-                {
-                    min.Add(minAngles[name]);
-                    max.Add(maxAngles[name]);
-                    current.Add(currentAngles[name]);
-                }
-
-                double range = L2Distance(min, max);
-                double dist = L2Distance(min, current);
-                motorPos.Add((float)(dist / range));
-            }
-            Debug.Log($"motor_set() motoAngles = [{ string.Join(", ", motorPos.ConvertAll(x => x.ToString()).ToArray())}]");
-            return motorPos;
-        }
-
-        private double L2Distance(List<double> a, List<double> b)
-        {
-            if (a.Count != b.Count)
-            {
-                return double.NegativeInfinity;
-            }
-            double dist = 0;
-            for (int i = 0; i < a.Count; i++)
-            {
-                dist += (a[i] - b[i]) * (a[i] - b[i]);
-            }
-            return dist / a.Count;
-        }
-
-
-    }
 }
 
