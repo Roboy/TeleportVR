@@ -84,8 +84,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     // public NaoAnimusDriver robotDriver;
     public BioIK.BioIK _myIKBody;
     public BioIK.BioIK _myIKHead;
-    public BioIK.BioIK _myLeftHand;
-    public BioIK.BioIK _myRightHand;
     private List<BioSegment> _actuatedJoints;
     private bool motorEnabled;
     private float _lastUpdate;
