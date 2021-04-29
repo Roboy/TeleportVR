@@ -8,35 +8,42 @@ namespace RoboyFK
     {
         public Transform controller;
         public BioIK.BioJoint joint;
+        public bool isRight = true;
+
 
         private Quaternion initialRotation;
-        private float initialTarget;
 
         // Start is called before the first frame update
         void Start()
         {
             initialRotation = transform.localRotation;
-            initialTarget = (float)joint.X.GetTargetValue();
         }
 
         // Update is called once per frame
         void Update()
         {
 
-            Quaternion rotation = Quaternion.LookRotation(controller.position - transform.position, -controller.forward);
-            // offset rotation by 90° in x
-            Quaternion localRotation = Quaternion.Inverse(transform.parent.rotation) * rotation;
-            localRotation *= Quaternion.Euler(90f, 0f, 0f);
+            Vector3 projectionNormal = joint.X.Axis;
+            projectionNormal = transform.rotation * projectionNormal;
 
-            float angle = Quaternion.Angle(localRotation, initialRotation);
+            Plane projectionPlane = new Plane(projectionNormal, transform.position);
+            Vector3 dir = controller.position - transform.position;
+            Vector3 rayDir = Vector3.Dot(dir, projectionNormal) > 0 ? -projectionNormal : projectionNormal;
+            Ray intersectionRay = new Ray(controller.position, rayDir);
+            float dist;
+            if (projectionPlane.Raycast(intersectionRay, out dist))
+            {
+                Vector3 projected = controller.position + rayDir * dist;
+                Debug.DrawRay(projected, projected - transform.position, Color.yellow);
+                Quaternion rotation = Quaternion.LookRotation(projected - transform.position,
+                    isRight ? projectionNormal : -projectionNormal);
+                Quaternion localRotation = Quaternion.Inverse(transform.parent.rotation) * rotation;
 
-            Quaternion component = Util.ComponentQuaternion(localRotation, RotationAxis.Z);
-            float componentAngle = Quaternion.Angle(component, initialRotation);
-
-            // Debug.Log($"Quaternion angle: {angle}, Component angle: {componentAngle}");
-            joint.X.TargetValue = Mathf.Min(
-                Mathf.Max((float)joint.X.LowerLimit, componentAngle),
-                (float)joint.X.UpperLimit);
+                // offset rotation by 90° in x
+                localRotation *= Quaternion.Euler(90f, 0, 0);
+                float angle = Quaternion.Angle(localRotation, initialRotation);
+                joint.X.TargetValue = Mathf.Min(Mathf.Max((float)joint.X.LowerLimit, angle), (float)joint.X.UpperLimit);
+            }
         }
     }
 
