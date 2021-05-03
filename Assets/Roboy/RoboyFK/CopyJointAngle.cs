@@ -6,7 +6,6 @@ namespace RoboyFK
 {
     public class CopyJointAngle : MonoBehaviour
     {
-
         public BioIK.BioJoint from;
         public BioIK.BioJoint to;
         public RotationAxis axis;
@@ -38,6 +37,7 @@ namespace RoboyFK
         // Update is called once per frame
         void Update()
         {
+            // copies the target value from the given from Axis to the target Axis
             toMotion.TargetValue = fromMotion.TargetValue;
         }
     }

@@ -6,9 +6,9 @@ public class OrientationOffset : MonoBehaviour
 {
 
     public bool trackOrientation = true;
-    // Controller GameObject to take orientation from
+    [Tooltip("Controller GameObject to take orientation from")]
     public Transform controller;
-    // Objective Script controlling the hand orienation
+    [Tooltip("Objective Script controlling the hand orienation")]
     public BioIK.Orientation orientationObjective;
 
     public bool senseGlove = false;
@@ -22,7 +22,7 @@ public class OrientationOffset : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Quaternion senseGloveOffset= Quaternion.Euler(-200f, 0f, 180);
+        Quaternion senseGloveOffset = Quaternion.Euler(-200f, 0f, 180);
         Quaternion questOffset = Quaternion.Euler(-189.118f, -8.403992f, 15.2381f);
         offset = senseGlove ? senseGloveOffset : questOffset;
     }

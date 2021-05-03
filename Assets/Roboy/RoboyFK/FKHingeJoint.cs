@@ -7,11 +7,16 @@ namespace RoboyFK
 {
     public class FKHingeJoint : MonoBehaviour
     {
-
+        [Tooltip("Controlling rotation")]
         public Transform controller;
+        [Tooltip("Joint to write the output angle to")]
         public BioIK.BioJoint joint;
+        [Tooltip("If the output angle should be computed by the direct angle between the controller's rotation and this objects rotation, " +
+            "or if the axis-wise angle computation should be used")]
         public bool approximative = false;
+        [Tooltip("Rotation axis to track from the controller")]
         public RotationAxis axis = RotationAxis.Z;
+        [Tooltip("If the output angle should be inverted")]
         public bool invert = false;
 
         private Quaternion initialRotation;
