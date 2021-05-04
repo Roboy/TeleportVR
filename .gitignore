@@ -18,6 +18,7 @@ Assets/Plugins/Editor/JetBrains*
 /[Mm]emoryCaptures/
 #exclude all ProjectSettings
 /[Pp]rojectSettings/
+/[Uu]ser[Ss]ettings/*
 
 # exclude SenseGlove SDK
 /Assets/SenseGlove/
