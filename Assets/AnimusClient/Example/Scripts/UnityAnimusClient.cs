@@ -672,14 +672,13 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 }
             }
 
+            // right, left
 #if SENSEGLOVE
-            // right_hand, left_hand
             foreach (var step in InputManager.Instance.handManager.GetMotorPositions())
             {
                 motorAngles.Add(step);
             }
 #else
-            // left hand, right hand
             float left_open = 0, right_open = 0;
             if (InputManager.Instance.GetLeftController())
                 InputManager.Instance.controllerLeft[0]
@@ -689,7 +688,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 InputManager.Instance.controllerRight[0]
                     .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out right_open);
 
-            // 4 values for left and right hand
+
+            // 4 values for right and left
             for (int i = 0; i < 4; i++)
             {
                 motorAngles.Add(right_open);
