@@ -8001,6 +8001,7 @@ MonoBehaviour:
   controller: {fileID: 826328336}
   joint: {fileID: 876138000}
   isRight: 1
+  axis: 0
 --- !u!114 &876138000 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8980600751743541943, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -9934,6 +9935,7 @@ MonoBehaviour:
   controller: {fileID: 1826122376}
   joint: {fileID: 1112217495}
   isRight: 0
+  axis: 0
 --- !u!114 &1112217495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8980600751000368822, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -16537,7 +16539,7 @@ PrefabInstance:
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
@@ -16608,7 +16610,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1944402364}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6f22a5669377b559b7a27c87025aa96, type: 3}
   m_Name: 
