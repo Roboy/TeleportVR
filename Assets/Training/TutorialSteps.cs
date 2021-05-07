@@ -68,7 +68,7 @@ namespace Training
         {
             var timeLeft = 0.0;
             //queue = false;
-            if (isAudioPlaying() && queue)
+            if (IsAudioPlaying() && queue)
             {
                 timeLeft = prevDuration - (AudioSettings.dspTime - prevStart);
                 if (timeLeft > 0) delay = timeLeft;
@@ -220,7 +220,7 @@ namespace Training
 
         }
 
-        bool isAudioPlaying()
+        bool IsAudioPlaying()
         {
             bool playing = false;
             foreach (var source in audioSourceArray)
@@ -233,15 +233,15 @@ namespace Training
 
         void Update()
         {
-            if (startTraining && !isAudioPlaying())
+            if (startTraining && !IsAudioPlaying() && currentStep == TrainingStep.IDLE)
             {
                 currentStep = TrainingStep.IDLE;
-                Debug.Log("moved to the next step");
+                Debug.Log("Started Training");
                 NextStep();
                 startTraining = false;
                 //trainingStarted = true;
             }
-            if (currentStep == TrainingStep.DONE && !isAudioPlaying())
+            if (currentStep == TrainingStep.DONE && !IsAudioPlaying())
                 StateManager.Instance.GoToState(StateManager.States.HUD);
             //if (currentStep == TrainingStep.HEAD && !isAudioPlaying())
             //    waitingForNod = true;

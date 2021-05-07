@@ -122,7 +122,7 @@ namespace Training.Calibration
             dwellTimer = new Timer();
             dwellTimer.SetTimer(dwellTime, DwellDone);
 
-            Debug.Log("Awaiting connection with SenseGlove... ");
+            Debug.Log($"Awaiting connection with {(isRight ? "right" : "left")} SenseGlove... ");
         }
 
         private void ShowInstruction()
@@ -130,33 +130,32 @@ namespace Training.Calibration
             Debug.Log($"Please move your hands in pose: {currentPose}");
             handAnimator.SetInteger("handState", (int)currentPose);
             currentStep = Step.Wait;
-
+            string right = isRight ? "right" : "left";
             switch (currentPose)
             {
                 case Pose.HandOpen:
-                    //TutorialSteps.Instance.ScheduleAudioClip()
-                    TutorialSteps.PublishNotification("Open your hand");
+                    TutorialSteps.PublishNotification($"Open {right} your hand");
                     break;
                 case Pose.HandClosed:
-                    TutorialSteps.PublishNotification("Close your hand");
+                    TutorialSteps.PublishNotification($"Make a fist with your {right} hand");
                     break;
                 case Pose.FingersExt:
-                    TutorialSteps.PublishNotification("Extend your fingers");
+                    TutorialSteps.PublishNotification($"Extend your {right} fingers");
                     break;
                 case Pose.FingersFlexed:
-                    TutorialSteps.PublishNotification("Flex your fingers");
+                    TutorialSteps.PublishNotification($"Flex your {right} fingers");
                     break;
                 case Pose.ThumbUp:
                     TutorialSteps.PublishNotification("Give me a thumbs up");
                     break;
                 case Pose.ThumbFlex:
-                    TutorialSteps.PublishNotification("Flex your thumb");
+                    TutorialSteps.PublishNotification($"Flex your {right} thumb");
                     break;
                 case Pose.AbdOut:
-                    TutorialSteps.PublishNotification("Abduct you thumb");
+                    TutorialSteps.PublishNotification($"Abduct {right} you thumb");
                     break;
                 case Pose.NoThumbAbd:
-                    TutorialSteps.PublishNotification("Move your thumb up");
+                    TutorialSteps.PublishNotification($"Move your {right} thumb up");
                     break;
             }
         }
@@ -205,6 +204,13 @@ namespace Training.Calibration
             calibrating = true;
         }
 
+        public void StopCalibration()
+        {
+            calibrating = false;
+            dwellTimer.ResetTimer();
+            waitTimer.ResetTimer();
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -220,20 +226,19 @@ namespace Training.Calibration
 
             if (calibrating)
             {
-                // 1. show instruction
-                // 2. wait
-                // 3. dwell
-                // 4. calibrate Step
 
                 switch (currentStep)
                 {
+                // 1. show instruction
                     case Step.ShowInstruction:
                         ShowInstruction();
                         break;
+                // 2. wait
                     case Step.Wait:
                         waitTimer.LetTimePass(Time.deltaTime);
                         poseStore.Clear();
                         break;
+                // 3. dwell
                     case Step.Dwell:
                         dwellTimer.LetTimePass(Time.deltaTime);
 
@@ -248,12 +253,14 @@ namespace Training.Calibration
                             dwellTimer.ResetTimer();
                         }
                         break;
+                // 4. calibrate Step
                     case Step.Done:
                         return;
                     default: break;
                 }
             }
         }
+
         //#endif
     }
 

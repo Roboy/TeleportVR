@@ -21,20 +21,26 @@ namespace Training.Calibration
             switch (TutorialSteps.Instance.currentStep)
             {
                 case TutorialSteps.TrainingStep.RIGHT_HAND:
-                    rightCalibrator.calibrating = true;
+                    rightCalibrator.StartCalibration();
                     if (rightCalibrator.currentStep == HandCalibrator.Step.Done)
                     {
                         TutorialSteps.Instance.NextStep();
-                        rightCalibrator.calibrating = false;
+                        rightCalibrator.StopCalibration();
                     }
                     break;
                 case TutorialSteps.TrainingStep.LEFT_HAND:
-                    leftCalibrator.calibrating = true;
+                    leftCalibrator.StartCalibration();
                     if (leftCalibrator.currentStep == HandCalibrator.Step.Done)
                     {
                         TutorialSteps.Instance.NextStep();
-                        rightCalibrator.calibrating = false;
+                        rightCalibrator.StopCalibration();
                     }
+                    break;
+
+                    // if not on left or right hand, stop calibration
+                default:
+                    rightCalibrator.StopCalibration();
+                    leftCalibrator.StopCalibration();
                     break;
             }
         }
