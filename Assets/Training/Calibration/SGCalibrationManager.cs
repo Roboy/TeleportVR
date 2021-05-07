@@ -32,6 +32,8 @@ public class SGCalibrationManager : MonoBehaviour
     }
 
     //#if SENSEGLOVE
+    public Animator rightHandAnimator;
+    public Animator leftHandAnimator;
 
     public Widgets.TextView textView;
     public float maxError;
@@ -39,6 +41,7 @@ public class SGCalibrationManager : MonoBehaviour
     public float dwellTime;
     [Tooltip("Time to wait before dwellig on each calibration (seconds)")]
     public float waitTime;
+
 
 
     protected SG_SenseGloveHardware rightHand;
@@ -131,6 +134,7 @@ public class SGCalibrationManager : MonoBehaviour
     private void ShowInstruction()
     {
         Debug.Log($"Please move your hands in pose: {currentPose}");
+        rightHandAnimator.SetInteger("rightHandState", (int)currentPose);
         currentStep = Step.Wait;
     }
 
@@ -141,14 +145,16 @@ public class SGCalibrationManager : MonoBehaviour
         Debug.Log("Waiting done");
     }
 
+    /// <summary>
+    /// When Dwell time is over, save the calibration pose
+    /// </summary>
     private void DwellDone()
     {
+        // make sure this is not called too often
         dwellTimer.ResetTimer();
 
         rightPoseStore.Clear();
         leftPoseStore.Clear();
-
-        // make sure this is not called too often
 
         Vector3[] rightHandValues = GetCalibrationValues(rightHand);
         Vector3[] leftHandValues = GetCalibrationValues(leftHand);
