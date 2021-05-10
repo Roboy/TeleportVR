@@ -14,6 +14,8 @@ namespace Training
         public AudioSource[] audioSourceArray;
         public AudioSource sirenAudioSource;
         public bool waitingForNod = false;
+        public Calibration.HandCalibrator rightCalibrator, leftCalibrator;
+
         int toggle;
         double prevDuration = 0.0;
         double prevStart = 0.0;
@@ -96,10 +98,10 @@ namespace Training
         /// Shows a message on the notification widget
         /// </summary>
         /// <param name="message"></param>
-        public static void PublishNotification(string message)
+        public static void PublishNotification(string message, float time = 5f)
         {
             Widget notificationWidget = Manager.Instance.FindWidgetWithID(10);
-            RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, message, 5,
+            RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, message, time,
                 new byte[] { 255, 40, 15, 255 });
             notificationWidget.ProcessRosMessage(toastrMessage);
         }
@@ -174,7 +176,8 @@ namespace Training
                     break;
                 case TrainingStep.LEFT_HAND:
 #if SENSEGLOVE
-                    PublishNotification("Mimic the poses shown by the blue hand.");
+                    leftCalibrator.StartCalibration();
+                    leftCalibrator.OnDone(step => NextStep());
 #else
                     ScheduleAudioClip(handHowTo, queue: true, delay: 0);
                     PublishNotification("Press the grip button on the side to close the hand.");
@@ -182,6 +185,9 @@ namespace Training
                     break;
                 case TrainingStep.RIGHT_ARM:
 #if SENSEGLOVE
+                    // force stop the calibration, if not done so already
+                    leftCalibrator.StopCalibration();
+
                     ScheduleAudioClip(rightArmHowTo, delay: 0);
                     ScheduleAudioClip(rightBall, queue: true);
                     PublishNotification("Move your right arm and try to touch the green ball");
@@ -197,13 +203,19 @@ namespace Training
                     break;
                 case TrainingStep.RIGHT_HAND:
 #if SENSEGLOVE
-                    PublishNotification("Mimic the poses shown by the blue hand.");
+                    rightCalibrator.StartCalibration();
+                    rightCalibrator.OnDone(step => NextStep());
 #else
                     ScheduleAudioClip(hand2HowTo, queue: true, delay: 0);
                     PublishNotification("Press the grip button to close the hand.");
 #endif
                     break;
                 case TrainingStep.WHEELCHAIR:
+#if SENSEGLOVE
+                    // force stop the calibration, if not done so already
+                    rightCalibrator.StopCalibration();
+#endif
+
                     ScheduleAudioClip(driveHowTo, delay: 1);
                     //ScheduleAudioClip(emergency, queue: true);
 

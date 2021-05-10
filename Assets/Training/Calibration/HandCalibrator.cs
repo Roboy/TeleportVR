@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Widgets;
 #if SENSEGLOVE
 using SenseGloveCs.Kinematics;
 using SG;
@@ -42,8 +43,10 @@ namespace Training.Calibration
         public float dwellTime;
         [Tooltip("Time to wait before dwellig on each calibration (seconds)")]
         public float waitTime;
+        [Tooltip("Time to wait show each notification for (seconds)")]
         public bool isRight = true;
         public bool calibrating = false;
+        public Completion completionWidget;
         public AudioClip handOpen, handClosed, fingersExt, fingersFlexed, thumbUp, thumbFlex, AbdOut, NoThumbAbd;
 
 
@@ -59,6 +62,8 @@ namespace Training.Calibration
 
         private Timer dwellTimer;
         private Timer waitTimer;
+
+        private readonly List<System.Action<Step>> doneCallbacks = new List<System.Action<Step>>();
 
         private CalibrationPose[] LoadProfiles(InterpolationSet_IMU interpolator)
         {
@@ -95,6 +100,7 @@ namespace Training.Calibration
             return res;
         }
 
+        #region Setup
 
         // Start is called before the first frame update
         void Start()
@@ -124,6 +130,7 @@ namespace Training.Calibration
 
             Debug.Log($"Awaiting connection with {(isRight ? "right" : "left")} SenseGlove... ");
         }
+        #endregion
 
         private void ShowInstruction()
         {
@@ -134,28 +141,28 @@ namespace Training.Calibration
             switch (currentPose)
             {
                 case Pose.HandOpen:
-                    TutorialSteps.PublishNotification($"Open {right} your hand");
+                    TutorialSteps.PublishNotification($"Open {right} your hand", waitTime + dwellTime);
                     break;
                 case Pose.HandClosed:
-                    TutorialSteps.PublishNotification($"Make a fist with your {right} hand");
+                    TutorialSteps.PublishNotification($"Make a fist with your {right} hand", waitTime + dwellTime);
                     break;
                 case Pose.FingersExt:
-                    TutorialSteps.PublishNotification($"Extend your {right} fingers");
+                    TutorialSteps.PublishNotification($"Extend your {right} fingers", waitTime + dwellTime);
                     break;
                 case Pose.FingersFlexed:
-                    TutorialSteps.PublishNotification($"Flex your {right} fingers");
+                    TutorialSteps.PublishNotification($"Flex your {right} fingers", waitTime + dwellTime);
                     break;
                 case Pose.ThumbUp:
-                    TutorialSteps.PublishNotification("Give me a thumbs up");
+                    TutorialSteps.PublishNotification("Give me a thumbs up", waitTime + dwellTime);
                     break;
                 case Pose.ThumbFlex:
-                    TutorialSteps.PublishNotification($"Flex your {right} thumb");
+                    TutorialSteps.PublishNotification($"Flex your {right} thumb", waitTime + dwellTime);
                     break;
                 case Pose.AbdOut:
-                    TutorialSteps.PublishNotification($"Abduct {right} you thumb");
+                    TutorialSteps.PublishNotification($"Abduct {right} you thumb", waitTime + dwellTime);
                     break;
                 case Pose.NoThumbAbd:
-                    TutorialSteps.PublishNotification($"Move your {right} thumb up");
+                    TutorialSteps.PublishNotification($"Move your {right} thumb up", waitTime + dwellTime);
                     break;
             }
         }
@@ -164,7 +171,7 @@ namespace Training.Calibration
         {
             waitTimer.ResetTimer();
             currentStep = Step.Dwell;
-            Debug.Log("Waiting done");
+            Debug.Log("wait done");
         }
 
         /// <summary>
@@ -172,6 +179,8 @@ namespace Training.Calibration
         /// </summary>
         private void DwellDone()
         {
+
+            completionWidget.active = false;
             // make sure this is not called too often
             dwellTimer.ResetTimer();
 
@@ -192,10 +201,7 @@ namespace Training.Calibration
             const int maxPose = (int)(Pose.NoThumbAbd) + 1;
             if ((int)currentPose >= maxPose)
             {
-                hand.SaveHandCalibration();
-                Debug.Log("Saved Calibration Profiles");
                 currentStep = Step.Done;
-                calibrating = false;
             }
         }
 
@@ -226,35 +232,54 @@ namespace Training.Calibration
 
             if (calibrating)
             {
-
                 switch (currentStep)
                 {
-                // 1. show instruction
+                    // 1. show instruction
                     case Step.ShowInstruction:
                         ShowInstruction();
                         break;
-                // 2. wait
+                    // 2. wait
                     case Step.Wait:
                         waitTimer.LetTimePass(Time.deltaTime);
                         poseStore.Clear();
                         break;
-                // 3. dwell
+                    // 3. dwell
                     case Step.Dwell:
                         dwellTimer.LetTimePass(Time.deltaTime);
+                        completionWidget.active = true;
+                        completionWidget.progress = dwellTimer.GetFraction();
 
                         poseStore.AddPose(GetCalibrationValues(hand));
-
                         float error = poseStore.ComputeError();
 
                         if (error > maxError)
                         {
-                            Debug.Log($"Deviation too large: {error}, try to calibrate pose {currentPose} again.");
+                            const string warningText = "Finger position changed too much, retry";
+                            Debug.LogWarning(warningText);
+
+                            //// show error message in Toastr
+                            //if (!shownRetryMessage)
+                            //{
+                            //    ToastrWidget notificationWidget = (ToastrWidget)Manager.Instance.FindWidgetWithID(10);
+                            //    RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, warningText, dwellTime, new byte[] { 255, 40, 15, 255 });
+                            //    notificationWidget.ProcessRosMessage(toastrMessage);
+                            //}
+
                             poseStore.Clear();
                             dwellTimer.ResetTimer();
                         }
                         break;
-                // 4. calibrate Step
+                    // 4. calibrate Step
                     case Step.Done:
+
+                        hand.SaveHandCalibration();
+                        Debug.Log("Saved Calibration Profiles");
+                        calibrating = false;
+
+                        foreach (var callback in doneCallbacks)
+                        {
+                            callback(currentStep);
+                        }
                         return;
                     default: break;
                 }
@@ -262,7 +287,18 @@ namespace Training.Calibration
         }
 
         //#endif
+
+        /// <summary>
+        /// The given callback is called, once the calibration for this hand is done
+        /// </summary>
+        /// <param name="callback"></param>
+        public void OnDone(System.Action<Step> callback)
+        {
+            doneCallbacks.Add(callback);
+        }
     }
+
+
 
 }
 

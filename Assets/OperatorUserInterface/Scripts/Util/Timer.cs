@@ -3,13 +3,18 @@
 /// <summary>
 /// Helper class for a passive timer. Timer does not count down time itself, but has to be called manually. 
 /// </summary>
-public class Timer 
+public class Timer
 {
-    private float duration;
-    public float timer;
+    private float duration = 0;
+    public float timer = 0;
+
+    public bool active
+    {
+        get { return timer < duration; }
+    }
 
     public delegate void TimeIsUp();
-    private TimeIsUp timeIsUp;    
+    private TimeIsUp timeIsUp;
 
     /// <summary>
     /// Called when timer should count down passed time.
