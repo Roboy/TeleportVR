@@ -209,6 +209,7 @@ namespace Training.Calibration
             calibrating = true;
         }
 
+
         public void StopCalibration()
         {
             calibrating = false;
@@ -228,8 +229,11 @@ namespace Training.Calibration
             }
             // only show HUD elements if calibration is active
             hudElements.SetActive(calibrating);
+        
 
-            if (calibrating)
+            // only start the calibration, if the SenseGlove could be found
+            // and the calibrating flag was set
+            if (calibrating && hand.IsLinked)
             {
                 switch (currentStep)
                 {
@@ -290,7 +294,7 @@ namespace Training.Calibration
         /// <summary>
         /// The given callback is called, once the calibration for this hand is done
         /// </summary>
-        /// <param name="callback"></param>
+        /// <param name="callback">called, when the calibration is done</param>
         public void OnDone(System.Action<Step> callback)
         {
             doneCallbacks.Add(callback);

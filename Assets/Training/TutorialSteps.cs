@@ -176,7 +176,8 @@ namespace Training
                     break;
                 case TrainingStep.LEFT_HAND:
 #if SENSEGLOVE
-                    leftCalibrator.StartCalibration();
+
+                    PublishNotification("Move your left hand into the blue box");
                     leftCalibrator.OnDone(step => NextStep());
 #else
                     ScheduleAudioClip(handHowTo, queue: true, delay: 0);
@@ -203,7 +204,7 @@ namespace Training
                     break;
                 case TrainingStep.RIGHT_HAND:
 #if SENSEGLOVE
-                    rightCalibrator.StartCalibration();
+                    PublishNotification("Move your right hand into the blue box");
                     rightCalibrator.OnDone(step => NextStep());
 #else
                     ScheduleAudioClip(hand2HowTo, queue: true, delay: 0);
