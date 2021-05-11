@@ -11,8 +11,6 @@ public class OrientationOffset : MonoBehaviour
     [Tooltip("Objective Script controlling the hand orienation")]
     public BioIK.Orientation orientationObjective;
 
-    public bool senseGlove = false;
-
     // Derived by placing an empty GameObject at the writs position and
     // having the IK goal following it's rotation. 
     // By then applying rotations manually to this game object to visually align Roboy's
@@ -22,9 +20,11 @@ public class OrientationOffset : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Quaternion senseGloveOffset = Quaternion.Euler(-200f, 0f, 180);
-        Quaternion questOffset = Quaternion.Euler(-189.118f, -8.403992f, 15.2381f);
-        offset = senseGlove ? senseGloveOffset : questOffset;
+#if SENSEGLOVE
+        offset = Quaternion.Euler(-200f, 0f, 180f);
+#else
+        offset = Quaternion.Euler(-189.118f, -8.403992f, 15.2381f);
+#endif
     }
 
     // Update is called once per frame

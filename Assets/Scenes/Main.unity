@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -170,7 +170,7 @@ MonoBehaviour:
   trackOrientation: 1
   controller: {fileID: 1199351587}
   orientationObjective: {fileID: 1200840931}
-  senseGlove: 0
+  senseGlove: 1
 --- !u!1 &23973646 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4177823132692205648, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -9835,7 +9835,7 @@ MonoBehaviour:
   trackOrientation: 1
   controller: {fileID: 1068641971}
   orientationObjective: {fileID: 23973654}
-  senseGlove: 0
+  senseGlove: 1
 --- !u!1 &1111993868
 GameObject:
   m_ObjectHideFlags: 0
