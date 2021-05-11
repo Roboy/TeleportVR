@@ -134,10 +134,10 @@ namespace Training.Calibration
 
         private void ShowInstruction()
         {
-            Debug.Log($"Please move your hands in pose: {currentPose}");
+            string right = isRight ? "right" : "left";
+            Debug.Log($"Calibrating pose {currentPose} for {right} hand");
             handAnimator.SetInteger("handState", (int)currentPose);
             currentStep = Step.Wait;
-            string right = isRight ? "right" : "left";
             switch (currentPose)
             {
                 case Pose.HandOpen:
@@ -159,7 +159,7 @@ namespace Training.Calibration
                     TutorialSteps.PublishNotification($"Flex your {right} thumb", waitTime + dwellTime);
                     break;
                 case Pose.AbdOut:
-                    TutorialSteps.PublishNotification($"Abduct {right} you thumb", waitTime + dwellTime);
+                    TutorialSteps.PublishNotification($"Move your {right} thumb out", waitTime + dwellTime);
                     break;
                 case Pose.NoThumbAbd:
                     TutorialSteps.PublishNotification($"Move your {right} thumb up", waitTime + dwellTime);
@@ -179,11 +179,10 @@ namespace Training.Calibration
         /// </summary>
         private void DwellDone()
         {
-
+            // hide completion widget
             completionWidget.active = false;
-            // make sure this is not called too often
-            dwellTimer.ResetTimer();
 
+            dwellTimer.ResetTimer();
             poseStore.Clear();
 
             // calibrate the pose
