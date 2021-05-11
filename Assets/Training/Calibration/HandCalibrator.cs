@@ -141,28 +141,28 @@ namespace Training.Calibration
             switch (currentPose)
             {
                 case Pose.HandOpen:
-                    TutorialSteps.PublishNotification($"Open {right} your hand", waitTime + dwellTime);
+                    SendToast($"Open {right} your hand", waitTime + dwellTime);
                     break;
                 case Pose.HandClosed:
-                    TutorialSteps.PublishNotification($"Make a fist with your {right} hand", waitTime + dwellTime);
+                    SendToast($"Make a fist with your {right} hand", waitTime + dwellTime);
                     break;
                 case Pose.FingersExt:
-                    TutorialSteps.PublishNotification($"Extend your {right} fingers", waitTime + dwellTime);
+                    SendToast($"Extend your {right} fingers", waitTime + dwellTime);
                     break;
                 case Pose.FingersFlexed:
-                    TutorialSteps.PublishNotification($"Flex your {right} fingers", waitTime + dwellTime);
+                    SendToast($"Flex your {right} fingers", waitTime + dwellTime);
                     break;
                 case Pose.ThumbUp:
-                    TutorialSteps.PublishNotification("Give me a thumbs up", waitTime + dwellTime);
+                    SendToast("Give me a thumbs up", waitTime + dwellTime);
                     break;
                 case Pose.ThumbFlex:
-                    TutorialSteps.PublishNotification($"Flex your {right} thumb", waitTime + dwellTime);
+                    SendToast($"Flex your {right} thumb", waitTime + dwellTime);
                     break;
                 case Pose.AbdOut:
-                    TutorialSteps.PublishNotification($"Move your {right} thumb out", waitTime + dwellTime);
+                    SendToast($"Move your {right} thumb out", waitTime + dwellTime);
                     break;
                 case Pose.NoThumbAbd:
-                    TutorialSteps.PublishNotification($"Move your {right} thumb up", waitTime + dwellTime);
+                    SendToast($"Move your {right} thumb up", waitTime + dwellTime);
                     break;
             }
         }
@@ -206,11 +206,13 @@ namespace Training.Calibration
 
         public void StartCalibration()
         {
+            // calibration starts again in the ShowInstruction Step
+            currentStep = Step.ShowInstruction;
             calibrating = true;
         }
 
 
-        public void StopCalibration()
+        public void PauseCalibration()
         {
             calibrating = false;
             dwellTimer.ResetTimer();
@@ -229,7 +231,8 @@ namespace Training.Calibration
             }
             // only show HUD elements if calibration is active
             hudElements.SetActive(calibrating);
-        
+            completionWidget.progress = dwellTimer.GetFraction();
+
 
             // only start the calibration, if the SenseGlove could be found
             // and the calibrating flag was set
@@ -250,7 +253,6 @@ namespace Training.Calibration
                     case Step.Dwell:
                         dwellTimer.LetTimePass(Time.deltaTime);
                         completionWidget.active = true;
-                        completionWidget.progress = dwellTimer.GetFraction();
 
                         poseStore.AddPose(GetCalibrationValues(hand));
                         float error = poseStore.ComputeError();
@@ -298,6 +300,31 @@ namespace Training.Calibration
         public void OnDone(System.Action<Step> callback)
         {
             doneCallbacks.Add(callback);
+        }
+
+        private bool SendToast(string message, float duration = 0f)
+        {
+            if (duration == 0)
+            {
+                duration = dwellTime;
+            }
+            byte[] color = new byte[] { 255, 40, 15, 255 };
+
+            ToastrWidget widget = (ToastrWidget)Manager.Instance.FindWidgetWithID(10);
+            RosJsonMessage msg = RosJsonMessage.CreateToastrMessage(10, message, duration, color);
+            bool oldMessage = false;
+            foreach (var template in widget.toastrActiveQueue)
+            {
+                if (template.toastrMessage == message && template.toastrDuration == duration)
+                {
+                    oldMessage = true;
+                }
+            }
+            if (!oldMessage)
+            {
+                widget.ProcessRosMessage(msg);
+            }
+            return !oldMessage;
         }
     }
 

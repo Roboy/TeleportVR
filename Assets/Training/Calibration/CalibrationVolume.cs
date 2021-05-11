@@ -35,7 +35,6 @@ namespace Training.Calibration
             {
                 return;
             }
-
             calibrator.StartCalibration();
         }
 
@@ -45,8 +44,7 @@ namespace Training.Calibration
             {
                 return;
             }
-
-            calibrator.StopCalibration();
+            calibrator.PauseCalibration();
         }
     }
 

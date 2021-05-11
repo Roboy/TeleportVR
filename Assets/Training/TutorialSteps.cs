@@ -187,7 +187,7 @@ namespace Training
                 case TrainingStep.RIGHT_ARM:
 #if SENSEGLOVE
                     // force stop the calibration, if not done so already
-                    leftCalibrator.StopCalibration();
+                    leftCalibrator.PauseCalibration();
 
                     ScheduleAudioClip(rightArmHowTo, delay: 0);
                     ScheduleAudioClip(rightBall, queue: true);
@@ -214,7 +214,7 @@ namespace Training
                 case TrainingStep.WHEELCHAIR:
 #if SENSEGLOVE
                     // force stop the calibration, if not done so already
-                    rightCalibrator.StopCalibration();
+                    rightCalibrator.PauseCalibration();
 #endif
 
                     ScheduleAudioClip(driveHowTo, delay: 1);
