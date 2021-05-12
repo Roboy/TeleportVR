@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoboyFK
+namespace JointTransfer
 {
     public class Util
     {
