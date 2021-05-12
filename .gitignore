@@ -20,6 +20,8 @@ Assets/Plugins/Editor/JetBrains*
 /[Pp]rojectSettings/
 /[Uu]ser[Ss]ettings/*
 
+/Assets/Rewired/
+
 # exclude SenseGlove SDK
 /Assets/SenseGlove/
 
