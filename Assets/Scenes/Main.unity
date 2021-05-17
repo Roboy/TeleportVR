@@ -567,9 +567,8 @@ GameObject:
   m_Component:
   - component: {fileID: 122745458}
   - component: {fileID: 122745457}
-  - component: {fileID: 122745459}
   m_Layer: 0
-  m_Name: RudderPedals
+  m_Name: RudderPedalManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,7 +586,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a81c963a2afdb429a3faaf2a69645c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
+  driveControl: {fileID: 3112793307756572318}
+  maxVelocity: 0.1
+  maxAngularVelocity: 0.025
+  forwardDeadzone: 0.4
+  backwardDeadzone: 0.2
 --- !u!4 &122745458
 Transform:
   m_ObjectHideFlags: 0
@@ -595,31 +598,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122745456}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 861750288}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &122745459
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122745456}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &127190210 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8999465790832990494, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -7497,6 +7482,8 @@ Transform:
   - {fileID: 1814397581}
   - {fileID: 788374369}
   - {fileID: 187668440}
+  - {fileID: 122745458}
+  - {fileID: 1396364256}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13307,11 +13294,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396364254}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 861750288}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1413217831 stripped
