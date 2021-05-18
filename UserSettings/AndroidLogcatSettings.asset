@@ -19,6 +19,30 @@
             "name": "com.oculus.shellenv",
             "processId": 2355,
             "exited": false
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "com.Roboy.TeleportVR",
+            "processId": 8192,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "com.Roboy.TeleportVR",
+            "processId": 11034,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "com.Roboy.TeleportVR",
+            "processId": 11579,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHH810YA0342",
+            "name": "com.oculus.xrstreamingclient",
+            "processId": 12342,
+            "exited": false
         }
     ],
     "m_Tags": {

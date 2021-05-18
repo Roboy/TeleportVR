@@ -700,10 +700,21 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 motorAngles.Add(0);
             }
 
+            Vector2 axis2DRight;
+            if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetRightController() &&
+                InputManager.Instance.controllerRight[0]
+                    .TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out axis2DRight))
+            {
+                motorAngles.Add(axis2DRight[0]);
+                motorAngles.Add(axis2DRight[1]);
+            }
+
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
             motorSample.Data = motorMsg;
             _lastUpdate = Time.time * 1000;
+
+            
 
             return motorSample;
         }
