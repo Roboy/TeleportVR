@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Widgets;
 
 namespace Training
@@ -45,8 +46,8 @@ namespace Training
             _ = Instance;
             if (StateManager.Instance.TimesStateVisited(StateManager.States.Training) <= 1)
             {
-                //ScheduleAudioClip(welcome, queue: true, delay: 1.0);
-                //ScheduleAudioClip(imAria, queue: true);//, delay: 2.0);
+                ScheduleAudioClip(welcome, queue: true, delay: 1.0);
+                ScheduleAudioClip(imAria, queue: true);//, delay: 2.0);
 
                 PublishNotification("Welcome to Teleport VR!"); //\n" +
                                                                  //"Take a look around. " +
@@ -194,7 +195,7 @@ namespace Training
             }
             else if (currentStep == TrainingStep.DONE)
             {
-                ScheduleAudioClip(ready, delay: 3);
+                ScheduleAudioClip(ready, delay: 2);
             }
         }
 
@@ -219,16 +220,17 @@ namespace Training
                 startTraining = false;
                 //trainingStarted = true;
             }
-            if (currentStep == TrainingStep.DONE && !isAudioPlaying())
-                StateManager.Instance.GoToState(StateManager.States.HUD);
+           // if (currentStep == TrainingStep.DONE && !isAudioPlaying())
+            //    StateManager.Instance.GoToState(StateManager.States.HUD);
+            
             //if (currentStep == TrainingStep.HEAD && !isAudioPlaying())
             //    waitingForNod = true;
-            
+
             // allows to continue to the next step when pressing 'n'
-            //if (Input.GetKeyDown(KeyCode.N))
-            //{
-            //    NextStep();
-            //}
+            if (Keyboard.current[Key.N].wasPressedThisFrame ) //Input.GetKeyDown(KeyCode.N))
+            {
+                NextStep();
+            }
         }
     }
 }
