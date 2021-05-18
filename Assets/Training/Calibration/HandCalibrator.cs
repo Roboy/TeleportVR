@@ -10,6 +10,18 @@ using SG.Calibration;
 
 namespace Training.Calibration
 {
+    public static class Extensions
+    {
+        public static T Next<T>(this T src) where T : struct
+        {
+            if (!typeof(T).IsEnum) throw new System.ArgumentException(System.String.Format("Argument {0} is not an Enum", typeof(T).FullName));
+
+            T[] Arr = (T[])System.Enum.GetValues(src.GetType());
+            int j = System.Array.IndexOf<T>(Arr, src) + 1;
+            return (Arr.Length == j) ? Arr[0] : Arr[j];
+        }
+    }
+
     // This class manages the SenseGlove calibration for a single hand
     public class HandCalibrator : MonoBehaviour
     {
@@ -17,13 +29,13 @@ namespace Training.Calibration
         public enum Pose
         {
             HandOpen = 0,
-            HandClosed,
-            FingersExt,
-            FingersFlexed,
-            ThumbUp,
-            ThumbFlex,
-            AbdOut,
-            NoThumbAbd,
+            HandClosed = 1,
+            //FingersExt = 2,
+            //FingersFlexed = 3,
+            ThumbUp = 4,
+            ThumbFlex = 5,
+            AbdOut = 6,
+            //NoThumbAbd = 7,
         }
 
         public enum Step
@@ -37,7 +49,7 @@ namespace Training.Calibration
         //#if SENSEGLOVE
         public Animator handAnimator;
         public GameObject hudElements;
-
+        [Tooltip("Maximum deviation from a held hand pose to tolerate during dwell time.")]
         public float maxError;
         [Tooltip("Time to hold each calibration step for (seconds)")]
         public float dwellTime;
@@ -47,18 +59,17 @@ namespace Training.Calibration
         public bool isRight = true;
         public bool calibrating = false;
         public Completion completionWidget;
-        public AudioClip handOpen, handClosed, fingersExt, fingersFlexed, thumbUp, thumbFlex, AbdOut, NoThumbAbd;
 
+        public AudioClip handOpen, handClosed, thumbUp, thumbFlex, abdOut;
 
         private SG_SenseGloveHardware hand;
-
         private InterpolationSet_IMU interpolator;
         private CalibrationPose[] poses;
+        private readonly PoseBuffer poseStore = new PoseBuffer();
 
         private Pose currentPose = Pose.HandOpen;
         public Step currentStep = Step.ShowInstruction;
 
-        private readonly PoseBuffer poseStore = new PoseBuffer();
 
         private Timer dwellTimer;
         private Timer waitTimer;
@@ -67,7 +78,7 @@ namespace Training.Calibration
 
         private CalibrationPose[] LoadProfiles(InterpolationSet_IMU interpolator)
         {
-            // order in this array needs to match the one in enum Pose
+            // order in this array needs to match the one in the Enum Pose
             return new CalibrationPose[]
             {
              CalibrationPose.GetFullOpen(ref interpolator),
@@ -141,28 +152,39 @@ namespace Training.Calibration
             switch (currentPose)
             {
                 case Pose.HandOpen:
+                    TutorialSteps.Instance.ScheduleAudioClip(handOpen, queue: false);
                     SendToast($"Open {right} your hand", waitTime + dwellTime);
                     break;
                 case Pose.HandClosed:
+                    TutorialSteps.Instance.ScheduleAudioClip(handClosed, queue: false);
                     SendToast($"Make a fist with your {right} hand", waitTime + dwellTime);
                     break;
-                case Pose.FingersExt:
-                    SendToast($"Extend your {right} fingers", waitTime + dwellTime);
-                    break;
-                case Pose.FingersFlexed:
-                    SendToast($"Flex your {right} fingers", waitTime + dwellTime);
-                    break;
+                //case Pose.FingersExt:
+                //    TutorialSteps.Instance.ScheduleAudioClip(handOpen, queue: false);
+                //    SendToast($"Extend your {right} fingers", waitTime + dwellTime);
+                //    break;
+                //case Pose.FingersFlexed:
+                //    TutorialSteps.Instance.ScheduleAudioClip(handClosed, queue: false);
+                //    SendToast($"Flex your {right} fingers", waitTime + dwellTime);
+                //    break;
                 case Pose.ThumbUp:
+                    TutorialSteps.Instance.ScheduleAudioClip(thumbUp, queue: false);
                     SendToast("Give me a thumbs up", waitTime + dwellTime);
                     break;
                 case Pose.ThumbFlex:
+                    TutorialSteps.Instance.ScheduleAudioClip(thumbFlex, queue: false);
                     SendToast($"Flex your {right} thumb", waitTime + dwellTime);
                     break;
                 case Pose.AbdOut:
+                    TutorialSteps.Instance.ScheduleAudioClip(abdOut, queue: false);
                     SendToast($"Move your {right} thumb out", waitTime + dwellTime);
                     break;
-                case Pose.NoThumbAbd:
-                    SendToast($"Move your {right} thumb up", waitTime + dwellTime);
+                //case Pose.NoThumbAbd:
+                //    TutorialSteps.Instance.ScheduleAudioClip(handOpen, queue: false);
+                //    SendToast($"Move your {right} thumb up", waitTime + dwellTime);
+                //    break;
+                default:
+                    Debug.LogError($"Pose unknown: {currentPose}");
                     break;
             }
         }
@@ -193,12 +215,11 @@ namespace Training.Calibration
             hand.SetInterpolationProfile(interpolator);
             Debug.Log($"Calibrated Pose {currentPose}");
 
-            currentPose += 1;
+            currentPose = currentPose.Next();
             currentStep = Step.ShowInstruction;
 
             // if all are calibrated save
-            const int maxPose = (int)(Pose.NoThumbAbd) + 1;
-            if ((int)currentPose >= maxPose)
+            if (currentPose.Next() < currentPose)
             {
                 currentStep = Step.Done;
             }
@@ -207,6 +228,7 @@ namespace Training.Calibration
         public void StartCalibration()
         {
             // calibration starts again in the ShowInstruction Step
+            Debug.Log("start calibration");
             currentStep = Step.ShowInstruction;
             calibrating = true;
         }
@@ -214,6 +236,7 @@ namespace Training.Calibration
 
         public void PauseCalibration()
         {
+            Debug.Log("pause calibration");
             calibrating = false;
             dwellTimer.ResetTimer();
             waitTimer.ResetTimer();
@@ -231,8 +254,6 @@ namespace Training.Calibration
             }
             // only show HUD elements if calibration is active
             hudElements.SetActive(calibrating);
-            completionWidget.progress = dwellTimer.GetFraction();
-
 
             // only start the calibration, if the SenseGlove could be found
             // and the calibrating flag was set
@@ -251,8 +272,13 @@ namespace Training.Calibration
                         break;
                     // 3. dwell
                     case Step.Dwell:
+                        if (TutorialSteps.Instance.IsAudioPlaying())
+                        {
+                            break;
+                        }
                         dwellTimer.LetTimePass(Time.deltaTime);
                         completionWidget.active = true;
+                        completionWidget.progress = dwellTimer.GetFraction();
 
                         poseStore.AddPose(GetCalibrationValues(hand));
                         float error = poseStore.ComputeError();
@@ -276,7 +302,6 @@ namespace Training.Calibration
                         break;
                     // 4. calibrate Step
                     case Step.Done:
-
                         hand.SaveHandCalibration();
                         Debug.Log("Saved Calibration Profiles");
                         calibrating = false;

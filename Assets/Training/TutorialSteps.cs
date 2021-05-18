@@ -4,12 +4,24 @@ using Widgets;
 
 namespace Training
 {
+
     public class TutorialSteps : MonoBehaviour//Singleton<TutorialSteps>
     {
+        [System.Serializable]
+        public class AudioClips
+        {
+            public AudioClip leftArm, leftBall, 
+                leftHandStart, rightHandStart,
+                rightArm, rightBall,
+                wheelchairTurn, wheelchairForwards, wheelchairBackwards,
+                done;
+        }
+
         public static TutorialSteps Instance;
 
         public TrainingStep currentStep;
         public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn, emergency, wrongGrip, wrongButton, siren, ready;
+        public AudioClips senseGlove;
         public List<AudioClip> praisePhrases = new List<AudioClip>();
         public AudioSource[] audioSourceArray;
         public AudioSource sirenAudioSource;
@@ -155,8 +167,8 @@ namespace Training
                     break;
                 case TrainingStep.LEFT_ARM:
 #if SENSEGLOVE
-                    ScheduleAudioClip(leftArmHowTo, queue: true);
-                    ScheduleAudioClip(leftBall, queue: true);
+                    ScheduleAudioClip(senseGlove.leftArm, queue: true);
+                    ScheduleAudioClip(senseGlove.leftBall, queue: true);
                     PublishNotification("Move youre left arm and try to touch the green ball");
                     var colTF = PlayerRig.Instance.transform.position;
                     colTF.y -= 0.1f;
@@ -178,6 +190,7 @@ namespace Training
 #if SENSEGLOVE
 
                     PublishNotification("Move your left hand into the blue box");
+                    ScheduleAudioClip(senseGlove.leftHandStart);
                     leftCalibrator.OnDone(step => NextStep());
 #else
                     ScheduleAudioClip(handHowTo, queue: true, delay: 0);
@@ -189,13 +202,12 @@ namespace Training
                     // force stop the calibration, if not done so already
                     leftCalibrator.PauseCalibration();
 
-                    ScheduleAudioClip(rightArmHowTo, delay: 0);
-                    ScheduleAudioClip(rightBall, queue: true);
+                    ScheduleAudioClip(senseGlove.rightArm);
+                    ScheduleAudioClip(senseGlove.rightBall, queue: true);
                     PublishNotification("Move your right arm and try to touch the green ball");
-                    //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
                     handCollectables.Find("HandCollectableRight").gameObject.SetActive(true);
 #else
-                    ScheduleAudioClip(rightArmHowTo, delay: 0);
+                    ScheduleAudioClip(rightArmHowTo);
                     ScheduleAudioClip(rightBall, queue: true);
                     PublishNotification("Press and hold the index trigger and try moving your right arm");
                     //PublishNotification("To move your arm, hold down the hand trigger on the controller with your middle finger.");
@@ -205,6 +217,7 @@ namespace Training
                 case TrainingStep.RIGHT_HAND:
 #if SENSEGLOVE
                     PublishNotification("Move your right hand into the blue box");
+                    ScheduleAudioClip(senseGlove.rightHandStart);
                     rightCalibrator.OnDone(step => NextStep());
 #else
                     ScheduleAudioClip(hand2HowTo, queue: true, delay: 0);
@@ -233,7 +246,7 @@ namespace Training
 
         }
 
-        bool IsAudioPlaying()
+        public bool IsAudioPlaying()
         {
             bool playing = false;
             foreach (var source in audioSourceArray)
@@ -266,4 +279,6 @@ namespace Training
             }
         }
     }
+
+
 }

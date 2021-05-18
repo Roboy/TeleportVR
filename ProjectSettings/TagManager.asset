@@ -37,6 +37,8 @@ TagManager:
   - WidgetsBottomRight
   - RoboyCollider
   - Tutorial
+  - XROffsetLeft
+  - XROffsetRight
   layers:
   - Default
   - TransparentFX
