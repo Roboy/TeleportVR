@@ -1,7 +1,5 @@
 # TeleportVR
 
-Teleport App WS 20/21
-
 ## How to install
 * Download the main branch of this repository
 * Open the Project with Unity 2020.3.1f1
