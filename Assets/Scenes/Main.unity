@@ -170,9 +170,13 @@ MonoBehaviour:
   trackOrientation: 1
   controller: {fileID: 1199351587}
   orientationObjective: {fileID: 1200840931}
-  rotationX: -189.118
-  rotationY: -8.403992
-  rotationZ: 15.2381
+  target: {fileID: 1200840926}
+  rotationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
+  cutoffStart: {x: 5, y: 1}
+  cutoffEnd: {x: 20, y: 0.05}
+  errorR: 0
+  errorP: 0
+  weight: 0
 --- !u!114 &17241002 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8980600750384922078, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -211,6 +215,18 @@ MonoBehaviour:
   TRZ: 0
   TRW: 1
   MaximumError: 0.001
+--- !u!114 &23973653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23973646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0d58e9dee1ae544863b61941fbe87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &23973654 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2255705337513571667, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -786,6 +802,11 @@ PrefabInstance:
       propertyPath: Segment
       value: 
       objectReference: {fileID: 2087336714}
+    - target: {fileID: 2255705337513571667, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: MaximumError
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2585658001635587272, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: TRW
@@ -881,6 +902,11 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1068641971}
+    - target: {fileID: 4177823132692205658, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: MaximumError
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 4177823132937321079, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: DRX
@@ -1104,7 +1130,7 @@ PrefabInstance:
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Scroll.y
-      value: 4202.4
+      value: 5797.1904
       objectReference: {fileID: 0}
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
@@ -1120,7 +1146,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SelectedSegment
       value: 
-      objectReference: {fileID: 2087336714}
+      objectReference: {fileID: 190382102}
     - target: {fileID: 4177823133385641362, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: m_Enabled
@@ -1281,6 +1307,11 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1199351587}
+    - target: {fileID: 4177823134180775677, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: MaximumError
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 4177823134180775678, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Objectives.Array.size
@@ -1371,6 +1402,11 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 3209739}
+    - target: {fileID: 8864711303398526641, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: MaximumError
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8980600749951990595, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: DRX
@@ -1600,6 +1636,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37cfd7ed5d69f41aaa4d87968caf6a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &618619397 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4177823132692205654, guid: 8376e5037528d434cab49e987b7a4e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 618619394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &683811583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4177823133385641360, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -1993,9 +2035,13 @@ MonoBehaviour:
   trackOrientation: 1
   controller: {fileID: 1068641971}
   orientationObjective: {fileID: 23973654}
-  rotationX: -189.118
-  rotationY: -8.403992
-  rotationZ: 15.2381
+  target: {fileID: 618619397}
+  rotationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
+  cutoffStart: {x: 5, y: 1}
+  cutoffEnd: {x: 20, y: 0.05}
+  errorR: 0
+  errorP: 0
+  weight: 0
 --- !u!1 &1178167025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,6 +2190,12 @@ Transform:
 --- !u!1 &1200840924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4177823134180775679, guid: 8376e5037528d434cab49e987b7a4e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 618619394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1200840926 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4177823134180775676, guid: 8376e5037528d434cab49e987b7a4e72,
     type: 3}
   m_PrefabInstance: {fileID: 618619394}
   m_PrefabAsset: {fileID: 0}
@@ -3947,6 +3999,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317224122723430447, guid: 771965c1243361a45a0d36cd14e1b3f9,
+        type: 3}
       propertyPath: robotName
       value: Roboy2Xavier
       objectReference: {fileID: 0}
@@ -4014,7 +4071,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1944402364}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6f22a5669377b559b7a27c87025aa96, type: 3}
   m_Name: 
