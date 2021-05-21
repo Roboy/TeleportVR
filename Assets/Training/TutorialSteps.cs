@@ -10,7 +10,7 @@ namespace Training
         [System.Serializable]
         public class AudioClips
         {
-            public AudioClip leftArm, leftBall, 
+            public AudioClip leftArm, leftBall,
                 leftHandStart, rightHandStart,
                 rightArm, rightBall,
                 wheelchairTurn, wheelchairForwards, wheelchairBackwards,
@@ -21,6 +21,9 @@ namespace Training
 
         public TrainingStep currentStep;
         public AudioClip welcome, imAria, headHowTo, leftArmHowTo, leftBall, rightArmHowTo, rightBall, handHowTo, hand2HowTo, driveHowTo, nod, wrongTrigger, portal, enterbtn, emergency, wrongGrip, wrongButton, siren, ready;
+#if SENSEGLOVE
+        public AudioClip handTest;
+#endif
         public AudioClips senseGlove;
         public List<AudioClip> praisePhrases = new List<AudioClip>();
         public AudioSource[] audioSourceArray;
@@ -42,6 +45,9 @@ namespace Training
             LEFT_HAND,
             RIGHT_ARM,
             RIGHT_HAND,
+#if SENSEGLOVE 
+            HAND_TEST,
+#endif
             WHEELCHAIR,
             DONE
         }
@@ -224,11 +230,17 @@ namespace Training
                     PublishNotification("Press the grip button to close the hand.");
 #endif
                     break;
-                case TrainingStep.WHEELCHAIR:
+
 #if SENSEGLOVE
+                case TrainingStep.HAND_TEST:
                     // force stop the calibration, if not done so already
                     rightCalibrator.PauseCalibration();
+                    PublishNotification("Grab the sphere to continue");
+                    ScheduleAudioClip(handTest);
+
+                    break;
 #endif
+                case TrainingStep.WHEELCHAIR:
 
                     ScheduleAudioClip(driveHowTo, delay: 1);
                     //ScheduleAudioClip(emergency, queue: true);
