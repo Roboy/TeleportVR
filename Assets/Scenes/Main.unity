@@ -153,7 +153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 857583996}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3209740
 MonoBehaviour:
@@ -172,8 +172,30 @@ MonoBehaviour:
   orientationObjective: {fileID: 1200840931}
   target: {fileID: 1200840926}
   rotationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
-  cutoffStart: {x: 5, y: 1}
-  cutoffEnd: {x: 20, y: 0.05}
+  cutoff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 4
+      value: 1
+      inSlope: -0.00091666164
+      outSlope: -0.00091666164
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14555256
+    - serializedVersion: 3
+      time: 20
+      value: 0.05
+      inSlope: -0.07677743
+      outSlope: -0.07677743
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.12367554
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   errorR: 0
   errorP: 0
   weight: 0
@@ -905,7 +927,7 @@ PrefabInstance:
     - target: {fileID: 4177823132692205658, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: MaximumError
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4177823132937321079, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
@@ -1130,7 +1152,7 @@ PrefabInstance:
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Scroll.y
-      value: 5797.1904
+      value: 1035.6265
       objectReference: {fileID: 0}
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
@@ -1310,7 +1332,7 @@ PrefabInstance:
     - target: {fileID: 4177823134180775677, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: MaximumError
-      value: 0.01
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 4177823134180775678, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
@@ -1781,8 +1803,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1108174642}
   - {fileID: 3209739}
+  - {fileID: 1108174642}
   m_Father: {fileID: 3112793306941114511}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2018,7 +2040,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 857583996}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1108174643
 MonoBehaviour:
@@ -2037,8 +2059,30 @@ MonoBehaviour:
   orientationObjective: {fileID: 23973654}
   target: {fileID: 618619397}
   rotationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
-  cutoffStart: {x: 5, y: 1}
-  cutoffEnd: {x: 20, y: 0.05}
+  cutoff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 4
+      value: 1
+      inSlope: -0.00091666164
+      outSlope: -0.00091666164
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14555256
+    - serializedVersion: 3
+      time: 20
+      value: 0.05
+      inSlope: -0.07677743
+      outSlope: -0.07677743
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.12367554
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   errorR: 0
   errorP: 0
   weight: 0

@@ -19,9 +19,12 @@ public class XROrientationObjective : MonoBehaviour
     // hand with the Oculus controllers we derived the following constants
     public Vector3 rotationOffset = new Vector3(-189.118f, -8.403992f, 15.2381f);
 
+    //[Tooltip("Start for linear cutoff when error gets <= x the resulting weight is y")]
+    //public Vector2 cutoffStart = new Vector2(10, 1);
+    //[Tooltip("End of linear cutoff when error gets >= x with weight y")]
+    //public Vector2 cutoffEnd = new Vector2(20, 0.1f);
 
-    public Vector2 cutoffStart = new Vector2(10, 1);
-    public Vector2 cutoffEnd = new Vector2(20, 0.1f);
+    [SerializeField] private AnimationCurve cutoff;
 
     [SerializeField] private float errorR;
     [SerializeField] private float errorP;
@@ -30,6 +33,8 @@ public class XROrientationObjective : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cutoff.preWrapMode = WrapMode.Clamp;
+        cutoff.postWrapMode = WrapMode.Clamp;
     }
 
     // Update is called once per frame
@@ -40,16 +45,13 @@ public class XROrientationObjective : MonoBehaviour
         {
             transform.rotation = controller.rotation * offset;
 
-            //Quaternion intern = Quaternion.Euler(orientationObjective.GetTargetRotattion());
             errorR = Quaternion.Angle(target.rotation, transform.rotation);
             errorP = (target.position - controller.position).magnitude;
             errorP = 50* errorP;
 
             // linear falloff in cutoffStart <= error <= cutoffEnd
-
             float e = errorR + errorP;
-            float x = Mathf.Min(Mathf.Max(e, cutoffStart.x), cutoffEnd.x);
-            weight = (cutoffEnd.y - cutoffStart.y) / (cutoffEnd.x - cutoffStart.x) * (x - cutoffStart.x) + cutoffStart.y;
+            weight = cutoff.Evaluate(e);
             orientationObjective.SetWeight(weight);
         }
         else
