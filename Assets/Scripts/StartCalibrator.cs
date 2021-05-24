@@ -31,8 +31,5 @@ public class StartCalibrator : MonoBehaviour
             calibrated = true;
             Debug.Log($"Calibration done, rotated by: {offsetRotation}, moved by: {move}");
         }
-        else if (!calibrated)
-        {
-        }
     }
 }
