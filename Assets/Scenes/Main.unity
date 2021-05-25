@@ -1809,7 +1809,7 @@ Transform:
   m_Children:
   - {fileID: 411307371}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &411307370
 GameObject:
@@ -2721,11 +2721,6 @@ PrefabInstance:
         type: 3}
       propertyPath: DRZ
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4177823133385641360, guid: 8376e5037528d434cab49e987b7a4e72,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4177823133385641360, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
@@ -6460,7 +6455,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &977976461 stripped
 MonoBehaviour:
@@ -12974,7 +12969,7 @@ Transform:
   - {fileID: 430358047}
   - {fileID: 666088953}
   m_Father: {fileID: 0}
-(??)  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1919875145
 MonoBehaviour:
@@ -22216,7 +22211,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3112793306941609189}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -22290,7 +22285,7 @@ Transform:
   - {fileID: 5910697385562727304}
   - {fileID: 683811583}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3112793306941114513
 Transform:
