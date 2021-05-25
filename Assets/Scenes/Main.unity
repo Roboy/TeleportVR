@@ -3489,7 +3489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eye: {fileID: 529700889}
   goal: {fileID: 1757228584}
-  calibrationTime: 2
+  calibrationTime: 0.1
 --- !u!1001 &1449695644
 PrefabInstance:
   m_ObjectHideFlags: 0
