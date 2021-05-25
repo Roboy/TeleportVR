@@ -25,6 +25,11 @@ Assets/Plugins/Editor/JetBrains*
 # exclude SenseGlove SDK
 /Assets/SenseGlove/
 
+/Assets/SenseGlove/
+/Assets/SenseGlove.meta
+/Assets/Rewired/
+/Assets/Rewired.meta
+
 # exclude the Animus SDK
 /Assets/AnimusClient/
 # except for the UnityAnimusClient and ClientLogic, because we change them
