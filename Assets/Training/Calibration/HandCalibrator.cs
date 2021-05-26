@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Widgets;
-#if SENSEGLOVE
+
 using SenseGloveCs.Kinematics;
 using SG;
 using SG.Calibration;
-#endif
+
 
 namespace Training.Calibration
 {
