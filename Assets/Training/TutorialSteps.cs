@@ -235,7 +235,10 @@ namespace Training
                 case TrainingStep.HAND_TEST:
                     // force stop the calibration, if not done so already
                     rightCalibrator.PauseCalibration();
-                    PublishNotification("Grab the sphere to continue");
+
+                    
+                    PublishNotification("Give me a thumbs up on both hands to continue.");
+
                     ScheduleAudioClip(handTest);
 
                     break;
