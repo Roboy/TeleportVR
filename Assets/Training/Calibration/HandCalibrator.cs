@@ -24,7 +24,7 @@ namespace Training.Calibration
             ThumbUp = 4,
             ThumbFlex = 5,
             AbdOut = 6,
-            //NoThumbAbd = 7,
+            NoThumbAbd = 7,
         }
 
         public enum Step
@@ -51,22 +51,32 @@ namespace Training.Calibration
 
         public AudioClip handOpen, handClosed, thumbUp, thumbFlex, abdOut;
 
+        public bool isLinked
+        {
+            get { return hand.IsLinked; }
+        }
+
         private SG_SenseGloveHardware hand;
         private InterpolationSet_IMU interpolator;
         private CalibrationPose[] poses;
+        // size is max Pose index
+        public readonly Vector3[][] poseValues = new Vector3[8][];
         private readonly PoseBuffer poseStore = new PoseBuffer();
 
         private Pose currentPose = Pose.HandOpen;
         public Step currentStep = Step.ShowInstruction;
-
 
         private Timer dwellTimer;
         private Timer waitTimer;
 
         private readonly List<System.Action<Step>> doneCallbacks = new List<System.Action<Step>>();
 
-        private CalibrationPose[] LoadProfiles(InterpolationSet_IMU interpolator)
+        private CalibrationPose[] LoadProfiles()
         {
+            if (!hand.IsLinked || interpolator == null)
+            {
+                throw new UnassignedReferenceException("Cannot load profiles for disconnected SenseGlove");
+            }
             // order in this array needs to match the one in the Enum Pose
             return new CalibrationPose[]
             {
@@ -82,7 +92,7 @@ namespace Training.Calibration
         }
         /// <summary> Get Calibration Values from the hardware, as the interpolation solver would. </summary>
         /// <returns></returns>
-        public Vector3[] GetCalibrationValues(SG_SenseGloveHardware hand)
+        public Vector3[] GetCalibrationValues()
         {
             float[][] rawAngles = hand.GloveData.gloveValues;
             float[][] Nsensors = Interp4Sensors.NormalizeAngles(rawAngles);
@@ -128,6 +138,7 @@ namespace Training.Calibration
             dwellTimer = new Timer();
             dwellTimer.SetTimer(dwellTime, DwellDone);
 
+
             Debug.Log($"Awaiting connection with {(isRight ? "right" : "left")} SenseGlove... ");
         }
         #endregion
@@ -168,10 +179,10 @@ namespace Training.Calibration
                     TutorialSteps.Instance.ScheduleAudioClip(abdOut, queue: false);
                     SendToast($"Move your {right} thumb out", waitTime + dwellTime);
                     break;
-                //case Pose.NoThumbAbd:
-                //    TutorialSteps.Instance.ScheduleAudioClip(handOpen, queue: false);
-                //    SendToast($"Move your {right} thumb up", waitTime + dwellTime);
-                //    break;
+                case Pose.NoThumbAbd:
+                    TutorialSteps.Instance.ScheduleAudioClip(handOpen, queue: false);
+                    SendToast($"Move your {right} thumb up", waitTime + dwellTime);
+                    break;
                 default:
                     Debug.LogError($"Pose unknown: {currentPose}");
                     break;
@@ -197,7 +208,8 @@ namespace Training.Calibration
             poseStore.Clear();
 
             // calibrate the pose
-            Vector3[] handValues = GetCalibrationValues(hand);
+            Vector3[] handValues = GetCalibrationValues();
+            poseValues[(int)currentPose] = handValues;
             poses[(int)currentPose].CalibrateParameters(handValues, ref interpolator);
 
             // update the glove's interpolation profiles
@@ -240,7 +252,7 @@ namespace Training.Calibration
                 hand.IsLinked &&
                 hand.GetInterpolationProfile(out interpolator))
             {
-                poses = LoadProfiles(interpolator);
+                poses = LoadProfiles();
                 Debug.Log($"Connected {(isRight ? "right" : "left")} Hand");
             }
             // only show HUD elements if calibration is active
@@ -271,7 +283,7 @@ namespace Training.Calibration
                         completionWidget.active = true;
                         completionWidget.progress = dwellTimer.GetFraction();
 
-                        poseStore.AddPose(GetCalibrationValues(hand));
+                        poseStore.AddPose(GetCalibrationValues());
                         float error = poseStore.ComputeError();
 
                         if (error > maxError)

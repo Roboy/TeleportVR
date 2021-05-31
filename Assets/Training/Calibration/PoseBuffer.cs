@@ -23,7 +23,7 @@ namespace Training.Calibration
             clean = true;
         }
 
-        public void AddPose(Vector3[] pose)
+        public void AddPose(params Vector3[] pose)
         {
             clean = false;
             poses[index] = pose;
