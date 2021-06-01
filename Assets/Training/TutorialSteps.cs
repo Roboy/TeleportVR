@@ -235,12 +235,9 @@ namespace Training
                 case TrainingStep.HAND_TEST:
                     // force stop the calibration, if not done so already
                     rightCalibrator.PauseCalibration();
-
                     
                     PublishNotification("Give me a thumbs up on both hands to continue.");
-
-                    ScheduleAudioClip(handTest);
-
+                    ScheduleAudioClip(senseGlove.rightHandStart);
                     break;
 #endif
                 case TrainingStep.WHEELCHAIR:

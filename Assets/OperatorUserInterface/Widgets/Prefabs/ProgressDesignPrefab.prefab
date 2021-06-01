@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  active: 0
   image: {fileID: 8406077306954553873}
   child: {fileID: 3340602276258511810}
 --- !u!1 &3357518144090502753

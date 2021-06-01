@@ -9,24 +9,27 @@ namespace Training.Calibration
     public class HandTestStep : MonoBehaviour
     {
         public HandCalibrator leftCalibrator, rightCalibrator;
-        public float maxError = 0.01f;
+        public float maxError = 0.5f;
         public Completion completionWidget;
 
-        public float dwellTime = 2;
+        public float dwellTime = 3;
         private Timer dwellTimer = new Timer();
 
-        private PoseBuffer leftBuffer = new PoseBuffer(2), rightBuffer = new PoseBuffer(2);
-        private bool refPoseAdded = false;
+        private PoseBuffer leftBuffer = new PoseBuffer(2);
+        private PoseBuffer rightBuffer = new PoseBuffer(2);
+
+        private bool initCompletion = false;
 
         // Start is called before the first frame update
         void Start()
         {
+
             // advance step, when dwell timer is done
             dwellTimer.SetTimer(dwellTime, () =>
             {
                 Debug.Log("Dwell done");
-                TutorialSteps.Instance.NextStep();
                 completionWidget.active = false;
+                TutorialSteps.Instance.NextStep();
             });
         }
 
@@ -39,29 +42,36 @@ namespace Training.Calibration
             }
 
 
-            if (!TutorialSteps.Instance.IsAudioPlaying())
+            if (TutorialSteps.Instance.IsAudioPlaying())
             {
-                // refresh buffers
-                leftBuffer.Clear();
-                rightBuffer.Clear();
-                leftBuffer.AddPose(leftCalibrator.poseValues[(int)HandCalibrator.Pose.ThumbUp]);
-                rightBuffer.AddPose(rightCalibrator.poseValues[(int)HandCalibrator.Pose.ThumbUp]);
-                leftBuffer.AddPose(leftCalibrator.GetCalibrationValues());
-                rightBuffer.AddPose(rightCalibrator.GetCalibrationValues());
-
-                dwellTimer.LetTimePass(Time.deltaTime);
-                float leftError = leftBuffer.ComputeError(), rightError = rightBuffer.ComputeError();
-                if (Mathf.Max(leftError, rightError) >= maxError)
-                {
-                    Debug.Log($"Error too large {leftError}, {rightError}, resetting dwell timer");
-                    dwellTimer.ResetTimer();
-                }
-
-                completionWidget.active = true;
-                completionWidget.progress = dwellTimer.GetFraction();
-                Debug.Log($"Difference to calibrated thumbs up, left: {leftError} right: {rightError}");
-
+                return;
             }
+
+            if (!initCompletion)
+            {
+                completionWidget.text = "Hold";
+                completionWidget.active = true;
+                initCompletion = true;
+            }
+
+            // refresh buffers
+            leftBuffer.Clear();
+            rightBuffer.Clear();
+            leftBuffer.AddPose(leftCalibrator.poseValues[(int)HandCalibrator.Pose.ThumbUp]);
+            rightBuffer.AddPose(rightCalibrator.poseValues[(int)HandCalibrator.Pose.ThumbUp]);
+            leftBuffer.AddPose(leftCalibrator.GetCalibrationValues());
+            rightBuffer.AddPose(rightCalibrator.GetCalibrationValues());
+
+            float error = Mathf.Max(leftBuffer.ComputeError(), rightBuffer.ComputeError());
+            Debug.Log($"Error: {error}");
+            if (error > maxError)
+            {
+                dwellTimer.ResetTimer();
+                return;
+            }
+
+            dwellTimer.LetTimePass(Time.deltaTime);
+            completionWidget.progress = dwellTimer.GetFraction();
         }
     }
 
