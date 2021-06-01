@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8762056794279592976}
   m_Layer: 0
-  m_Name: RigOffsets
+  m_Name: IKObjectives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1050015435419606828}
   - component: {fileID: 7408508227209038530}
   m_Layer: 0
-  m_Name: RightHandOrientationOffset
+  m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,38 +247,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14ea8602c12b9e47a12b829af3d1c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackOrientation: 1
   controller: {fileID: 6021411799948961775}
-  orientationObjective: {fileID: 0}
-  target: {fileID: 0}
-  rotationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
-  cutoff:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 4
-      value: 1
-      inSlope: -0.00091666164
-      outSlope: -0.00091666164
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.14555256
-    - serializedVersion: 3
-      time: 20
-      value: 0.05
-      inSlope: -0.07677743
-      outSlope: -0.07677743
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.12367554
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  errorR: 0
-  errorP: 0
-  weight: 0
+  position:
+    enabled: 1
+    offset: 0
+  orientation:
+    enabled: 1
+    objective: {fileID: 0}
+    target: {fileID: 0}
+    orientationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
+    cutoff:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 4
+        value: 1
+        inSlope: -0.00091666164
+        outSlope: -0.00091666164
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.14555256
+      - serializedVersion: 3
+        time: 20
+        value: 0.05
+        inSlope: -0.07677743
+        outSlope: -0.07677743
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.12367554
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    errorR: 0
+    errorP: 0
+    weight: 0
 --- !u!1 &5694384926263743683
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +294,7 @@ GameObject:
   - component: {fileID: 2973487622971250625}
   - component: {fileID: 2289400493350496023}
   m_Layer: 0
-  m_Name: LeftHandOrientationOffset
+  m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,38 +326,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14ea8602c12b9e47a12b829af3d1c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackOrientation: 1
   controller: {fileID: 6021411800480249791}
-  orientationObjective: {fileID: 0}
-  target: {fileID: 0}
-  rotationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
-  cutoff:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 4
-      value: 1
-      inSlope: -0.00091666164
-      outSlope: -0.00091666164
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.14555256
-    - serializedVersion: 3
-      time: 20
-      value: 0.05
-      inSlope: -0.07677743
-      outSlope: -0.07677743
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.12367554
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  errorR: 0
-  errorP: 0
-  weight: 0
+  position:
+    enabled: 1
+    offset: 0
+  orientation:
+    enabled: 1
+    objective: {fileID: 0}
+    target: {fileID: 0}
+    orientationOffset: {x: -189.118, y: -8.403992, z: 15.2381}
+    cutoff:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 4
+        value: 1
+        inSlope: -0.00091666164
+        outSlope: -0.00091666164
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.14555256
+      - serializedVersion: 3
+        time: 20
+        value: 0.05
+        inSlope: -0.07677743
+        outSlope: -0.07677743
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.12367554
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    errorR: 0
+    errorP: 0
+    weight: 0
 --- !u!1 &5788050250558678848
 GameObject:
   m_ObjectHideFlags: 0

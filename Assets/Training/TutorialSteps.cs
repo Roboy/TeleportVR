@@ -45,9 +45,6 @@ namespace Training
             LEFT_HAND,
             RIGHT_ARM,
             RIGHT_HAND,
-#if SENSEGLOVE 
-            HAND_TEST,
-#endif
             WHEELCHAIR,
             DONE
         }
@@ -230,16 +227,6 @@ namespace Training
                     PublishNotification("Press the grip button to close the hand.");
 #endif
                     break;
-
-#if SENSEGLOVE
-                case TrainingStep.HAND_TEST:
-                    // force stop the calibration, if not done so already
-                    rightCalibrator.PauseCalibration();
-                    
-                    PublishNotification("Give me a thumbs up on both hands to continue.");
-                    ScheduleAudioClip(senseGlove.rightHandStart);
-                    break;
-#endif
                 case TrainingStep.WHEELCHAIR:
 
                     ScheduleAudioClip(driveHowTo, delay: 1);

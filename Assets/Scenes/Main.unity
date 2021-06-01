@@ -2842,7 +2842,7 @@ PrefabInstance:
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: Segments.Array.size
-      value: 164
+      value: 165
       objectReference: {fileID: 0}
     - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
@@ -3414,6 +3414,11 @@ PrefabInstance:
       propertyPath: Segments.Array.data[163]
       value: 
       objectReference: {fileID: 1613924195}
+    - target: {fileID: 4177823133385641361, guid: 8376e5037528d434cab49e987b7a4e72,
+        type: 3}
+      propertyPath: Segments.Array.data[164]
+      value: 
+      objectReference: {fileID: 1757228586}
     - target: {fileID: 4177823133385641362, guid: 8376e5037528d434cab49e987b7a4e72,
         type: 3}
       propertyPath: m_Enabled
@@ -8147,6 +8152,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 836566295813636698, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Name
+      value: IKObjectives
+      objectReference: {fileID: 0}
     - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -8179,9 +8189,24 @@ PrefabInstance:
       objectReference: {fileID: 618619397}
     - target: {fileID: 2289400493350496023, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
+      propertyPath: orientation.target
+      value: 
+      objectReference: {fileID: 618619397}
+    - target: {fileID: 2289400493350496023, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
       propertyPath: orientationObjective
       value: 
       objectReference: {fileID: 23973654}
+    - target: {fileID: 2289400493350496023, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.objective
+      value: 
+      objectReference: {fileID: 23973654}
+    - target: {fileID: 2497834216055462839, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Name
+      value: RightHandOrientation
+      objectReference: {fileID: 0}
     - target: {fileID: 2969494099595400440, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -8217,6 +8242,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 5694384926263743683, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_Name
+      value: LeftHandOrientation
+      objectReference: {fileID: 0}
     - target: {fileID: 6021411799948961768, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_Enabled
@@ -9079,7 +9109,17 @@ PrefabInstance:
       objectReference: {fileID: 618619398}
     - target: {fileID: 7408508227209038530, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
+      propertyPath: orientation.target
+      value: 
+      objectReference: {fileID: 618619398}
+    - target: {fileID: 7408508227209038530, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
       propertyPath: orientationObjective
+      value: 
+      objectReference: {fileID: 1200840931}
+    - target: {fileID: 7408508227209038530, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.objective
       value: 
       objectReference: {fileID: 1200840931}
     m_RemovedComponents: []
@@ -12704,6 +12744,7 @@ GameObject:
   - component: {fileID: 1757228584}
   - component: {fileID: 1757228583}
   - component: {fileID: 1757228585}
+  - component: {fileID: 1757228586}
   m_Layer: 0
   m_Name: HeadCalibrationGoal
   m_TagString: Untagged
@@ -12744,6 +12785,24 @@ Transform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1757228585
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757228582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Character: {fileID: 618619396}
+  Transform: {fileID: 1757228584}
+  Parent: {fileID: 1346464669}
+  Childs: []
+  Joint: {fileID: 0}
+  Objectives: []
+--- !u!114 &1757228586
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
