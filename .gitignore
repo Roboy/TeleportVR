@@ -19,6 +19,7 @@ Assets/Plugins/Editor/JetBrains*
 #exclude all ProjectSettings
 /[Pp]rojectSettings/
 /[Uu]ser[Ss]ettings/*
+/UserSettings
 
 /Assets/Rewired/
 
