@@ -39,7 +39,7 @@ namespace Training.Calibration
         [System.Serializable]
         public class Calibration
         {
-            [Tooltip("Maximum deviation from a held hand pose to tolerate during dwell time.")]
+            [Tooltip("Maximum deviation from a held hand pose to tolerate during dwell time. (m^2)")]
             public float maxError = 0.001f;
             [Tooltip("Time to wait before dwellig on each calibration (seconds)")]
             public float waitTime = 5;
@@ -55,7 +55,7 @@ namespace Training.Calibration
         [System.Serializable]
         public class Test
         {
-            [Tooltip("Maximum deviation from a held hand pose to tolerate during dwell time.")]
+            [Tooltip("Maximum deviation from a held hand pose to tolerate during dwell time. (m^2)")]
             public float maxError = 0.5f;
             [Tooltip("Time to hold each calibration step for (seconds)")]
             public float dwellTime = 3;
@@ -73,8 +73,7 @@ namespace Training.Calibration
         public GameObject virtualHand;
         public Completion completionWidget;
 
-        public AudioClip handOpen, handClosed, fingersExt, fingersFlexed,
-            thumbUp, thumbFlex, abdOut, noThumbAbd, test;
+        public AudioClips.SGHand audioClips;
 
         // inspector display variables
         public Step currentStep = Step.ShowInstruction;
@@ -179,11 +178,11 @@ namespace Training.Calibration
             switch (currentPose)
             {
                 case Pose.HandOpen:
-                    TutorialSteps.Instance.ScheduleAudioClip(handOpen, queue: false);
+                    TutorialSteps.Instance.ScheduleAudioClip(audioClips.handOpen, queue: false);
                     SendToast($"Open {right} your hand", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 case Pose.HandClosed:
-                    TutorialSteps.Instance.ScheduleAudioClip(handClosed, queue: false);
+                    TutorialSteps.Instance.ScheduleAudioClip(audioClips.handClosed, queue: false);
                     SendToast($"Make a fist with your {right} hand", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 //case Pose.FingersExt:
@@ -195,15 +194,15 @@ namespace Training.Calibration
                 //    SendToast($"Flex your {right} fingers", waitTime + dwellTime);
                 //    break;
                 case Pose.ThumbUp:
-                    TutorialSteps.Instance.ScheduleAudioClip(thumbUp, queue: false);
+                    TutorialSteps.Instance.ScheduleAudioClip(audioClips.thumbUp, queue: false);
                     SendToast("Give me a thumbs up", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 case Pose.ThumbFlex:
-                    TutorialSteps.Instance.ScheduleAudioClip(thumbFlex, queue: false);
+                    TutorialSteps.Instance.ScheduleAudioClip(audioClips.thumbFlex, queue: false);
                     SendToast($"Flex your {right} thumb", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 case Pose.AbdOut:
-                    TutorialSteps.Instance.ScheduleAudioClip(abdOut, queue: false);
+                    TutorialSteps.Instance.ScheduleAudioClip(audioClips.abdOut, queue: false);
                     SendToast($"Move your {right} thumb out", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 //case Pose.NoThumbAbd:
@@ -336,7 +335,7 @@ namespace Training.Calibration
                             virtualHand.SetActive(false);
                             Debug.Log($"Saved Calibration Profiles for {lrName} hand");
 
-                            TutorialSteps.Instance.ScheduleAudioClip(test, queue: false);
+                            TutorialSteps.Instance.ScheduleAudioClip(audioClips.test, queue: false);
                             SendToast($"{lrName} thums up to continue", duration: 2 * testParams.dwellTime);
 
                             currentStep = Step.Test;
