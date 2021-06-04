@@ -14,7 +14,7 @@ namespace Training
         private MeshRenderer _renderer;
 
         private static int collectedSpheres;
-
+   
         private float timer;
         [SerializeField] private float dwellTime;
 

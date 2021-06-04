@@ -1,5 +1,7 @@
 # TeleportVR
 
+Teleport App WS 20/21
+
 ## How to install
 * Download the main branch of this repository
 * Open the Project with Unity 2020.3.1f1
@@ -66,23 +68,29 @@ RosSharp is a Plugin that allows to use Ros in C#. It works on Windows and can w
 Installation:
 * Import the "UsedPlugins" from the Google Drive Folder https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R and only check the Folder RosSharp
 * Import the two UnityPackages that are stored under Assets, FaceRosMessages and RosMessages and add everything to the project, if it is not yet part of the project.
-* Add ROSSHARP to the Scripting Define Symbols in the Project settings
+* Add `ROSSHARP` to the Scripting Define Symbols in the Project settings
 
 Removal:
-* Remove ROSSHARP from the Scripting Define Symbols in the Project settings
+* Remove `ROSSHARP` from the Scripting Define Symbols in the Project settings
 * Remove the Folders Assets/RosSharpMessages and Assets/RoboyUnityFace
 * (optional) Delete the Folder Assets/OperatorUserInterface/Plugins/RosSharp
 
 ### Portals
 The Portals Package can give out errors that will sometimes cause the building process to fail. It can be installed from the "UsedPackages" UnityPackage and can be removed by deleting the Folder Assets/OperatorUserInterface/Plugins/PortalsPackage
 
+### SenseGlove
+If you want to use SenseGlove to controlle the position of each finger in Roboy's hand individually, you need to install the the package `SenseGloveSDK v1_2.unitypackage` from the [Google Drive Folder](https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R).
+Then set the Scripting Define Symbol in the project settings:
+* `SENSEGLOVE`
+
+Import all files from the package and start the Traning scene. If the SenseGloves were detected correctly on your system, Roboy's fingers will imitate the movement of your own ones.
+
 ### Hardware
 If you want to use hardware that was implemented for the Vive Pro Eye and XTal, but is not used with the Oculus Quest, download the UnityPackage "UnusedHardarePlugins" from the Google Drive Folder https://drive.google.com/drive/folders/1b-Ez4EaQvI0c8lEPN2esZWvLFtbvm95R. In the Unity Project, add the corresponding symbols to the Scripting Define Symbols in the Project settings:
-* TOBII
-* BHAPTICS
-* SENSEGLOVE
-* VIVESR
-* UNITY_POST_PROCESSING_STACK_V2
+* `TOBII`
+* `BHAPTICS`
+* `VIVESR`
+* `UNITY_POST_PROCESSING_STACK_V2`
 
 ### Others
 There are a few more packages that I think can be removed without getting compile errors and installed via the UsedPlugins package, but I didn't try it. The plugins are the really old Showroom Assets/OperatorUserInterface/Plugins/PBR_Modern_room and the old Showrrom Assets/OperatorUserInterface/Plugins/ShowRoom and the current ShowRoom (will remove the visuals in the Trainings scene) Assets/OperatorUserInterface/Plugins/"_Creepy_Cat". Removing the Plugins might reduce building times.

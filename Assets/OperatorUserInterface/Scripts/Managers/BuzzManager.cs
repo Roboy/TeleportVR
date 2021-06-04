@@ -8,28 +8,28 @@ public class BuzzManager : MonoBehaviour
     public bool LeftHand;
     private int[] fingersRight;
     private int[] fingersLeft;
-#if SENSEGLOVE
-    private SenseGlove_Object senseGloveObjectRight;
-    private SenseGlove_Object senseGloveObjectLeft;
-#endif
+//#if SENSEGLOVE
+//    private SenseGlove_Object senseGloveObjectRight;
+//    private SenseGlove_Object senseGloveObjectLeft;
+//#endif
 
     /// <summary>
     /// Set reference to instances
     /// </summary>
     void OnEnable()
     {
-#if SENSEGLOVE
-        if (RightHand)
-        {
-            senseGloveObjectRight = GameObject.FindGameObjectWithTag("SenseGloveRight").transform.GetChild(0).GetComponent<SenseGlove_Object>();
-            fingersRight = new int[] { 0, 0, 0, 0, 0 };
-        }
-        if (LeftHand)
-        {
-            senseGloveObjectLeft = GameObject.FindGameObjectWithTag("SenseGloveLeft").transform.GetChild(0).GetComponent<SenseGlove_Object>();
-            fingersLeft = new int[] { 0, 0, 0, 0, 0 };
-        }
-#endif
+//#if SENSEGLOVE
+//        if (RightHand)
+//        {
+//            senseGloveObjectRight = GameObject.FindGameObjectWithTag("SenseGloveRight").transform.GetChild(0).GetComponent<SenseGlove_Object>();
+//            fingersRight = new int[] { 0, 0, 0, 0, 0 };
+//        }
+//        if (LeftHand)
+//        {
+//            senseGloveObjectLeft = GameObject.FindGameObjectWithTag("SenseGloveLeft").transform.GetChild(0).GetComponent<SenseGlove_Object>();
+//            fingersLeft = new int[] { 0, 0, 0, 0, 0 };
+//        }
+//#endif
     }
 
     /// <summary>
@@ -38,18 +38,18 @@ public class BuzzManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-#if SENSEGLOVE
-        if (RightHand)
-        {
-            senseGloveObjectRight.SendBuzzCmd(fingersRight, 500);
-            fingersRight = new int[] { 0, 0, 0, 0, 0 };
-        }
-        if (LeftHand)
-        {
-            senseGloveObjectLeft.SendBuzzCmd(fingersLeft, 500);
-            fingersLeft = new int[] { 0, 0, 0, 0, 0 };
-        }
-#endif
+//#if SENSEGLOVE
+//        if (RightHand)
+//        {
+//            senseGloveObjectRight.SendBuzzCmd(fingersRight, 500);
+//            fingersRight = new int[] { 0, 0, 0, 0, 0 };
+//        }
+//        if (LeftHand)
+//        {
+//            senseGloveObjectLeft.SendBuzzCmd(fingersLeft, 500);
+//            fingersLeft = new int[] { 0, 0, 0, 0, 0 };
+//        }
+//#endif
     }
 
     /// <summary>

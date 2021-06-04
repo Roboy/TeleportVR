@@ -8,6 +8,7 @@ public class InputManager : Singleton<InputManager>
 {
     public List<UnityEngine.XR.InputDevice> controllerLeft = new List<UnityEngine.XR.InputDevice>();
     public List<UnityEngine.XR.InputDevice> controllerRight = new List<UnityEngine.XR.InputDevice>();
+    public HandManager handManager;
 
     [SerializeField] VRGestureRecognizer vrGestureRecognizer;
 
@@ -24,7 +25,7 @@ public class InputManager : Singleton<InputManager>
         vrGestureRecognizer.Nodded += OnNodded;
         vrGestureRecognizer.HeadShaken += OnHeadShaken;
     }
-    
+
     private bool GetControllerAvailable(bool leftController)
     {
         return leftController ? GetLeftControllerAvailable() : GetRightControllerAvailable();
@@ -34,7 +35,7 @@ public class InputManager : Singleton<InputManager>
     {
         return leftController ? controllerLeft[0] : controllerRight[0];
     }
-    
+
     /// try to get the left controller, if possible.<!-- return if the controller can be referenced.-->
     public bool GetLeftControllerAvailable()
     {
@@ -74,7 +75,7 @@ public class InputManager : Singleton<InputManager>
         }
         return controllerRight.Count > 0;
     }
-    
+
     public bool GetControllerBtn(InputFeatureUsage<bool> inputFeature, bool leftController)
     {
         if (GetControllerAvailable(leftController))
@@ -122,7 +123,7 @@ public class InputManager : Singleton<InputManager>
             UnityAnimusClient.Instance.EnableMotor(true);
         else
             UnityAnimusClient.Instance.EnableMotor(false);
-        
+
         if (!Widgets.WidgetInteraction.settingsAreActive)
         {
             bool btn;
@@ -241,7 +242,7 @@ public class InputManager : Singleton<InputManager>
                             if (StateManager.Instance.currentState == StateManager.States.Training &&
                                 Training.TutorialSteps.Instance.currentStep == Training.TutorialSteps.TrainingStep.WHEELCHAIR)
                             {
-                               Training.TutorialSteps.Instance.NextStep();
+                                Training.TutorialSteps.Instance.NextStep();
                             }
                         }
 
@@ -286,7 +287,7 @@ public class InputManager : Singleton<InputManager>
                 {
                     UnityAnimusClient.Instance.RightButton2 = btn;
                 }
-                
+
                 if ( //StateManager.Instance.currentState == StateManager.States.Construct || 
                     StateManager.Instance.currentState == StateManager.States.Training)
                 {
@@ -309,4 +310,6 @@ public class InputManager : Singleton<InputManager>
             }
         }
     }
+
 }
+

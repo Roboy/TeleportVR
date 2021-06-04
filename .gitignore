@@ -18,6 +18,17 @@ Assets/Plugins/Editor/JetBrains*
 /[Mm]emoryCaptures/
 #exclude all ProjectSettings
 /[Pp]rojectSettings/
+/[Uu]ser[Ss]ettings/*
+
+/Assets/Rewired/
+
+# exclude SenseGlove SDK
+/Assets/SenseGlove/
+
+/Assets/SenseGlove/
+/Assets/SenseGlove.meta
+/Assets/Rewired/
+/Assets/Rewired.meta
 
 /Assets/SenseGlove/
 /Assets/SenseGlove.meta

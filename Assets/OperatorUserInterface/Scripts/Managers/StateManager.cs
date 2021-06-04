@@ -190,12 +190,12 @@ public class StateManager : Singleton<StateManager>
         if (!KillConstruct)
         {
             Destroy(GameObject.FindGameObjectWithTag("MainMenu"));
-#if SENSEGLOVE
-            leftSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
-            rightSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
-            leftSenseGlove.SetActive(false);
-            rightSenseGlove.SetActive(false);
-#endif
+//#if SENSEGLOVE
+//            leftSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
+//            rightSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
+//            leftSenseGlove.SetActive(false);
+//            rightSenseGlove.SetActive(false);
+//#endif
 
             constructFXManager.ToggleEffects(false);
         }

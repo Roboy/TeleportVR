@@ -159,7 +159,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         // humanHead = TrackingSpace.Find("CenterEyeAnchor");
         humanLeftHand = TrackingSpace.Find("LeftHandAnchor");
         humanRightHand = TrackingSpace.Find("RightHandAnchor");
-        
+
         // The code below might be needed if the Body Transition gets implemented again
         // robotDriver = robotBody.GetComponent<NaoAnimusDriver>();
         // if (robotDriver != null)
@@ -281,7 +281,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     /// <returns>Both eye textures.</returns>
     public Texture2D[] GetVisionTextures()
     {
-        return new[] {_leftTexture, _rightTexture};
+        return new[] { _leftTexture, _rightTexture };
     }
 
     /// <summary>
@@ -331,7 +331,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 #if ANIMUS_USE_OPENCV
             if (!initMats)
             {
-                yuv = new Mat((int) (currShape[1] * 1.5), (int) currShape[0], CvType.CV_8UC1);
+                yuv = new Mat((int)(currShape[1] * 1.5), (int)currShape[0], CvType.CV_8UC1);
                 rgb = new Mat();
                 initMats = true;
             }
@@ -353,11 +353,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 currShape[2] != _imageDims[2])
             {
                 _imageDims = currShape;
-                var scaleX = (float) _imageDims[0] / (float) _imageDims[1];
+                var scaleX = (float)_imageDims[0] / (float)_imageDims[1];
 
                 Debug.Log("Resize triggered. Setting texture resolution to " + currShape[0] + "x" + currShape[1]);
-                Debug.Log("Setting horizontal scale to " + scaleX + " " + (float) _imageDims[0] + " " +
-                          (float) _imageDims[1]);
+                Debug.Log("Setting horizontal scale to " + scaleX + " " + (float)_imageDims[0] + " " +
+                          (float)_imageDims[1]);
 
                 UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
                 currentScale.x = scaleX;
@@ -574,12 +574,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     {
         // get the instance of the widget with this id
         Widget widget = Manager.Instance.FindWidgetWithID(id);
-        if ((int) (currSample.Data[position]) == -1)
+        if ((int)(currSample.Data[position]) == -1)
         {
             // float equal to -1 then the widget changes to the icon/color at position 1 in the json file (yellow)
             widget.GetContext().currentIcon = widget.GetContext().icons[1];
         }
-        else if ((int) (currSample.Data[position]) == 0)
+        else if ((int)(currSample.Data[position]) == 0)
         {
             // float equal to 0 then the widget changes to the icon/color at position 0 in the json file (green)
             widget.GetContext().currentIcon = widget.GetContext().icons[0];
@@ -658,7 +658,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             {
                 if (segment.Joint != null)
                 {
-                    motorAngles.Add((float) segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
+                    motorAngles.Add((float)segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
                 }
             }
 
@@ -668,11 +668,17 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 //Debug.Log(segment.name);
                 if (segment.Joint != null)
                 {
-                    motorAngles.Add((float) segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
+                    motorAngles.Add((float)segment.Joint.X.CurrentValue * Mathf.Deg2Rad);
                 }
             }
 
-            // left hand, right hand
+            // right, left
+#if SENSEGLOVE
+            foreach (var step in InputManager.Instance.handManager.GetMotorPositions())
+            {
+                motorAngles.Add(step);
+            }
+#else
             float left_open = 0, right_open = 0;
             if (InputManager.Instance.GetLeftController())
                 InputManager.Instance.controllerLeft[0]
@@ -682,8 +688,17 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 InputManager.Instance.controllerRight[0]
                     .TryGetFeatureValue(UnityEngine.XR.CommonUsages.grip, out right_open);
 
-            motorAngles.Add(left_open);
-            motorAngles.Add(right_open);
+
+            // 4 values for right and left
+            for (int i = 0; i < 4; i++)
+            {
+                motorAngles.Add(right_open);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                motorAngles.Add(left_open);
+            }
+#endif
 
             // wheelchair
             Vector2 axis2D;
@@ -699,6 +714,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 motorAngles.Add(0);
                 motorAngles.Add(0);
             }
+
+            //Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
 
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);

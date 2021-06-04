@@ -35,6 +35,11 @@ public class XROrientationObjective : MonoBehaviour
     {
         cutoff.preWrapMode = WrapMode.Clamp;
         cutoff.postWrapMode = WrapMode.Clamp;
+#if SENSEGLOVE
+        rotationOffset = new Vector3(-200f, 0f, 180);
+#else
+        rotationOffset = new Vector3(-189.118f, -8.403992f, 15.2381f);
+#endif
     }
 
     // Update is called once per frame
@@ -47,7 +52,7 @@ public class XROrientationObjective : MonoBehaviour
 
             errorR = Quaternion.Angle(target.rotation, transform.rotation);
             errorP = (target.position - controller.position).magnitude;
-            errorP = 50* errorP;
+            errorP = 50 * errorP;
 
             // linear falloff in cutoffStart <= error <= cutoffEnd
             float e = errorR + errorP;
