@@ -9,8 +9,8 @@ public class XROffset : MonoBehaviour
     public class Position
     {
         public bool enabled = true;
-        [Tooltip("Up direction distance from the controller to the operators hand")]
-        public float offset = 10f;
+        [Tooltip("Up direction distance from the controller to the operators hand (m)")]
+        public float offset = .1f;
     }
 
     [System.Serializable]
@@ -19,14 +19,19 @@ public class XROffset : MonoBehaviour
         public bool enabled = true;
         public BioIK.Orientation objective;
         public Transform target;
-        public Vector3 orientationOffset;
+        public Transform controllerUp;
         public AnimationCurve cutoff;
+        [Header("Readonly values")]
+        public Vector3 orientationOffset;
         public float errorR, errorP, weight;
     }
-
+    public bool isRight = false;
     public Transform controller;
     public Position position;
     public Orientation orientation;
+
+    // official Oculus Quest 1 attachement (left hand rotation)
+    private readonly Vector3 SGQuest1Offset = new Vector3(-212f, 0f, 90f);
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +39,9 @@ public class XROffset : MonoBehaviour
         orientation.cutoff.preWrapMode = WrapMode.Clamp;
         orientation.cutoff.postWrapMode = WrapMode.Clamp;
 #if SENSEGLOVE
-        // official Oculus Quest 1 attachement
-        orientation.orientationOffset = new Vector3(355.361145,225.188614,265.345764);
+        Vector3 o = SGQuest1Offset;
+        // invert rotation x-Axis
+        orientation.orientationOffset = isRight ? new Vector3(o.x, -o.y, -o.z) : new Vector3(o.x, o.y, o.z);
 #else
         orientation.orientationOffset = new Vector3(-189.118f, -8.403992f, 15.2381f);
 #endif
@@ -47,7 +53,7 @@ public class XROffset : MonoBehaviour
 
         if (position.enabled)
         {
-            transform.position = controller.position - controller.up * position.offset;
+            transform.position = controller.position - orientation.controllerUp.up * position.offset;
         }
 
         if (orientation.enabled)
@@ -55,8 +61,8 @@ public class XROffset : MonoBehaviour
             transform.rotation = controller.rotation * Quaternion.Euler(orientation.orientationOffset);
 
             float errorR = Quaternion.Angle(orientation.target.rotation, transform.rotation);
-            float errorP = (orientation.target.position - controller.position).magnitude;
-            errorP = 50 * errorP;
+            float errorP = (orientation.target.position - controller.position).magnitude - position.offset;
+            errorP = Mathf.Max(50 * errorP, 0);
 
             // linear falloff in cutoffStart <= error <= cutoffEnd
             float weight = orientation.cutoff.Evaluate(errorR + errorP);
