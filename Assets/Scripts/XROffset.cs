@@ -21,7 +21,8 @@ public class XROffset : MonoBehaviour
         public Transform target;
         public Transform controllerUp;
         public AnimationCurve cutoff;
-        [Header("Readonly values")]
+
+        [Header("Read only values")]
         public Vector3 orientationOffset;
         public float errorR, errorP, weight;
     }

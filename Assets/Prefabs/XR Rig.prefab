@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb92b395283949d42b34fe422afbee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRight: 0
   controller: {fileID: 6021411799948961775}
   position:
     enabled: 1
@@ -327,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb92b395283949d42b34fe422afbee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRight: 0
   controller: {fileID: 6021411800480249791}
   position:
     enabled: 1
