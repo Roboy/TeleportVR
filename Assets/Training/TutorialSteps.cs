@@ -103,6 +103,7 @@ namespace Training
         /// Shows a message on the notification widget
         /// </summary>
         /// <param name="message"></param>
+        /// <returns>if the given message was published, i.e. not already existing</returns>
         public static bool PublishNotification(string message, float duration = 5f)
         {
             byte[] color = new byte[] { 255, 40, 15, 255 };
