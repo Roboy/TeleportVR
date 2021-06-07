@@ -103,12 +103,27 @@ namespace Training
         /// Shows a message on the notification widget
         /// </summary>
         /// <param name="message"></param>
-        public static void PublishNotification(string message, float time = 5f)
+        public static bool PublishNotification(string message, float duration = 5f)
         {
-            Widget notificationWidget = Manager.Instance.FindWidgetWithID(10);
-            RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, message, time,
-                new byte[] { 255, 40, 15, 255 });
-            notificationWidget.ProcessRosMessage(toastrMessage);
+            byte[] color = new byte[] { 255, 40, 15, 255 };
+            ToastrWidget widget = (ToastrWidget)Manager.Instance.FindWidgetWithID(10);
+            RosJsonMessage msg = RosJsonMessage.CreateToastrMessage(10, message, duration, color);
+
+            bool isOld = false;
+            foreach(var template in widget.toastrActiveQueue)
+            {
+                if (template.toastrMessage == message && template.toastrDuration == duration)
+                {
+                    isOld = true;
+                    break;
+                }
+            }
+            if (!isOld)
+            {
+                widget.ProcessRosMessage(msg);
+            }
+            // published?
+            return !isOld;
         }
 
         public void PraiseUser()

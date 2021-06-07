@@ -179,11 +179,11 @@ namespace Training.Calibration
             {
                 case Pose.HandOpen:
                     TutorialSteps.Instance.ScheduleAudioClip(audioClips.handOpen, queue: false);
-                    SendToast($"Open {right} your hand", calibrationParams.waitTime + calibrationParams.dwellTime);
+                    TutorialSteps.PublishNotification($"Open {right} your hand", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 case Pose.HandClosed:
                     TutorialSteps.Instance.ScheduleAudioClip(audioClips.handClosed, queue: false);
-                    SendToast($"Make a fist with your {right} hand", calibrationParams.waitTime + calibrationParams.dwellTime);
+                    TutorialSteps.PublishNotification($"Make a fist with your {right} hand", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 //case Pose.FingersExt:
                 //    TutorialSteps.Instance.ScheduleAudioClip(fingersExt, queue: false);
@@ -195,15 +195,15 @@ namespace Training.Calibration
                 //    break;
                 case Pose.ThumbUp:
                     TutorialSteps.Instance.ScheduleAudioClip(audioClips.thumbUp, queue: false);
-                    SendToast("Give me a thumbs up", calibrationParams.waitTime + calibrationParams.dwellTime);
+                    TutorialSteps.PublishNotification("Give me a thumbs up", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 case Pose.ThumbFlex:
                     TutorialSteps.Instance.ScheduleAudioClip(audioClips.thumbFlex, queue: false);
-                    SendToast($"Flex your {right} thumb", calibrationParams.waitTime + calibrationParams.dwellTime);
+                    TutorialSteps.PublishNotification($"Flex your {right} thumb", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 case Pose.AbdOut:
                     TutorialSteps.Instance.ScheduleAudioClip(audioClips.abdOut, queue: false);
-                    SendToast($"Move your {right} thumb out", calibrationParams.waitTime + calibrationParams.dwellTime);
+                    TutorialSteps.PublishNotification($"Move your {right} thumb out", calibrationParams.waitTime + calibrationParams.dwellTime);
                     break;
                 //case Pose.NoThumbAbd:
                 //    TutorialSteps.Instance.ScheduleAudioClip(noThumbAbd, queue: false);
@@ -336,7 +336,7 @@ namespace Training.Calibration
                             Debug.Log($"Saved Calibration Profiles for {lrName} hand");
 
                             TutorialSteps.Instance.ScheduleAudioClip(audioClips.test, queue: false);
-                            SendToast($"{lrName} thums up to continue", duration: 2 * testParams.dwellTime);
+                            TutorialSteps.PublishNotification($"{lrName} thums up to continue", duration: 2 * testParams.dwellTime);
 
                             currentStep = Step.Test;
                             goto case Step.Test;
@@ -391,31 +391,6 @@ namespace Training.Calibration
         public void OnDone(System.Action<Step> callback)
         {
             doneCallbacks.Add(callback);
-        }
-
-        private bool SendToast(string message, float duration = 5)
-        {
-            if (duration == 0)
-            {
-                duration = calibrationParams.dwellTime;
-            }
-            byte[] color = new byte[] { 255, 40, 15, 255 };
-
-            ToastrWidget widget = (ToastrWidget)Manager.Instance.FindWidgetWithID(10);
-            RosJsonMessage msg = RosJsonMessage.CreateToastrMessage(10, message, duration, color);
-            bool oldMessage = false;
-            foreach (var template in widget.toastrActiveQueue)
-            {
-                if (template.toastrMessage == message && template.toastrDuration == duration)
-                {
-                    oldMessage = true;
-                }
-            }
-            if (!oldMessage)
-            {
-                widget.ProcessRosMessage(msg);
-            }
-            return !oldMessage;
         }
     }
 }
