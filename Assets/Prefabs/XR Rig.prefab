@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &107195174678733098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2056861098533018547}
+  m_Layer: 0
+  m_Name: OculusQuestControllerOrientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2056861098533018547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107195174678733098}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6021411800480249791}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!1 &262784662533153158
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,16 +277,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb92b395283949d42b34fe422afbee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRight: 0
+  isRight: 1
   controller: {fileID: 6021411799948961775}
   position:
     enabled: 1
     offset: 0.1
+    controllerUp: {fileID: 1454972073034252545}
   orientation:
     enabled: 1
     objective: {fileID: 0}
     target: {fileID: 0}
-    controllerUp: {fileID: 0}
     cutoff:
       serializedVersion: 2
       m_Curve:
@@ -281,10 +311,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    orientationOffset: {x: 0, y: 0, z: 0}
-    errorR: 0
-    errorP: 0
-    weight: 0
+  orientationOffset: {x: 0, y: 0, z: 0}
+  errorR: 0
+  errorP: 0
+  weight: 0
 --- !u!1 &5694384926263743683
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,11 +363,11 @@ MonoBehaviour:
   position:
     enabled: 1
     offset: 0.1
+    controllerUp: {fileID: 2056861098533018547}
   orientation:
     enabled: 1
     objective: {fileID: 0}
     target: {fileID: 0}
-    controllerUp: {fileID: 0}
     cutoff:
       serializedVersion: 2
       m_Curve:
@@ -362,10 +392,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    orientationOffset: {x: 0, y: 0, z: 0}
-    errorR: 0
-    errorP: 0
-    weight: 0
+  orientationOffset: {x: 0, y: 0, z: 0}
+  errorR: 0
+  errorP: 0
+  weight: 0
 --- !u!1 &5788050250558678848
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +471,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1454972073034252545}
   m_Father: {fileID: 6021411801045320770}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1075,7 +1106,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2056861098533018547}
   m_Father: {fileID: 6021411801045320770}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1782,3 +1814,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+--- !u!1 &8588441884326987969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1454972073034252545}
+  m_Layer: 0
+  m_Name: OculusQuestControllerOrientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1454972073034252545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588441884326987969}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6021411799948961775}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
