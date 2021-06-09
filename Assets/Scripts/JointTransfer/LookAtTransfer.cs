@@ -41,6 +41,7 @@ namespace JointTransfer
             }
         }
 
+#if SENSEGLOVE
         // Update is called once per frame
         void Update()
         {
@@ -71,6 +72,7 @@ namespace JointTransfer
                 axisMotion.TargetValue = Mathf.Clamp(angle, (float)axisMotion.LowerLimit, (float)axisMotion.UpperLimit);
             }
         }
+#endif
     }
-
 }
+
