@@ -1,8 +1,11 @@
 fileFormatVersion: 2
 guid: ed057718b395071479dfa012b5a5a2d9
 folderAsset: yes
+<<<<<<< HEAD
 timeCreated: 1497357936
 licenseType: Free
+=======
+>>>>>>> limit_BioIK_rotation_following
 DefaultImporter:
   externalObjects: {}
   userData: 

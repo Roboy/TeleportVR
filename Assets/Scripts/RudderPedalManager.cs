@@ -20,13 +20,19 @@ public class RudderPedalManager : Singleton<RudderPedalManager>
     [Range(0, 1), Tooltip("Foot pedal deadzone for going backwards")]
     public float backwardDeadzone = 0.2f;
 
+    public AnimationCurve velocityMap;
+    public AnimationCurve angularVelocityMap;
+
+    [Header("Read Only values")]
+    public float velocity;
+    public float angularVelocity;
+
     public Vector2 output
     {
         get { return _output; }
     }
 
     private Vector2 _output;
-
 
     private const int playerId = 0;
     private readonly Vector2 leftDrive = new Vector2(-1f, 1f);
@@ -38,13 +44,17 @@ public class RudderPedalManager : Singleton<RudderPedalManager>
     private void Awake()
     {
         player = ReInput.players.GetPlayer(playerId);
+        velocityMap.preWrapMode = WrapMode.Clamp;
+        velocityMap.postWrapMode = WrapMode.Clamp;
+        angularVelocityMap.preWrapMode = WrapMode.Clamp;
+        angularVelocityMap.postWrapMode = WrapMode.Clamp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // remap to [0, 1]
-        float steeringAngle = 0.5f + -0.5f * player.GetAxis("SteeringAngle");
+        // in  [-1, 1]
+        float steeringAngle = player.GetAxis("SteeringAngle");
         // in [0,1]
         float left = player.GetAxis("Forward");
         float right = player.GetAxis("Backward");
@@ -60,15 +70,19 @@ public class RudderPedalManager : Singleton<RudderPedalManager>
             vel = Mathf.Max(vel - backwardDeadzone, 0) / (1 - backwardDeadzone);
         }
 
+        vel = velocityMap.Evaluate(vel);
+
         // go back if both pedals are pressed in more than the deadzone
         if (Mathf.Min(left, right) > backwardDeadzone)
         {
             vel = -0.5f * vel;
         }
 
+        Vector2 direction = Vector2.Lerp(leftDrive, rightDrive, 0.5f + 0.5f * angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)) * Mathf.Sign(steeringAngle));
+        velocity = vel * maxVelocity;
+        angularVelocity = direction.magnitude * maxAngularVelocity;
         // ||output|| <= max(maxAngularVelocity, maxVelocity)
-        _output = maxAngularVelocity * Vector2.Lerp(leftDrive, rightDrive, steeringAngle)
-            + maxVelocity * vel * forward;
+        _output = maxAngularVelocity * direction + velocity * forward;
 
         driveControl.V_L = _output.x;
         driveControl.V_R = _output.y;

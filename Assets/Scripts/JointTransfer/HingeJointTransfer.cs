@@ -35,6 +35,7 @@ namespace JointTransfer
             initialTarget = (float)joint.X.GetTargetValue();
         }
 
+#if SENSEGLOVE
         // Update is called once per frame
         void Update()
         {
@@ -56,7 +57,7 @@ namespace JointTransfer
             angle = Mathf.Clamp(initialTarget + angle, (float)motion.LowerLimit, (float)motion.UpperLimit);
             joint.X.SetTargetValue(angle);
         }
-
+#endif
     }
-
 }
+
