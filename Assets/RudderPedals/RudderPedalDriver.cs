@@ -5,7 +5,7 @@ using Rewired;
 
 namespace RudderPedals
 {
-    public class RudderPedalManager : Singleton<RudderPedalManager>
+    public class RudderPedalDriver : Singleton<RudderPedalDriver>
     {
 
         public DifferentialDriveControl driveControl;
@@ -24,12 +24,9 @@ namespace RudderPedals
         public AnimationCurve velocityMap;
         public AnimationCurve angularVelocityMap;
 
-        public int presenceUpdateRate = 1000;
-
         [Header("Read Only values")]
         public float velocity;
         public float angularVelocity;
-
 
         public Vector2 output
         {
@@ -43,8 +40,6 @@ namespace RudderPedals
         private readonly Vector2 rightDrive = new Vector2(1f, -1f);
         private readonly Vector2 forward = new Vector2(1f, 1f);
         private Player player;
-        private PedalPesenceDetector pedalDetector;
-
 
         private void Awake()
         {
@@ -53,12 +48,6 @@ namespace RudderPedals
             velocityMap.postWrapMode = WrapMode.Clamp;
             angularVelocityMap.preWrapMode = WrapMode.Clamp;
             angularVelocityMap.postWrapMode = WrapMode.Clamp;
-            pedalDetector = new PedalPesenceDetector();
-            StartCoroutine(
-                    pedalDetector.readAsyncContinously(
-                        (bool left, bool right) => Debug.Log($"Left pedal {left}, Right pedal {right}")
-                        )
-                );
         }
 
         // Update is called once per frame
@@ -99,6 +88,5 @@ namespace RudderPedals
             driveControl.V_R = _output.y;
         }
     }
-
 }
 

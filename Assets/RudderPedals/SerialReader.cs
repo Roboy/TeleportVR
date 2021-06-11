@@ -6,7 +6,7 @@ using System.IO.Ports;
 
 namespace RudderPedals
 {
-    public class PedalPesenceDetector
+    public class SerialReader
     {
         private SerialPort stream;
         private string port;
@@ -14,11 +14,11 @@ namespace RudderPedals
         private float readTimeout, refresh;
 
 
-        public PedalPesenceDetector(string port = "COM6", int baudRate = 9600, float readTimeout = 0.01f, float refresh = 0.1f)
+        public SerialReader(string port = "COM6", int baudRate = 9600, float readTimeout = 0.01f, float refresh = 0.1f)
         {
             this.port = port;
             this.baudRate = baudRate;
-            this.readTimeout = readTimeout;
+            this.readTimeout =0;
             this.refresh = refresh;
 
             this.stream = new SerialPort(port, baudRate);
@@ -28,7 +28,7 @@ namespace RudderPedals
             try
             {
                 stream.Open();
-                Debug.Log($"Opened serial connection on {port}@{baudRate}");
+                Debug.Log($"Opened serial connection on {port} @ {baudRate}");
 
             }
             catch (System.IO.IOException)
@@ -37,63 +37,47 @@ namespace RudderPedals
             }
         }
 
-        public IEnumerator readAsyncContinously(Action<bool, bool> callback)
+        public IEnumerator readAsyncContinously(Action<string> callback, Action<string> onError = null)
         {
             //DateTime initTime = DateTime.Now;
             //DateTime nowTime;
             //TimeSpan diff = default(TimeSpan);
             string data = null;
-            string tmp = null;
+            string res = null;
             while (true)
             {
                 // request data
                 stream.WriteLine("GET");
                 stream.BaseStream.Flush();
-                tmp = null;
+                res = null;
                 try
                 {
-                    tmp = stream.ReadLine();
+                    res = stream.ReadLine();
                 }
                 catch (TimeoutException)
                 {
-                    tmp = null;
+                    res = null;
                 }
-                if (tmp.StartsWith("ERROR:"))
+
+                if (res.StartsWith("ERROR:"))
                 {
-                    Debug.LogError(tmp);
+                    if (onError != null)
+                    {
+                        onError(res);
+                    }
                     yield break;
                 }
 
                 // only publish if data is new
-                if (tmp != null && !tmp.Equals(data))
+                if (res != null && !res.Equals(data))
                 {
-                    data = tmp;
-                    bool[] parsed = parseSerial(data);
-                    if (parsed != null)
-                    {
-                        callback(parsed[0], parsed[1]);
-                    }
+                    data = res;
+                    callback(data);
                 }
-                yield return new WaitForSeconds(refresh);
+                yield return new WaitForSecondsRealtime(refresh);
             }
         }
 
-        private bool[] parseSerial(string data)
-        {
-            try
-            {
-                if (data == null) return null;
-
-                string[] args = data.Split(',');
-                int left = int.Parse(args[0]);
-                int right = int.Parse(args[1]);
-                return new bool[] { left != 0, right != 0 };
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
     }
 
 }

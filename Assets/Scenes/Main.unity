@@ -483,8 +483,9 @@ GameObject:
   m_Component:
   - component: {fileID: 122745458}
   - component: {fileID: 122745457}
+  - component: {fileID: 122745459}
   m_Layer: 0
-  m_Name: RudderPedalManager
+  m_Name: RudderPedalDriver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,6 +572,20 @@ Transform:
   m_Father: {fileID: 861750288}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &122745459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122745456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8028d3c7da874841b7b85fad99e897f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  refresh: 0.1
+  isPaused: 0
 --- !u!114 &127190210 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8999465790832990494, guid: 8376e5037528d434cab49e987b7a4e72,
