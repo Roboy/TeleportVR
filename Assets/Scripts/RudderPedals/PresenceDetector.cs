@@ -61,7 +61,7 @@ namespace RudderPedals
                 Time.timeScale = 0;
                 AudioListener.pause = true;
 
-                PauseHUD.Instance.show = 1;
+                PauseMenu.Instance.show = 1;
             }
             else if ((left && right) && isPaused)
             {
@@ -69,7 +69,7 @@ namespace RudderPedals
                 Time.timeScale = 1;
                 AudioListener.pause = false;
 
-                PauseHUD.Instance.show = 0;
+                PauseMenu.Instance.show = 0;
             }
 
             oldLeft = left;
