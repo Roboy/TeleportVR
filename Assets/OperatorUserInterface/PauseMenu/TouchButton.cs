@@ -44,7 +44,7 @@ public class TouchButton : MonoBehaviour
     private TouchButtonActivationVolume activationVolume;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Find relevant children
         textMeshPro = gameObject.GetComponentInChildren<TextMeshProUGUI>();
@@ -56,9 +56,19 @@ public class TouchButton : MonoBehaviour
         activationVolume.enterCallbacks.Add(callback);
     }
 
+    public void ClearOnTouchEnter()
+    {
+        activationVolume.enterCallbacks.Clear();
+    }
+
     public void OnTouchExit(System.Action callback)
     {
         activationVolume.exitCallbacks.Add(callback);
+    }
+
+    public void ClearOnTouchExit()
+    {
+        activationVolume.exitCallbacks.Clear();
     }
 
     // Update is called once per frame

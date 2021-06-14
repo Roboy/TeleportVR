@@ -4,32 +4,35 @@ using UnityEngine;
 using UnityEngine.XR;
 using Widgets;
 
-public class EnableControlManager : MonoBehaviour
+public class EnableControlManager : Singleton<EnableControlManager>
 {
-    public BioSegment left_hand;
-    public BioSegment right_hand;
-    public BioIK.BioIK left_fingers;
-    public BioIK.BioIK right_fingers;
+    public BioSegment left_hand, right_hand;
+    public BioIK.BioIK left_fingers, right_fingers;
 
-    List<ControllerStruct> controllers = new List<ControllerStruct>();
-    struct ControllerStruct
+    public BioIKGroup leftBioIKGroup, rightBioIKGroup;
+    private UnityEngine.XR.InputDevice leftController, rightController;
+    private bool leftControllerFound = false, rightControllerFound = false;
+
+
+    public struct BioIKGroup
     {
         public BioSegment hand_segment;
         public BioIK.BioIK hand_body;
-        public UnityEngine.XR.InputDevice controller;
-        bool enabled;
+        private bool enabled;
 
-        public ControllerStruct(BioSegment _segment, BioIK.BioIK _body, UnityEngine.XR.InputDevice _inputDevice)
+        public BioIKGroup(BioSegment _segment, BioIK.BioIK _body)
         {
             hand_segment = _segment;
             hand_body = _body;
-            controller = _inputDevice;
             enabled = false;
         }
-
-        public void SetController(InputDevice newController)
+        public void WeakSetEnabled(bool _enabled)
         {
-            controller = newController;
+            if (!enabled)
+            {
+                return;
+            }
+            SetEnabled(_enabled);
         }
 
         public void SetEnabled(bool _enabled)
@@ -43,10 +46,16 @@ public class EnableControlManager : MonoBehaviour
             //{
             //    controller.StopHaptics();
             //}
-
-            for (int i = 0; i < hand_segment.Objectives.Length; i++)
+            foreach (var objective in hand_segment.Objectives)
             {
-                hand_segment.Objectives[i].enabled = enabled;
+                objective.enabled = enabled;
+            }
+            foreach (var segment in hand_body.Segments)
+            {
+                foreach (var objective in segment.Objectives)
+                {
+                    objective.enabled = enabled;
+                }
             }
         }
 
@@ -76,74 +85,72 @@ public class EnableControlManager : MonoBehaviour
                     }
 
                 }
-
-
             }
         }
-
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void FindControllers()
     {
         if (InputManager.Instance.GetLeftController())
         {
-            controllers.Add(new ControllerStruct(left_hand, left_fingers, InputManager.Instance.controllerLeft[0]));
+            leftController = InputManager.Instance.controllerLeft[0];
+            leftControllerFound = true;
         }
-
         if (InputManager.Instance.GetRightController())
         {
-            controllers.Add(new ControllerStruct(right_hand, right_fingers, InputManager.Instance.controllerRight[0]));
+            rightController = InputManager.Instance.controllerRight[0];
+            rightControllerFound = true;
         }
     }
-
-
+    // Start is called before the first frame update
+    void Start()
+    {
+        leftBioIKGroup = new BioIKGroup(left_hand, left_fingers);
+        rightBioIKGroup = new BioIKGroup(right_hand, right_fingers);
+        FindControllers();
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (controllers.Count < 2)
+        if (leftController == null || rightController == null)
         {
-            controllers.Clear();
-            if (InputManager.Instance.GetLeftController())
-            {
-                controllers.Add(new ControllerStruct(left_hand, left_fingers, InputManager.Instance.controllerLeft[0]));
-            }
-
-            if (InputManager.Instance.GetRightController())
-            {
-                controllers.Add(new ControllerStruct(right_hand, right_fingers, InputManager.Instance.controllerRight[0]));
-            }
+            FindControllers();
         }
-        //controllers[0].SetController(InputManager.Instance.controllerLeft[0]);
-        //controllers[1].SetController(InputManager.Instance.controllerRight[0]);
 
-        for (int i = 0; i < controllers.Count; i++)
-        {
-            var device = controllers[i];
-            var _enabled = 0.0f;
-            var trigger = false;
-            if (device.controller.isValid)
-            {
-                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out _enabled);
-                device.controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out trigger);
-            }
-
-            // Show that the arm is active in the state manager
-            WidgetInteraction.SetBodyPartActive(53 - i, _enabled > 0.9f);
-
-            // Show that the fingers are active in the state manager
-            WidgetInteraction.SetBodyPartActive(55 - i, trigger);
-
-#if SENSEGLOVE
-            device.SetEnabled(true);
-#else
-            device.SetEnabled(_enabled>0.9f);
-            device.UpdateFingers(System.Convert.ToDouble(trigger));
-#endif
-        }
+        if (leftControllerFound)
+            ReadControllers(leftBioIKGroup, leftController, true);
+        if (rightControllerFound)
+            ReadControllers(rightBioIKGroup, rightController, false);
     }
 
+    void ReadControllers(BioIKGroup group, UnityEngine.XR.InputDevice controller, bool isLeft)
+    {
+        if (controller == null)
+        {
+            return;
+        }
 
+        var _enabled = 0.0f;
+        var trigger = false;
+        if (controller.isValid)
+        {
+            controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.trigger, out _enabled);
+            controller.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out trigger);
+        }
+        int i = isLeft ? 0 : 1;
+        // Show that the arm is active in the state manager
+        WidgetInteraction.SetBodyPartActive(53 - i, _enabled > 0.9f);
+
+        // Show that the fingers are active in the state manager
+        WidgetInteraction.SetBodyPartActive(55 - i, trigger);
+
+#if SENSEGLOVE
+        group.WeakSetEnabled(true);
+#else
+        group.WeakSetEnabled(_enabled>0.9f);
+        group.UpdateFingers(System.Convert.ToDouble(trigger));
+#endif
+    }
 }

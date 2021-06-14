@@ -4,32 +4,68 @@ using UnityEngine;
 
 namespace RudderPedals
 {
-
-    public class PresenceDetector : MonoBehaviour
+    public class PresenceDetector : Singleton<PresenceDetector>
     {
-        public float refresh = 0.1f;
+        [System.Serializable]
+        public class TrackerSwitcher
+        {
+            [Tooltip("CopyTransform script at SenseGlove root")]
+            public JointTransfer.CopyTransfrom copyTransform;
+            [Tooltip("XR input for the associated hand")]
+            public Transform xrController;
+
+            private Transform oldController;
+            private Vector3 oldPosOffset;
+            private Quaternion oldOriOffset;
+            private bool usingXR = false;
+
+            internal void SwitchControllers()
+            {
+                if (usingXR)
+                {
+                    copyTransform.controller = oldController;
+                    copyTransform.positionOffset = oldPosOffset;
+                    copyTransform.orientationOffset = oldOriOffset;
+                    usingXR = false;
+                }
+                else
+                {
+                    oldController = copyTransform.controller;
+                    oldPosOffset = copyTransform.positionOffset;
+                    oldOriOffset = copyTransform.orientationOffset;
+                    copyTransform.controller = xrController;
+                    copyTransform.positionOffset = oldController.position - xrController.position;
+                    copyTransform.orientationOffset = oldController.transform.rotation * Quaternion.Inverse(xrController.transform.rotation);
+                    usingXR = true;
+                }
+            }
+        }
+
+        [Tooltip("Time step to refresh presence detector in (seconds)")]
+        public float presenceRefresh = 0.1f;
         public bool isPaused = false;
 
+        public TrackerSwitcher leftGlove;
+        public TrackerSwitcher rightGlove;
 
         private SerialReader pedalDetector;
         private bool oldLeft = false, oldRight = false;
-
+        private bool oldMotorEnabled = false;
+        private Timer animationTimer;
 
         // Start is called before the first frame update
-
         void Start()
         {
-            pedalDetector = new SerialReader(refresh: refresh);
-            StartCoroutine(pedalDetector.readAsyncContinously(onUpdate, onError));
+            pedalDetector = new SerialReader(refresh: presenceRefresh);
+            StartCoroutine(pedalDetector.readAsyncContinously(OnUpdatePresence, OnError));
         }
 
         // Update is called once per frame
         void Update()
         {
-
         }
 
-        private bool[] parseData(string data)
+        private bool[] ParseData(string data)
         {
             try
             {
@@ -45,9 +81,9 @@ namespace RudderPedals
             }
         }
 
-        private void onUpdate(string data)
+        private void OnUpdatePresence(string data)
         {
-            bool[] lr = parseData(data);
+            bool[] lr = ParseData(data);
             if (lr == null)
             {
                 return;
@@ -56,32 +92,74 @@ namespace RudderPedals
             bool left = lr[0], right = lr[1];
             if ((!left || !right) && (oldLeft || oldRight))
             {
-                isPaused = true;
-                Debug.Log("Paused");
-                Time.timeScale = 0;
-                AudioListener.pause = true;
-
-                PauseMenu.Instance.show = 1;
+                Pause();
             }
             else if ((left && right) && isPaused)
             {
-                Debug.Log("Unpaused");
-                Time.timeScale = 1;
-                AudioListener.pause = false;
-
-                PauseMenu.Instance.show = 0;
+                Unpause();
             }
 
             oldLeft = left;
             oldRight = right;
         }
 
+        public bool Pause()
+        {
+            if (isPaused)
+            {
+                return false;
+            }
 
-        private void onError(string reason)
+            Debug.Log("Paused");
+            PauseMenu.Instance.show = true;
+            isPaused = true;
+
+            // Disable BioIK & wheelchair
+            EnableControlManager.Instance.leftBioIKGroup.SetEnabled(false);
+            EnableControlManager.Instance.rightBioIKGroup.SetEnabled(false);
+
+            RudderPedalDriver.Instance.enabled = false;
+            oldMotorEnabled = UnityAnimusClient.Instance.motorEnabled;
+            UnityAnimusClient.Instance.EnableMotor(false);
+
+            //Time.timeScale = 0.01f;
+            AudioListener.pause = true;
+
+            // switch gloves to paused mode
+            leftGlove.SwitchControllers();
+            rightGlove.SwitchControllers();
+            return true;
+        }
+
+        public bool Unpause()
+        {
+            if (!isPaused)
+            {
+                return false;
+            }
+
+            Debug.Log("Unpaused");
+            PauseMenu.Instance.show = false;
+            isPaused = false;
+
+            // Enable BioIK & wheelchair
+            EnableControlManager.Instance.leftBioIKGroup.SetEnabled(true);
+            EnableControlManager.Instance.rightBioIKGroup.SetEnabled(true);
+            RudderPedalDriver.Instance.enabled = true;
+            UnityAnimusClient.Instance.EnableMotor(oldMotorEnabled);
+
+            //Time.timeScale = 1;
+            AudioListener.pause = false;
+
+            // switch gloves back to control mode
+            leftGlove.SwitchControllers();
+            rightGlove.SwitchControllers();
+            return true;
+        }
+
+        private void OnError(string reason)
         {
             Debug.LogError(reason);
         }
-
-
     }
 }

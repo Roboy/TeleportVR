@@ -102,7 +102,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3155138203043137018}
   - component: {fileID: 3155138203043137016}
-  - component: {fileID: 3155138203043137017}
   - component: {fileID: 383961870637410472}
   m_Layer: 0
   m_Name: ActivationVolume
@@ -143,22 +142,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 162, y: 117.29, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3155138203043137017
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3155138203043137019}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &383961870637410472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +640,7 @@ GameObject:
   - component: {fileID: 8946070584639901122}
   - component: {fileID: 3894778926738088098}
   m_Layer: 0
-  m_Name: 3D Button
+  m_Name: TouchButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

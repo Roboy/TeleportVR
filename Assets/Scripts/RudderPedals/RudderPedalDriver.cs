@@ -7,7 +7,7 @@ namespace RudderPedals
 {
     public class RudderPedalDriver : Singleton<RudderPedalDriver>
     {
-
+        public bool enabled = true;
         public DifferentialDriveControl driveControl;
 
         [Range(0, 1), Tooltip("Maximum forward velocity (m/s)")]
@@ -53,6 +53,10 @@ namespace RudderPedals
         // Update is called once per frame
         void Update()
         {
+            if (!enabled)
+            {
+                return;
+            }
             // in  [-1, 1]
             float steeringAngle = player.GetAxis("SteeringAngle");
             // in [0,1]

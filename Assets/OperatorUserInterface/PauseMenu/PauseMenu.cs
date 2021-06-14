@@ -4,42 +4,59 @@ using UnityEngine;
 
 public class PauseMenu : Singleton<PauseMenu>
 {
-
     [Range(0, 1)]
-    public float show = 0;
+    public bool show;
     public GameObject child;
 
     [Header("UI Buttons")]
     public TouchButton switchScene;
-
-    private Vector3 startPos, endPos;
-    private Vector3 localScale;
+    public bool switchScenePressed = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.localPosition + new Vector3(0, 0.5f, 0);
-        endPos = transform.localPosition;
-        localScale = transform.localScale;
+        // recover values presence detector when this script is reloaded
+        show = RudderPedals.PresenceDetector.Instance.isPaused;
+        switchScenePressed = RudderPedals.PresenceDetector.Instance.isPaused;
+
         // buttons init
-        switchScene.OnTouchEnter(() => Debug.Log("Changing scene to HUD"));
+        switchScene.OnTouchEnter(() =>
+        {
+            if (switchScenePressed)
+            {
+                return;
+            }
+            switchScenePressed = true;
+            switch (StateManager.Instance.currentState)
+            {
+                case StateManager.States.Training:
+                    Debug.Log("Changing scene to HUD");
+                    switchScene.text = "Training";
+                    StateManager.Instance.GoToState(StateManager.States.HUD);
+                    break;
+                case StateManager.States.HUD:
+                    Debug.Log("Changing scene to Traning");
+                    switchScene.text = "Control";
+                    StateManager.Instance.GoToState(StateManager.States.Training);
+                    break;
+            }
+        });
+        switchScene.OnTouchExit(() =>
+        {
+            switchScenePressed = false;
+        });
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.localPosition = Vector3.Slerp(startPos, endPos, show);
-        if (show > 0)
-        {
-            child.SetActive(true);
-            transform.localScale = localScale;
-        }
-        else
-        {
-            child.SetActive(false);
-            transform.localScale = Vector3.zero;
-        }
+        child.SetActive(show);
     }
 
+    private void OnDestroy()
+    {
+        switchScene.ClearOnTouchEnter();
+        switchScene.ClearOnTouchExit();
+    }
 }

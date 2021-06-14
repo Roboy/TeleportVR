@@ -85,7 +85,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public BioIK.BioIK _myIKBody;
     public BioIK.BioIK _myIKHead;
     private List<BioSegment> _actuatedJoints;
-    private bool motorEnabled;
+    public bool motorEnabled;
     private float _lastUpdate;
 
     private bool bodyTransitionReady;
