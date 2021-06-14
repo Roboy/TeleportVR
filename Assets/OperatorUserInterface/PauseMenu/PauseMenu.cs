@@ -23,21 +23,17 @@ public class PauseMenu : Singleton<PauseMenu>
         // buttons init
         switchScene.OnTouchEnter(() =>
         {
-            if (switchScenePressed)
-            {
-                return;
-            }
+            if (switchScenePressed) return;
+
             switchScenePressed = true;
             switch (StateManager.Instance.currentState)
             {
                 case StateManager.States.Training:
                     Debug.Log("Changing scene to HUD");
-                    switchScene.text = "Training";
                     StateManager.Instance.GoToState(StateManager.States.HUD);
                     break;
                 case StateManager.States.HUD:
                     Debug.Log("Changing scene to Traning");
-                    switchScene.text = "Control";
                     StateManager.Instance.GoToState(StateManager.States.Training);
                     break;
             }
@@ -51,6 +47,15 @@ public class PauseMenu : Singleton<PauseMenu>
     // Update is called once per frame
     void Update()
     {
+        switch (StateManager.Instance.currentState)
+        {
+            case StateManager.States.Training:
+                switchScene.text = "Control";
+                break;
+            case StateManager.States.HUD:
+                switchScene.text = "Training";
+                break;
+        }
         child.SetActive(show);
     }
 

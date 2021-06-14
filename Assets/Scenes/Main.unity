@@ -2094,9 +2094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 191390495}
   position: 1
-  positionOffset: {x: 0, y: 0, z: 0}
   rotation: 1
-  orientationOffset: {x: 0, y: 0, z: 0, w: 1}
 --- !u!1 &440591000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1076834946427720796, guid: 672391305442d4247958d25d550bd81f,
@@ -4946,9 +4944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1396532050}
   position: 1
-  positionOffset: {x: 0, y: 0, z: 0}
   rotation: 1
-  orientationOffset: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &668449997 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8980600751088966979, guid: 8376e5037528d434cab49e987b7a4e72,

@@ -14,28 +14,25 @@ namespace RudderPedals
             [Tooltip("XR input for the associated hand")]
             public Transform xrController;
 
-            private Transform oldController;
-            private Vector3 oldPosOffset;
-            private Quaternion oldOriOffset;
+            private Transform oldParent;
             private bool usingXR = false;
 
             internal void SwitchControllers()
             {
                 if (usingXR)
                 {
-                    copyTransform.controller = oldController;
-                    copyTransform.positionOffset = oldPosOffset;
-                    copyTransform.orientationOffset = oldOriOffset;
+                    copyTransform.gameObject.transform.SetParent(oldParent);
+                    copyTransform.position = true;
+                    copyTransform.rotation = true;
                     usingXR = false;
                 }
                 else
                 {
-                    oldController = copyTransform.controller;
-                    oldPosOffset = copyTransform.positionOffset;
-                    oldOriOffset = copyTransform.orientationOffset;
-                    copyTransform.controller = xrController;
-                    copyTransform.positionOffset = oldController.position - xrController.position;
-                    copyTransform.orientationOffset = oldController.transform.rotation * Quaternion.Inverse(xrController.transform.rotation);
+                    copyTransform.position = false;
+                    copyTransform.rotation = false;
+                    oldParent = copyTransform.gameObject.transform.parent;
+                    copyTransform.gameObject.transform.SetParent(xrController, true);
+
                     usingXR = true;
                 }
             }
