@@ -52,9 +52,10 @@ public class EnableControlManager : Singleton<EnableControlManager>
             }
             foreach (var segment in hand_body.Segments)
             {
-                foreach (var objective in segment.Objectives)
+                // toggle joints, not objective on hands as they are driven by custom scripts, not BioIK
+                if (segment.Joint != null)
                 {
-                    objective.enabled = enabled;
+                    segment.Joint.enabled = enabled;
                 }
             }
         }
