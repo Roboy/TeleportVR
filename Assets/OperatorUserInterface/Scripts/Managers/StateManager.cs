@@ -69,31 +69,43 @@ public class StateManager : Singleton<StateManager>
                 break;
         }
     }
-    
+
     /// <summary>
     /// Load the specified state.
     /// </summary>
     /// <param name="newState">The name of the state the state that should be loaded.</param>
-    public void GoToState(States newState)
+    /// <param name="onLoadDone">Callback to be executed once scene switching is done</param>
+    public void GoToState(States newState, System.Action onLoadDone = null)
     {
         // TODO: not working because the wheelchair is overwriting the position but needed to reset the user
         //WheelchairStateManager.Instance.transform.position = Vector3.zero;
-        
+
         switch (newState)
         {
             case States.Construct:
                 transitionManager.StartTransition(false);
-                additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, DelegateAfterConstructLoad);
+                additiveSceneManager.ChangeScene(Scenes.CONSTRUCT, null, null, DelegateBeforeConstructLoad, () =>
+                {
+                    DelegateAfterConstructLoad();
+                    onLoadDone?.Invoke();
+                });
                 currentState = States.Construct;
                 break;
             case States.HUD:
                 transitionManager.StartTransition(true);
-                additiveSceneManager.ChangeScene(Scenes.HUD, null, null, DelegateBeforeHudLoad, null);
+                additiveSceneManager.ChangeScene(Scenes.HUD, null, null, DelegateBeforeHudLoad, () =>
+                {
+                    onLoadDone?.Invoke();
+                });
                 currentState = States.HUD;
                 break;
             case States.Training:
                 transitionManager.StartTransition(true);
-                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, DelegateAfterTrainingLoad);
+                additiveSceneManager.ChangeScene(Scenes.TRAINING, null, null, null, () =>
+                {
+                    DelegateAfterTrainingLoad();
+                    onLoadDone?.Invoke();
+                });
                 currentState = States.Training;
                 break;
             default:
@@ -137,7 +149,7 @@ public class StateManager : Singleton<StateManager>
             openMenuButton.GetChild(1).GetComponent<FrameClickDetection>().highlightOff();
         }
     }
-    
+
     /// <summary>
     /// Logic that is executed right before the Trainings scene is loaded.
     /// Gets the reference to the TutorialSteps script.
@@ -190,17 +202,17 @@ public class StateManager : Singleton<StateManager>
         if (!KillConstruct)
         {
             Destroy(GameObject.FindGameObjectWithTag("MainMenu"));
-//#if SENSEGLOVE
-//            leftSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
-//            rightSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
-//            leftSenseGlove.SetActive(false);
-//            rightSenseGlove.SetActive(false);
-//#endif
+            //#if SENSEGLOVE
+            //            leftSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
+            //            rightSenseGlove.GetComponentInChildren<SenseGlove_Object>().StopBrakes();
+            //            leftSenseGlove.SetActive(false);
+            //            rightSenseGlove.SetActive(false);
+            //#endif
 
             constructFXManager.ToggleEffects(false);
         }
     }
-    
+
     /// <summary>
     /// Logic that is executed right before the construc scene is loaded.
     /// Enables both sense gloves and the OpenMenuButton
@@ -219,8 +231,8 @@ public class StateManager : Singleton<StateManager>
                 }
             }
         }
-        
-        
+
+
     }
     #endregion
 }

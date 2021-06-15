@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class PauseMenu : Singleton<PauseMenu>
 {
-    [Range(0, 1)]
     public bool show;
     public GameObject child;
 
     [Header("UI Buttons")]
     public TouchButton switchScene;
-    public bool switchScenePressed = false;
+
+    private bool switchScenePressed = false;
+    private bool oldWheelchairVisibility;
 
 
     // Start is called before the first frame update
@@ -30,7 +32,12 @@ public class PauseMenu : Singleton<PauseMenu>
             {
                 case StateManager.States.Training:
                     Debug.Log("Changing scene to HUD");
-                    StateManager.Instance.GoToState(StateManager.States.HUD);
+                    StateManager.Instance.GoToState(StateManager.States.HUD, () =>
+                    {
+                        oldWheelchairVisibility = WheelchairStateManager.Instance.visible;
+                        WheelchairStateManager.Instance.SetVisibility(true,
+                            StateManager.Instance.currentState == StateManager.States.HUD ? WheelchairStateManager.HUDAlpha : 1);
+                    });
                     break;
                 case StateManager.States.HUD:
                     Debug.Log("Changing scene to Traning");

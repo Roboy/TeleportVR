@@ -5,7 +5,7 @@ using Rewired;
 
 namespace RudderPedals
 {
-    public class RudderPedalDriver : Singleton<RudderPedalDriver>
+    public class PedalDriver : Singleton<PedalDriver>
     {
         public bool enabled = true;
         public DifferentialDriveControl driveControl;

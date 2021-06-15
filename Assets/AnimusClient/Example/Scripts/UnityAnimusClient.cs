@@ -702,8 +702,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
 #if RUDDER
             // wheelchair
-            Vector2 wheelcharDrive = RudderPedals.RudderPedalDriver.Instance.output /
-                Mathf.Max(RudderPedals.RudderPedalDriver.Instance.maxAngularVelocity, RudderPedals.RudderPedalDriver.Instance.maxVelocity);
+            Vector2 wheelcharDrive = RudderPedals.PedalDriver.Instance.output /
+                Mathf.Max(RudderPedals.PedalDriver.Instance.maxAngularVelocity, RudderPedals.PedalDriver.Instance.maxVelocity);
             // both ranges are in [-1, 1]
             // left
             motorAngles.Add(wheelcharDrive.x);

@@ -13,6 +13,8 @@ namespace RudderPedals
             public JointTransfer.CopyTransfrom copyTransform;
             [Tooltip("XR input for the associated hand")]
             public Transform xrController;
+            [Tooltip("Ghost hand, shown when paused")]
+            public GameObject ghostHand;
 
             private Transform oldParent;
             private bool usingXR = false;
@@ -115,7 +117,9 @@ namespace RudderPedals
             EnableControlManager.Instance.leftBioIKGroup.SetEnabled(false);
             EnableControlManager.Instance.rightBioIKGroup.SetEnabled(false);
 
-            RudderPedalDriver.Instance.enabled = false;
+            WheelchairStateManager.Instance.SetVisibility(true, StateManager.Instance.currentState == StateManager.States.HUD ? WheelchairStateManager.HUDAlpha : 1);
+
+            PedalDriver.Instance.enabled = false;
             oldMotorEnabled = UnityAnimusClient.Instance.motorEnabled;
             UnityAnimusClient.Instance.EnableMotor(false);
 
@@ -124,7 +128,9 @@ namespace RudderPedals
 
             // switch gloves to paused mode
             leftGlove.SwitchControllers();
+            leftGlove.ghostHand.SetActive(true);
             rightGlove.SwitchControllers();
+            rightGlove.ghostHand.SetActive(true);
             return true;
         }
 
@@ -142,7 +148,10 @@ namespace RudderPedals
             // Enable BioIK & wheelchair
             EnableControlManager.Instance.leftBioIKGroup.SetEnabled(true);
             EnableControlManager.Instance.rightBioIKGroup.SetEnabled(true);
-            RudderPedalDriver.Instance.enabled = true;
+
+            WheelchairStateManager.Instance.SetVisibility(StateManager.Instance.currentState != StateManager.States.HUD);
+
+            PedalDriver.Instance.enabled = true;
             UnityAnimusClient.Instance.EnableMotor(oldMotorEnabled);
 
             //Time.timeScale = 1;
@@ -150,7 +159,9 @@ namespace RudderPedals
 
             // switch gloves back to control mode
             leftGlove.SwitchControllers();
+            leftGlove.ghostHand.SetActive(false);
             rightGlove.SwitchControllers();
+            rightGlove.ghostHand.SetActive(false);
             return true;
         }
 
