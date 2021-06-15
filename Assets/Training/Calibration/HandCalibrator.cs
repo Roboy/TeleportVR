@@ -270,6 +270,7 @@ namespace Training.Calibration
             calibrationParams.dwellTimer.ResetTimer();
             calibrationParams.waitTimer.ResetTimer();
             testParams.dwellTimer.ResetTimer();
+            virtualHand.SetActive(false);
         }
 
         // Update is called once per frame

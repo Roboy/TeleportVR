@@ -98,6 +98,14 @@ namespace Training
 
         }
 
+        public void StopAudioClips()
+        {
+            foreach (var source in audioSourceArray)
+            {
+                source.Stop();
+            }
+        }
+
 
         /// <summary>
         /// Shows a message on the notification widget

@@ -36,7 +36,7 @@ namespace Training.Calibration
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!enabled || !other.CompareTag(requiredTag))
+            if (!enabled || !other.CompareTag(requiredTag) || TutorialSteps.Instance.IsAudioPlaying())
             {
                 return;
             }
@@ -50,6 +50,7 @@ namespace Training.Calibration
                 return;
             }
             calibrator.PauseCalibration();
+            TutorialSteps.Instance.StopAudioClips();
         }
     }
 
