@@ -120,7 +120,7 @@ namespace Training
         {
             Widget notificationWidget = Manager.Instance.FindWidgetWithID(10);
             RosJsonMessage toastrMessage = RosJsonMessage.CreateToastrMessage(10, message, time,
-                new byte[] { 255, 40, 15, 255 });
+                new byte[] { 0x17, 0x17, 0x17, 0xff });
             notificationWidget.ProcessRosMessage(toastrMessage);
         }
 
