@@ -7,40 +7,15 @@ public class TouchButtonActivationVolume : MonoBehaviour
     public List<System.Action> enterCallbacks = new List<System.Action>();
     public List<System.Action> exitCallbacks = new List<System.Action>();
 
-    //private BoxCollider boxCollider;
-    //private Vector3 pos, scale;
-
-    //private void Start()
-    //{
-    //    boxCollider = gameObject.GetComponent<BoxCollider>();
-    //}
-
-    //void Update()
-    //{
-    //    if (RudderPedals.PresenceDetector.Instance.isPaused)
-    //    {
-    //        pos = transform.position;
-    //        scale = Vector3.Scale(transform.lossyScale, boxCollider.size) / 2;
-    //        Collider[] colliders = Physics.OverlapBox(pos, scale, Quaternion.identity, mask);
-    //        if (colliders.Length > 0)
-    //        {
-    //            Debug.Log("Trigger enter");
-    //            foreach (var collider in colliders)
-    //            {
-    //                Debug.Log(collider);
-    //            }
-    //            foreach (var callback in enterCallbacks)
-    //            {
-    //                callback();
-    //            }
-    //        }
-    //    }
-    //}
+    public string[] colliderTags;
 
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger enter");
+
+        if (!ColliderHasTags(other))
+            return;
+        Debug.Log("TouchButtonActivationVolume enter");
         foreach(var callback in enterCallbacks)
         {
             callback();
@@ -50,16 +25,22 @@ public class TouchButtonActivationVolume : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("trigger exit");
+        Debug.Log("TouchButtonActivationVolume exit");
+        if (!ColliderHasTags(other))
+            return;
         foreach(var callback in exitCallbacks)
         {
             callback();
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireCube(pos, scale * 2);
-    //}
+    private bool ColliderHasTags(Collider collider)
+    {
+        foreach(var tag in colliderTags)
+        {
+            if (collider.CompareTag(tag))
+                return true;
+        }
+        return false;
+    }
 }

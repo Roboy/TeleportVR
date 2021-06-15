@@ -39,6 +39,7 @@ TagManager:
   - Tutorial
   - XROffsetLeft
   - XROffsetRight
+  - SeneGloveGrab
   layers:
   - Default
   - TransparentFX
