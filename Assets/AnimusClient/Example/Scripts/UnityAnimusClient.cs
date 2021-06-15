@@ -85,7 +85,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public BioIK.BioIK _myIKBody;
     public BioIK.BioIK _myIKHead;
     private List<BioSegment> _actuatedJoints;
-    private bool motorEnabled;
+    public bool motorEnabled;
     private float _lastUpdate;
 
     private bool bodyTransitionReady;
@@ -702,14 +702,14 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
 #if RUDDER
             // wheelchair
-            Vector2 wheelcharDrive = RudderPedalManager.Instance.output /
-                Mathf.Max(RudderPedalManager.Instance.maxAngularVelocity, RudderPedalManager.Instance.maxVelocity);
+            Vector2 wheelcharDrive = RudderPedals.PedalDriver.Instance.output /
+                Mathf.Max(RudderPedals.PedalDriver.Instance.maxAngularVelocity, RudderPedals.PedalDriver.Instance.maxVelocity);
             // both ranges are in [-1, 1]
             // left
             motorAngles.Add(wheelcharDrive.x);
             // right
             motorAngles.Add(wheelcharDrive.y);
-            
+
 #else
             Vector2 axis2D;
             if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftController() &&

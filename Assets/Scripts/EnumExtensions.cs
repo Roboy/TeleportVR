@@ -1,4 +1,4 @@
-public static class Extensions
+public static class EnumExtensions
 {
     public static T Next<T>(this T src) where T : System.Enum
     {

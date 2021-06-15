@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JointTrnasfer
+namespace JointTransfer
 {
     public class CopyTransfrom : MonoBehaviour
     {
@@ -23,11 +23,11 @@ namespace JointTrnasfer
         {
             if (controller != null && position)
             {
-                transform.position = controller.position;
+                transform.position =  controller.position;
             }
             if (controller != null && rotation)
             {
-                transform.rotation = controller.rotation;
+                transform.rotation =  controller.rotation;
             }
 
         }

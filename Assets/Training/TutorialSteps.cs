@@ -110,16 +110,17 @@ namespace Training
         /// <summary>
         /// Shows a message on the notification widget
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">Text to display</param>
+        /// <param name="duration">time in seconds to display for</param>
         /// <returns>if the given message was published, i.e. not already existing</returns>
         public static bool PublishNotification(string message, float duration = 5f)
         {
-            byte[] color = new byte[] { 255, 40, 15, 255 };
+            byte[] color = new byte[] { 0x17, 0x17, 0x17, 0xff };
             ToastrWidget widget = (ToastrWidget)Manager.Instance.FindWidgetWithID(10);
             RosJsonMessage msg = RosJsonMessage.CreateToastrMessage(10, message, duration, color);
 
             bool isOld = false;
-            foreach(var template in widget.toastrActiveQueue)
+            foreach (var template in widget.toastrActiveQueue)
             {
                 if (template.toastrMessage == message && template.toastrDuration == duration)
                 {

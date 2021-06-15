@@ -22,19 +22,13 @@ public class StartCalibrator : MonoBehaviour
     {
         if (!calibrated && Time.time >= calibrationTime)
         {
-            // Change transform rotation, such that eye matches goal
-            Vector3 oldPos = transform.position;
-            transform.position = goal.position;
-            Quaternion offsetRotation = Quaternion.FromToRotation(eye.forward, goal.forward);
-            transform.rotation = offsetRotation * transform.rotation;
-            transform.position = oldPos;
 
             // Change transfrom position
             Vector3 move = goal.position - eye.position;
             transform.position += move;
 
             calibrated = true;
-            Debug.Log($"Calibration done, rotated: {offsetRotation}, moved: {move}");
+            Debug.Log($"Calibration done, moved: {move}");
         }
     }
 }
