@@ -700,7 +700,17 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 #endif
 
+#if RUDDER
             // wheelchair
+            Vector2 wheelcharDrive = RudderPedalManager.Instance.output /
+                Mathf.Max(RudderPedalManager.Instance.maxAngularVelocity, RudderPedalManager.Instance.maxVelocity);
+            // both ranges are in [-1, 1]
+            // left
+            motorAngles.Add(wheelcharDrive.x);
+            // right
+            motorAngles.Add(wheelcharDrive.y);
+            
+#else
             Vector2 axis2D;
             if (!WidgetInteraction.settingsAreActive && InputManager.Instance.GetLeftController() &&
                 InputManager.Instance.controllerLeft[0]
@@ -709,11 +719,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 motorAngles.Add(axis2D[0]);
                 motorAngles.Add(axis2D[1]);
             }
-            else
-            {
-                motorAngles.Add(0);
-                motorAngles.Add(0);
-            }
+#endif
 
             //Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
 
