@@ -40,10 +40,12 @@ public class ClientLogic : Singleton<ClientLogic>
         print(AnimusManager);
         AnimusManager.LoginUser(AccountEmail, AccountPassword);
         while (!AnimusManager.loginResultAvailable)
-        {
+        {         
             yield return null;
         }
-        if (!AnimusManager.loginSuccess) yield break;
+        if (!AnimusManager.loginSuccess) {
+            yield break;        
+        }
         Debug.Log("Login successful.");
 
         // Step 2 - Search for connectable robots

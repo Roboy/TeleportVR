@@ -13,15 +13,14 @@ public class HandManager : MonoBehaviour
 
     // can only track up to two joints per set, if more are required, update the code in Start()
     private readonly List<List<string>> jointSets = new List<List<string>> {
+                new List<string> {"rh_THJ4"},
                 new List<string> {"rh_FFJ3", "rh_FFJ2"},
                 new List<string> {"rh_MFJ3", "rh_MFJ2"},
                 new List<string> {"rh_RFJ3", "rh_RFJ2"},
-                new List<string> {"rh_THJ4"},
+                new List<string> {"lh_THJ4"},
                 new List<string> {"lh_FFJ3", "lh_FFJ2"},
                 new List<string> {"lh_MFJ3", "lh_MFJ2"},
                 new List<string> {"lh_RFJ3", "lh_RFJ2"},
-                new List<string> {"lh_THJ4"},
-
             };
     private List<float> jointRanges = new List<float>();
     private List<Vector2> jointMinVectors = new List<Vector2>();
