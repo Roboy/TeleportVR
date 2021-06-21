@@ -472,7 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a81c963a2afdb429a3faaf2a69645c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabled: 1
   driveControl: {fileID: 3112793307756572318}
   maxVelocity: 0.1
   maxAngularVelocity: 0.025
@@ -526,6 +525,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  velocityFilterSize: 50
   velocity: 0
   angularVelocity: 0
 --- !u!4 &122745458

@@ -13,11 +13,14 @@ namespace RudderPedals
             set
             {
                 _enabled = value;
+                // set velocity to 0 when not enabled
                 if (!_enabled)
                 {
                     _output = Vector2.zero;
                     driveControl.V_L = _output.x;
                     driveControl.V_R = _output.y;
+
+                    ResetMovingAverageFilter();
                 }
             }
         }
@@ -39,6 +42,10 @@ namespace RudderPedals
         public AnimationCurve velocityMap;
         public AnimationCurve angularVelocityMap;
 
+        [Tooltip("Number of steps to look back for smoothing wheelchair velocity. Only set at startup")]
+        public int velocityFilterSize = 10;
+        private Queue<float> movingAverageCache;
+
         [Header("Read Only values")]
         public float velocity;
         public float angularVelocity;
@@ -56,6 +63,7 @@ namespace RudderPedals
         private readonly Vector2 forward = new Vector2(1f, 1f);
         private Player player;
 
+
         private void Awake()
         {
             player = ReInput.players.GetPlayer(playerId);
@@ -63,6 +71,9 @@ namespace RudderPedals
             velocityMap.postWrapMode = WrapMode.Clamp;
             angularVelocityMap.preWrapMode = WrapMode.Clamp;
             angularVelocityMap.postWrapMode = WrapMode.Clamp;
+
+            movingAverageCache = new Queue<float>(velocityFilterSize);
+            ResetMovingAverageFilter();
         }
 
         // Update is called once per frame
@@ -78,10 +89,15 @@ namespace RudderPedals
             float left = player.GetAxis("Forward");
             float right = player.GetAxis("Backward");
             float vel = Mathf.Max(left, right);
+
             if (vel > 0)
             {
                 // clip forward to >= deadzone
                 // rescale velocity to reach 1 at maximum pedal press
+                if (vel <= forwardDeadzone)
+                {
+                    ResetMovingAverageFilter();
+                }
                 vel = Mathf.Max(vel - forwardDeadzone, 0) / (1 - forwardDeadzone);
             }
             else
@@ -95,6 +111,11 @@ namespace RudderPedals
             if (Mathf.Min(left, right) > backwardDeadzone)
             {
                 vel = -0.5f * vel;
+                ResetMovingAverageFilter();
+            }
+            else
+            {
+                vel = MovingAverageFilter(vel);
             }
 
             Vector2 direction = Vector2.Lerp(leftDrive, rightDrive, 0.5f + 0.5f * angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)) * Mathf.Sign(steeringAngle));
@@ -106,6 +127,34 @@ namespace RudderPedals
             driveControl.V_L = _output.x;
             driveControl.V_R = _output.y;
         }
+
+        /// <summary>
+        /// Moving average filtering on wheelchair velocities
+        /// </summary>
+        /// <param name="values">input value</param>
+        /// <returns>smoothed result</returns>
+        private float MovingAverageFilter(float values)
+        {
+            movingAverageCache.Enqueue(values);
+            movingAverageCache.Dequeue();
+            float sum = 0;
+            foreach (var item in movingAverageCache)
+            {
+                sum += item;
+            }
+            return sum / movingAverageCache.Count;
+        }
+
+        private void ResetMovingAverageFilter()
+        {
+            movingAverageCache.Clear();
+            for (int i = 0; i < velocityFilterSize; i++)
+            {
+                movingAverageCache.Enqueue(0);
+            }
+
+        }
     }
+
 }
 
