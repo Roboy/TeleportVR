@@ -123,7 +123,6 @@ namespace RudderPedals
             oldMotorEnabled = UnityAnimusClient.Instance.motorEnabled;
             UnityAnimusClient.Instance.EnableMotor(false);
 
-            //Time.timeScale = 0.01f;
             AudioListener.pause = true;
 
             // switch gloves to paused mode
@@ -153,8 +152,7 @@ namespace RudderPedals
 
             PedalDriver.Instance.enabled = true;
             UnityAnimusClient.Instance.EnableMotor(oldMotorEnabled);
-
-            //Time.timeScale = 1;
+            
             AudioListener.pause = false;
 
             // switch gloves back to control mode

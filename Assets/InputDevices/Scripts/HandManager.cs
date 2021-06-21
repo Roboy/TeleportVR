@@ -63,18 +63,17 @@ public class HandManager : MonoBehaviour
     }
 
     // Right hand: 
+    // rh_TH [0,1]
     // rh_FF [0,1] 
     // rh_MF [0,1]
     // rh_RF [0,1]
-    // rh_TH [0,1]
     // Left hand:
+    // lh_TH [0,1]
     // lh_FF [0,1]
     // lh_MF [0,1]
     // lh_RF [0,1]
-    // lh_TH [0,1]
     public List<float> GetMotorPositions()
     {
-
         Dictionary<string, float> currentAngles = new Dictionary<string, float>();
         foreach (var hand in new BioIK.BioIK[] { rightHand, leftHand })
         {
@@ -85,7 +84,7 @@ public class HandManager : MonoBehaviour
             }
         }
 
-        List<float> motorPos = new List<float>();
+        List<float> motorPos = new List<float>(jointSets.Count);
         for (int i = 0; i < jointSets.Count; i++)
         {
             List<string> joints = jointSets[i];
@@ -100,7 +99,7 @@ public class HandManager : MonoBehaviour
             }
             float dist = (current - jointMinVectors[i]).magnitude;
             float range = jointRanges[i];
-            motorPos.Add(dist / range);
+            motorPos.Add(Mathf.Clamp01(dist / range));
 
         }
         //Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorPos.ConvertAll(x => x.ToString()).ToArray())}]");
@@ -110,7 +109,7 @@ public class HandManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        GetMotorPositions();
     }
 
 }
