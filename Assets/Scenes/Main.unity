@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   driveControl: {fileID: 3112793307756572318}
   maxVelocity: 0.1
-  maxAngularVelocity: 0.025
+  maxAngularVelocity: 0.035
   forwardDeadzone: 0.4
   backwardDeadzone: 0.2
   velocityMap:
@@ -6765,12 +6765,17 @@ PrefabInstance:
     - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1860066
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15494
+      value: -1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 991579244922214202, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2289400493350496023, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -6805,12 +6810,17 @@ PrefabInstance:
     - target: {fileID: 2969494099595400440, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0530509
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2969494099595400440, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0192513
+      value: -1.0199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969494099595400440, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
@@ -9637,6 +9647,11 @@ PrefabInstance:
       objectReference: {fileID: 603662680}
     - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
         type: 3}
+      propertyPath: stereovision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5126804910112992158, guid: fecb1fa955e882d4fb066401a856213a,
+        type: 3}
       propertyPath: TrackingSpace
       value: 
       objectReference: {fileID: 577365870}
@@ -10687,7 +10702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757228582}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.138, y: 0.157, z: -0}
+  m_LocalPosition: {x: 0.015, y: 0.152, z: -0}
   m_LocalScale: {x: 0.49999988, y: 0.5, z: 0.49999988}
   m_Children: []
   m_Father: {fileID: 1346464668}

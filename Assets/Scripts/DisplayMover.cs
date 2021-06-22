@@ -52,9 +52,9 @@ public class DisplayMover : MonoBehaviour
         UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(role, controller);
 
         _displayOffsetKey = isLeft ? LeftDisplayOffsetKey : RightDisplayOffsetKey;
-        transform.localPosition = new Vector3(  PlayerPrefs.GetFloat(_displayOffsetKey + "X", 0),
-                                                PlayerPrefs.GetFloat(_displayOffsetKey + "Y", -2),
-                                                PlayerPrefs.GetFloat(_displayOffsetKey + "Z", 6));
+        transform.localPosition = new Vector3(PlayerPrefs.GetFloat(_displayOffsetKey + "X", transform.localPosition.x),
+                                                PlayerPrefs.GetFloat(_displayOffsetKey + "Y", transform.localPosition.y),
+                                                PlayerPrefs.GetFloat(_displayOffsetKey + "Z", transform.localPosition.z));
     }
 
     /// <summary>
@@ -122,7 +122,8 @@ public class DisplayMover : MonoBehaviour
     }
 
     // Save the offsets to the PlayerPrefs
-    private void SaveOffsets() {
+    private void SaveOffsets()
+    {
         PlayerPrefs.SetFloat(_displayOffsetKey + "X", transform.localPosition.x);
         PlayerPrefs.SetFloat(_displayOffsetKey + "Y", transform.localPosition.y);
         PlayerPrefs.SetFloat(_displayOffsetKey + "Z", transform.localPosition.z);

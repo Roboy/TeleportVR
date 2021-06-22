@@ -116,7 +116,6 @@ MonoBehaviour:
   show: 0
   child: {fileID: 6138654671649566930}
   switchScene: {fileID: 5257007332054213766}
-  switchScenePressed: 0
 --- !u!1 &6138654671649566930
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +399,16 @@ PrefabInstance:
         type: 3}
       propertyPath: mask.m_Bits
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 383961870637410472, guid: 350cfdca5c374214b8cc4709a80d51d0,
+        type: 3}
+      propertyPath: colliderTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 383961870637410472, guid: 350cfdca5c374214b8cc4709a80d51d0,
+        type: 3}
+      propertyPath: colliderTags.Array.data[0]
+      value: SeneGloveGrab
       objectReference: {fileID: 0}
     - target: {fileID: 3155138203086752536, guid: 350cfdca5c374214b8cc4709a80d51d0,
         type: 3}

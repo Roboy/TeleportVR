@@ -349,30 +349,28 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             yuv.put(0, 0, all_bytes);
 
             Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
-            if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] ||
-                currShape[2] != _imageDims[2])
+            if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] || currShape[2] != _imageDims[2])
             {
                 _imageDims = currShape;
                 var scaleX = (float)_imageDims[0] / (float)_imageDims[1];
 
-                Debug.Log("Resize triggered. Setting texture resolution to " + currShape[0] + "x" + currShape[1]);
-                Debug.Log("Setting horizontal scale to " + scaleX + " " + (float)_imageDims[0] + " " +
-                          (float)_imageDims[1]);
+                Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1]}");
+                Debug.Log($"Setting horizontal scale to {scaleX} {(float)_imageDims[0]} {(float)_imageDims[1]}");
 
-                UnityEngine.Vector3 currentScale = _leftPlane.transform.localScale;
-                currentScale.x = scaleX;
-                currentScale.z /= scaleX;
+                //Vector3 currentScale = _leftPlane.transform.localScale;
+                //currentScale.x = scaleX;
+                //currentScale.z /= scaleX;
 
                 if (stereovision)
                 {
-                    _leftPlane.transform.localScale = currentScale;
+                    //_leftPlane.transform.localScale = currentScale;
                     // the left texture is the upper half of the received image
                     _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
 
-                    _rightPlane.transform.localScale = currentScale;
+                    //_rightPlane.transform.localScale = currentScale;
                     // the right texture is the lower half of the received image
                     _rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
                     {
@@ -381,7 +379,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 }
                 else
                 {
-                    _leftPlane.transform.localScale = currentScale;
+                    //_leftPlane.transform.localScale = currentScale;
                     _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
@@ -391,28 +389,15 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             if (stereovision)
             {
-                // loop over the left and the right eye
-                for (int i = 0; i < 2; i++)
-                {
-                    if (i == 0)
-                    {
-                        // display the left image
-                        Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
-                        Utils.matToTexture2D(rgb_l, _leftTexture);
-                        _leftRenderer.material.mainTexture = _leftTexture;
-                    }
-                    else if (i == 1)
-                    {
-                        // display the right image
-                        Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
-                        Utils.matToTexture2D(rgb_r, _rightTexture);
-                        _rightRenderer.material.mainTexture = _rightTexture;
-                    }
-                    else
-                    {
-                        print("Unknown image source: " + currSample.Source);
-                    }
-                }
+                // display the left image
+                Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
+                Utils.matToTexture2D(rgb_l, _leftTexture);
+                _leftRenderer.material.mainTexture = _leftTexture;
+
+                // display the right image
+                Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
+                Utils.matToTexture2D(rgb_r, _rightTexture);
+                _rightRenderer.material.mainTexture = _rightTexture;
             }
             else
             {
@@ -644,7 +629,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     {
         if (!motorEnabled)
         {
-            Debug.Log("Motor modality not enabled");
+            // Debug.Log("Motor modality not enabled");
             return null;
         }
 
@@ -721,7 +706,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 #endif
 
-            Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
+            //Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
 
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
