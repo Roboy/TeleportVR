@@ -55,7 +55,7 @@ namespace RudderPedals
             get { return _output; }
         }
 
-        private Vector2 _output;
+        public Vector2 _output;
 
         private const int playerId = 0;
         private readonly Vector2 leftDrive = new Vector2(-1f, 1f);

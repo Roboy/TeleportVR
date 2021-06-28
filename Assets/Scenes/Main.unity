@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   driveControl: {fileID: 3112793307756572318}
   maxVelocity: 0.1
-  maxAngularVelocity: 0.035
+  maxAngularVelocity: 0.045
   forwardDeadzone: 0.4
   backwardDeadzone: 0.2
   velocityMap:
@@ -525,9 +525,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  velocityFilterSize: 50
+  velocityFilterSize: 5
   velocity: 0
   angularVelocity: 0
+  _output: {x: 0, y: 0}
 --- !u!4 &122745458
 Transform:
   m_ObjectHideFlags: 0

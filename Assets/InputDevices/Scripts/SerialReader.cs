@@ -37,13 +37,18 @@ namespace RudderPedals
             }
         }
 
+        /// <summary>
+        /// Finalizer performing cleanup (closing open ressources)
+        /// </summary>
+        ~SerialReader()
+        {
+            this.stream.Close();
+        }
+
         public IEnumerator readAsyncContinously(Action<string> callback, Action<string> onError = null)
         {
-            //DateTime initTime = DateTime.Now;
-            //DateTime nowTime;
-            //TimeSpan diff = default(TimeSpan);
             string data = null;
-            string res = null;
+            string res;
             while (true)
             {
                 // request data

@@ -150,7 +150,7 @@ namespace RudderPedals
 
             WheelchairStateManager.Instance.SetVisibility(StateManager.Instance.currentState != StateManager.States.HUD);
 
-            //PedalDriver.Instance.enabled = true;
+            PedalDriver.Instance.enabled = true;
             //UnityAnimusClient.Instance.EnableMotor(oldMotorEnabled);
             
             AudioListener.pause = false;
