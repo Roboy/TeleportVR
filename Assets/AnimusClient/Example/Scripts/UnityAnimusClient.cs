@@ -236,7 +236,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     /// <summary>
     /// Setup the displays to display the received image(s) from animus.
-    /// </summary>
+    // </summary>
     /// <returns>The success of this method.</returns>
     public bool vision_initialise()
     {
@@ -357,20 +357,23 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1]}");
                 Debug.Log($"Setting horizontal scale to {scaleX} {(float)_imageDims[0]} {(float)_imageDims[1]}");
 
-                //Vector3 currentScale = _leftPlane.transform.localScale;
-                //currentScale.x = scaleX;
-                //currentScale.z /= scaleX;
-
                 if (stereovision)
                 {
-                    //_leftPlane.transform.localScale = currentScale;
+                    // only half of the vertical scale corresponds to the image for one eye
+                    float scaleFactor = ((float)_imageDims[1] / 2) / (float)_imageDims[0];
+                    _leftPlane.transform.localScale = new Vector3(scaleFactor * _leftPlane.transform.localScale.z,
+                                                                  _leftPlane.transform.localScale.y,
+                                                                  _leftPlane.transform.localScale.z);
+                    _rightPlane.transform.localScale = new Vector3(scaleFactor * _rightPlane.transform.localScale.z,
+                                                                  _rightPlane.transform.localScale.y,
+                                                                  _rightPlane.transform.localScale.z);
+
                     // the left texture is the upper half of the received image
                     _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
 
-                    //_rightPlane.transform.localScale = currentScale;
                     // the right texture is the lower half of the received image
                     _rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
                     {
@@ -379,7 +382,11 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 }
                 else
                 {
-                    //_leftPlane.transform.localScale = currentScale;
+                    float scaleFactor = (float)_imageDims[1] / (float)_imageDims[0];
+                    _leftPlane.transform.localScale = new Vector3(scaleFactor * _leftPlane.transform.localScale.z,
+                                                                  _leftPlane.transform.localScale.y,
+                                                                  _leftPlane.transform.localScale.z);
+
                     _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
@@ -706,7 +713,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 #endif
 
-            Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
+            //Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
 
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
