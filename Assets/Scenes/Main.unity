@@ -1724,6 +1724,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &391951114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4177823133542418178, guid: 8376e5037528d434cab49e987b7a4e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 618619394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &411307370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,6 +2089,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &576490994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 576490995}
+  - component: {fileID: 576490996}
+  m_Layer: 0
+  m_Name: BioIKLatencyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &576490995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576490994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 861750288}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576490996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576490994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14c41ecb6f70944da68a8b91931fc80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arms: {fileID: 618619396}
+  leftHand: {fileID: 1616576656}
+  rightHand: {fileID: 603662680}
+  armControlLimits:
+    velocity: 10
+    acceleration: 20
+  handControlLimits:
+    velocity: 10
+    acceleration: 20
 --- !u!114 &576860243 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8980600750060121928, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -5046,6 +5110,7 @@ Transform:
   - {fileID: 1396364256}
   - {fileID: 1310481046}
   - {fileID: 1858800609}
+  - {fileID: 576490995}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6838,6 +6903,46 @@ PrefabInstance:
       propertyPath: orientation.controllerUp
       value: 
       objectReference: {fileID: 144273807}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[0].value
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[0].inSlope
+      value: -1.0248773
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[0].outSlope
+      value: -2.3510635
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[0].outWeight
+      value: 0.2625
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[0].tangentMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3174760830610617668, guid: 672391305442d4247958d25d550bd81f,
+        type: 3}
+      propertyPath: orientation.cutoff.m_Curve.Array.data[0].weightedMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3446754110549594781, guid: 672391305442d4247958d25d550bd81f,
         type: 3}
       propertyPath: m_Enabled
@@ -10670,6 +10775,7 @@ GameObject:
   - component: {fileID: 1757228583}
   - component: {fileID: 1757228585}
   - component: {fileID: 1757228586}
+  - component: {fileID: 1757228587}
   m_Layer: 0
   m_Name: HeadCalibrationGoal
   m_TagString: Untagged
@@ -10742,6 +10848,24 @@ MonoBehaviour:
   Character: {fileID: 618619396}
   Transform: {fileID: 1757228584}
   Parent: {fileID: 1346464669}
+  Childs: []
+  Joint: {fileID: 0}
+  Objectives: []
+--- !u!114 &1757228587
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757228582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Character: {fileID: 618619395}
+  Transform: {fileID: 1757228584}
+  Parent: {fileID: 391951114}
   Childs: []
   Joint: {fileID: 0}
   Objectives: []

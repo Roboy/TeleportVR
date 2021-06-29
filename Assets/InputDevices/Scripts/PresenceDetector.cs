@@ -116,10 +116,11 @@ namespace RudderPedals
             // Disable BioIK & wheelchair
             EnableControlManager.Instance.leftBioIKGroup.SetEnabled(false);
             EnableControlManager.Instance.rightBioIKGroup.SetEnabled(false);
+            UnityAnimusClient.Instance._myIKHead.enabled = false;
+            PedalDriver.Instance.enabled = false;
 
             WheelchairStateManager.Instance.SetVisibility(true, StateManager.Instance.currentState == StateManager.States.HUD ? WheelchairStateManager.HUDAlpha : 1);
 
-            PedalDriver.Instance.enabled = false;
             oldMotorEnabled = UnityAnimusClient.Instance.motorEnabled;
             //UnityAnimusClient.Instance.EnableMotor(false);
 
@@ -147,8 +148,9 @@ namespace RudderPedals
             // Enable BioIK & wheelchair
             EnableControlManager.Instance.leftBioIKGroup.SetEnabled(true);
             EnableControlManager.Instance.rightBioIKGroup.SetEnabled(true);
+            UnityAnimusClient.Instance._myIKHead.enabled = true;
 
-            WheelchairStateManager.Instance.SetVisibility(StateManager.Instance.currentState != StateManager.States.HUD);
+            //WheelchairStateManager.Instance.SetVisibility(StateManager.Instance.currentState != StateManager.States.HUD);
 
             PedalDriver.Instance.enabled = true;
             //UnityAnimusClient.Instance.EnableMotor(oldMotorEnabled);

@@ -22,6 +22,7 @@ public class XROffset : MonoBehaviour
         public float offset = .1f;
         [Tooltip("Adjusted controller coordinate system")]
         public Transform controllerUp;
+        public float maxDeviation = 0.05f;
     }
 
     [System.Serializable]
@@ -84,9 +85,9 @@ public class XROffset : MonoBehaviour
         {
             transform.rotation = controller.rotation * Quaternion.Euler(orientationOffset);
 
-            float errorR = Quaternion.Angle(orientation.target.rotation, transform.rotation);
-            float errorP = (orientation.target.position - controller.position).magnitude - position.offset;
-            errorP = Mathf.Max(50 * errorP, 0);
+            float errorR = Quaternion.Angle(orientation.target.rotation, transform.rotation) * Mathf.Deg2Rad / Mathf.PI;
+            float errorP = (orientation.target.position - transform.position).magnitude;
+            errorP = Mathf.Clamp(errorP / position.maxDeviation, 0, 1);
 
             // linear falloff in cutoffStart <= error <= cutoffEnd
             float weight = orientation.cutoff.Evaluate(errorR + errorP);

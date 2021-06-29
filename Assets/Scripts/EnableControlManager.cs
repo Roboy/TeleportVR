@@ -121,9 +121,13 @@ public class EnableControlManager : Singleton<EnableControlManager>
         }
 
         if (leftControllerFound)
+        {
             ReadControllers(leftBioIKGroup, leftController, true);
+        }
         if (rightControllerFound)
+        {
             ReadControllers(rightBioIKGroup, rightController, false);
+        }
     }
 
     void ReadControllers(BioIKGroup group, UnityEngine.XR.InputDevice controller, bool isLeft)

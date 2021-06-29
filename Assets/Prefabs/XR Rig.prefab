@@ -283,6 +283,7 @@ MonoBehaviour:
     enabled: 1
     offset: 0.1
     controllerUp: {fileID: 1454972073034252545}
+    maxDeviation: 0.15
   orientation:
     enabled: 1
     objective: {fileID: 0}
@@ -364,6 +365,7 @@ MonoBehaviour:
     enabled: 1
     offset: 0.1
     controllerUp: {fileID: 2056861098533018547}
+    maxDeviation: 0.15
   orientation:
     enabled: 1
     objective: {fileID: 0}
@@ -372,16 +374,16 @@ MonoBehaviour:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 4
-        value: 1
-        inSlope: -0.00091666164
-        outSlope: -0.00091666164
-        tangentMode: 0
-        weightedMode: 0
+        time: 0
+        value: 0.75
+        inSlope: -1.0248773
+        outSlope: -2.3510635
+        tangentMode: 1
+        weightedMode: 2
         inWeight: 0.33333334
-        outWeight: 0.14555256
+        outWeight: 0.2625
       - serializedVersion: 3
-        time: 20
+        time: 1
         value: 0.05
         inSlope: -0.07677743
         outSlope: -0.07677743
