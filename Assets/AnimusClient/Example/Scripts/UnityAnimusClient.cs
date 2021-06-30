@@ -11,6 +11,7 @@ using BioIK;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.Calib3dModule;
 #endif
 using UnityEngine;
 using UnityEngine.Networking;
@@ -119,8 +120,22 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     private const string LEDS_CONNECTED = "robot_established";
     private const string LEDS_IS_CONNECTED = "if_connected";
 
+    private int leftIdx = 0, rightIdx = 0;
+
+    private struct Undistort
+    {
+        public Mat cameraMatrix, distCoeffs, newCameraMatrix;
+    }
+
+    private Undistort undistort;
+
     public void Start()
     {
+
+#if ANIMUS_USE_OPENCV
+        InitUndistortion();
+#endif
+
         motorEnabled = false;
         visionEnabled = false;
         auditionEnabled = false;
@@ -148,6 +163,44 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         StartCoroutine(StartBodyTransition());
     }
 
+#if ANIMUS_USE_OPENCV
+    private void InitUndistortion()
+    {
+        double[,] dist =
+        {
+            { -0.5947601442273787, 0.43119452571961653, -0.009862262587826071, 0.004039919442837182, -0.12390489647322672 }
+        };
+        double[,] camera =
+        {
+            { 672.4823705060328, 0.0, 367.8944005808629 },
+            { 0.0, 683.3365860140323, 505.44937385818747 },
+            { 0.0, 0.0, 1.0 }
+        };
+        double[,] newCamera =
+        {
+            { 549.1903686523438, 0.0, 371.1269680398036 },
+            { 0.0, 559.9528045654297, 487.2767511773709 },
+            { 0.0, 0.0, 1.0 }
+        };
+        undistort.distCoeffs = FillMat(dist);
+        undistort.cameraMatrix = FillMat(camera);
+        undistort.newCameraMatrix = FillMat(newCamera);
+    }
+
+    private Mat FillMat(double[,] values)
+    {
+        int rows = values.GetLength(0), cols = values.GetLength(1);
+        Mat mat = new Mat(rows, cols, CvType.CV_64FC1);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                mat.put(i, j, values[i, j]);
+            }
+        }
+        return mat;
+    }
+#endif
 
     IEnumerator StartBodyTransition()
     {
@@ -361,12 +414,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 {
                     // only half of the vertical scale corresponds to the image for one eye
                     float scaleFactor = ((float)_imageDims[1] / 2) / (float)_imageDims[0];
-                    _leftPlane.transform.localScale = new Vector3(scaleFactor * _leftPlane.transform.localScale.z,
+                    _leftPlane.transform.localScale = new Vector3(_leftPlane.transform.localScale.x,
                                                                   _leftPlane.transform.localScale.y,
-                                                                  _leftPlane.transform.localScale.z);
-                    _rightPlane.transform.localScale = new Vector3(scaleFactor * _rightPlane.transform.localScale.z,
+                                                                  scaleFactor * _leftPlane.transform.localScale.x);
+                    _rightPlane.transform.localScale = new Vector3(_rightPlane.transform.localScale.x,
                                                                   _rightPlane.transform.localScale.y,
-                                                                  _rightPlane.transform.localScale.z);
+                                                                  scaleFactor * _rightPlane.transform.localScale.x);
 
                     // the left texture is the upper half of the received image
                     _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
@@ -398,13 +451,24 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             {
                 // display the left image
                 Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
+                //Mat rgb_l = new Mat();
+                //Calib3d.undistort(rgb.rowRange(0, rgb.rows() / 2), rgb_l, undistort.cameraMatrix, undistort.distCoeffs, undistort.newCameraMatrix);
                 Utils.matToTexture2D(rgb_l, _leftTexture);
                 _leftRenderer.material.mainTexture = _leftTexture;
 
                 // display the right image
                 Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
+                //Mat rgb_r = new Mat();
+                //Calib3d.undistort(rgb.rowRange(rgb.rows() / 2, rgb.rows()), rgb_r, undistort.cameraMatrix, undistort.distCoeffs, undistort.newCameraMatrix);
                 Utils.matToTexture2D(rgb_r, _rightTexture);
                 _rightRenderer.material.mainTexture = _rightTexture;
+
+                //byte[] b = _leftTexture.EncodeToJPG();
+                //System.IO.File.WriteAllBytes($"{Application.dataPath}/left_{leftIdx}.jpg", b);
+                //b = _rightTexture.EncodeToJPG();
+                //System.IO.File.WriteAllBytes($"{Application.dataPath}/right_{rightIdx}.jpg", b);
+                //leftIdx++;
+                //rightIdx++;
             }
             else
             {
