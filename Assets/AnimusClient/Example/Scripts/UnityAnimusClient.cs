@@ -124,7 +124,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     private struct Undistort
     {
-        public Mat cameraMatrix, distCoeffs, newCameraMatrix;
+        public Mat mapx, mapy;
     }
 
     private Undistort undistort;
@@ -132,9 +132,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     public void Start()
     {
 
-#if ANIMUS_USE_OPENCV
-        InitUndistortion();
-#endif
 
         motorEnabled = false;
         visionEnabled = false;
@@ -164,7 +161,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     }
 
 #if ANIMUS_USE_OPENCV
-    private void InitUndistortion()
+    private void InitUndistortion(int image_width, int image_height)
     {
         double[,] dist =
         {
@@ -182,15 +179,25 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             { 0.0, 559.9528045654297, 487.2767511773709 },
             { 0.0, 0.0, 1.0 }
         };
-        undistort.distCoeffs = FillMat(dist);
-        undistort.cameraMatrix = FillMat(camera);
-        undistort.newCameraMatrix = FillMat(newCamera);
+        Mat distCoeffs = FillMat(dist);
+        Mat cameraMatrix = FillMat(camera);
+        Mat newCameraMatrix = FillMat(newCamera);
+
+        Mat mapx = new Mat();
+        Mat mapy = new Mat();
+        // compute undistortion mapping & cache result
+        Mat identity = Mat.eye(3, 3, CvType.CV_32FC1);
+        Calib3d.initUndistortRectifyMap(cameraMatrix, distCoeffs, identity, newCameraMatrix,
+            new Size(image_width, image_height), CvType.CV_32FC1, mapx, mapy);
+
+        undistort.mapx = mapx;
+        undistort.mapy = mapy;
     }
 
     private Mat FillMat(double[,] values)
     {
         int rows = values.GetLength(0), cols = values.GetLength(1);
-        Mat mat = new Mat(rows, cols, CvType.CV_64FC1);
+        Mat mat = new Mat(rows, cols, CvType.CV_32FC1);
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
@@ -402,16 +409,21 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             yuv.put(0, 0, all_bytes);
 
             Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
+
+            // resize triggered
             if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] || currShape[2] != _imageDims[2])
             {
-                _imageDims = currShape;
-                var scaleX = (float)_imageDims[0] / (float)_imageDims[1];
 
+
+                _imageDims = currShape;
                 Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1]}");
-                Debug.Log($"Setting horizontal scale to {scaleX} {(float)_imageDims[0]} {(float)_imageDims[1]}");
+                Debug.Log($"Setting horizontal scale to {(float)_imageDims[0]} {(float)_imageDims[1]}");
+
 
                 if (stereovision)
                 {
+                    InitUndistortion((int)_imageDims[0], (int)_imageDims[1] / 2);
+
                     // only half of the vertical scale corresponds to the image for one eye
                     float scaleFactor = ((float)_imageDims[1] / 2) / (float)_imageDims[0];
                     _leftPlane.transform.localScale = new Vector3(_leftPlane.transform.localScale.x,
@@ -435,10 +447,12 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                 }
                 else
                 {
+                    InitUndistortion((int)_imageDims[0], (int)_imageDims[1]);
+
                     float scaleFactor = (float)_imageDims[1] / (float)_imageDims[0];
-                    _leftPlane.transform.localScale = new Vector3(scaleFactor * _leftPlane.transform.localScale.z,
+                    _leftPlane.transform.localScale = new Vector3(_leftPlane.transform.localScale.x,
                                                                   _leftPlane.transform.localScale.y,
-                                                                  _leftPlane.transform.localScale.z);
+                                                                  scaleFactor * _leftPlane.transform.localScale.x);
 
                     _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
                     {
@@ -450,16 +464,18 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             if (stereovision)
             {
                 // display the left image
-                Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
-                //Mat rgb_l = new Mat();
-                //Calib3d.undistort(rgb.rowRange(0, rgb.rows() / 2), rgb_l, undistort.cameraMatrix, undistort.distCoeffs, undistort.newCameraMatrix);
+                Mat src_l = rgb.rowRange(0, rgb.rows() / 2);
+                Mat rgb_l = new Mat(src_l.rows(), src_l.cols(), CvType.CV_8UC1);
+                // undistort left
+                Imgproc.remap(src_l, rgb_l, undistort.mapx, undistort.mapy, Imgproc.INTER_LINEAR, 0);
                 Utils.matToTexture2D(rgb_l, _leftTexture);
                 _leftRenderer.material.mainTexture = _leftTexture;
 
                 // display the right image
-                Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
-                //Mat rgb_r = new Mat();
-                //Calib3d.undistort(rgb.rowRange(rgb.rows() / 2, rgb.rows()), rgb_r, undistort.cameraMatrix, undistort.distCoeffs, undistort.newCameraMatrix);
+                Mat src_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
+                Mat rgb_r = new Mat(src_r.rows(), src_r.cols(), CvType.CV_8UC1);
+                // undistort right
+                Imgproc.remap(src_r, rgb_r, undistort.mapx, undistort.mapy, Imgproc.INTER_LINEAR, 0);
                 Utils.matToTexture2D(rgb_r, _rightTexture);
                 _rightRenderer.material.mainTexture = _rightTexture;
 
