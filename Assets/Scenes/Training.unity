@@ -746,7 +746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 269507375}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SenseGloveCalibration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2338,7 +2338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 902270245}
   - component: {fileID: 902270246}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RightCalibrator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2756,7 +2756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1189526809}
   - component: {fileID: 1189526810}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LeftCalibrator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4043,7 +4043,7 @@ PrefabInstance:
     - target: {fileID: 2524080348949635295, guid: 98f45770bb8941d48ac62301642e3296,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1815
+      value: 1047
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98f45770bb8941d48ac62301642e3296, type: 3}

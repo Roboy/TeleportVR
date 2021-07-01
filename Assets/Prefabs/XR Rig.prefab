@@ -1005,7 +1005,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 2b21dfca-344d-4a5a-b793-72297e3a2056
-      m_Path: <XRHMD>/centerEyePosition
+      m_Path: <XRHMD>/rightEyePosition
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -1021,7 +1021,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 3a8ae865-46f4-4ad2-a6e1-52acbd47998e
-      m_Path: <XRHMD>/centerEyeRotation
+      m_Path: <XRHMD>/rightEyeRotation
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_RigBaseGameObject: {fileID: 6021411800084439517}
   m_CameraFloorOffsetObject: {fileID: 6021411801045320769}
   m_CameraGameObject: {fileID: 6021411800807676797}
-  m_TrackingOriginMode: 1
+  m_TrackingOriginMode: 2
   m_TrackingSpace: 3
   m_CameraYOffset: 1.36144
 --- !u!1 &6021411800480249790
@@ -1649,7 +1649,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 2b21dfca-344d-4a5a-b793-72297e3a2056
-      m_Path: <XRHMD>/centerEyePosition
+      m_Path: <XRHMD>/leftEyePosition
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -1665,7 +1665,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 3a8ae865-46f4-4ad2-a6e1-52acbd47998e
-      m_Path: <XRHMD>/centerEyeRotation
+      m_Path: <XRHMD>/leftEyeRotation
       m_Interactions: 
       m_Processors: 
       m_Groups: 

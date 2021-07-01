@@ -120,7 +120,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     private const string LEDS_CONNECTED = "robot_established";
     private const string LEDS_IS_CONNECTED = "if_connected";
 
-    private int leftIdx = 0, rightIdx = 0;
+    private Scenes currentScene = Scenes.NONE;
+    private int rightIdx = 0, leftIdx = 0;
 
     private struct Undistort
     {
@@ -349,17 +350,16 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     /// </summary>
     private void SetDisplaystate()
     {
-        if (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD)
+        Scenes s = AdditiveSceneManager.GetCurrentScene();
+        if (currentScene == s)
         {
-            if (stereovision)
-                _rightPlane.SetActive(true);
-            _leftPlane.SetActive(true);
+            return;
         }
-        else
-        {
-            _rightPlane.SetActive(false);
-            _leftPlane.SetActive(false);
-        }
+        currentScene = s;
+        
+        bool inHUD = currentScene == Scenes.HUD;
+        _leftPlane.SetActive(inHUD);
+        _rightPlane.SetActive(stereovision && inHUD);
     }
 
     /// <summary>
