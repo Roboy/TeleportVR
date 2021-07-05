@@ -407,7 +407,6 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 
             yuv.put(0, 0, all_bytes);
-
             Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
 
             // resize triggered
@@ -416,8 +415,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
 
                 _imageDims = currShape;
-                Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1]}");
-                Debug.Log($"Setting horizontal scale to {(float)_imageDims[0]} {(float)_imageDims[1]}");
+                Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1]/2}");
+                Debug.Log($"Setting horizontal scale to {(float)_imageDims[0]} {(float)_imageDims[1]/2}");
 
 
                 if (stereovision)
