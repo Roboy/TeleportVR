@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if SENSEGLOVE
+using SG;
+#endif
 
 
 namespace JointTransfer
@@ -25,20 +28,32 @@ namespace JointTransfer
         [Tooltip("If the output angle should be inverted")]
         public bool invert = false;
 
-        private Quaternion initialRotation;
-        private float initialTarget;
+#if SENSEGLOVE
+        public SG_SenseGloveHardware hand;
+#endif
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            initialRotation = controller.localRotation;
-            initialTarget = (float)joint.X.GetTargetValue();
-        }
+        public Quaternion initialRotation;
+        public float initialTarget;
+        public bool initialized = false;
 
 #if SENSEGLOVE
         // Update is called once per frame
         void Update()
         {
+            if (hand.IsLinked && !initialized)
+            {
+                initialRotation = controller.localRotation;
+                initialTarget = (float)joint.X.GetTargetValue();
+                //initialTarget = 0;
+                initialized = true;
+            }
+
+            if (!initialized)
+            {
+                return;
+            }
+
+
             BioIK.BioJoint.Motion motion = joint.X;
             float angle;
             if (!approximative)
