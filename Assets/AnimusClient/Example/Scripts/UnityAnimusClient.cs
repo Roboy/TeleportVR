@@ -356,7 +356,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             return;
         }
         currentScene = s;
-        
+
         bool inHUD = currentScene == Scenes.HUD;
         _leftPlane.SetActive(inHUD);
         _rightPlane.SetActive(stereovision && inHUD);
@@ -389,6 +389,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             var all_bytes = currSample.Data.ToByteArray();
 #if ANIMUS_USE_OPENCV
+
+
             if (!initMats)
             {
                 yuv = new Mat((int)(currShape[1] * 1.5), (int)currShape[0], CvType.CV_8UC1);
@@ -407,16 +409,13 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 
             yuv.put(0, 0, all_bytes);
-            Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
 
             // resize triggered
             if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] || currShape[2] != _imageDims[2])
             {
-
-
                 _imageDims = currShape;
-                Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1]/2}");
-                Debug.Log($"Setting horizontal scale to {(float)_imageDims[0]} {(float)_imageDims[1]/2}");
+                Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1] / 2}");
+                Debug.Log($"Setting horizontal scale to {(float)_imageDims[0]} {(float)_imageDims[1] / 2}");
 
 
                 if (stereovision)
@@ -433,13 +432,13 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                                                                   scaleFactor * _rightPlane.transform.localScale.x);
 
                     // the left texture is the upper half of the received image
-                    _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                    _leftTexture = new Texture2D((int)_imageDims[0], (int)_imageDims[1] / 2, TextureFormat.RGB24, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
 
                     // the right texture is the lower half of the received image
-                    _rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                    _rightTexture = new Texture2D((int)_imageDims[0], (int)_imageDims[1] / 2, TextureFormat.RGB24, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
@@ -453,7 +452,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
                                                                   _leftPlane.transform.localScale.y,
                                                                   scaleFactor * _leftPlane.transform.localScale.x);
 
-                    _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+                    _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.RGB24, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
@@ -462,33 +461,15 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             if (stereovision)
             {
-                // display the left image
-                Mat src_l = rgb.rowRange(0, rgb.rows() / 2);
-                Mat rgb_l = new Mat(src_l.rows(), src_l.cols(), CvType.CV_8UC1);
-                // undistort left
-                Imgproc.remap(src_l, rgb_l, undistort.mapx, undistort.mapy, Imgproc.INTER_LINEAR, 0);
-                Utils.matToTexture2D(rgb_l, _leftTexture);
-                _leftRenderer.material.mainTexture = _leftTexture;
-
-                // display the right image
-                Mat src_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
-                Mat rgb_r = new Mat(src_r.rows(), src_r.cols(), CvType.CV_8UC1);
-                // undistort right
-                Imgproc.remap(src_r, rgb_r, undistort.mapx, undistort.mapy, Imgproc.INTER_LINEAR, 0);
-                Utils.matToTexture2D(rgb_r, _rightTexture);
-                _rightRenderer.material.mainTexture = _rightTexture;
-
-                //byte[] b = _leftTexture.EncodeToJPG();
-                //System.IO.File.WriteAllBytes($"{Application.dataPath}/left_{leftIdx}.jpg", b);
-                //b = _rightTexture.EncodeToJPG();
-                //System.IO.File.WriteAllBytes($"{Application.dataPath}/right_{rightIdx}.jpg", b);
-                //leftIdx++;
-                //rightIdx++;
+                Mat yuv_left = yuv.rowRange(0, yuv.rows() / 2);
+                Mat yuv_right = yuv.rowRange(yuv.rows() / 2, yuv.rows());
+                render_plane(yuv_left, _leftTexture, _leftRenderer);
+                render_plane(yuv_right, _rightTexture, _rightRenderer);
+                InitUndistortion((int)_imageDims[0], (int)_imageDims[1] / 2);
             }
             else
             {
-                Utils.matToTexture2D(rgb, _leftTexture);
-                _leftRenderer.material.mainTexture = _leftTexture;
+                render_plane(yuv, _leftTexture, _leftRenderer);
             }
 #endif
         }
@@ -498,6 +479,20 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         }
 
         return true;
+    }
+
+    void render_plane(Mat yuv, Texture2D texture, Renderer renderer)
+    {
+        Mat rgb = new Mat();
+        Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2RGB_I420);
+        Mat rgb_l = new Mat(rgb.rows(), rgb.cols(), CvType.CV_8UC3);
+
+        // undistort
+        Imgproc.remap(rgb, rgb_l, undistort.mapx, undistort.mapy, Imgproc.INTER_LINEAR, 0);
+        rgb_l = rgb;
+        // display
+        Utils.matToTexture2D(rgb_l, texture);
+        renderer.material.mainTexture = texture;
     }
 
     /// <summary>
