@@ -11,6 +11,7 @@ using BioIK;
 using OpenCVForUnity.CoreModule;
 using OpenCVForUnity.ImgprocModule;
 using OpenCVForUnity.UnityUtils;
+using OpenCVForUnity.Calib3dModule;
 #endif
 using UnityEngine;
 using UnityEngine.Networking;
@@ -119,8 +120,20 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     private const string LEDS_CONNECTED = "robot_established";
     private const string LEDS_IS_CONNECTED = "if_connected";
 
+    private Scenes currentScene = Scenes.NONE;
+    private int rightIdx = 0, leftIdx = 0;
+
+    private struct Undistort
+    {
+        public Mat mapx, mapy;
+    }
+
+    private Undistort undistort;
+
     public void Start()
     {
+
+
         motorEnabled = false;
         visionEnabled = false;
         auditionEnabled = false;
@@ -148,6 +161,54 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         StartCoroutine(StartBodyTransition());
     }
 
+#if ANIMUS_USE_OPENCV
+    private void InitUndistortion(int image_width, int image_height)
+    {
+        double[,] dist =
+        {
+            { -0.5947601442273787, 0.43119452571961653, -0.009862262587826071, 0.004039919442837182, -0.12390489647322672 }
+        };
+        double[,] camera =
+        {
+            { 672.4823705060328, 0.0, 367.8944005808629 },
+            { 0.0, 683.3365860140323, 505.44937385818747 },
+            { 0.0, 0.0, 1.0 }
+        };
+        double[,] newCamera =
+        {
+            { 549.1903686523438, 0.0, 371.1269680398036 },
+            { 0.0, 559.9528045654297, 487.2767511773709 },
+            { 0.0, 0.0, 1.0 }
+        };
+        Mat distCoeffs = FillMat(dist);
+        Mat cameraMatrix = FillMat(camera);
+        Mat newCameraMatrix = FillMat(newCamera);
+
+        Mat mapx = new Mat();
+        Mat mapy = new Mat();
+        // compute undistortion mapping & cache result
+        Mat identity = Mat.eye(3, 3, CvType.CV_32FC1);
+        Calib3d.initUndistortRectifyMap(cameraMatrix, distCoeffs, identity, newCameraMatrix,
+            new Size(image_width, image_height), CvType.CV_32FC1, mapx, mapy);
+
+        undistort.mapx = mapx;
+        undistort.mapy = mapy;
+    }
+
+    private Mat FillMat(double[,] values)
+    {
+        int rows = values.GetLength(0), cols = values.GetLength(1);
+        Mat mat = new Mat(rows, cols, CvType.CV_32FC1);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                mat.put(i, j, values[i, j]);
+            }
+        }
+        return mat;
+    }
+#endif
 
     IEnumerator StartBodyTransition()
     {
@@ -236,7 +297,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
     /// <summary>
     /// Setup the displays to display the received image(s) from animus.
-    /// </summary>
+    // </summary>
     /// <returns>The success of this method.</returns>
     public bool vision_initialise()
     {
@@ -289,17 +350,16 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
     /// </summary>
     private void SetDisplaystate()
     {
-        if (AdditiveSceneManager.GetCurrentScene() == Scenes.HUD)
+        Scenes s = AdditiveSceneManager.GetCurrentScene();
+        if (currentScene == s)
         {
-            if (stereovision)
-                _rightPlane.SetActive(true);
-            _leftPlane.SetActive(true);
+            return;
         }
-        else
-        {
-            _rightPlane.SetActive(false);
-            _leftPlane.SetActive(false);
-        }
+        currentScene = s;
+
+        bool inHUD = currentScene == Scenes.HUD;
+        _leftPlane.SetActive(inHUD);
+        _rightPlane.SetActive(stereovision && inHUD);
     }
 
     /// <summary>
@@ -329,6 +389,8 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             var all_bytes = currSample.Data.ToByteArray();
 #if ANIMUS_USE_OPENCV
+
+
             if (!initMats)
             {
                 yuv = new Mat((int)(currShape[1] * 1.5), (int)currShape[0], CvType.CV_8UC1);
@@ -348,39 +410,49 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             yuv.put(0, 0, all_bytes);
 
-            Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2BGR_I420);
+            // resize triggered
             if (_imageDims.Count == 0 || currShape[0] != _imageDims[0] || currShape[1] != _imageDims[1] || currShape[2] != _imageDims[2])
             {
                 _imageDims = currShape;
-                var scaleX = (float)_imageDims[0] / (float)_imageDims[1];
+                Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1] / 2}");
+                Debug.Log($"Setting horizontal scale to {(float)_imageDims[0]} {(float)_imageDims[1] / 2}");
 
-                Debug.Log($"Resize triggered. Setting texture resolution to {currShape[0]} x {currShape[1]}");
-                Debug.Log($"Setting horizontal scale to {scaleX} {(float)_imageDims[0]} {(float)_imageDims[1]}");
-
-                //Vector3 currentScale = _leftPlane.transform.localScale;
-                //currentScale.x = scaleX;
-                //currentScale.z /= scaleX;
 
                 if (stereovision)
                 {
-                    //_leftPlane.transform.localScale = currentScale;
+                    InitUndistortion((int)_imageDims[0], (int)_imageDims[1] / 2);
+
+                    // only half of the vertical scale corresponds to the image for one eye
+                    float scaleFactor = ((float)_imageDims[1] / 2) / (float)_imageDims[0];
+                    _leftPlane.transform.localScale = new Vector3(_leftPlane.transform.localScale.x,
+                                                                  _leftPlane.transform.localScale.y,
+                                                                  scaleFactor * _leftPlane.transform.localScale.x);
+                    _rightPlane.transform.localScale = new Vector3(_rightPlane.transform.localScale.x,
+                                                                  _rightPlane.transform.localScale.y,
+                                                                  scaleFactor * _rightPlane.transform.localScale.x);
+
                     // the left texture is the upper half of the received image
-                    _leftTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                    _leftTexture = new Texture2D((int)_imageDims[0], (int)_imageDims[1] / 2, TextureFormat.RGB24, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
 
-                    //_rightPlane.transform.localScale = currentScale;
                     // the right texture is the lower half of the received image
-                    _rightTexture = new Texture2D(rgb.width(), rgb.height() / 2, TextureFormat.ARGB32, false)
+                    _rightTexture = new Texture2D((int)_imageDims[0], (int)_imageDims[1] / 2, TextureFormat.RGB24, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
                 }
                 else
                 {
-                    //_leftPlane.transform.localScale = currentScale;
-                    _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.ARGB32, false)
+                    InitUndistortion((int)_imageDims[0], (int)_imageDims[1]);
+
+                    float scaleFactor = (float)_imageDims[1] / (float)_imageDims[0];
+                    _leftPlane.transform.localScale = new Vector3(_leftPlane.transform.localScale.x,
+                                                                  _leftPlane.transform.localScale.y,
+                                                                  scaleFactor * _leftPlane.transform.localScale.x);
+
+                    _leftTexture = new Texture2D(rgb.width(), rgb.height(), TextureFormat.RGB24, false)
                     {
                         wrapMode = TextureWrapMode.Clamp
                     };
@@ -389,20 +461,15 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
             if (stereovision)
             {
-                // display the left image
-                Mat rgb_l = rgb.rowRange(0, rgb.rows() / 2);
-                Utils.matToTexture2D(rgb_l, _leftTexture);
-                _leftRenderer.material.mainTexture = _leftTexture;
-
-                // display the right image
-                Mat rgb_r = rgb.rowRange(rgb.rows() / 2, rgb.rows());
-                Utils.matToTexture2D(rgb_r, _rightTexture);
-                _rightRenderer.material.mainTexture = _rightTexture;
+                Mat yuv_left = yuv.rowRange(0, yuv.rows() / 2);
+                Mat yuv_right = yuv.rowRange(yuv.rows() / 2, yuv.rows());
+                render_plane(yuv_left, _leftTexture, _leftRenderer);
+                render_plane(yuv_right, _rightTexture, _rightRenderer);
+                InitUndistortion((int)_imageDims[0], (int)_imageDims[1] / 2);
             }
             else
             {
-                Utils.matToTexture2D(rgb, _leftTexture);
-                _leftRenderer.material.mainTexture = _leftTexture;
+                render_plane(yuv, _leftTexture, _leftRenderer);
             }
 #endif
         }
@@ -412,6 +479,20 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
         }
 
         return true;
+    }
+
+    void render_plane(Mat yuv, Texture2D texture, Renderer renderer)
+    {
+        Mat rgb = new Mat();
+        Imgproc.cvtColor(yuv, rgb, Imgproc.COLOR_YUV2RGB_I420);
+        Mat rgb_l = new Mat(rgb.rows(), rgb.cols(), CvType.CV_8UC3);
+
+        // undistort
+        Imgproc.remap(rgb, rgb_l, undistort.mapx, undistort.mapy, Imgproc.INTER_LINEAR, 0);
+        rgb_l = rgb;
+        // display
+        Utils.matToTexture2D(rgb_l, texture);
+        renderer.material.mainTexture = texture;
     }
 
     /// <summary>
@@ -706,7 +787,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 #endif
 
-            Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
+            //Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
 
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);
