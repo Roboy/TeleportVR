@@ -2340,7 +2340,7 @@ GameObject:
   - component: {fileID: 902270246}
   m_Layer: 0
   m_Name: RightCalibrator
-  m_TagString: Untagged
+  m_TagString: RightHandCalibrator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2758,7 +2758,7 @@ GameObject:
   - component: {fileID: 1189526810}
   m_Layer: 0
   m_Name: LeftCalibrator
-  m_TagString: Untagged
+  m_TagString: LeftHandCalibrator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

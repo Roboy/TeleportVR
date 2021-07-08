@@ -442,9 +442,14 @@ MonoBehaviour:
   joint: {fileID: 121227248}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &122745456
@@ -635,9 +640,14 @@ MonoBehaviour:
   joint: {fileID: 156864192}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!114 &157425727 stripped
@@ -1471,13 +1481,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349765139}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e38f829cbd06ea47a8bea5782dac1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scale: 0.02
   primitiveType: 3
+--- !u!114 &349765143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349765139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5a0eb137a94cd408b75c4336911fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stored: 0
+  handCalibratorTag: LeftHandCalibrator
+  SaveOnQuit: 1
 --- !u!114 &353984303 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -4912102914110776119, guid: 8376e5037528d434cab49e987b7a4e72,
@@ -1548,9 +1573,14 @@ MonoBehaviour:
   joint: {fileID: 384641932}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &389153790 stripped
@@ -1998,11 +2028,60 @@ MonoBehaviour:
   joint: {fileID: 466688820}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
+--- !u!1 &481574769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481574770}
+  - component: {fileID: 481574771}
+  m_Layer: 0
+  m_Name: PlayerPrefsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &481574770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481574769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 861750288}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &481574771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481574769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a025c069fd7a65041bbf92271fb43f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearPlayerPrefs: 0
 --- !u!1 &487721215
 GameObject:
   m_ObjectHideFlags: 0
@@ -2076,9 +2155,14 @@ MonoBehaviour:
   joint: {fileID: 536956487}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!114 &538632899 stripped
@@ -4813,9 +4897,14 @@ MonoBehaviour:
   joint: {fileID: 713673095}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &734638462 stripped
@@ -5149,6 +5238,7 @@ Transform:
   - {fileID: 1310481046}
   - {fileID: 1858800609}
   - {fileID: 576490995}
+  - {fileID: 481574770}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5373,8 +5463,13 @@ MonoBehaviour:
   approximative: 0
   axis: 0
   invert: 0
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!114 &886903668 stripped
@@ -5548,13 +5643,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911402149}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e38f829cbd06ea47a8bea5782dac1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scale: 0.02
   primitiveType: 3
+--- !u!114 &911402154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911402149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5a0eb137a94cd408b75c4336911fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stored: 0
+  handCalibratorTag: RightHandCalibrator
+  SaveOnQuit: 1
 --- !u!1 &935502828 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5220743749167930356, guid: 62144f27e4481434eb5df25761971f60,
@@ -5996,9 +6106,14 @@ MonoBehaviour:
   joint: {fileID: 1018796745}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &1019493832 stripped
@@ -6347,8 +6462,13 @@ MonoBehaviour:
   approximative: 0
   axis: 0
   invert: 0
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!114 &1116516174 stripped
@@ -10127,8 +10247,13 @@ MonoBehaviour:
   approximative: 0
   axis: 0
   invert: 0
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &1552636215 stripped
@@ -10464,9 +10589,14 @@ MonoBehaviour:
   joint: {fileID: 1614156441}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!114 &1616576656 stripped
@@ -10865,8 +10995,13 @@ MonoBehaviour:
   approximative: 0
   axis: 0
   invert: 0
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &1747567012 stripped
@@ -10903,9 +11038,14 @@ MonoBehaviour:
   joint: {fileID: 1747567014}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &1757228582
@@ -11072,9 +11212,14 @@ MonoBehaviour:
   joint: {fileID: 1772792059}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 349765143}
   hand: {fileID: 2115399780}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &1791348217
@@ -11504,9 +11649,14 @@ MonoBehaviour:
   joint: {fileID: 1932769230}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1 &1937572935 stripped
@@ -11715,9 +11865,14 @@ MonoBehaviour:
   joint: {fileID: 1944311499}
   approximative: 0
   axis: 2
-  invert: 0
+  invert: 1
+  angleRangeStore: {fileID: 911402154}
   hand: {fileID: 1002224003}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  angle: 0
+  input: 0
+  minAngle: 0
+  maxAngle: 0
+  initialRotation: 0
   initialTarget: 0
   initialized: 0
 --- !u!1001 &1944402364
@@ -12362,6 +12517,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 1002224003}
+    - target: {fileID: 477016404580916355, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 477016404580916355, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 911402154}
     - target: {fileID: 477016404607088064, guid: 6883edd6e7804604baa8a1f46e804cfb,
         type: 3}
       propertyPath: Character
@@ -12402,6 +12567,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 1002224003}
+    - target: {fileID: 477016404680592661, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 477016404680592661, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 911402154}
     - target: {fileID: 477016404685554084, guid: 6883edd6e7804604baa8a1f46e804cfb,
         type: 3}
       propertyPath: Parent
@@ -12492,6 +12667,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 1002224003}
+    - target: {fileID: 477016404694656562, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 477016404694656562, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 911402154}
     - target: {fileID: 477016404705605159, guid: 6883edd6e7804604baa8a1f46e804cfb,
         type: 3}
       propertyPath: Character
@@ -12612,6 +12797,11 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 618619396}
+    - target: {fileID: 477016405200042305, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 477016405260339516, guid: 6883edd6e7804604baa8a1f46e804cfb,
         type: 3}
       propertyPath: Character
@@ -12797,6 +12987,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 1002224003}
+    - target: {fileID: 477016405638021177, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 477016405638021177, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 911402154}
     - target: {fileID: 477016405652791246, guid: 6883edd6e7804604baa8a1f46e804cfb,
         type: 3}
       propertyPath: Character
@@ -13107,6 +13307,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 1002224003}
+    - target: {fileID: 477016406483693162, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 477016406483693162, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 911402154}
     - target: {fileID: 477016406545046861, guid: 6883edd6e7804604baa8a1f46e804cfb,
         type: 3}
       propertyPath: Character
@@ -13122,6 +13332,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 1002224003}
+    - target: {fileID: 477016406619809103, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 477016406619809103, guid: 6883edd6e7804604baa8a1f46e804cfb,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 911402154}
     - target: {fileID: 477016406629992705, guid: 6883edd6e7804604baa8a1f46e804cfb,
         type: 3}
       propertyPath: Character
@@ -16202,6 +16422,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 2115399780}
+    - target: {fileID: 4224313755209867397, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224313755209867397, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 349765143}
     - target: {fileID: 4224313755209867399, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
         type: 3}
       propertyPath: Character
@@ -16252,6 +16482,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 2115399780}
+    - target: {fileID: 4224313755519988441, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224313755519988441, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 349765143}
     - target: {fileID: 4224313755519988443, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
         type: 3}
       propertyPath: Character
@@ -16292,6 +16532,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 2115399780}
+    - target: {fileID: 4224313755626851564, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224313755626851564, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 349765143}
     - target: {fileID: 4224313755626851566, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
         type: 3}
       propertyPath: Character
@@ -16392,6 +16642,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 2115399780}
+    - target: {fileID: 4224313756192728960, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224313756192728960, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 349765143}
     - target: {fileID: 4224313756192728962, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
         type: 3}
       propertyPath: Character
@@ -16422,6 +16682,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 2115399780}
+    - target: {fileID: 4224313756357531997, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224313756357531997, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 349765143}
     - target: {fileID: 4224313756357531999, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
         type: 3}
       propertyPath: Character
@@ -16472,6 +16742,16 @@ PrefabInstance:
       propertyPath: hand
       value: 
       objectReference: {fileID: 2115399780}
+    - target: {fileID: 4224313756649150765, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: invert
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224313756649150765, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
+        type: 3}
+      propertyPath: angleRangeStore
+      value: 
+      objectReference: {fileID: 349765143}
     - target: {fileID: 4224313756649150767, guid: a2d0f229e31f2fd4491fdc8b46bb2ff6,
         type: 3}
       propertyPath: Character

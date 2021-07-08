@@ -2,37 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawDebugObj : MonoBehaviour
+namespace JointTransfer
 {
-
-    public float scale = 0.01f;
-    public PrimitiveType primitiveType = PrimitiveType.Cube;
-
-    // Start is called before the first frame update
-    void Start()
+    public class DrawDebugObj : MonoBehaviour
     {
-        foreach (var child in getChildren(transform, g => g.name.Contains("_")))
-        {
-            var cube = GameObject.CreatePrimitive(primitiveType);
-            cube.transform.parent = child.transform;
-            cube.transform.localPosition = Vector3.zero;
-            cube.transform.localRotation = Quaternion.identity;
-            cube.transform.localScale = new Vector3(scale, scale, scale);
-        }
-    }
 
+        public float scale = 0.01f;
+        public PrimitiveType primitiveType = PrimitiveType.Cube;
 
-    private IEnumerable<GameObject> getChildren(Transform parent, System.Predicate<GameObject> predicate)
-    {
-        foreach (Transform c in parent)
+        // Start is called before the first frame update
+        void Start()
         {
-            if (predicate(c.gameObject))
+            foreach (var child in Utils.GetChildren(transform, g => g.name.Contains("_")))
             {
-                yield return c.gameObject;
-                foreach (var tmp in getChildren(c, predicate))
-                {
-                    yield return tmp;
-                }
+                var cube = GameObject.CreatePrimitive(primitiveType);
+                cube.transform.parent = child.transform;
+                cube.transform.localPosition = Vector3.zero;
+                cube.transform.localRotation = Quaternion.identity;
+                cube.transform.localScale = new Vector3(scale, scale, scale);
             }
         }
     }

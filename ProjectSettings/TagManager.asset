@@ -40,6 +40,8 @@ TagManager:
   - XROffsetLeft
   - XROffsetRight
   - SeneGloveGrab
+  - RightHandCalibrator
+  - LeftHandCalibrator
   layers:
   - Default
   - TransparentFX
