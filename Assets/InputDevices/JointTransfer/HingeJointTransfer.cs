@@ -111,6 +111,10 @@ namespace JointTransfer
 
         private float Remap(float x, float minIn, float maxIn, float minOut, float maxOut)
         {
+            if (Mathf.Approximately(maxIn - minIn, 0))
+            {
+                return (minOut + maxOut) / 2;
+            }
             return ((x - minIn) / (maxIn - minIn)) * maxOut + minOut;
         }
 #endif
