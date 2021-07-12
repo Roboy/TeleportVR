@@ -7,6 +7,40 @@ namespace RudderPedals
 {
     public class PedalDriver : Singleton<PedalDriver>
     {
+        public class MovingAverageFilter
+        {
+            private Queue<float> buffer;
+            private int filterSize;
+            public MovingAverageFilter(int filterSize)
+            {
+                buffer = new Queue<float>(filterSize);
+                this.filterSize = filterSize;
+            }
+
+            public void Add(float value)
+            {
+                buffer.Enqueue(value);
+                if (buffer.Count >= filterSize)
+                    buffer.Dequeue();
+            }
+
+            public float GetFiltered()
+            {
+                double sum = 0;
+                foreach (var item in buffer)
+                {
+                    sum += item;
+                }
+                return (float)(sum / buffer.Count);
+            }
+
+            public void Reset()
+            {
+                buffer.Clear();
+            }
+        }
+
+
         public new bool enabled
         {
             get { return _enabled; }
@@ -19,8 +53,6 @@ namespace RudderPedals
                     _output = Vector2.zero;
                     driveControl.V_L = _output.x;
                     driveControl.V_R = _output.y;
-
-                    ResetMovingAverageFilter();
                 }
             }
         }
@@ -43,25 +75,32 @@ namespace RudderPedals
         public AnimationCurve angularVelocityMap;
 
         [Tooltip("Number of steps to look back for smoothing wheelchair velocity. Only set at startup")]
-        public int velocityFilterSize = 10;
-        private Queue<float> movingAverageCache;
+        public int filterSize = 10;
 
         [Header("Read Only values")]
         public float velocity;
         public float angularVelocity;
-
         public Vector2 output
         {
             get { return _output; }
         }
 
-        public Vector2 _output;
+        [SerializeField] private Vector2 _output;
+        public Vector2 normalizedOutput
+        {
+            get { return _output / maxCompMag; }
+        }
+        private float maxCompMag;
 
         private const int playerId = 0;
         private readonly Vector2 leftDrive = new Vector2(-1f, 1f);
         private readonly Vector2 rightDrive = new Vector2(1f, -1f);
-        private readonly Vector2 forward = new Vector2(1f, 1f);
+        private readonly Vector2 forwardDrive = new Vector2(1f, 1f);
         private Player player;
+        [SerializeField] private bool goingForward = true;
+        [SerializeField] private bool canChangeDir = true;
+
+        private MovingAverageFilter leftFilter, rightFilter;
 
 
         private void Awake()
@@ -72,8 +111,10 @@ namespace RudderPedals
             angularVelocityMap.preWrapMode = WrapMode.Clamp;
             angularVelocityMap.postWrapMode = WrapMode.Clamp;
 
-            movingAverageCache = new Queue<float>(velocityFilterSize);
-            ResetMovingAverageFilter();
+            leftFilter = new MovingAverageFilter(filterSize);
+            rightFilter = new MovingAverageFilter(filterSize);
+            // maximal magnitude of any output component (projected length of longest output vector on any reference axis)
+            maxCompMag = (maxVelocity + maxAngularVelocity) / Mathf.Sqrt(2);
         }
 
         // Update is called once per frame
@@ -88,72 +129,73 @@ namespace RudderPedals
             // in [0,1]
             float left = player.GetAxis("Forward");
             float right = player.GetAxis("Backward");
-            float vel = Mathf.Max(left, right);
 
-            if (vel > 0)
+            leftFilter.Add(left);
+            rightFilter.Add(right);
+            left = leftFilter.GetFiltered();
+            right = rightFilter.GetFiltered();
+
+            // go forward if one pedal is pressed more than the forward deadzone
+            bool isForward = Mathf.Max(left, right) >= forwardDeadzone;
+            // go back if both pedals are pressed in more than the backward deadzone
+            bool isBackward = Mathf.Min(left, right) >= backwardDeadzone;
+
+
+            // only change direction if pedals are in both deadzones
+            if (Mathf.Max(left, right) <= Mathf.Max(forwardDeadzone, backwardDeadzone))
             {
-                // clip forward to >= deadzone
-                // rescale velocity to reach 1 at maximum pedal press
-                if (vel <= forwardDeadzone)
+                canChangeDir = true;
+            }
+
+            if (canChangeDir)
+            {
+                if (isBackward)
                 {
-                    ResetMovingAverageFilter();
+                    goingForward = false;
+                    canChangeDir = false;
+                    leftFilter.Reset();
+                    rightFilter.Reset();
                 }
-                vel = Mathf.Max(vel - forwardDeadzone, 0) / (1 - forwardDeadzone);
+                else if (isForward)
+                {
+                    goingForward = true;
+                    canChangeDir = false;
+                    leftFilter.Reset();
+                    rightFilter.Reset();
+                }
+            }
+
+            float vel = Mathf.Max(left, right);
+            // in [-1, 1]
+            float mappedAngularVelocity = Mathf.Sign(steeringAngle) * Mathf.Clamp01(angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)));
+            // in [-1, 1]
+            float mappedVelocity;
+            if (goingForward)
+            {
+                vel = Mathf.Clamp01(vel - forwardDeadzone) / (1 - forwardDeadzone);
+                mappedVelocity = Mathf.Clamp01(velocityMap.Evaluate(Mathf.Abs(vel)));
             }
             else
             {
-                vel = Mathf.Max(vel - backwardDeadzone, 0) / (1 - backwardDeadzone);
+                vel = Mathf.Clamp01(vel - backwardDeadzone) / (1 - backwardDeadzone);
+                mappedVelocity = -0.5f * Mathf.Clamp01(velocityMap.Evaluate(Mathf.Abs(vel)));
             }
 
-            vel = velocityMap.Evaluate(vel);
 
-            // go back if both pedals are pressed in more than the deadzone
-            if (Mathf.Min(left, right) > backwardDeadzone)
-            {
-                vel = -0.5f * vel;
-                ResetMovingAverageFilter();
-            }
-            else
-            {
-                vel = MovingAverageFilter(vel);
-            }
+            Vector2 direction = Vector2.Lerp(leftDrive.normalized,
+                                             rightDrive.normalized,
+                                             0.5f + 0.5f * mappedAngularVelocity);
 
-            Vector2 direction = Vector2.Lerp(leftDrive, rightDrive, 0.5f + 0.5f * angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)) * Mathf.Sign(steeringAngle));
-            velocity = vel * maxVelocity;
+            // publish read only values
+            velocity = mappedVelocity * maxVelocity;
             angularVelocity = direction.magnitude * maxAngularVelocity;
-            // ||output|| <= max(maxAngularVelocity, maxVelocity)
-            _output = maxAngularVelocity * direction + velocity * forward;
 
-            driveControl.V_L = _output.x;
-            driveControl.V_R = _output.y;
+            _output = maxAngularVelocity * direction + velocity * forwardDrive.normalized;
+
+            driveControl.V_L = output.x;
+            driveControl.V_R = output.y;
         }
 
-        /// <summary>
-        /// Moving average filtering on wheelchair velocities
-        /// </summary>
-        /// <param name="values">input value</param>
-        /// <returns>smoothed result</returns>
-        private float MovingAverageFilter(float values)
-        {
-            movingAverageCache.Enqueue(values);
-            movingAverageCache.Dequeue();
-            float sum = 0;
-            foreach (var item in movingAverageCache)
-            {
-                sum += item;
-            }
-            return sum / movingAverageCache.Count;
-        }
-
-        private void ResetMovingAverageFilter()
-        {
-            movingAverageCache.Clear();
-            for (int i = 0; i < velocityFilterSize; i++)
-            {
-                movingAverageCache.Enqueue(0);
-            }
-
-        }
     }
 
 }

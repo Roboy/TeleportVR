@@ -476,27 +476,36 @@ MonoBehaviour:
   maxVelocity: 0.1
   maxAngularVelocity: 0.045
   forwardDeadzone: 0.4
-  backwardDeadzone: 0.2
+  backwardDeadzone: 0.05
   velocityMap:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.028107159
+      outSlope: 0.028107159
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.1838989
+    - serializedVersion: 3
+      time: 0.82094866
+      value: 0.36496505
+      inSlope: 1.4750258
+      outSlope: 1.4750258
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5636726
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 5.519222
+      outSlope: 5.519222
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.1919841
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -512,23 +521,35 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.153125
+    - serializedVersion: 3
+      time: 0.76468647
+      value: 0.34915695
+      inSlope: 1.3447851
+      outSlope: 1.3447851
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 4.4690385
+      outSlope: 4.4690385
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.19921266
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  velocityFilterSize: 5
+  filterSize: 10
   velocity: 0
   angularVelocity: 0
   _output: {x: 0, y: 0}
+  normalizedOutput: {x: 0, y: 0}
+  goingForward: 1
+  canChangeDir: 1
 --- !u!4 &122745458
 Transform:
   m_ObjectHideFlags: 0
