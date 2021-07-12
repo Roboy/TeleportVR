@@ -18,7 +18,7 @@ namespace RudderPedals
         {
             this.port = port;
             this.baudRate = baudRate;
-            this.readTimeout =0;
+            this.readTimeout = 0;
             this.refresh = refresh;
 
             this.stream = new SerialPort(port, baudRate);
@@ -63,22 +63,24 @@ namespace RudderPedals
                 {
                     res = null;
                 }
-
-                if (res.StartsWith("ERROR:"))
+                if (res != null)
                 {
-                    if (onError != null)
+                    if (res.StartsWith("ERROR:"))
                     {
-                        onError(res);
+                        if (onError != null)
+                        {
+                            onError(res);
+                        }
+                        yield break;
                     }
-                    yield break;
+                    // only publish if data is new
+                    else if (!res.Equals(data))
+                    {
+                        data = res;
+                        callback(data);
+                    }
                 }
 
-                // only publish if data is new
-                if (res != null && !res.Equals(data))
-                {
-                    data = res;
-                    callback(data);
-                }
                 yield return new WaitForSecondsRealtime(refresh);
             }
         }

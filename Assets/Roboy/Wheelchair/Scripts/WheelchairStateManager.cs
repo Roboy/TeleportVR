@@ -43,7 +43,6 @@ public class WheelchairStateManager : Singleton<WheelchairStateManager>
     /// <param name="alpha">optional transpaceny</param>
     public void SetVisibility(bool show, float alpha = 1)
     {
-        Debug.Log($"set visibility {show}, {alpha}");
         _visible = show;
         List<GameObject> models = new List<GameObject>(WheelchairModels);
         foreach (var model in models)

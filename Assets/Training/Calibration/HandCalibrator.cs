@@ -353,8 +353,6 @@ namespace Training.Calibration
                             buffer.AddPose(poseValues[(int)Pose.ThumbUp]);
                             buffer.AddPose(GetCalibrationValues());
                             float error = buffer.ComputeError();
-
-                            Debug.Log($"Thumbs Up error {error}");
                             testParams.dwellTimer.LetTimePass(Time.deltaTime);
                             if (error > testParams.maxError)
                             {

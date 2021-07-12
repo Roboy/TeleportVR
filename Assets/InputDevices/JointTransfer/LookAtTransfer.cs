@@ -18,6 +18,7 @@ namespace JointTransfer
         public bool isRight = true;
 
         public RotationAxis axis = RotationAxis.X;
+        public float angle;
 
         private Quaternion initialRotation;
         private BioIK.BioJoint.Motion axisMotion;
@@ -53,11 +54,13 @@ namespace JointTransfer
             // and set as the joint's axis target value (axisMotion)
             Vector3 projectionNormal = axisMotion.Axis;
             projectionNormal = transform.rotation * projectionNormal;
-
+            
             Plane projectionPlane = new Plane(projectionNormal, transform.position);
             Vector3 dir = controller.position - transform.position;
             Vector3 rayDir = Vector3.Dot(dir, projectionNormal) > 0 ? -projectionNormal : projectionNormal;
             Ray intersectionRay = new Ray(controller.position, rayDir);
+
+            Debug.DrawRay(controller.position, rayDir);
 
             if (projectionPlane.Raycast(intersectionRay, out float dist))
             {
@@ -67,7 +70,7 @@ namespace JointTransfer
 
                 // offset rotation by 90° in x
                 localRotation *= Quaternion.Euler(90f, 0, 0);
-                float angle = Quaternion.Angle(localRotation, initialRotation);
+                angle = Quaternion.Angle(localRotation, initialRotation);
                 // clamp angle to joint ranges
                 axisMotion.TargetValue = Mathf.Clamp(angle, (float)axisMotion.LowerLimit, (float)axisMotion.UpperLimit);
             }
