@@ -13,12 +13,18 @@ namespace RudderPedals
         private int baudRate;
         private float readTimeout, refresh;
 
-
+        /// <summary>
+        /// Serial Reader reads data from a given serial port.
+        /// </summary>
+        /// <param name="port">Serial port to connect to</param>
+        /// <param name="baudRate">Serial baud rate</param>
+        /// <param name="readTimeout">Timeout for a request (seconds)</param>
+        /// <param name="refresh">Serial polling interval (seconds)</param>
         public SerialReader(string port = "COM6", int baudRate = 9600, float readTimeout = 0.01f, float refresh = 0.1f)
         {
             this.port = port;
             this.baudRate = baudRate;
-            this.readTimeout =0;
+            this.readTimeout = readTimeout;
             this.refresh = refresh;
 
             this.stream = new SerialPort(port, baudRate);
@@ -33,7 +39,7 @@ namespace RudderPedals
             }
             catch (System.IO.IOException)
             {
-                Debug.LogError($"Error while opening serial connection on {port}@{baudRate}");
+                Debug.LogError($"Error while opening serial connection on {port} @ {baudRate}");
             }
         }
 
@@ -61,9 +67,10 @@ namespace RudderPedals
                 }
                 catch (TimeoutException)
                 {
-                    res = null;
+                    Debug.LogError($"Timeout reading from serial {port} @ {baudRate}");
+                    continue;
                 }
-
+                
                 if (res.StartsWith("ERROR:"))
                 {
                     if (onError != null)
@@ -74,7 +81,7 @@ namespace RudderPedals
                 }
 
                 // only publish if data is new
-                if (res != null && !res.Equals(data))
+                if (!res.Equals(data))
                 {
                     data = res;
                     callback(data);

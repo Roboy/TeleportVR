@@ -687,9 +687,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
 
 #if RUDDER
             // wheelchair
-            Vector2 wheelcharDrive = RudderPedals.PedalDriver.Instance.output /
-                Mathf.Max(RudderPedals.PedalDriver.Instance.maxAngularVelocity, RudderPedals.PedalDriver.Instance.maxVelocity);
-            // both ranges are in [-1, 1]
+            Vector2 wheelcharDrive = RudderPedals.PedalDriver.Instance.normalizedOutput;
             // left
             motorAngles.Add(wheelcharDrive.x);
             // right
@@ -706,7 +704,7 @@ public class UnityAnimusClient : Singleton<UnityAnimusClient>
             }
 #endif
 
-            Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
+            //Debug.Log($"motor_set() motorAngles = [{ string.Join(", ", motorAngles.ConvertAll(x => x.ToString()).ToArray())}]");
 
             motorMsg.Data.Clear();
             motorMsg.Data.Add(motorAngles);

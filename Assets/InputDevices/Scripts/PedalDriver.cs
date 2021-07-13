@@ -7,6 +7,55 @@ namespace RudderPedals
 {
     public class PedalDriver : Singleton<PedalDriver>
     {
+        public class MovingAverageFilter
+        {
+            public bool IsFull
+            {
+                get { return Buffer.Count + 1 >= FilterSize; }
+            }
+            public readonly Queue<float> Buffer;
+            public readonly int FilterSize;
+
+            public MovingAverageFilter(int filterSize)
+            {
+                Buffer = new Queue<float>(filterSize);
+                this.FilterSize = filterSize;
+            }
+
+            public void Add(float value)
+            {
+                Buffer.Enqueue(value);
+                if (Buffer.Count >= FilterSize)
+                    Buffer.Dequeue();
+            }
+
+            public float GetFiltered()
+            {
+                double sum = 0;
+                foreach (var item in Buffer)
+                {
+                    sum += item;
+                }
+                return (float)(sum / Buffer.Count);
+            }
+
+            public float Max()
+            {
+                float max = float.NegativeInfinity;
+                foreach (var item in Buffer)
+                {
+                    if (item > max) max = item;
+                }
+                return max;
+            }
+
+            public void Reset()
+            {
+                Buffer.Clear();
+            }
+        }
+
+
         public new bool enabled
         {
             get { return _enabled; }
@@ -19,8 +68,10 @@ namespace RudderPedals
                     _output = Vector2.zero;
                     driveControl.V_L = _output.x;
                     driveControl.V_R = _output.y;
-
-                    ResetMovingAverageFilter();
+                    leftFilter.Reset();
+                    rightFilter.Reset();
+                    leftWindow.Reset();
+                    rightWindow.Reset();
                 }
             }
         }
@@ -43,25 +94,32 @@ namespace RudderPedals
         public AnimationCurve angularVelocityMap;
 
         [Tooltip("Number of steps to look back for smoothing wheelchair velocity. Only set at startup")]
-        public int velocityFilterSize = 10;
-        private Queue<float> movingAverageCache;
+        public int filterSize = 10;
 
         [Header("Read Only values")]
-        public float velocity;
-        public float angularVelocity;
-
+        [SerializeField] private float velocity;
+        [SerializeField] private float angularVelocity;
         public Vector2 output
         {
             get { return _output; }
         }
 
-        public Vector2 _output;
+        [SerializeField] private Vector2 _output;
+
+        public Vector2 normalizedOutput
+        {
+            get { return _output / maxCompMag; }
+        }
+        private float maxCompMag;
 
         private const int playerId = 0;
         private readonly Vector2 leftDrive = new Vector2(-1f, 1f);
         private readonly Vector2 rightDrive = new Vector2(1f, -1f);
-        private readonly Vector2 forward = new Vector2(1f, 1f);
+        private readonly Vector2 forwardDrive = new Vector2(1f, 1f);
         private Player player;
+        [SerializeField] private bool goingForward = true;
+        [SerializeField] private bool canChangeDir = true;
+        private MovingAverageFilter leftWindow, rightWindow, leftFilter, rightFilter;
 
 
         private void Awake()
@@ -72,8 +130,12 @@ namespace RudderPedals
             angularVelocityMap.preWrapMode = WrapMode.Clamp;
             angularVelocityMap.postWrapMode = WrapMode.Clamp;
 
-            movingAverageCache = new Queue<float>(velocityFilterSize);
-            ResetMovingAverageFilter();
+            leftWindow = new MovingAverageFilter(filterSize);
+            rightWindow = new MovingAverageFilter(filterSize);
+            leftFilter = new MovingAverageFilter(filterSize);
+            rightFilter = new MovingAverageFilter(filterSize);
+            // maximal magnitude of any output component (projected length of longest output vector on any reference axis)
+            maxCompMag = (maxVelocity + maxAngularVelocity) / Mathf.Sqrt(2);
         }
 
         // Update is called once per frame
@@ -86,74 +148,83 @@ namespace RudderPedals
             // in  [-1, 1] & inverted
             float steeringAngle = -player.GetAxis("SteeringAngle");
             // in [0,1]
-            float left = player.GetAxis("Forward");
-            float right = player.GetAxis("Backward");
-            float vel = Mathf.Max(left, right);
+            float left = player.GetAxis("Backward");
+            float right = player.GetAxis("Forward");
 
-            if (vel > 0)
+            leftWindow.Add(left);
+            rightWindow.Add(right);
+
+            // only change direction if pedals are in both deadzones
+            if (Mathf.Max(left, right) <= Mathf.Max(forwardDeadzone, backwardDeadzone))
             {
-                // clip forward to >= deadzone
-                // rescale velocity to reach 1 at maximum pedal press
-                if (vel <= forwardDeadzone)
+                canChangeDir = true;
+                leftWindow.Reset();
+                rightWindow.Reset();
+                //Debug.Log("reset");
+            }
+            //Debug.Log(leftWindow.IsFull + ", " + rightWindow.IsFull + "," + leftWindow.Buffer.Count + ", " + leftWindow.FilterSize);
+
+            if (leftWindow.IsFull && rightWindow.IsFull)
+            {
+                if (canChangeDir)
                 {
-                    ResetMovingAverageFilter();
+                    // go back if both pedals are pressed in more than the backward deadzone
+                    if (leftWindow.Max() >= backwardDeadzone)
+                    {
+                        goingForward = false;
+                        canChangeDir = false;
+                    }
+                    // go forward if one pedal is pressed more than the forward deadzone
+                    else if (rightWindow.Max() >= forwardDeadzone)
+                    {
+                        goingForward = true;
+                        canChangeDir = false;
+                    }
                 }
-                vel = Mathf.Max(vel - forwardDeadzone, 0) / (1 - forwardDeadzone);
             }
             else
             {
-                vel = Mathf.Max(vel - backwardDeadzone, 0) / (1 - backwardDeadzone);
+                left = 0;
+                right = 0;
             }
 
-            vel = velocityMap.Evaluate(vel);
+            // moving average filter pedal values
+            leftFilter.Add(left);
+            rightFilter.Add(right);
+            left = leftFilter.GetFiltered();
+            right = rightFilter.GetFiltered();
 
-            // go back if both pedals are pressed in more than the deadzone
-            if (Mathf.Min(left, right) > backwardDeadzone)
+            // [-1, 1] -- non-linear -> [-1, 1]
+            float mappedAngularVelocity = Mathf.Sign(steeringAngle) * Mathf.Clamp01(angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)));
+            // [-1, 1] -- non-linear -> [-1, 1]
+            float mappedVelocity;
+            float vel = goingForward ? right : left;
+            if (goingForward)
             {
-                vel = -0.5f * vel;
-                ResetMovingAverageFilter();
+                vel = Mathf.Clamp01(vel - forwardDeadzone) / (1 - forwardDeadzone);
+                mappedVelocity = Mathf.Clamp01(velocityMap.Evaluate(Mathf.Abs(vel)));
             }
             else
             {
-                vel = MovingAverageFilter(vel);
+                vel = Mathf.Clamp01(vel - backwardDeadzone) / (1 - backwardDeadzone);
+                mappedVelocity = -0.5f * Mathf.Clamp01(velocityMap.Evaluate(Mathf.Abs(vel)));
             }
 
-            Vector2 direction = Vector2.Lerp(leftDrive, rightDrive, 0.5f + 0.5f * angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)) * Mathf.Sign(steeringAngle));
-            velocity = vel * maxVelocity;
+
+            Vector2 direction = Vector2.Lerp(leftDrive.normalized,
+                                             rightDrive.normalized,
+                                             0.5f + 0.5f * mappedAngularVelocity);
+
+            // publish read only values
+            velocity = mappedVelocity * maxVelocity;
             angularVelocity = direction.magnitude * maxAngularVelocity;
-            // ||output|| <= max(maxAngularVelocity, maxVelocity)
-            _output = maxAngularVelocity * direction + velocity * forward;
 
-            driveControl.V_L = _output.x;
-            driveControl.V_R = _output.y;
+            _output = maxAngularVelocity * direction + velocity * forwardDrive.normalized;
+
+            driveControl.V_L = output.x;
+            driveControl.V_R = output.y;
         }
 
-        /// <summary>
-        /// Moving average filtering on wheelchair velocities
-        /// </summary>
-        /// <param name="values">input value</param>
-        /// <returns>smoothed result</returns>
-        private float MovingAverageFilter(float values)
-        {
-            movingAverageCache.Enqueue(values);
-            movingAverageCache.Dequeue();
-            float sum = 0;
-            foreach (var item in movingAverageCache)
-            {
-                sum += item;
-            }
-            return sum / movingAverageCache.Count;
-        }
-
-        private void ResetMovingAverageFilter()
-        {
-            movingAverageCache.Clear();
-            for (int i = 0; i < velocityFilterSize; i++)
-            {
-                movingAverageCache.Enqueue(0);
-            }
-
-        }
     }
 
 }
