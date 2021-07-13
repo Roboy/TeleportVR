@@ -9,34 +9,49 @@ namespace RudderPedals
     {
         public class MovingAverageFilter
         {
-            private Queue<float> buffer;
-            private int filterSize;
+            public bool IsFull
+            {
+                get { return Buffer.Count + 1 >= FilterSize; }
+            }
+            public readonly Queue<float> Buffer;
+            public readonly int FilterSize;
+
             public MovingAverageFilter(int filterSize)
             {
-                buffer = new Queue<float>(filterSize);
-                this.filterSize = filterSize;
+                Buffer = new Queue<float>(filterSize);
+                this.FilterSize = filterSize;
             }
 
             public void Add(float value)
             {
-                buffer.Enqueue(value);
-                if (buffer.Count >= filterSize)
-                    buffer.Dequeue();
+                Buffer.Enqueue(value);
+                if (Buffer.Count >= FilterSize)
+                    Buffer.Dequeue();
             }
 
             public float GetFiltered()
             {
                 double sum = 0;
-                foreach (var item in buffer)
+                foreach (var item in Buffer)
                 {
                     sum += item;
                 }
-                return (float)(sum / buffer.Count);
+                return (float)(sum / Buffer.Count);
+            }
+
+            public float Max()
+            {
+                float max = float.NegativeInfinity;
+                foreach (var item in Buffer)
+                {
+                    if (item > max) max = item;
+                }
+                return max;
             }
 
             public void Reset()
             {
-                buffer.Clear();
+                Buffer.Clear();
             }
         }
 
@@ -53,6 +68,10 @@ namespace RudderPedals
                     _output = Vector2.zero;
                     driveControl.V_L = _output.x;
                     driveControl.V_R = _output.y;
+                    leftFilter.Reset();
+                    rightFilter.Reset();
+                    leftWindow.Reset();
+                    rightWindow.Reset();
                 }
             }
         }
@@ -99,8 +118,7 @@ namespace RudderPedals
         private Player player;
         [SerializeField] private bool goingForward = true;
         [SerializeField] private bool canChangeDir = true;
-
-        private MovingAverageFilter leftFilter, rightFilter;
+        private MovingAverageFilter leftWindow, rightWindow, leftFilter, rightFilter;
 
 
         private void Awake()
@@ -111,6 +129,8 @@ namespace RudderPedals
             angularVelocityMap.preWrapMode = WrapMode.Clamp;
             angularVelocityMap.postWrapMode = WrapMode.Clamp;
 
+            leftWindow = new MovingAverageFilter(filterSize);
+            rightWindow = new MovingAverageFilter(filterSize);
             leftFilter = new MovingAverageFilter(filterSize);
             rightFilter = new MovingAverageFilter(filterSize);
             // maximal magnitude of any output component (projected length of longest output vector on any reference axis)
@@ -130,45 +150,53 @@ namespace RudderPedals
             float left = player.GetAxis("Forward");
             float right = player.GetAxis("Backward");
 
-            leftFilter.Add(left);
-            rightFilter.Add(right);
-            left = leftFilter.GetFiltered();
-            right = rightFilter.GetFiltered();
-
-            // go forward if one pedal is pressed more than the forward deadzone
-            bool isForward = Mathf.Max(left, right) >= forwardDeadzone;
-            // go back if both pedals are pressed in more than the backward deadzone
-            bool isBackward = Mathf.Min(left, right) >= backwardDeadzone;
-
+            leftWindow.Add(left);
+            rightWindow.Add(right);
 
             // only change direction if pedals are in both deadzones
             if (Mathf.Max(left, right) <= Mathf.Max(forwardDeadzone, backwardDeadzone))
             {
                 canChangeDir = true;
+                leftWindow.Reset();
+                rightWindow.Reset();
+                //Debug.Log("reset");
+            }
+            //Debug.Log(leftWindow.IsFull + ", " + rightWindow.IsFull + "," + leftWindow.Buffer.Count + ", " + leftWindow.FilterSize);
+
+            if (leftWindow.IsFull && rightWindow.IsFull)
+            {
+                if (canChangeDir)
+                {
+                    // go back if both pedals are pressed in more than the backward deadzone
+                    if (Mathf.Min(leftWindow.Max(), rightWindow.Max()) >= backwardDeadzone)
+                    {
+                        goingForward = false;
+                        canChangeDir = false;
+                    }
+                    // go forward if one pedal is pressed more than the forward deadzone
+                    else if (Mathf.Max(leftWindow.Max(), rightWindow.Max()) >= forwardDeadzone)
+                    {
+                        goingForward = true;
+                        canChangeDir = false;
+                    }
+                }
+            }
+            else
+            {
+                left = 0;
+                right = 0;
             }
 
-            if (canChangeDir)
-            {
-                if (isBackward)
-                {
-                    goingForward = false;
-                    canChangeDir = false;
-                    leftFilter.Reset();
-                    rightFilter.Reset();
-                }
-                else if (isForward)
-                {
-                    goingForward = true;
-                    canChangeDir = false;
-                    leftFilter.Reset();
-                    rightFilter.Reset();
-                }
-            }
+            // moving average filter pedal values
+            leftFilter.Add(left);
+            rightFilter.Add(right);
+            left = leftFilter.GetFiltered();
+            right = rightFilter.GetFiltered();
 
             float vel = Mathf.Max(left, right);
-            // in [-1, 1]
+            // [-1, 1] -- non-linear -> [-1, 1]
             float mappedAngularVelocity = Mathf.Sign(steeringAngle) * Mathf.Clamp01(angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)));
-            // in [-1, 1]
+            // [-1, 1] -- non-linear -> [-1, 1]
             float mappedVelocity;
             if (goingForward)
             {

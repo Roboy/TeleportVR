@@ -39,7 +39,7 @@ namespace RudderPedals
             }
             catch (System.IO.IOException)
             {
-                Debug.LogError($"Error while opening serial connection on {port}@{baudRate}");
+                Debug.LogError($"Error while opening serial connection on {port} @ {baudRate}");
             }
         }
 

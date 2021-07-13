@@ -474,9 +474,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   driveControl: {fileID: 3112793307756572318}
   maxVelocity: 0.1
-  maxAngularVelocity: 0.045
-  forwardDeadzone: 0.4
-  backwardDeadzone: 0.05
+  maxAngularVelocity: 0.015
+  forwardDeadzone: 0.1
+  backwardDeadzone: 0.01
   velocityMap:
     serializedVersion: 2
     m_Curve:
@@ -547,7 +547,6 @@ MonoBehaviour:
   velocity: 0
   angularVelocity: 0
   _output: {x: 0, y: 0}
-  normalizedOutput: {x: 0, y: 0}
   goingForward: 1
   canChangeDir: 1
 --- !u!4 &122745458
