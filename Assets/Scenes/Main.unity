@@ -475,8 +475,8 @@ MonoBehaviour:
   driveControl: {fileID: 3112793307756572318}
   maxVelocity: 0.1
   maxAngularVelocity: 0.015
-  forwardDeadzone: 0.1
-  backwardDeadzone: 0.01
+  forwardDeadzone: 0.05
+  backwardDeadzone: 0.05
   velocityMap:
     serializedVersion: 2
     m_Curve:

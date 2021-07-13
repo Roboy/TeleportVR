@@ -97,14 +97,15 @@ namespace RudderPedals
         public int filterSize = 10;
 
         [Header("Read Only values")]
-        public float velocity;
-        public float angularVelocity;
+        [SerializeField] private float velocity;
+        [SerializeField] private float angularVelocity;
         public Vector2 output
         {
             get { return _output; }
         }
 
         [SerializeField] private Vector2 _output;
+
         public Vector2 normalizedOutput
         {
             get { return _output / maxCompMag; }
@@ -147,8 +148,8 @@ namespace RudderPedals
             // in  [-1, 1] & inverted
             float steeringAngle = -player.GetAxis("SteeringAngle");
             // in [0,1]
-            float left = player.GetAxis("Forward");
-            float right = player.GetAxis("Backward");
+            float left = player.GetAxis("Backward");
+            float right = player.GetAxis("Forward");
 
             leftWindow.Add(left);
             rightWindow.Add(right);
@@ -168,13 +169,13 @@ namespace RudderPedals
                 if (canChangeDir)
                 {
                     // go back if both pedals are pressed in more than the backward deadzone
-                    if (Mathf.Min(leftWindow.Max(), rightWindow.Max()) >= backwardDeadzone)
+                    if (leftWindow.Max() >= backwardDeadzone)
                     {
                         goingForward = false;
                         canChangeDir = false;
                     }
                     // go forward if one pedal is pressed more than the forward deadzone
-                    else if (Mathf.Max(leftWindow.Max(), rightWindow.Max()) >= forwardDeadzone)
+                    else if (rightWindow.Max() >= forwardDeadzone)
                     {
                         goingForward = true;
                         canChangeDir = false;
@@ -193,11 +194,11 @@ namespace RudderPedals
             left = leftFilter.GetFiltered();
             right = rightFilter.GetFiltered();
 
-            float vel = Mathf.Max(left, right);
             // [-1, 1] -- non-linear -> [-1, 1]
             float mappedAngularVelocity = Mathf.Sign(steeringAngle) * Mathf.Clamp01(angularVelocityMap.Evaluate(Mathf.Abs(steeringAngle)));
             // [-1, 1] -- non-linear -> [-1, 1]
             float mappedVelocity;
+            float vel = goingForward ? right : left;
             if (goingForward)
             {
                 vel = Mathf.Clamp01(vel - forwardDeadzone) / (1 - forwardDeadzone);
